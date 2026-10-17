@@ -1,0 +1,21 @@
+{
+  "name": "Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels & Sleep Word",
+  "short_name": "Sanctuary",
+  "description": "Sanctuary: Jesus Daily Prayer (12 Sacred Vessels & Sleep Word). Strike ancient sacred vessels, hear 365+ Red-Letter Words of Jesus Christ spoken by the Angel, and drift to sleep in peace.",
+  "start_url": "./index.html?standalone=1",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0805",
+  "theme_color": "#d4af37",
+  "categories": ["lifestyle", "books", "health"],
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3CradialGradient id='bg' cx='50%25' cy='35%25' r='75%25'%3E%3Cstop offset='0%25' stop-color='%233d2812'/%3E%3Cstop offset='60%25' stop-color='%23170f07'/%3E%3Cstop offset='100%25' stop-color='%23080502'/%3E%3C/radialGradient%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23fff3b0'/%3E%3Cstop offset='45%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%2378550b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' fill='url(%23bg)'/%3E%3Ccircle cx='256' cy='256' r='224' fill='none' stroke='url(%23gold)' stroke-width='6' opacity='0.6'/%3E%3Ccircle cx='256' cy='180' r='90' fill='rgba(255,217,125,0.14)'/%3E%3Cpath d='M188 118 H324 L298 176 C376 232, 384 348, 306 420 L324 446 H188 L206 420 C128 348, 136 232, 214 176 Z' fill='url(%23gold)' stroke='%23fff8dc' stroke-width='6'/%3E%3Cpath d='M196 156 C126 156, 120 250, 168 278 M316 156 C386 156, 392 250, 344 278' stroke='url(%23gold)' stroke-width='14' fill='none' stroke-linecap='round'/%3E%3Cpath d='M256 218 V292 M224 250 H288' stroke='%23ffffff' stroke-width='14' stroke-linecap='round'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

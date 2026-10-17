@@ -1,0 +1,25 @@
+{
+  "name": "twelve-sacred-vessels-ios",
+  "version": "1.0.0",
+  "description": "The Twelve Sacred Vessels — 365+ Red-Letter Words of Jesus Christ (iOS Sanctuary App)",
+  "main": "www/index.html",
+  "scripts": {
+    "start": "npx serve www",
+    "ios:init": "npx cap add ios",
+    "ios:sync": "npx cap sync ios",
+    "ios:open": "npx cap open ios",
+    "ios:build-check": "node -e \"console.log('✅ Twelve Sacred Vessels iOS Bundle Ready in ./www')\""
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/haptics": "^6.0.1",
+    "@capacitor/ios": "^6.1.2",
+    "@capacitor/local-notifications": "^6.1.0",
+    "@revenuecat/purchases-capacitor": "^8.1.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  },
+  "author": "Sanctuary Studio",
+  "license": "Proprietary"
+}

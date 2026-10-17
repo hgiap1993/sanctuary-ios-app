@@ -1,0 +1,48 @@
+name: Build iOS App (.ipa) on macOS Cloud
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-ios:
+    name: Build Twelve Sacred Vessels for iOS (macOS-14 Xcode)
+    runs-on: macos-14
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Capacitor iOS & StoreKit Dependencies
+        run: npm install
+
+      - name: Add & Sync Capacitor iOS Native Project
+        run: |
+          if [ ! -d "ios" ]; then
+            npx cap add ios
+          fi
+          npx cap sync ios
+
+      - name: Build Unsigned iOS App Bundle (Verify Xcode Compilation)
+        run: |
+          cd ios/App
+          xcodebuild -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY=""
+
+      - name: Upload Compiled iOS Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Twelve-Sacred-Vessels-iOS-Build
+          path: ios/App/build/Build/Products/Release-iphoneos/App.app

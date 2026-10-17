@@ -1,0 +1,3687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Sanctuary" />
+  <meta name="theme-color" content="#0b0805" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23120b05'/%3E%3Ccircle cx='256' cy='256' r='224' fill='none' stroke='%23d4af37' stroke-width='8'/%3E%3Cpath d='M188 118 H324 L298 176 C376 232, 384 348, 306 420 L324 446 H188 L206 420 C128 348, 136 232, 214 176 Z' fill='%23d4af37' stroke='%23fff8dc' stroke-width='6'/%3E%3Cpath d='M256 218 V292 M224 250 H288' stroke='%23ffffff' stroke-width='14' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <title>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0b0907;
+      --bg-sanctuary: #18120c;
+      --gold-bright: #ffd97d;
+      --gold-primary: #d4af37;
+      --gold-dark: #8a661c;
+      --text-light: #f7eed7;
+      --text-muted: #b8a686;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 20%, #241a0f 0%, #090705 100%);
+      color: var(--text-light);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Desktop Top Preview Bar */
+    .desktop-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      max-width: 1040px;
+      padding: 10px 20px;
+      margin-bottom: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .desktop-bar .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--gold-bright);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .desktop-bar .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .bar-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--text-light);
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.2s ease;
+    }
+
+    .bar-btn:hover, .bar-btn.active-music {
+      background: rgba(212, 175, 55, 0.24);
+      border-color: var(--gold-bright);
+      color: var(--gold-bright);
+    }
+
+    /* iPhone 16 Pro Frame */
+    .iphone-frame {
+      position: relative;
+      width: 420px;
+      height: 880px;
+      border-radius: 54px;
+      background: #0e0b08;
+      box-shadow:
+        0 0 0 4px #3b3022,
+        0 0 0 10px #17130e,
+        0 30px 90px rgba(0, 0, 0, 0.85),
+        0 0 80px rgba(212, 175, 55, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    body.fullscreen-mode .desktop-bar {
+      position: fixed;
+      top: 0;
+      z-index: 200;
+      background: rgba(11, 9, 7, 0.88);
+      backdrop-filter: blur(8px);
+      max-width: 100%;
+    }
+
+    body.fullscreen-mode .iphone-frame {
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      box-shadow: none;
+      padding-top: 44px;
+    }
+
+    body.fullscreen-mode .dynamic-island,
+    body.fullscreen-mode .ios-status-bar,
+    body.fullscreen-mode .home-indicator {
+      display: none;
+    }
+
+    @media (max-width: 500px) {
+      .desktop-bar { display: none; }
+      .iphone-frame {
+        width: 100vw;
+        height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .dynamic-island { display: none; }
+    }
+
+    /* iOS Status Bar */
+    .ios-status-bar {
+      height: 44px;
+      padding: 12px 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #f5ebd4;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 118px;
+      height: 30px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 45;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 12px;
+    }
+
+    .island-lens {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #1f335c 0%, #070b14 70%);
+    }
+
+    /* Main Sanctuary App */
+    .sanctuary-app {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 212, 112, 0.22) 0%, transparent 65%),
+        radial-gradient(circle at 50% 55%, #2a1d11 0%, #110c07 75%, #090604 100%);
+      overflow: hidden;
+      cursor: none;
+    }
+
+    .light-rays {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 550px;
+      height: 550px;
+      background: conic-gradient(
+        from 150deg at 50% 0%,
+        transparent 0deg,
+        rgba(255, 223, 138, 0.08) 12deg,
+        transparent 25deg,
+        rgba(255, 223, 138, 0.11) 38deg,
+        transparent 52deg,
+        rgba(255, 223, 138, 0.07) 64deg,
+        transparent 80deg
+      );
+      pointer-events: none;
+      filter: blur(10px);
+      animation: pulseRays 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseRays {
+      0% { opacity: 0.65; transform: translateX(-50%) scale(0.96); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+    }
+
+    /* Top Bar inside App (Streak + Relics + Music + Library) */
+    .top-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 14px 2px;
+      z-index: 15;
+      gap: 4px;
+    }
+
+    .streak-group {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .counter-pill {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      color: var(--gold-bright);
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      padding: 4px 8px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 600;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      color: var(--gold-bright);
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .icon-btn:hover, .icon-btn.active {
+      background: rgba(212, 175, 55, 0.25);
+      border-color: var(--gold-bright);
+    }
+
+    /* Header Section */
+    .sanctuary-header {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 4px 16px 2px;
+    }
+
+    .sanctuary-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 9.5px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+    }
+
+    .sanctuary-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 20px;
+      font-weight: 700;
+      background: linear-gradient(180deg, #fff6d6 0%, #e7be55 55%, #b38222 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 1. MOOD / PRAYER INTENT SELECTOR BAR */
+    .mood-selector-wrap {
+      position: relative;
+      z-index: 15;
+      padding: 4px 14px 2px;
+    }
+
+    .mood-label {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .mood-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .mood-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mood-pill {
+      flex-shrink: 0;
+      background: rgba(24, 17, 10, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      color: #e6d5b8;
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .mood-pill.active {
+      background: linear-gradient(135deg, #f3cf68 0%, #bf9025 100%);
+      color: #171006;
+      border-color: #fff2b2;
+      font-weight: 600;
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
+    }
+
+    /* 12 Ancient Sacred Vessels Grid */
+    .vessels-stage {
+      position: relative;
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 8px 10px;
+      padding: 6px 16px 10px;
+      z-index: 10;
+      align-items: center;
+      justify-items: center;
+    }
+
+    body.fullscreen-mode .vessels-stage {
+      max-width: 740px;
+      width: 100%;
+      margin: 0 auto;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .vessel-slot {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      background: radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.09) 0%, transparent 70%);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .vessel-slot:hover:not(.broken) {
+      transform: translateY(-3px) scale(1.03);
+      border-color: rgba(255, 217, 125, 0.6);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.22);
+    }
+
+    /* Kintsugi Golden Crack Animation right before breaking */
+    .vessel-slot.cracking .intact-jar {
+      animation: jarShake 0.28s ease-in-out;
+      filter: drop-shadow(0 0 14px #ffe57f) brightness(1.35);
+    }
+
+    @keyframes jarShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px) rotate(-4deg); }
+      75% { transform: translateX(5px) rotate(4deg); }
+    }
+
+    .vessel-svg-wrap {
+      position: relative;
+      width: 70px;
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vessel-numeral {
+      position: absolute;
+      top: 5px;
+      left: 7px;
+      font-family: 'Cinzel', serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: rgba(255, 217, 125, 0.65);
+    }
+
+    .vessel-label {
+      font-family: 'Cinzel', serif;
+      font-size: 8.5px;
+      letter-spacing: 0.7px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    .vessel-slot.broken .intact-jar {
+      display: none;
+    }
+
+    .broken-relic {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .vessel-slot.broken .broken-relic {
+      display: flex;
+    }
+
+    /* Sacred Floating Hammer */
+    #sacred-hammer {
+      position: fixed;
+      width: 68px;
+      height: 68px;
+      pointer-events: none;
+      z-index: 120;
+      transform: translate(-25%, -35%) rotate(-22deg);
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.75));
+    }
+
+    #sacred-hammer.swinging {
+      animation: hammerStrike 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes hammerStrike {
+      0% { transform: translate(-25%, -35%) rotate(28deg) scale(1.15); }
+      45% { transform: translate(-35%, -20%) rotate(-68deg) scale(1.25); }
+      100% { transform: translate(-25%, -35%) rotate(-22deg) scale(1); }
+    }
+
+    .shard-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 110;
+    }
+
+    .divine-flash {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255, 243, 196, 0.9) 0%, rgba(212, 175, 55, 0.4) 50%, transparent 80%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 80;
+    }
+
+    .divine-flash.active {
+      animation: flashBurst 0.75s ease-out forwards;
+    }
+
+    @keyframes flashBurst {
+      0% { opacity: 0.95; transform: scale(0.8); }
+      100% { opacity: 0; transform: scale(1.5); }
+    }
+
+    /* CELESTIAL ANGEL REVELATION MODAL */
+    .angel-revelation-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 52px;
+      background: radial-gradient(circle at 50% 20%, rgba(62, 44, 18, 0.98) 0%, rgba(10, 7, 4, 0.99) 85%);
+      backdrop-filter: blur(12px);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+      overflow-y: auto;
+    }
+
+    .angel-revelation-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+      cursor: default;
+    }
+
+    .angel-stage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .halo-burst {
+      position: absolute;
+      top: -10px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 226, 138, 0.45) 0%, rgba(212, 175, 55, 0.15) 45%, transparent 72%);
+      animation: haloPulse 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes haloPulse {
+      0% { transform: scale(0.92); opacity: 0.75; }
+      100% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .angel-svg {
+      width: 104px;
+      height: 104px;
+      z-index: 2;
+      filter: drop-shadow(0 8px 20px rgba(255, 215, 100, 0.45));
+      animation: angelFloat 3.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes angelFloat {
+      0% { transform: translateY(3px); }
+      100% { transform: translateY(-5px); }
+    }
+
+    .angel-herald-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .voice-wave {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      height: 12px;
+    }
+
+    .voice-wave span {
+      display: block;
+      width: 2.5px;
+      height: 4px;
+      background: var(--gold-bright);
+      border-radius: 2px;
+    }
+
+    .voice-wave.speaking span {
+      animation: waveBar 0.45s infinite ease-in-out alternate;
+    }
+
+    .voice-wave.speaking span:nth-child(2) { animation-delay: 0.15s; }
+    .voice-wave.speaking span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes waveBar {
+      0% { height: 3px; }
+      100% { height: 12px; }
+    }
+
+    /* Sacred Scroll Card with Prayer & Relic Badge */
+    .sacred-scroll-card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(165deg, #281d12 0%, #160f08 100%);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      border-radius: 16px;
+      padding: 12px 14px 10px;
+      box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.75),
+        inset 0 0 25px rgba(212, 175, 55, 0.12);
+      text-align: center;
+      margin: 4px 0;
+    }
+
+    .scroll-top-tags {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .scroll-theme-badge {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 9.5px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #161008;
+      background: linear-gradient(90deg, #e5c158, #ffd97d, #d4af37);
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-weight: 700;
+    }
+
+    .relic-unlocked-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 9.5px;
+      color: var(--gold-bright);
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 2px 9px;
+      border-radius: 99px;
+    }
+
+    .jesus-quote-text {
+      font-size: 18px;
+      line-height: 1.34;
+      font-weight: 600;
+      font-style: italic;
+      color: #fff8e8;
+      margin-bottom: 6px;
+    }
+
+    .scripture-reference {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+
+    /* Angel's Guided Prayer Box */
+    .prayer-box {
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 10px;
+      padding: 7px 10px;
+      text-align: left;
+      margin-bottom: 6px;
+    }
+
+    .prayer-box-title {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: 1.2px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .prayer-box-text {
+      font-size: 13.5px;
+      font-style: italic;
+      color: #e9dcc2;
+      line-height: 1.32;
+    }
+
+    .action-step-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.25;
+    }
+
+    .revelation-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+      width: 100%;
+      max-width: 420px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .btn-sacred {
+      padding: 9px 10px;
+      border-radius: 11px;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary-gold {
+      background: linear-gradient(135deg, #f5d372 0%, #c99a2e 100%);
+      color: #171006;
+      border: none;
+    }
+
+    .btn-secondary-outline {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--gold-bright);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+    }
+
+    .btn-sacred:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Drawers (365 Teachings Library, Relics, Reminders, Ask Angel, Candles, Paywall) */
+    .library-drawer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 52px;
+      background: rgba(11, 8, 5, 0.98);
+      z-index: 95;
+      display: flex;
+      flex-direction: column;
+      padding: 14px 16px 14px;
+      transform: translateY(110%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      cursor: default;
+    }
+
+    .library-drawer.open {
+      transform: translateY(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      margin-bottom: 10px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--text-light);
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .drawer-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      padding-right: 4px;
+    }
+
+    .saved-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 12px;
+      padding: 11px 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .saved-item:hover {
+      background: rgba(212, 175, 55, 0.14);
+    }
+
+    .saved-item-verse {
+      font-size: 15.5px;
+      font-style: italic;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+
+    .saved-item-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 10.5px;
+      color: var(--gold-bright);
+    }
+
+    /* Relic Card in Museum Drawer */
+    .relic-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .relic-card.locked {
+      opacity: 0.45;
+      filter: grayscale(0.8);
+    }
+
+    .relic-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.25), rgba(24, 17, 10, 0.9));
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .home-indicator {
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #090604;
+      flex-shrink: 0;
+    }
+
+    .home-bar {
+      width: 134px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 99px;
+    }
+
+    /* iOS Push Notification Banner (Drops from Dynamic Island) */
+    .ios-push-banner {
+      position: absolute;
+      top: 46px;
+      left: 12px;
+      right: 12px;
+      background: rgba(28, 20, 12, 0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 217, 125, 0.55);
+      border-radius: 22px;
+      padding: 12px 14px;
+      z-index: 150;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.28);
+      transform: translateY(-160%);
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: pointer;
+    }
+
+    .ios-push-banner.show {
+      transform: translateY(0);
+    }
+
+    .push-app-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #f5d372 0%, #9b6f15 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .push-content {
+      flex: 1;
+      font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .push-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .push-body {
+      font-size: 12.5px;
+      color: #fff8e8;
+      line-height: 1.3;
+    }
+
+    /* Reminder Schedule Cards & iOS Toggle Switch */
+    .reminder-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.26);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .reminder-card.active-alarm {
+      border-color: rgba(255, 217, 125, 0.55);
+      background: rgba(212, 175, 55, 0.09);
+    }
+
+    .reminder-time-input {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: var(--gold-bright);
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 8px;
+      outline: none;
+      color-scheme: dark;
+    }
+
+    .ios-switch {
+      position: relative;
+      width: 46px;
+      height: 26px;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 99px;
+      cursor: pointer;
+      transition: background 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .ios-switch.on {
+      background: linear-gradient(90deg, #d4af37, #f5d372);
+    }
+
+    .ios-switch::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.25s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    .ios-switch.on::after {
+      transform: translateX(20px);
+    }
+
+    .countdown-banner {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(40, 29, 18, 0.9));
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      border-radius: 12px;
+      padding: 10px 12px;
+      text-align: center;
+      margin-bottom: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 11.5px;
+      color: var(--gold-bright);
+    }
+
+    /* Faith Rank & Grace Points Banner */
+    .rank-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.14);
+      border: 1px solid rgba(255, 217, 125, 0.4);
+      padding: 2px 11px;
+      border-radius: 99px;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      color: var(--gold-bright);
+      margin-top: 2px;
+    }
+
+    /* iOS Bottom Sanctuary Navigation Dock */
+    .ios-bottom-dock {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      background: rgba(14, 10, 6, 0.96);
+      border-top: 1px solid rgba(212, 175, 55, 0.28);
+      padding: 5px 6px 3px;
+      z-index: 92;
+      flex-shrink: 0;
+    }
+
+    .dock-tab {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      padding: 3px 2px;
+      border-radius: 10px;
+      transition: all 0.2s;
+      font-family: 'Cinzel', serif;
+      font-size: 8.5px;
+      letter-spacing: 0.4px;
+    }
+
+    .dock-tab span.dock-icon {
+      font-size: 16px;
+    }
+
+    .dock-tab:hover, .dock-tab.active {
+      color: var(--gold-bright);
+      background: rgba(212, 175, 55, 0.12);
+    }
+
+    /* Sanctuary Flickering Candles Altar */
+    .candles-altar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .candle-holder {
+      background: radial-gradient(circle at 50% 25%, rgba(255, 200, 80, 0.22), rgba(20, 14, 8, 0.9));
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 14px;
+      padding: 10px 6px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .candle-flame {
+      width: 12px;
+      height: 20px;
+      background: radial-gradient(ellipse at 50% 70%, #ffffff 0%, #ffe066 45%, #ff8800 85%, transparent 100%);
+      border-radius: 50% 50% 35% 35%;
+      box-shadow: 0 0 14px #ffbb33, 0 0 26px rgba(255, 165, 0, 0.65);
+      animation: flameFlicker 1.4s ease-in-out infinite alternate;
+      margin-bottom: 2px;
+    }
+
+    @keyframes flameFlicker {
+      0% { transform: scale(0.94) rotate(-2deg); opacity: 0.9; }
+      100% { transform: scale(1.08) rotate(2deg); opacity: 1; }
+    }
+
+    .candle-wax {
+      width: 20px;
+      height: 26px;
+      background: linear-gradient(90deg, #f7ecd0, #d8c396, #f7ecd0);
+      border-radius: 3px 3px 4px 4px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+    }
+
+    /* Memory Quiz Box inside Angel Modal */
+    .memory-quiz-box {
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px dashed rgba(255, 217, 125, 0.5);
+      border-radius: 12px;
+      padding: 8px 10px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .memory-quiz-box.active {
+      display: block;
+    }
+
+    .quiz-choices {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-btn {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      color: var(--gold-bright);
+      padding: 4px 11px;
+      border-radius: 99px;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .quiz-btn:hover {
+      background: rgba(212, 175, 55, 0.3);
+    }
+
+    /* 13th Golden Miracle Vessel Stage */
+    .golden-vessel-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex: 1;
+      padding: 12px;
+    }
+
+    .golden-chalice-wrap {
+      position: relative;
+      width: 170px;
+      height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      animation: angelFloat 2.8s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 30px rgba(255, 215, 70, 0.75));
+    }
+
+    /* Night Sleep Sanctuary Styling */
+    .sleep-sanctuary {
+      background: radial-gradient(circle at 50% 20%, #131b2e 0%, #070a12 85%);
+    }
+
+    /* Sanctuary Pass iOS Paywall Styles */
+    .paywall-plan-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(212, 175, 55, 0.3);
+      border-radius: 14px;
+      padding: 11px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .paywall-plan-card.selected {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(40, 28, 12, 0.92));
+      border-color: #ffd97d;
+      box-shadow: 0 4px 18px rgba(212, 175, 55, 0.28);
+    }
+
+    .best-value-tag {
+      position: absolute;
+      top: -9px;
+      right: 12px;
+      background: linear-gradient(90deg, #ffd97d, #d4af37);
+      color: #161006;
+      font-family: 'Cinzel', serif;
+      font-size: 8.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      letter-spacing: 0.8px;
+    }
+
+    .apple-pay-sheet {
+      background: #1c1c1e;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 22px;
+      padding: 14px;
+      margin-top: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', sans-serif;
+      display: none;
+    }
+
+    .apple-pay-sheet.show {
+      display: block;
+      animation: fadeInSheet 0.25s ease-out;
+    }
+
+    @keyframes fadeInSheet {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Desktop Controls Bar -->
+  <div class="desktop-bar">
+    <div class="badge">
+      <span>⚱️</span>
+      <span>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</span>
+    </div>
+    <div class="controls">
+      <button class="bar-btn" id="passBtnDesktop" onclick="openPaywallDrawer()" style="border-color:#ffd97d; color:#ffd97d; font-weight:600;">💎 Sanctuary Pass (Free: 3/3)</button>
+      <button class="bar-btn" onclick="openAskAngelDrawer()">👼 Ask Angel</button>
+      <button class="bar-btn" onclick="openCandlesDrawer()">🕯️ Candles & Journal</button>
+      <button class="bar-btn" onclick="openGoldenVesselDrawer()">👑 13th Golden Jar</button>
+      <button class="bar-btn" onclick="openSleepDrawer()">🌙 Sleep Mode</button>
+      <button class="bar-btn" onclick="openReminderDrawer()">🔔 Reminders</button>
+      <button class="bar-btn" id="musicBtnDesktop" onclick="toggleAmbientHarp()">🎵 Harp: OFF</button>
+      <button class="bar-btn" id="toggleVoiceBtn" onclick="toggleVoiceMute()">🔊 Voice: ON</button>
+      <button class="bar-btn" id="fullscreenBtn" onclick="toggleFullscreenMode()">📱 Fullscreen</button>
+    </div>
+  </div>
+
+  <!-- iPhone 16 Pro Frame -->
+  <div class="iphone-frame">
+    <div class="dynamic-island"><div class="island-lens"></div></div>
+    <div class="ios-status-bar"><span id="iosClock">9:41</span><div>5G 🔋</div></div>
+
+    <!-- iOS Push Notification Banner -->
+    <div class="ios-push-banner" id="iosPushBanner" onclick="handlePushBannerClick()">
+      <div class="push-app-icon">⚱️</div>
+      <div class="push-content">
+        <div class="push-header">
+          <span id="pushTitle">SANCTUARY • JESUS DAILY PRAYER</span>
+          <span>now</span>
+        </div>
+        <div class="push-body" id="pushMessage">
+          🔔 Your 12 Sacred Vessels await! Tap here to strike a vessel & receive Jesus's Word for today.
+        </div>
+      </div>
+    </div>
+
+    <div class="sanctuary-app">
+      <div class="light-rays"></div>
+      <div class="divine-flash" id="divineFlash"></div>
+
+      <!-- Top Bar: Streak, Relics, Reminder Bell, Harp Music & Restore -->
+      <div class="top-actions">
+        <div class="streak-group">
+          <div class="counter-pill" title="Daily Prayer Streak">🔥 <span id="streakCount">1</span>d</div>
+          <button class="icon-btn" onclick="openRelicsDrawer()" title="Sacred Relics Unlocked">
+            🏆 <span id="relicCount">0</span>/12
+          </button>
+          <button class="icon-btn" id="passBadgeApp" onclick="openPaywallDrawer()" title="Sanctuary Pass Subscription">
+            💎 Free (3/3)
+          </button>
+        </div>
+        <div style="display:flex; gap:4px;">
+          <button class="icon-btn" onclick="openDailyWordOfYear()" title="Today's Gospel Word of the Year">📅 Day <span id="dayOfYearNum">1</span></button>
+          <button class="icon-btn" onclick="openReminderDrawer()" title="Daily Prayer Reminders">🔔</button>
+          <button class="icon-btn" id="musicBtnApp" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵</button>
+          <button class="icon-btn" onclick="openLibraryDrawer()">📜 365</button>
+          <button class="icon-btn" onclick="resetAllVessels()">↺</button>
+        </div>
+      </div>
+
+      <!-- Sanctuary Header + Faith Rank & Grace Points -->
+      <div class="sanctuary-header">
+        <div class="sanctuary-subtitle">Sanctuary: Jesus Daily Prayer • 365 Sleep &amp; Gospel Words</div>
+        <h1 class="sanctuary-title">12 Sacred Vessels &amp; Sleep Word</h1>
+        <div class="rank-bar" id="faithRankBadge">
+          ✨ Rank: Seeker • <span id="gracePointsText">0</span> Grace Pts
+        </div>
+      </div>
+
+      <!-- 1. MOOD / PRAYER INTENT SELECTOR -->
+      <div class="mood-selector-wrap">
+        <div class="mood-label">Select Your Heart's Need Before Striking a Vessel:</div>
+        <div class="mood-pills" id="moodPills">
+          <button class="mood-pill active" onclick="setMood('all', this)">✨ All Blessings (365)</button>
+          <button class="mood-pill" onclick="setMood('peace', this)">🕊️ Peace & Anxiety</button>
+          <button class="mood-pill" onclick="setMood('strength', this)">💪 Strength & Courage</button>
+          <button class="mood-pill" onclick="setMood('love', this)">❤️ Love & Forgiveness</button>
+          <button class="mood-pill" onclick="setMood('guidance', this)">🧭 Guidance & Truth</button>
+          <button class="mood-pill" onclick="setMood('faith', this)">🙏 Faith & Miracles</button>
+          <button class="mood-pill" onclick="setMood('comfort', this)">🌿 Comfort & Rest</button>
+        </div>
+      </div>
+
+      <!-- 12 Sacred Vessels Grid -->
+      <div class="vessels-stage" id="vesselsGrid"></div>
+
+      <!-- Celestial Angel Revelation Overlay -->
+      <div class="angel-revelation-overlay" id="angelModal">
+        <div class="angel-stage">
+          <div class="halo-burst"></div>
+          <svg class="angel-svg" viewBox="0 0 200 200" fill="none">
+            <circle cx="100" cy="48" r="28" fill="rgba(255,225,130,0.35)" stroke="#FFE58F" stroke-width="2" stroke-dasharray="4 3"/>
+            <path d="M92 84 C65 55, 22 48, 12 72 C18 84, 34 90, 20 102 C30 110, 48 108, 35 122 C50 126, 72 118, 90 108 Z" fill="#F7E4B5" stroke="#D4AF37" stroke-width="1.5"/>
+            <path d="M108 84 C135 55, 178 48, 188 72 C182 84, 166 90, 180 102 C170 110, 152 108, 165 122 C150 126, 128 118, 110 108 Z" fill="#F7E4B5" stroke="#D4AF37" stroke-width="1.5"/>
+            <path d="M84 78 L116 78 L136 176 C114 184, 86 184, 64 176 Z" fill="#FFFDF7" stroke="#D4AF37" stroke-width="1.5"/>
+            <path d="M86 78 L114 178 M114 78 L86 178" stroke="#D4AF37" stroke-width="4.5" stroke-linecap="round"/>
+            <circle cx="100" cy="52" r="15" fill="#FBE3C6" stroke="#D4AF37" stroke-width="1.2"/>
+            <path d="M84 50 C84 36, 116 36, 116 50 C112 42, 88 42, 84 50 Z" fill="#D9A74A"/>
+            <rect x="76" y="102" width="48" height="22" rx="4" fill="#FFF7E0" stroke="#C89B2B" stroke-width="1.5"/>
+            <path d="M84 110 H116 M88 116 H112" stroke="#B8860B" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <div class="angel-herald-tag">
+            <span>Celestial Messenger</span>
+            <div class="voice-wave" id="voiceWave"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+
+        <div class="sacred-scroll-card">
+          <div class="scroll-top-tags">
+            <span class="scroll-theme-badge" id="verseTheme">Divine Peace</span>
+            <span class="relic-unlocked-pill" id="relicBadge">🏺 Relic Discovered</span>
+            <button class="icon-btn" id="favHeartBtn" onclick="toggleFavoriteCurrentVerse()" style="padding:2px 8px;">🤍 Save</button>
+          </div>
+          <p class="jesus-quote-text" id="verseText"></p>
+          <div class="scripture-reference" id="verseRef"></div>
+
+          <!-- Personal Guided Prayer -->
+          <div class="prayer-box">
+            <div class="prayer-box-title">🙏 Angelic Prayer for Your Heart</div>
+            <div class="prayer-box-text" id="versePrayer"></div>
+          </div>
+
+          <div class="action-step-note" id="verseReflection"></div>
+
+          <!-- 5. Gospel Memory & Wisdom Challenge Box -->
+          <div class="memory-quiz-box" id="memoryQuizBox">
+            <div style="font-family:'Cinzel',serif; font-size:10px; color:var(--gold-bright);" id="quizPrompt">
+              🧠 Seal this Word in Your Heart (+25 Grace): Complete the missing word:
+            </div>
+            <div class="quiz-choices" id="quizChoices"></div>
+          </div>
+        </div>
+
+        <div class="revelation-actions">
+          <button class="btn-sacred btn-secondary-outline" onclick="replayAngelVoice()">🔊 Listen</button>
+          <button class="btn-sacred btn-secondary-outline" onclick="startMemoryQuiz()">🧠 Seal Word (+25)</button>
+          <button class="btn-sacred btn-secondary-outline" onclick="saveBlessingCardPNG()">🖼️ Save Card</button>
+          <button class="btn-sacred btn-primary-gold" onclick="closeAngelModal()">🔨 Next Vessel</button>
+        </div>
+      </div>
+
+      <!-- Drawer 1: Full 365 Teachings Library -->
+      <div class="library-drawer" id="libraryDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Complete Yearly Gospel Treasury (Free: #1–108 • VIP: #1–365)</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">📜 365 Words of Jesus Christ</h2>
+          </div>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+        <div style="display:flex; gap:6px; margin-bottom:8px;">
+          <input type="text" id="verseSearch" class="search-input" placeholder="Search 365 words by theme, keyword, or verse (e.g. Peace, John)..." oninput="filterLibrary()" style="margin-bottom:0; flex:1;" />
+          <button class="btn-sacred btn-primary-gold" style="flex:0 0 auto; padding:7px 11px;" onclick="openDailyWordOfYear()">📅 Today's Word</button>
+        </div>
+        <div class="drawer-list" id="libraryList"></div>
+      </div>
+
+      <!-- Drawer 2: 12 Biblical Sacred Relics Museum -->
+      <div class="library-drawer" id="relicsDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Sacred Antiquities</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">12 Biblical Relics Collection</h2>
+          </div>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:10px; font-style:italic;">
+          Break each of the 12 Sacred Vessels to uncover its ancient Gospel relic and spiritual story.
+        </p>
+        <div class="drawer-list" id="relicsList"></div>
+      </div>
+
+      <!-- Drawer 3: Daily Prayer & Vessel Strike Reminders -->
+      <div class="library-drawer" id="reminderDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Sanctuary Bell & Schedule</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">Daily Prayer Reminders</h2>
+          </div>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+
+        <div class="countdown-banner" id="nextAlarmCountdown">
+          🔔 Next Sanctuary Bell: Calculating...
+        </div>
+
+        <div class="drawer-list" id="remindersList"></div>
+
+        <!-- Add Custom Reminder Form -->
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:12px; padding:10px; margin-top:8px;">
+          <div style="font-family:'Cinzel',serif; font-size:10px; color:var(--gold-bright); margin-bottom:6px; text-transform:uppercase;">
+            ➕ Add Custom Daily Prayer Alarm
+          </div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <input type="time" id="customAlarmTime" class="reminder-time-input" value="08:00" style="font-size:13px;" />
+            <input type="text" id="customAlarmLabel" class="search-input" placeholder="Prayer Intention (e.g. Family Blessing)" style="margin-bottom:0; flex:1; padding:6px 10px; font-size:14px;" />
+            <button class="icon-btn" onclick="addCustomReminder()" style="padding:7px 11px; font-weight:700;">+ Add</button>
+          </div>
+        </div>
+
+        <!-- Test & Export to iOS Calendar Actions -->
+        <div style="display:flex; gap:8px; margin-top:10px;">
+          <button class="btn-sacred btn-secondary-outline" style="flex:1;" onclick="triggerSanctuaryNotification('Morning Sanctuary Bell', 'Your 12 Sacred Vessels are ready! Strike a vessel and pray with the Word of Jesus.')">
+            🔔 Test Bell & Push
+          </button>
+          <button class="btn-sacred btn-primary-gold" style="flex:1;" onclick="exportToIOSCalendar()">
+            📅 Sync iPhone Alarm
+          </button>
+        </div>
+      </div>
+
+      <!-- Drawer 4: 👼 Ask the Angel — Spiritual Counsel -->
+      <div class="library-drawer" id="askAngelDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Personal Spiritual Counsel</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">👼 Confide in the Angel</h2>
+          </div>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:8px; font-style:italic;">
+          Share what is weighing on your heart in English. The Angel will find Jesus's exact Word and speak a healing prayer for you.
+        </p>
+        <div class="mood-pills" style="margin-bottom:8px;">
+          <button class="mood-pill" onclick="fillAngelPrompt('I feel anxious and worried about my future')">🕊️ Anxious about future</button>
+          <button class="mood-pill" onclick="fillAngelPrompt('Help me forgive someone who hurt me deeply')">❤️ Hard to forgive</button>
+          <button class="mood-pill" onclick="fillAngelPrompt('I feel exhausted, lonely, and heavy-hearted')">🌿 Exhausted & lonely</button>
+          <button class="mood-pill" onclick="fillAngelPrompt('I need wisdom and guidance for a difficult decision')">🧭 Need guidance</button>
+        </div>
+        <div style="display:flex; gap:6px; margin-bottom:10px;">
+          <input type="text" id="angelQuestionInput" class="search-input" placeholder="Type your burden or prayer request here..." style="margin-bottom:0; flex:1;" />
+          <button class="btn-sacred btn-primary-gold" style="flex:0 0 auto; padding:8px 14px;" onclick="submitAskAngel()">🙏 Ask</button>
+        </div>
+        <div class="drawer-list" id="angelCounselResult"></div>
+      </div>
+
+      <!-- Drawer 5: 🕯️ Sanctuary Candles (24h Altar) & Personal Prayer Journal -->
+      <div class="library-drawer" id="candlesDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">24-Hour Sanctuary Altar</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">🕯️ Candles & Prayer Journal</h2>
+          </div>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+
+        <!-- Light a New Sanctuary Candle -->
+        <div style="display:flex; gap:6px; margin-bottom:10px;">
+          <input type="text" id="candleIntentionInput" class="search-input" placeholder="Light a candle for... (e.g. Mother's health, World Peace)" style="margin-bottom:0; flex:1;" />
+          <button class="btn-sacred btn-primary-gold" style="flex:0 0 auto; padding:8px 12px;" onclick="lightNewCandle()">🕯️ Light</button>
+        </div>
+
+        <div class="candles-altar-grid" id="candlesAltarGrid"></div>
+
+        <div style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); margin:6px 0 6px; border-top:1px solid rgba(212,175,55,0.25); padding-top:8px;">
+          ❤️ Saved Favorite Verses & Personal Reflections
+        </div>
+        <div style="display:flex; gap:6px; margin-bottom:8px;">
+          <input type="text" id="journalNoteInput" class="search-input" placeholder="Write a gratitude note or personal prayer today..." style="margin-bottom:0; flex:1; font-size:14px;" />
+          <button class="icon-btn" onclick="addJournalEntry()" style="padding:6px 12px;">+ Save Note</button>
+        </div>
+        <div class="drawer-list" id="journalList"></div>
+      </div>
+
+      <!-- Drawer 6: 👑 The 13th Golden Miracle Vessel -->
+      <div class="library-drawer" id="goldenVesselDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">The Grand Apostolic Blessing</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">👑 The 13th Golden Miracle Vessel</h2>
+          </div>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+        <div class="golden-vessel-stage">
+          <p style="font-size:14.5px; color:var(--text-light); margin-bottom:14px; font-style:italic; max-width:320px;">
+            When all 12 Sacred Vessels are opened (or whenever your soul seeks a Grand Blessing), strike the <strong>13th Golden Chalice of Christ</strong> with the Sacred Hammer (+100 Grace Points).
+          </p>
+          <div class="golden-chalice-wrap" onclick="strikeGoldenMiracleVessel(event)">
+            <svg viewBox="0 0 120 140" width="150" height="170">
+              <defs>
+                <radialGradient id="goldMiracleGrad" cx="40%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#FFFBE0"/>
+                  <stop offset="45%" stop-color="#FFD700"/>
+                  <stop offset="100%" stop-color="#8B6508"/>
+                </radialGradient>
+              </defs>
+              <circle cx="60" cy="70" r="56" fill="rgba(255,215,0,0.15)" stroke="#FFE57F" stroke-width="1.2" stroke-dasharray="4 3"/>
+              <path d="M32 24 H88 C88 68, 68 84, 64 94 L66 118 L84 128 H36 L54 118 L56 94 C52 84, 32 68, 32 24 Z" fill="url(#goldMiracleGrad)" stroke="#FFF8DC" stroke-width="2"/>
+              <path d="M33 32 C14 34, 14 62, 38 68 M87 32 C106 34, 106 62, 82 68" stroke="#FFE885" stroke-width="4" fill="none"/>
+              <path d="M60 42 V68 M48 54 H72" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div style="font-family:'Cinzel',serif; font-size:12px; color:var(--gold-bright); margin-top:10px; letter-spacing:1px;">
+            🔨 TAP CHALICE TO STRIKE & RECEIVE +100 GRACE
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer 7: 🌙 Sleep & Meditate Audio Sanctuary -->
+      <div class="library-drawer sleep-sanctuary" id="sleepDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Peaceful Night Rest</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">🌙 Sleep & Meditate Mode</h2>
+          </div>
+          <button class="icon-btn" onclick="stopSleepModeAndClose()">✕ Close</button>
+        </div>
+        <div style="text-align:center; padding:10px 8px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="font-size:44px; margin-bottom:4px;">🌌</div>
+            <h3 style="font-family:'Cinzel',serif; font-size:15px; color:var(--gold-bright); margin-bottom:4px;">
+              Drift to Sleep in Christ's Peace
+            </h3>
+            <p style="font-size:13.5px; color:var(--text-muted); font-style:italic;">
+              The Angel continuously reads comforting Words of Jesus every 18 seconds over gentle night rain & sanctuary harp.
+            </p>
+          </div>
+
+          <div class="sacred-scroll-card" style="background:rgba(15,23,42,0.85); margin:8px auto;">
+            <div class="scroll-theme-badge" id="sleepVerseTheme">Night Peace</div>
+            <p class="jesus-quote-text" id="sleepVerseText" style="font-size:18px;">
+              “Peace I leave with you; my peace I give to you. Let not your hearts be troubled.”
+            </p>
+            <div class="scripture-reference" id="sleepVerseRef">JOHN 14:27</div>
+          </div>
+
+          <div>
+            <div style="font-family:'Cinzel',serif; font-size:10px; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase;">
+              Sleep Timer & Night Soundscape
+            </div>
+            <div style="display:flex; gap:6px; justify-content:center; margin-bottom:10px; flex-wrap:wrap;">
+              <button class="mood-pill active" onclick="setSleepTimer(15, this)">⏱️ 15 Min</button>
+              <button class="mood-pill" onclick="setSleepTimer(30, this)">⏱️ 30 Min</button>
+              <button class="mood-pill" onclick="setSleepTimer(60, this)">⏱️ 60 Min</button>
+              <button class="mood-pill" id="rainToggleBtn" onclick="toggleNightRain()">🌧️ Gentle Rain: OFF</button>
+            </div>
+            <button class="btn-sacred btn-primary-gold" style="width:100%;" id="sleepStartBtn" onclick="toggleSleepAutoPlay()">
+              ▶️ Start Continuous Night Reading
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer 8: 💎 Sanctuary Pass — iOS StoreKit Paywall ($2.99/mo & $19.99/yr) -->
+      <div class="library-drawer" id="paywallDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle" id="paywallReasonBanner">Unlock the Full Sanctuary</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:18px; color:var(--gold-bright);">💎 Sanctuary Pass VIP</h2>
+          </div>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+
+        <div class="drawer-list" style="gap:7px;">
+          <!-- Quota Status Banner -->
+          <div class="countdown-banner" id="quotaStatusBanner" style="margin-bottom:4px;">
+            🏺 <strong>Free Tier Status:</strong> 3 of 3 Daily Vessels Remaining Today
+          </div>
+
+          <!-- Benefits Box -->
+          <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.35); border-radius:14px; padding:11px 13px; margin-bottom:4px;">
+            <div style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700; margin-bottom:6px;">
+              ✨ SANCTUARY PASS INCLUDES:
+            </div>
+            <div style="font-size:13.5px; color:var(--text-light); line-height:1.55;">
+              <div>✅ <strong>Unlimited 12 Sacred Vessels & 13th Golden Chalice</strong> (Free tier: 3 vessels/day)</div>
+              <div>✅ <strong>All 365 Daily Words of Jesus (#1–365) & Deep Angelic Counsel</strong></div>
+              <div>✅ <strong>Sanctuary Harp, Gregorian Chant & Night Rain Sleep Mode</strong></div>
+              <div>✅ <strong>Unlimited HD Blessing Cards & 24h Sanctuary Candles</strong></div>
+            </div>
+          </div>
+
+          <!-- Yearly Plan ($19.99/yr) -->
+          <div class="paywall-plan-card selected" id="planAnnual" onclick="selectPaywallPlan('annual')">
+            <span class="best-value-tag">SAVE 44% • 7-DAY FREE TRIAL</span>
+            <div>
+              <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
+                Annual Sanctuary Pass
+              </div>
+              <div style="font-size:12.5px; color:var(--text-muted);">
+                7 days free, then $19.99/year ($1.66/mo)
+              </div>
+            </div>
+            <div style="font-family:'Cinzel',serif; font-size:16px; color:#fff; font-weight:700;">
+              $19.99<span style="font-size:10px; color:var(--text-muted);">/yr</span>
+            </div>
+          </div>
+
+          <!-- Monthly Plan ($2.99/mo) -->
+          <div class="paywall-plan-card" id="planMonthly" onclick="selectPaywallPlan('monthly')">
+            <div>
+              <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
+                Monthly Sanctuary Pass
+              </div>
+              <div style="font-size:12.5px; color:var(--text-muted);">
+                Flexible monthly blessing • Cancel anytime
+              </div>
+            </div>
+            <div style="font-family:'Cinzel',serif; font-size:16px; color:#fff; font-weight:700;">
+              $2.99<span style="font-size:10px; color:var(--text-muted);">/mo</span>
+            </div>
+          </div>
+
+          <!-- Simulated iOS StoreKit / Apple Pay Sheet -->
+          <div class="apple-pay-sheet" id="applePaySheet">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-weight:700; font-size:14px; color:#fff;"> App Store • StoreKit 2</span>
+              <span style="font-size:11px; color:#999;" id="storeKitProductId">com.sacredvessels.pass.yearly</span>
+            </div>
+            <div style="font-size:12.5px; color:#ddd; margin-bottom:10px;" id="storeKitSummary">
+              7-Day Free Trial, then $19.99/year. Cancel anytime in Settings &gt; Apple ID.
+            </div>
+            <button class="btn-sacred btn-primary-gold" style="width:100%;" onclick="confirmApplePaySubscription()">
+              😊 Confirm with Face ID / Apple Pay
+            </button>
+          </div>
+
+          <button class="btn-sacred btn-primary-gold" id="mainSubscribeBtn" onclick="showApplePaySheet()" style="margin-top:4px; padding:13px;">
+            ✨ Start 7-Day Free Trial ($19.99/yr)
+          </button>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-muted); padding:4px 4px 0;">
+            <span style="cursor:pointer; text-decoration:underline;" onclick="restoreIOSPurchases()">Restore Purchases</span>
+            <span style="cursor:pointer; text-decoration:underline;" onclick="toggleVIPStatusDirectly()">⚡ Switch Free / VIP</span>
+            <span style="cursor:pointer; text-decoration:underline; color:var(--gold-bright);" onclick="openLegalDrawer()">Terms &amp; Privacy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer 9: ⚖️ Privacy Policy & Terms of Use (EULA) — Apple Guideline 3.1.2 -->
+      <div class="library-drawer" id="legalDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Apple App Store Compliance (Guideline 3.1.2)</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:16px; color:var(--gold-bright);">⚖️ Privacy Policy &amp; Terms (EULA)</h2>
+          </div>
+          <button class="icon-btn" onclick="openPaywallDrawer()">← Back</button>
+        </div>
+        <div class="drawer-list" style="font-size:13px; color:var(--text-light); line-height:1.55;">
+          <div class="saved-item" style="cursor:default;">
+            <div style="font-family:'Cinzel',serif; color:var(--gold-bright); font-size:12px; font-weight:700; margin-bottom:4px;">
+              1. AUTO-RENEWABLE SUBSCRIPTION TERMS (SANCTUARY PASS)
+            </div>
+            <p>• <strong>Title of Publication:</strong> Sanctuary Pass VIP (Monthly: $2.99/month • Annual: $19.99/year with 7-Day Free Trial).</p>
+            <p>• <strong>Payment:</strong> Charged to your Apple ID account at confirmation of purchase or at the end of the 7-day free trial period.</p>
+            <p>• <strong>Auto-Renewal:</strong> Subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period.</p>
+            <p>• <strong>Manage / Cancel:</strong> You can manage and cancel your subscriptions anytime by going to your Account Settings on the App Store after purchase.</p>
+          </div>
+          <div class="saved-item" style="cursor:default;">
+            <div style="font-family:'Cinzel',serif; color:var(--gold-bright); font-size:12px; font-weight:700; margin-bottom:4px;">
+              2. PRIVACY POLICY (ZERO PERSONAL DATA COLLECTION)
+            </div>
+            <p>• <strong>Local Storage Only:</strong> Your prayer journals, lit Sanctuary candles, daily streaks, and alarm schedules are stored 100% locally on your iPhone device.</p>
+            <p>• <strong>No Third-Party Tracking:</strong> We do not sell, rent, or share your personal prayers or spiritual reflections with any advertising networks.</p>
+            <p>• <strong>Apple StoreKit &amp; RevenueCat:</strong> Anonymous subscription receipts are validated securely via Apple StoreKit 2 solely to unlock VIP features across your devices.</p>
+          </div>
+          <div class="saved-item" style="cursor:default;">
+            <div style="font-family:'Cinzel',serif; color:var(--gold-bright); font-size:12px; font-weight:700; margin-bottom:4px;">
+              3. APPLE STANDARD END USER LICENSE AGREEMENT (EULA)
+            </div>
+            <p>This application is licensed under the Standard Apple Licensed Application End User License Agreement: <em>https://www.apple.com/legal/internet-services/itunes/dev/stdeula/</em></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- iOS Bottom Sanctuary Navigation Dock -->
+      <div class="ios-bottom-dock">
+        <button class="dock-tab active" onclick="closeAllDrawers()">
+          <span class="dock-icon">⚱️</span>
+          <span>12 Vessels</span>
+        </button>
+        <button class="dock-tab" onclick="openAskAngelDrawer()">
+          <span class="dock-icon">👼</span>
+          <span>Ask Angel</span>
+        </button>
+        <button class="dock-tab" onclick="openCandlesDrawer()">
+          <span class="dock-icon">🕯️</span>
+          <span>Candles</span>
+        </button>
+        <button class="dock-tab" onclick="openGoldenVesselDrawer()">
+          <span class="dock-icon">👑</span>
+          <span>13th Jar</span>
+        </button>
+        <button class="dock-tab" onclick="openSleepDrawer()">
+          <span class="dock-icon">🌙</span>
+          <span>Sleep</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="home-indicator"><div class="home-bar"></div></div>
+  </div>
+
+  <!-- Custom Floating Sacred Hammer -->
+  <div id="sacred-hammer">
+    <svg viewBox="0 0 80 80" fill="none">
+      <rect x="36" y="28" width="9" height="46" rx="4" transform="rotate(15 36 28)" fill="#5C3317" stroke="#D4AF37" stroke-width="1.2"/>
+      <g transform="rotate(15 40 24)">
+        <rect x="14" y="12" width="52" height="22" rx="5" fill="#D4AF37" stroke="#FFF6D1" stroke-width="1.5"/>
+        <path d="M40 16 V30 M34 23 H46" stroke="#FFF9E6" stroke-width="2.2" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. THE 12 SACRED VESSELS & THEIR 12 ANCIENT BIBLICAL RELICS
+    // =========================================================================
+    const TWELVE_VESSELS = [
+      {
+        id: 1, roman: "I", name: "Vessel of Cana", color1: "#C96A3B", color2: "#753316",
+        relicIcon: "🏺", relicName: "Stone Jar of Cana",
+        relicStory: "John 2:1–11 • At the wedding in Cana, Jesus turned plain water into the finest wine, revealing His glory as the Lord of transformation."
+      },
+      {
+        id: 2, roman: "II", name: "Alabaster Jar", color1: "#DFC89C", color2: "#8E7343",
+        relicIcon: "⚱️", relicName: "Alabaster Flask of Nard",
+        relicStory: "Mark 14:3 • Broken completely at the feet of Jesus, filling the entire house with the fragrance of pure, extravagant devotion."
+      },
+      {
+        id: 3, roman: "III", name: "Chalice of Grace", color1: "#D4AF37", color2: "#7A590D",
+        relicIcon: "🏆", relicName: "Cup of the New Covenant",
+        relicStory: "Luke 22:20 • 'This cup that is poured out for you is the new covenant in my blood,' sealing eternal redemption."
+      },
+      {
+        id: 4, roman: "IV", name: "Urn of Galilee", color1: "#B6532F", color2: "#5E2410",
+        relicIcon: "🧺", relicName: "Twelve Baskets of Plenty",
+        relicStory: "Matthew 14:19–20 • From five loaves and two fishes, Christ fed thousands with twelve full baskets of abundance left over."
+      },
+      {
+        id: 5, roman: "V", name: "Golden Pitcher", color1: "#E0AE43", color2: "#875E12",
+        relicIcon: "🕯️", relicName: "Golden Lamp of the Sanctuary",
+        relicStory: "Matthew 5:14–16 • 'A city set on a hill cannot be hidden.' Christ ignites an unquenchable light within your spirit."
+      },
+      {
+        id: 6, roman: "VI", name: "Vessel of Zion", color1: "#A8493A", color2: "#571D14",
+        relicIcon: "🕊️", relicName: "Celestial Dove of Jordan",
+        relicStory: "Luke 3:22 • When heaven opened above the Jordan River, the Holy Spirit descended in bodily form like a dove of peace."
+      },
+      {
+        id: 7, roman: "VII", name: "Sacred Hydria", color1: "#C77D48", color2: "#6B3A18",
+        relicIcon: "💧", relicName: "Wellspring of Samaria",
+        relicStory: "John 4:14 • By Jacob's well, Jesus offered Living Water that becomes a spring welling up to eternal life."
+      },
+      {
+        id: 8, roman: "VIII", name: "Jar of Bethany", color1: "#D6B77C", color2: "#7C602D",
+        relicIcon: "🌿", relicName: "Olive Branch of Olivet",
+        relicStory: "Luke 22:42 • Beneath ancient olive trees, Christ surrendered in perfect love: 'Not my will, but yours, be done.'"
+      },
+      {
+        id: 9, roman: "IX", name: "Covenant Cup", color1: "#E2BC52", color2: "#84620F",
+        relicIcon: "🌾", relicName: "Golden Mustard Seed",
+        relicStory: "Matthew 17:20 • The smallest of seeds that grows into a shelter for the birds of heaven—symbol of mountain-moving faith."
+      },
+      {
+        id: 10, roman: "X", name: "Olivet Vessel", color1: "#9C5B34", color2: "#4E2912",
+        relicIcon: "🦯", relicName: "Staff of the Good Shepherd",
+        relicStory: "John 10:11 • The Good Shepherd knows each sheep by name and leads them beside still waters."
+      },
+      {
+        id: 11, roman: "XI", name: "Temple Amphora", color1: "#CA6D36", color2: "#6F3310",
+        relicIcon: "🦪", relicName: "Pearl of Great Price",
+        relicStory: "Matthew 13:46 • The surpassing worth of the Kingdom of Heaven, more precious than all earthly treasures."
+      },
+      {
+        id: 12, roman: "XII", name: "Vessel of Light", color1: "#F0CB69", color2: "#916B14",
+        relicIcon: "👑", relicName: "Crown of Morning Star",
+        relicStory: "Revelation 22:16 • Jesus Christ, the Bright Morning Star, who conquered death and reigns forevermore."
+      }
+    ];
+
+    // =========================================================================
+    // 2. COMPLETE 108 WORDS OF JESUS CHRIST + MOOD TAGS + PRAYERS
+    // =========================================================================
+    const JESUS_TEACHINGS = [
+      // 1 - 12: Peace, Rest & Comfort
+      { mood: "peace", theme: "Divine Peace", text: "Peace I leave with you; my peace I give to you. Not as the world gives do I give to you. Let not your hearts be troubled, neither let them be afraid.", ref: "JOHN 14:27" },
+      { mood: "comfort", theme: "Rest for the Soul", text: "Come to me, all who labor and are heavy laden, and I will give you rest. Take my yoke upon you, and learn from me, for I am gentle and lowly in heart, and you will find rest for your souls.", ref: "MATTHEW 11:28–29" },
+      { mood: "comfort", theme: "Gentle Yoke", text: "For my yoke is easy, and my burden is light.", ref: "MATTHEW 11:30" },
+      { mood: "strength", theme: "Overcoming the World", text: "I have said these things to you, that in me you may have peace. In the world you will have tribulation. But take heart; I have overcome the world.", ref: "JOHN 16:33" },
+      { mood: "peace", theme: "Everlasting Presence", text: "And behold, I am with you always, to the end of the age.", ref: "MATTHEW 28:20" },
+      { mood: "peace", theme: "Untroubled Heart", text: "Let not your hearts be troubled. Believe in God; believe also in me.", ref: "JOHN 14:1" },
+      { mood: "comfort", theme: "Father's House", text: "In my Father's house are many rooms. If it were not so, would I have told you that I go to prepare a place for you?", ref: "JOHN 14:2" },
+      { mood: "comfort", theme: "Promise of Return", text: "And if I go and prepare a place for you, I will come again and will take you to myself, that where I am you may be also.", ref: "JOHN 14:3" },
+      { mood: "comfort", theme: "No Orphans", text: "I will not leave you as orphans; I will come to you.", ref: "JOHN 14:18" },
+      { mood: "strength", theme: "Courage in Storm", text: "Take heart; it is I. Do not be afraid.", ref: "MATTHEW 14:27" },
+      { mood: "peace", theme: "Fear Not Little Flock", text: "Fear not, little flock, for it is your Father's good pleasure to give you the kingdom.", ref: "LUKE 12:32" },
+      { mood: "peace", theme: "Do Not Worry", text: "Therefore do not be anxious about tomorrow, for tomorrow will be anxious for itself. Sufficient for the day is its own trouble.", ref: "MATTHEW 6:34" },
+
+      // 13 - 24: The "I AM" Declarations of Jesus
+      { mood: "guidance", theme: "Light of the World", text: "I am the light of the world. Whoever follows me will not walk in darkness, but will have the light of life.", ref: "JOHN 8:12" },
+      { mood: "comfort", theme: "The Bread of Life", text: "I am the bread of life; whoever comes to me shall not hunger, and whoever believes in me shall never thirst.", ref: "JOHN 6:35" },
+      { mood: "guidance", theme: "The Way, Truth & Life", text: "I am the way, and the truth, and the life. No one comes to the Father except through me.", ref: "JOHN 14:6" },
+      { mood: "faith", theme: "Resurrection & Life", text: "I am the resurrection and the life. Whoever believes in me, though he die, yet shall he live.", ref: "JOHN 11:25" },
+      { mood: "love", theme: "The Good Shepherd", text: "I am the good shepherd. The good shepherd lays down his life for the sheep.", ref: "JOHN 10:11" },
+      { mood: "comfort", theme: "Known by the Shepherd", text: "I am the good shepherd. I know my own and my own know me, just as the Father knows me and I know the Father.", ref: "JOHN 10:14–15" },
+      { mood: "guidance", theme: "The Door of Salvation", text: "I am the door. If anyone enters by me, he will be saved and will go in and out and find pasture.", ref: "JOHN 10:9" },
+      { mood: "strength", theme: "Abundant Life", text: "I came that they may have life and have it abundantly.", ref: "JOHN 10:10" },
+      { mood: "strength", theme: "The True Vine", text: "I am the vine; you are the branches. Whoever abides in me and I in him, he it is that bears much fruit, for apart from me you can do nothing.", ref: "JOHN 15:5" },
+      { mood: "faith", theme: "Alpha & Omega", text: "I am the Alpha and the Omega, the first and the last, the beginning and the end.", ref: "REVELATION 22:13" },
+      { mood: "strength", theme: "The Living One", text: "Fear not, I am the first and the last, and the living one. I died, and behold I am alive forevermore.", ref: "REVELATION 1:17–18" },
+      { mood: "guidance", theme: "Bright Morning Star", text: "I, Jesus, have sent my angel to testify to you about these things for the churches. I am the root and the descendant of David, the bright morning star.", ref: "REVELATION 22:16" },
+
+      // 25 - 36: The Beatitudes & Sermon on the Mount
+      { mood: "comfort", theme: "Poor in Spirit", text: "Blessed are the poor in spirit, for theirs is the kingdom of heaven.", ref: "MATTHEW 5:3" },
+      { mood: "comfort", theme: "Comfort for Mourners", text: "Blessed are those who mourn, for they shall be comforted.", ref: "MATTHEW 5:4" },
+      { mood: "peace", theme: "The Meek", text: "Blessed are the meek, for they shall inherit the earth.", ref: "MATTHEW 5:5" },
+      { mood: "guidance", theme: "Hunger for Righteousness", text: "Blessed are those who hunger and thirst for righteousness, for they shall be satisfied.", ref: "MATTHEW 5:6" },
+      { mood: "love", theme: "The Merciful", text: "Blessed are the merciful, for they shall receive mercy.", ref: "MATTHEW 5:7" },
+      { mood: "guidance", theme: "Pure in Heart", text: "Blessed are the pure in heart, for they shall see God.", ref: "MATTHEW 5:8" },
+      { mood: "peace", theme: "The Peacemakers", text: "Blessed are the peacemakers, for they shall be called sons of God.", ref: "MATTHEW 5:9" },
+      { mood: "strength", theme: "Persecuted for Righteousness", text: "Blessed are those who are persecuted for righteousness' sake, for theirs is the kingdom of heaven.", ref: "MATTHEW 5:10" },
+      { mood: "peace", theme: "Salt of the Earth", text: "You are the salt of the earth... Have salt in yourselves, and be at peace with one another.", ref: "MATTHEW 5:13 / MARK 9:50" },
+      { mood: "strength", theme: "City on a Hill", text: "You are the light of the world. A city set on a hill cannot be hidden.", ref: "MATTHEW 5:14" },
+      { mood: "guidance", theme: "Let Your Light Shine", text: "In the same way, let your light shine before others, so that they may see your good works and give glory to your Father who is in heaven.", ref: "MATTHEW 5:16" },
+      { mood: "love", theme: "Golden Rule", text: "So whatever you wish that others would do to you, do also to them, for this is the Law and the Prophets.", ref: "MATTHEW 7:12" },
+
+      // 37 - 48: Love, Mercy & Forgiveness
+      { mood: "love", theme: "Love One Another", text: "A new commandment I give to you, that you love one another: just as I have loved you, you also are to love one another.", ref: "JOHN 13:34" },
+      { mood: "love", theme: "Mark of Discipleship", text: "By this all people will know that you are my disciples, if you have love for one another.", ref: "JOHN 13:35" },
+      { mood: "love", theme: "Greatest Love", text: "Greater love has no one than this, that someone lay down his life for his friends.", ref: "JOHN 15:13" },
+      { mood: "love", theme: "Abide in My Love", text: "As the Father has loved me, so have I loved you. Abide in my love.", ref: "JOHN 15:9" },
+      { mood: "peace", theme: "Fullness of Joy", text: "These things I have spoken to you, that my joy may be in you, and that your joy may be full.", ref: "JOHN 15:11" },
+      { mood: "love", theme: "The Greatest Commandment", text: "You shall love the Lord your God with all your heart and with all your soul and with all your mind. This is the great and first commandment.", ref: "MATTHEW 22:37–38" },
+      { mood: "love", theme: "Love Your Neighbor", text: "And a second is like it: You shall love your neighbor as yourself.", ref: "MATTHEW 22:39" },
+      { mood: "love", theme: "Love Your Enemies", text: "But I say to you, Love your enemies and pray for those who persecute you.", ref: "MATTHEW 5:44" },
+      { mood: "love", theme: "Be Merciful", text: "Be merciful, even as your Father is merciful.", ref: "LUKE 6:36" },
+      { mood: "love", theme: "Forgive & Be Forgiven", text: "Judge not, and you will not be judged; condemn not, and you will not be condemned; forgive, and you will be forgiven.", ref: "LUKE 6:37" },
+      { mood: "love", theme: "Generous Measure", text: "Give, and it will be given to you. Good measure, pressed down, shaken together, running over, will be put into your lap.", ref: "LUKE 6:38" },
+      { mood: "love", theme: "Seventy-Seven Times", text: "I do not say to you seven times, but seventy-seven times.", ref: "MATTHEW 18:22" },
+
+      // 49 - 60: Faith, Prayer & Miracles
+      { mood: "faith", theme: "Ask, Seek, Knock", text: "Ask, and it will be given to you; seek, and you will find; knock, and it will be opened to you.", ref: "MATTHEW 7:7" },
+      { mood: "faith", theme: "Everyone Who Asks", text: "For everyone who asks receives, and the one who seeks finds, and to the one who knocks it will be opened.", ref: "MATTHEW 7:8" },
+      { mood: "faith", theme: "Mustard Seed Faith", text: "If you have faith like a grain of mustard seed, you will say to this mountain, 'Move from here to there,' and it will move, and nothing will be impossible for you.", ref: "MATTHEW 17:20" },
+      { mood: "faith", theme: "All Things Possible", text: "With man this is impossible, but with God all things are possible.", ref: "MATTHEW 19:26" },
+      { mood: "faith", theme: "Believe & Receive", text: "All things are possible for one who believes.", ref: "MARK 9:23" },
+      { mood: "faith", theme: "Power of Believing Prayer", text: "Therefore I tell you, whatever you ask in prayer, believe that you have received it, and it will be yours.", ref: "MARK 11:24" },
+      { mood: "love", theme: "Forgive When Praying", text: "And whenever you stand praying, forgive, if you have anything against anyone, so that your Father also who is in heaven may forgive you your trespasses.", ref: "MARK 11:25" },
+      { mood: "faith", theme: "Two or Three Gathered", text: "For where two or three are gathered in my name, there am I among them.", ref: "MATTHEW 18:20" },
+      { mood: "faith", theme: "Pray in Secret", text: "But when you pray, go into your room and shut the door and pray to your Father who is in secret. And your Father who sees in secret will reward you.", ref: "MATTHEW 6:6" },
+      { mood: "faith", theme: "Ask in My Name", text: "Whatever you ask in my name, this I will do, that the Father may be glorified in the Son.", ref: "JOHN 14:13" },
+      { mood: "faith", theme: "Blessed Are Those Who Believe", text: "Have you believed because you have seen me? Blessed are those who have not seen and yet have believed.", ref: "JOHN 20:29" },
+      { mood: "strength", theme: "Only Believe", text: "Do not fear, only believe.", ref: "MARK 5:36" },
+
+      // 61 - 72: Salvation, Eternal Life & Grace
+      { mood: "love", theme: "God So Loved the World", text: "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.", ref: "JOHN 3:16" },
+      { mood: "love", theme: "Sent to Save", text: "For God did not send his Son into the world to condemn the world, but in order that the world might be saved through him.", ref: "JOHN 3:17" },
+      { mood: "guidance", theme: "Born of the Spirit", text: "Truly, truly, I say to you, unless one is born of water and the Spirit, he cannot enter the kingdom of God.", ref: "JOHN 3:5" },
+      { mood: "comfort", theme: "Living Water", text: "Whoever drinks of the water that I will give him will never be thirsty again. The water that I will give him will become in him a spring of water welling up to eternal life.", ref: "JOHN 4:14" },
+      { mood: "faith", theme: "Passed from Death to Life", text: "Truly, truly, I say to you, whoever hears my word and believes him who sent me has eternal life. He does not come into judgment, but has passed from death to life.", ref: "JOHN 5:24" },
+      { mood: "comfort", theme: "Never Cast Out", text: "All that the Father gives me will come to me, and whoever comes to me I will never cast out.", ref: "JOHN 6:37" },
+      { mood: "strength", theme: "Eternal Security", text: "I give them eternal life, and they will never perish, and no one will snatch them out of my hand.", ref: "JOHN 10:28" },
+      { mood: "comfort", theme: "Rivers of Living Water", text: "If anyone thirsts, let him come to me and drink. Whoever believes in me, as the Scripture has said, 'Out of his heart will flow rivers of living water.'", ref: "JOHN 7:37–38" },
+      { mood: "guidance", theme: "The Truth Will Set You Free", text: "If you abide in my word, you are truly my disciples, and you will know the truth, and the truth will set you free.", ref: "JOHN 8:31–32" },
+      { mood: "strength", theme: "Free Indeed", text: "So if the Son sets you free, you will be free indeed.", ref: "JOHN 8:36" },
+      { mood: "love", theme: "Seek & Save the Lost", text: "For the Son of Man came to seek and to save the lost.", ref: "LUKE 19:10" },
+      { mood: "comfort", theme: "Physician of Souls", text: "Those who are well have no need of a physician, but those who are sick. I came not to call the righteous, but sinners.", ref: "MARK 2:17" },
+
+      // 73 - 84: Kingdom Priorities, Trust & Providence
+      { mood: "guidance", theme: "Seek First the Kingdom", text: "But seek first the kingdom of God and his righteousness, and all these things will be added to you.", ref: "MATTHEW 6:33" },
+      { mood: "guidance", theme: "Treasures in Heaven", text: "Do not lay up for yourselves treasures on earth, where moth and rust destroy... But lay up for yourselves treasures in heaven.", ref: "MATTHEW 6:19–20" },
+      { mood: "guidance", theme: "Where Your Heart Is", text: "For where your treasure is, there your heart will be also.", ref: "MATTHEW 6:21" },
+      { mood: "peace", theme: "Look at the Birds", text: "Look at the birds of the air: they neither sow nor reap nor gather into barns, and yet your heavenly Father feeds them. Are you not of more value than they?", ref: "MATTHEW 6:26" },
+      { mood: "peace", theme: "Lilies of the Field", text: "Consider the lilies of the field, how they grow: they neither toil nor spin, yet I tell you, even Solomon in all his glory was not arrayed like one of these.", ref: "MATTHEW 6:28–29" },
+      { mood: "comfort", theme: "Hairs of Your Head", text: "Why, even the hairs of your head are all numbered. Fear not; you are of more value than many sparrows.", ref: "LUKE 12:7" },
+      { mood: "strength", theme: "Every Word of God", text: "Man shall not live by bread alone, but by every word that comes from the mouth of God.", ref: "MATTHEW 4:4" },
+      { mood: "guidance", theme: "Value of the Soul", text: "For what does it profit a man to gain the whole world and forfeit his soul?", ref: "MARK 8:36" },
+      { mood: "peace", theme: "One Thing Is Necessary", text: "Martha, Martha, you are anxious and troubled about many things, but one thing is necessary. Mary has chosen the good portion, which will not be taken away from her.", ref: "LUKE 10:41–42" },
+      { mood: "peace", theme: "The Kingdom Within", text: "The kingdom of God is not coming in ways that can be observed... for behold, the kingdom of God is in the midst of you.", ref: "LUKE 17:20–21" },
+      { mood: "faith", theme: "Childlike Faith", text: "Let the little children come to me and do not hinder them, for to such belongs the kingdom of heaven.", ref: "MATTHEW 19:14" },
+      { mood: "love", theme: "More Blessed to Give", text: "It is more blessed to give than to receive.", ref: "ACTS 20:35" },
+
+      // 85 - 96: Humility, Service & Discipleship
+      { mood: "guidance", theme: "Humble Service", text: "Whoever exalts himself will be humbled, and whoever humbles himself will be exalted.", ref: "MATTHEW 23:12" },
+      { mood: "love", theme: "Servant of All", text: "Whoever would be great among you must be your servant, and whoever would be first among you must be slave of all.", ref: "MARK 10:43–44" },
+      { mood: "love", theme: "Came to Serve", text: "For even the Son of Man came not to be served but to serve, and to give his life as a ransom for many.", ref: "MARK 10:45" },
+      { mood: "guidance", theme: "Faithful in Little", text: "One who is faithful in a very little is also faithful in much, and one who is dishonest in a very little is also dishonest in much.", ref: "LUKE 16:10" },
+      { mood: "strength", theme: "Well Done, Good Servant", text: "Well done, good and faithful servant. You have been faithful over a little; I will set you over much. Enter into the joy of your master.", ref: "MATTHEW 25:21" },
+      { mood: "love", theme: "Unto the Least of These", text: "Truly, I say to you, as you did it to one of the least of these my brothers, you did it to me.", ref: "MATTHEW 25:40" },
+      { mood: "guidance", theme: "Build Upon the Rock", text: "Everyone then who hears these words of mine and does them will be like a wise man who built his house on the rock.", ref: "MATTHEW 7:24" },
+      { mood: "strength", theme: "Follow Me Daily", text: "If anyone would come after me, let him deny himself and take up his cross daily and follow me.", ref: "LUKE 9:23" },
+      { mood: "faith", theme: "Words of Spirit & Life", text: "It is the Spirit who gives life; the flesh is no help at all. The words that I have spoken to you are spirit and life.", ref: "JOHN 6:63" },
+      { mood: "faith", theme: "Unfading Words", text: "Heaven and earth will pass away, but my words will not pass away.", ref: "MATTHEW 24:35" },
+      { mood: "love", theme: "Joy in Heaven", text: "Just so, I tell you, there will be more joy in heaven over one sinner who repents than over ninety-nine righteous persons who need no repentance.", ref: "LUKE 15:7" },
+      { mood: "guidance", theme: "Worship in Spirit & Truth", text: "But the hour is coming, and is now here, when the true worshipers will worship the Father in spirit and truth.", ref: "JOHN 4:23" },
+
+      // 97 - 108: Holy Spirit, Final Promises & Eternal Glory
+      { mood: "guidance", theme: "The Helper, the Holy Spirit", text: "But the Helper, the Holy Spirit, whom the Father will send in my name, he will teach you all things and bring to your remembrance all that I have said to you.", ref: "JOHN 14:26" },
+      { mood: "guidance", theme: "Spirit of Truth", text: "When the Spirit of truth comes, he will guide you into all the truth.", ref: "JOHN 16:13" },
+      { mood: "comfort", theme: "Grief Turned to Joy", text: "You will be sorrowful, but your sorrow will turn into joy... and no one will take your joy from you.", ref: "JOHN 16:20–22" },
+      { mood: "strength", theme: "Power from on High", text: "But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses... to the end of the earth.", ref: "ACTS 1:8" },
+      { mood: "love", theme: "Father, Forgive Them", text: "Father, forgive them, for they know not what they do.", ref: "LUKE 23:34" },
+      { mood: "comfort", theme: "Paradise Promise", text: "Truly, I say to you, today you will be with me in paradise.", ref: "LUKE 23:43" },
+      { mood: "peace", theme: "Peace Be With You", text: "Peace be with you. As the Father has sent me, even so I am sending you.", ref: "JOHN 20:21" },
+      { mood: "strength", theme: "All Authority in Heaven", text: "All authority in heaven and on earth has been given to me.", ref: "MATTHEW 28:18" },
+      { mood: "strength", theme: "Sufficient Grace", text: "My grace is sufficient for you, for my power is made perfect in weakness.", ref: "2 CORINTHIANS 12:9" },
+      { mood: "love", theme: "Standing at the Door", text: "Behold, I stand at the door and knock. If anyone hears my voice and opens the door, I will come in to him and eat with him, and he with me.", ref: "REVELATION 3:20" },
+      { mood: "comfort", theme: "Making All Things New", text: "Behold, I am making all things new... To the thirsty I will give from the spring of the water of life without payment.", ref: "REVELATION 21:5–6" },
+      { mood: "faith", theme: "Coming Soon", text: "Surely I am coming soon.", ref: "REVELATION 22:20" },
+
+      // 109 - 140: Sermon on the Mount & Kingdom Wisdom (VIP 365 Collection)
+      { mood: "peace", theme: "Rejoice and Be Glad", text: "Rejoice and be glad, for your reward is great in heaven, for so they persecuted the prophets who were before you.", ref: "MATTHEW 5:12" },
+      { mood: "guidance", theme: "Fulfilling the Law", text: "Do not think that I have come to abolish the Law or the Prophets; I have not come to abolish them but to fulfill them.", ref: "MATTHEW 5:17" },
+      { mood: "love", theme: "First Be Reconciled", text: "First be reconciled to your brother, and then come and offer your gift.", ref: "MATTHEW 5:24" },
+      { mood: "guidance", theme: "Let Your Yes Be Yes", text: "Let what you say be simply 'Yes' or 'No'; anything more than this comes from evil.", ref: "MATTHEW 5:37" },
+      { mood: "love", theme: "Go the Second Mile", text: "And if anyone forces you to go one mile, go with him two miles.", ref: "MATTHEW 5:41" },
+      { mood: "love", theme: "Give to One Who Asks", text: "Give to the one who begs from you, and do not refuse the one who would borrow from you.", ref: "MATTHEW 5:42" },
+      { mood: "love", theme: "Sons of Your Father", text: "So that you may be sons of your Father who is in heaven. For he makes his sun rise on the evil and on the good, and sends rain on the just and on the unjust.", ref: "MATTHEW 5:45" },
+      { mood: "guidance", theme: "Be Merciful & Whole", text: "You therefore must be perfect, as your heavenly Father is perfect.", ref: "MATTHEW 5:48" },
+      { mood: "love", theme: "Secret Generosity", text: "But when you give to the needy, do not let your left hand know what your right hand is doing, so that your giving may be in secret.", ref: "MATTHEW 6:3–4" },
+      { mood: "faith", theme: "Father Knows Before You Ask", text: "For your Father knows what you need before you ask him.", ref: "MATTHEW 6:8" },
+      { mood: "faith", theme: "The Lord's Prayer", text: "Our Father in heaven, hallowed be your name. Your kingdom come, your will be done, on earth as it is in heaven.", ref: "MATTHEW 6:9–10" },
+      { mood: "comfort", theme: "Our Daily Bread", text: "Give us this day our daily bread, and forgive us our debts, as we also have forgiven our debtors.", ref: "MATTHEW 6:11–12" },
+      { mood: "strength", theme: "Deliver Us From Evil", text: "And lead us not into temptation, but deliver us from evil.", ref: "MATTHEW 6:13" },
+      { mood: "love", theme: "Heart of Forgiveness", text: "For if you forgive others their trespasses, your heavenly Father will also forgive you.", ref: "MATTHEW 6:14" },
+      { mood: "guidance", theme: "Lamp of the Body", text: "The eye is the lamp of the body. So, if your eye is healthy, your whole body will be full of light.", ref: "MATTHEW 6:22" },
+      { mood: "guidance", theme: "Serve God Alone", text: "No one can serve two masters, for either he will hate the one and love the other, or he will be devoted to the one and despise the other.", ref: "MATTHEW 6:24" },
+      { mood: "peace", theme: "Do Not Be Anxious", text: "Therefore I tell you, do not be anxious about your life, what you will eat or what you will drink, nor about your body, what you will put on.", ref: "MATTHEW 6:25" },
+      { mood: "peace", theme: "Value Beyond Measure", text: "Is not life more than food, and the body more than clothing?", ref: "MATTHEW 6:25" },
+      { mood: "peace", theme: "Span of Life", text: "And which of you by being anxious can add a single hour to his span of life?", ref: "MATTHEW 6:27" },
+      { mood: "comfort", theme: "Clothed by the Father", text: "But if God so clothes the grass of the field, which today is alive and tomorrow is thrown into the oven, will he not much more clothe you?", ref: "MATTHEW 6:30" },
+      { mood: "comfort", theme: "Your Heavenly Father Knows", text: "Do not be anxious, saying, 'What shall we eat?' or 'What shall we drink?'... For your heavenly Father knows that you need them all.", ref: "MATTHEW 6:31–32" },
+      { mood: "love", theme: "Measure of Grace", text: "For with the judgment you pronounce you will be judged, and with the measure you use it will be measured to you.", ref: "MATTHEW 7:2" },
+      { mood: "love", theme: "Good Gifts from the Father", text: "If you then, who are evil, know how to give good gifts to your children, how much more will your Father who is in heaven give good things to those who ask him!", ref: "MATTHEW 7:11" },
+      { mood: "guidance", theme: "The Narrow Gate", text: "Enter by the narrow gate... For the gate is narrow and the way is hard that leads to life, and those who find it are few.", ref: "MATTHEW 7:13–14" },
+      { mood: "guidance", theme: "Known by Their Fruits", text: "Every healthy tree bears good fruit... Thus you will recognize them by their fruits.", ref: "MATTHEW 7:17–20" },
+      { mood: "guidance", theme: "Doing the Father's Will", text: "Not everyone who says to me, 'Lord, Lord,' will enter the kingdom of heaven, but the one who does the will of my Father who is in heaven.", ref: "MATTHEW 7:21" },
+      { mood: "strength", theme: "Unshakable Foundation", text: "And the rain fell, and the floods came, and the winds blew and beat on that house, but it did not fall, because it had been founded on the rock.", ref: "MATTHEW 7:25" },
+      { mood: "faith", theme: "I Will; Be Clean", text: "Jesus stretched out his hand and touched him, saying, 'I will; be clean.' And immediately his leprosy was cleansed.", ref: "MATTHEW 8:3" },
+      { mood: "faith", theme: "Centurion's Great Faith", text: "Truly, I tell you, with no one in Israel have I found such faith.", ref: "MATTHEW 8:10" },
+      { mood: "faith", theme: "Done According to Faith", text: "Go; let it be done for you as you have believed.", ref: "MATTHEW 8:13" },
+      { mood: "peace", theme: "Calming the Tempest", text: "Why are you afraid, O you of little faith? Then he rose and rebuked the winds and the sea, and there was a great calm.", ref: "MATTHEW 8:26" },
+      { mood: "comfort", theme: "Take Heart, Sins Forgiven", text: "Take heart, my son; your sins are forgiven.", ref: "MATTHEW 9:2" },
+
+      // 141 - 180: Miracles, Parables & Compassion of Christ
+      { mood: "love", theme: "Mercy Not Sacrifice", text: "Go and learn what this means: 'I desire mercy, and not sacrifice.' For I came not to call the righteous, but sinners.", ref: "MATTHEW 9:13" },
+      { mood: "faith", theme: "Your Faith Has Made You Well", text: "Take heart, daughter; your faith has made you well.", ref: "MATTHEW 9:22" },
+      { mood: "faith", theme: "Sight Restored by Faith", text: "According to your faith be it done to you.", ref: "MATTHEW 9:29" },
+      { mood: "love", theme: "Lord of the Harvest", text: "The harvest is plentiful, but the laborers are few; therefore pray earnestly to the Lord of the harvest to send out laborers into his harvest.", ref: "MATTHEW 9:37–38" },
+      { mood: "love", theme: "Freely Give", text: "You received without paying; give without pay.", ref: "MATTHEW 10:8" },
+      { mood: "guidance", theme: "Wise as Serpents, Innocent as Doves", text: "Behold, I am sending you out as sheep in the midst of wolves, so be wise as serpents and innocent as doves.", ref: "MATTHEW 10:16" },
+      { mood: "strength", theme: "Spirit of Your Father Speaks", text: "For it is not you who speak, but the Spirit of your Father speaking through you.", ref: "MATTHEW 10:20" },
+      { mood: "strength", theme: "Enduring to the End", text: "But the one who endures to the end will be saved.", ref: "MATTHEW 10:22" },
+      { mood: "peace", theme: "Care for Every Sparrow", text: "Are not two sparrows sold for a penny? And not one of them will fall to the ground apart from your Father.", ref: "MATTHEW 10:29" },
+      { mood: "strength", theme: "Acknowledged in Heaven", text: "So everyone who acknowledges me before men, I also will acknowledge before my Father who is in heaven.", ref: "MATTHEW 10:32" },
+      { mood: "guidance", theme: "Finding True Life", text: "Whoever finds his life will lose it, and whoever loses his life for my sake will find it.", ref: "MATTHEW 10:39" },
+      { mood: "love", theme: "Cup of Cold Water", text: "And whoever gives one of these little ones even a cup of cold water because he is a disciple, truly, I say to you, he will by no means lose his reward.", ref: "MATTHEW 10:42" },
+      { mood: "faith", theme: "Blessed Is the Unoffended", text: "And blessed is the one who is not offended by me.", ref: "MATTHEW 11:6" },
+      { mood: "guidance", theme: "Revealed to Little Children", text: "I thank you, Father, Lord of heaven and earth, that you have hidden these things from the wise and understanding and revealed them to little children.", ref: "MATTHEW 11:25" },
+      { mood: "love", theme: "Lord of the Sabbath", text: "So is it lawful to do good on the Sabbath.", ref: "MATTHEW 12:12" },
+      { mood: "guidance", theme: "Abundance of the Heart", text: "For out of the abundance of the heart the mouth speaks.", ref: "MATTHEW 12:34" },
+      { mood: "love", theme: "Family of God", text: "For whoever does the will of my Father in heaven is my brother and sister and mother.", ref: "MATTHEW 12:50" },
+      { mood: "guidance", theme: "Blessed Eyes and Ears", text: "But blessed are your eyes, for they see, and your ears, for they hear.", ref: "MATTHEW 13:16" },
+      { mood: "guidance", theme: "Good Soil Bearing Fruit", text: "As for what was sown on good soil, this is the one who hears the word and understands it. He indeed bears fruit and yields, in one case a hundredfold.", ref: "MATTHEW 13:23" },
+      { mood: "faith", theme: "Shining Like the Sun", text: "Then the righteous will shine like the sun in the kingdom of their Father. He who has ears, let him hear.", ref: "MATTHEW 13:43" },
+      { mood: "guidance", theme: "Hidden Treasure of Joy", text: "The kingdom of heaven is like treasure hidden in a field, which a man found and covered up. Then in his joy he goes and sells all that he has and buys that field.", ref: "MATTHEW 13:44" },
+      { mood: "guidance", theme: "Merchant of Fine Pearls", text: "Again, the kingdom of heaven is like a merchant in search of fine pearls, who, on finding one pearl of great value, went and sold all that he had and bought it.", ref: "MATTHEW 13:45–46" },
+      { mood: "comfort", theme: "Bring Them Here to Me", text: "They do not need to go away; you give them something to eat... Bring them here to me.", ref: "MATTHEW 14:16–18" },
+      { mood: "faith", theme: "Come Walk on the Water", text: "He said, 'Come.' So Peter got out of the boat and walked on the water and came to Jesus.", ref: "MATTHEW 14:29" },
+      { mood: "faith", theme: "Hand in the Waves", text: "Jesus immediately reached out his hand and took hold of him, saying to him, 'O you of little faith, why did you doubt?'", ref: "MATTHEW 14:31" },
+      { mood: "faith", theme: "Great Is Your Faith", text: "O woman, great is your faith! Be it done for you as you desire.", ref: "MATTHEW 15:28" },
+      { mood: "love", theme: "Compassion on the Crowd", text: "I have compassion on the crowd because they have been with me now three days and have nothing to eat.", ref: "MATTHEW 15:32" },
+      { mood: "faith", theme: "Upon This Rock", text: "Blessed are you, Simon Bar-Jonah! For flesh and blood has not revealed this to you, but my Father who is in heaven.", ref: "MATTHEW 16:17" },
+      { mood: "strength", theme: "Gates of Hell Shall Not Prevail", text: "And I tell you, you are Peter, and on this rock I will build my church, and the gates of hell shall not prevail against it.", ref: "MATTHEW 16:18" },
+      { mood: "guidance", theme: "Keys of the Kingdom", text: "I will give you the keys of the kingdom of heaven, and whatever you bind on earth shall be bound in heaven.", ref: "MATTHEW 16:19" },
+      { mood: "guidance", theme: "Mind on the Things of God", text: "Set your mind not on the things of man, but on the things of God.", ref: "MATTHEW 16:23" },
+      { mood: "comfort", theme: "Rise and Have No Fear", text: "But Jesus came and touched them, saying, 'Rise, and have no fear.'", ref: "MATTHEW 17:7" },
+      { mood: "guidance", theme: "Humble as a Child", text: "Truly, I say to you, unless you turn and become like children, you will never enter the kingdom of heaven.", ref: "MATTHEW 18:3" },
+      { mood: "love", theme: "Greatest in the Kingdom", text: "Whoever humbles himself like this child is the greatest in the kingdom of heaven.", ref: "MATTHEW 18:4" },
+      { mood: "love", theme: "Receiving One Child", text: "Whoever receives one such child in my name receives me.", ref: "MATTHEW 18:5" },
+      { mood: "comfort", theme: "The Ninety-Nine & the One", text: "If a man has a hundred sheep, and one of them has gone astray, does he not leave the ninety-nine on the mountains and go in search of the one that went astray?", ref: "MATTHEW 18:12" },
+      { mood: "love", theme: "Not One Little One Perish", text: "So it is not the will of my Father who is in heaven that one of these little ones should perish.", ref: "MATTHEW 18:14" },
+      { mood: "faith", theme: "Agreeing on Earth in Prayer", text: "Again I say to you, if two of you agree on earth about anything they ask, it will be done for them by my Father in heaven.", ref: "MATTHEW 18:19" },
+      { mood: "love", theme: "Forgive from Your Heart", text: "Forgive your brother from your heart.", ref: "MATTHEW 18:35" },
+      { mood: "guidance", theme: "One Is Good", text: "Keep the commandments... You shall love your neighbor as yourself.", ref: "MATTHEW 19:17–19" },
+
+      // 181 - 240: Gospel of Mark & Luke Teachings of Jesus
+      { mood: "comfort", theme: "First and Last", text: "So the last will be first, and the first last.", ref: "MATTHEW 20:16" },
+      { mood: "faith", theme: "What Do You Want Me to Do?", text: "And stopping, Jesus called them and said, 'What do you want me to do for you?'", ref: "MATTHEW 20:32" },
+      { mood: "faith", theme: "House of Prayer", text: "It is written, 'My house shall be called a house of prayer.'", ref: "MATTHEW 21:13" },
+      { mood: "faith", theme: "Faith Without Doubting", text: "Truly, I say to you, if you have faith and do not doubt... even if you say to this mountain, 'Be taken up and thrown into the sea,' it will happen.", ref: "MATTHEW 21:21" },
+      { mood: "guidance", theme: "Cornerstone of Marvel", text: "The stone that the builders rejected has become the cornerstone; this was the Lord's doing, and it is marvelous in our eyes.", ref: "MATTHEW 21:42" },
+      { mood: "guidance", theme: "Render Unto God", text: "Therefore render to Caesar the things that are Caesar's, and to God the things that are God's.", ref: "MATTHEW 22:21" },
+      { mood: "faith", theme: "God of the Living", text: "He is not God of the dead, but of the living.", ref: "MATTHEW 22:32" },
+      { mood: "guidance", theme: "One Teacher, the Christ", text: "You have one teacher, and you are all brothers... And you have one Father, who is in heaven.", ref: "MATTHEW 23:8–9" },
+      { mood: "love", theme: "Justice, Mercy & Faithfulness", text: "Care for the weightier matters of the law: justice and mercy and faithfulness.", ref: "MATTHEW 23:23" },
+      { mood: "comfort", theme: "Gathered Under My Wings", text: "How often would I have gathered your children together as a hen gathers her brood under her wings!", ref: "MATTHEW 23:37" },
+      { mood: "strength", theme: "Gospel Proclaimed to All", text: "And this gospel of the kingdom will be proclaimed throughout the whole world as a testimony to all nations.", ref: "MATTHEW 24:14" },
+      { mood: "guidance", theme: "Stay Awake and Ready", text: "Therefore, stay awake, for you do not know on what day your Lord is coming.", ref: "MATTHEW 24:42" },
+      { mood: "guidance", theme: "Ready at an Unexpected Hour", text: "Therefore you also must be ready, for the Son of Man is coming at an hour you do not expect.", ref: "MATTHEW 24:44" },
+      { mood: "guidance", theme: "Wise Maidens with Oil", text: "Watch therefore, for you know neither the day nor the hour.", ref: "MATTHEW 25:13" },
+      { mood: "comfort", theme: "Inherit the Kingdom Prepared", text: "Come, you who are blessed by my Father, inherit the kingdom prepared for you from the foundation of the world.", ref: "MATTHEW 25:34" },
+      { mood: "love", theme: "I Was Hungry and You Fed Me", text: "For I was hungry and you gave me food, I was thirsty and you gave me drink, I was a stranger and you welcomed me.", ref: "MATTHEW 25:35" },
+      { mood: "love", theme: "Beautiful Thing for Me", text: "She has done a beautiful thing to me... Truly, I say to you, wherever this gospel is proclaimed in the whole world, what she has done will also be told in memory of her.", ref: "MATTHEW 26:10–13" },
+      { mood: "faith", theme: "This Is My Body", text: "Take, eat; this is my body.", ref: "MATTHEW 26:26" },
+      { mood: "love", theme: "Blood of the Covenant", text: "Drink of it, all of you, for this is my blood of the covenant, which is poured out for many for the forgiveness of sins.", ref: "MATTHEW 26:27–28" },
+      { mood: "strength", theme: "Watch and Pray", text: "Watch and pray that you may not enter into temptation. The spirit indeed is willing, but the flesh is weak.", ref: "MATTHEW 26:41" },
+      { mood: "peace", theme: "Your Will Be Done", text: "My Father, if this cannot pass unless I drink it, your will be done.", ref: "MATTHEW 26:42" },
+      { mood: "peace", theme: "Do Not Be Afraid; Go Tell", text: "Do not be afraid; go and tell my brothers to go to Galilee, and there they will see me.", ref: "MATTHEW 28:10" },
+      { mood: "guidance", theme: "Make Disciples of All Nations", text: "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.", ref: "MATTHEW 28:19" },
+      { mood: "faith", theme: "The Kingdom Is at Hand", text: "The time is fulfilled, and the kingdom of God is at hand; repent and believe in the gospel.", ref: "MARK 1:15" },
+      { mood: "guidance", theme: "Follow Me, Fishers of Men", text: "Follow me, and I will make you become fishers of men.", ref: "MARK 1:17" },
+      { mood: "peace", theme: "Let Us Go to Other Towns", text: "Let us go on to the next towns, that I may preach there also, for that is why I came out.", ref: "MARK 1:38" },
+      { mood: "peace", theme: "Sabbath Made for Man", text: "The Sabbath was made for man, not man for the Sabbath. So the Son of Man is lord even of the Sabbath.", ref: "MARK 2:27–28" },
+      { mood: "strength", theme: "Stretch Out Your Hand", text: "He said to the man, 'Stretch out your hand.' He stretched it out, and his hand was restored.", ref: "MARK 3:5" },
+      { mood: "guidance", theme: "Lamp on a Stand", text: "Is a lamp brought in to be put under a basket, or under a bed, and not on a stand?", ref: "MARK 4:21" },
+      { mood: "guidance", theme: "Pay Attention to What You Hear", text: "Pay attention to what you hear: with the measure you use, it will be measured to you, and still more will be added to you.", ref: "MARK 4:24" },
+      { mood: "faith", theme: "Seed Growing Secretly", text: "The kingdom of God is as if a man should scatter seed on the ground. He sleeps and rises night and day, and the seed sprouts and grows.", ref: "MARK 4:26–27" },
+      { mood: "peace", theme: "Peace! Be Still!", text: "He awoke and rebuked the wind and said to the sea, 'Peace! Be still!' And the wind ceased, and there was a great calm.", ref: "MARK 4:39" },
+      { mood: "comfort", theme: "Tell How Much the Lord Has Done", text: "Go home to your friends and tell them how much the Lord has done for you, and how he has had mercy on you.", ref: "MARK 5:19" },
+      { mood: "comfort", theme: "Go in Peace and Be Healed", text: "Daughter, your faith has made you well; go in peace, and be healed of your disease.", ref: "MARK 5:34" },
+      { mood: "comfort", theme: "Talitha Cumi — Little Girl, Arise", text: "Taking her by the hand he said to her, 'Talitha cumi,' which means, 'Little girl, I say to you, arise.'", ref: "MARK 5:41" },
+      { mood: "comfort", theme: "Come Away and Rest Awhile", text: "Come away by yourselves to a desolate place and rest a while.", ref: "MARK 6:31" },
+      { mood: "peace", theme: "Take Heart; It Is I", text: "Take heart; it is I. Do not be afraid.", ref: "MARK 6:50" },
+      { mood: "faith", theme: "Ephphatha — Be Opened", text: "And looking up to heaven, he sighed and said to him, 'Ephphatha,' that is, 'Be opened.'", ref: "MARK 7:34" },
+      { mood: "guidance", theme: "Who Do You Say I Am?", text: "But who do you say that I am? Peter answered him, 'You are the Christ.'", ref: "MARK 8:29" },
+      { mood: "love", theme: "Whoever Is Not Against Us", text: "For the one who is not against us is for us.", ref: "MARK 9:40" },
+      { mood: "love", theme: "Blessing the Children", text: "And he took them in his arms and blessed them, laying his hands on them.", ref: "MARK 10:16" },
+      { mood: "love", theme: "Jesus Looking at Him Loved Him", text: "And Jesus, looking at him, loved him, and said to him... 'Come, follow me.'", ref: "MARK 10:21" },
+      { mood: "comfort", theme: "Hundredfold Blessing", text: "Truly, I say to you, there is no one who has left house or brothers or sisters... for my sake and for the gospel, who will not receive a hundredfold now.", ref: "MARK 10:29–30" },
+      { mood: "faith", theme: "Recover Your Sight", text: "And Jesus said to him, 'Go your way; your faith has made you well.' And immediately he recovered his sight and followed him on the way.", ref: "MARK 10:52" },
+      { mood: "faith", theme: "Have Faith in God", text: "And Jesus answered them, 'Have faith in God.'", ref: "MARK 11:22" },
+      { mood: "guidance", theme: "Not Far from the Kingdom", text: "When Jesus saw that he answered wisely, he said to him, 'You are not far from the kingdom of God.'", ref: "MARK 12:34" },
+      { mood: "love", theme: "The Widow's Two Coins", text: "Truly, I say to you, this poor widow has put in more than all those who are contributing to the offering box. For they all contributed out of their abundance, but she out of her poverty has put in everything she had.", ref: "MARK 12:43–44" },
+      { mood: "strength", theme: "Do Not Be Anxious Beforehand", text: "Do not be anxious beforehand what you are to say, but say whatever is given you in that hour, for it is not you who speak, but the Holy Spirit.", ref: "MARK 13:11" },
+      { mood: "guidance", theme: "Stay Awake", text: "And what I say to you I say to all: Stay awake.", ref: "MARK 13:37" },
+      { mood: "love", theme: "She Did What She Could", text: "Leave her alone. Why do you trouble her? She has done a beautiful thing to me... She has done what she could.", ref: "MARK 14:6–8" },
+      { mood: "strength", theme: "Proclaim the Gospel to All Creation", text: "Go into all the world and proclaim the gospel to the whole creation.", ref: "MARK 16:15" },
+
+      // 235 - 300: Gospel of Luke — Words of Grace, Joy & Redemption
+      { mood: "guidance", theme: "My Father's House", text: "Did you not know that I must be in my Father's house?", ref: "LUKE 2:49" },
+      { mood: "guidance", theme: "Worship the Lord Your God", text: "It is written, 'You shall worship the Lord your God, and him only shall you serve.'", ref: "LUKE 4:8" },
+      { mood: "comfort", theme: "Good News to the Poor", text: "The Spirit of the Lord is upon me, because he has anointed me to proclaim good news to the poor.", ref: "LUKE 4:18" },
+      { mood: "comfort", theme: "Liberty to the Captives", text: "He has sent me to proclaim liberty to the captives and recovering of sight to the blind, to set at liberty those who are oppressed.", ref: "LUKE 4:18" },
+      { mood: "faith", theme: "Year of the Lord's Favor", text: "To proclaim the year of the Lord's favor... Today this Scripture has been fulfilled in your hearing.", ref: "LUKE 4:19–21" },
+      { mood: "faith", theme: "Put Out into the Deep", text: "Put out into the deep and let down your nets for a catch.", ref: "LUKE 5:4" },
+      { mood: "peace", theme: "Do Not Be Afraid; Catching Men", text: "Do not be afraid; from now on you will be catching men.", ref: "LUKE 5:10" },
+      { mood: "comfort", theme: "Blessed Are You Who Weep Now", text: "Blessed are you who weep now, for you shall laugh.", ref: "LUKE 6:21" },
+      { mood: "strength", theme: "Leap for Joy", text: "Rejoice in that day, and leap for joy, for behold, your reward is great in heaven.", ref: "LUKE 6:23" },
+      { mood: "love", theme: "Do Good to Those Who Hate You", text: "Love your enemies, do good to those who hate you, bless those who curse you, pray for those who abuse you.", ref: "LUKE 6:27–28" },
+      { mood: "love", theme: "Lend Expecting Nothing in Return", text: "But love your enemies, and do good, and lend, expecting nothing in return, and your reward will be great.", ref: "LUKE 6:35" },
+      { mood: "guidance", theme: "Good Treasure of the Heart", text: "The good person out of the good treasure of his heart produces good.", ref: "LUKE 6:45" },
+      { mood: "comfort", theme: "Do Not Weep — Widow of Nain", text: "And when the Lord saw her, he had compassion on her and said to her, 'Do not weep.'", ref: "LUKE 7:13" },
+      { mood: "strength", theme: "Young Man, Arise", text: "Young man, I say to you, arise. And the dead man sat up and began to speak, and Jesus gave him to his mother.", ref: "LUKE 7:14–15" },
+      { mood: "faith", theme: "The Blind Receive Sight", text: "Go and tell John what you have seen and heard: the blind receive their sight, the lame walk, lepers are cleansed, and the deaf hear, the dead are raised up, the poor have good news preached to them.", ref: "LUKE 7:22" },
+      { mood: "love", theme: "Forgiven Much, Loves Much", text: "Therefore I tell you, her sins, which are many, are forgiven—for she loved much. But he who is forgiven little, loves little.", ref: "LUKE 7:47" },
+      { mood: "peace", theme: "Your Faith Has Saved You; Go in Peace", text: "And he said to the woman, 'Your faith has saved you; go in peace.'", ref: "LUKE 7:50" },
+      { mood: "guidance", theme: "Hold It Fast in an Honest Heart", text: "As for that in the good soil, they are those who, hearing the word, hold it fast in an honest and good heart, and bear fruit with patience.", ref: "LUKE 8:15" },
+      { mood: "love", theme: "Hear the Word of God and Do It", text: "My mother and my brothers are those who hear the word of God and do it.", ref: "LUKE 8:21" },
+      { mood: "faith", theme: "Where Is Your Faith?", text: "He said to them, 'Where is your faith?' And they were afraid, and they marveled, saying to one another, 'Who then is this, that he commands even winds and water, and they obey him?'", ref: "LUKE 8:25" },
+      { mood: "comfort", theme: "Do Not Weep; She Is Not Dead", text: "Do not weep, for she is not dead but sleeping.", ref: "LUKE 8:52" },
+      { mood: "love", theme: "Least Among You Is Great", text: "For he who is least among you all is the one who is great.", ref: "LUKE 9:48" },
+      { mood: "love", theme: "Sent to Save Lives", text: "For the Son of Man came not to destroy people's lives but to save them.", ref: "LUKE 9:56" },
+      { mood: "guidance", theme: "No One Who Looks Back", text: "No one who puts his hand to the plow and looks back is fit for the kingdom of God.", ref: "LUKE 9:62" },
+      { mood: "peace", theme: "Peace Be to This House", text: "Whatever house you enter, first say, 'Peace be to this house!'", ref: "LUKE 10:5" },
+      { mood: "joy", mood: "peace", theme: "Names Written in Heaven", text: "Nevertheless, do not rejoice in this, that the spirits are subject to you, but rejoice that your names are written in heaven.", ref: "LUKE 10:20" },
+      { mood: "love", theme: "The Good Samaritan — Go and Do Likewise", text: "Which of these three, do you think, proved to be a neighbor?... 'The one who showed him mercy.' And Jesus said to him, 'You go, and do likewise.'", ref: "LUKE 10:36–37" },
+      { mood: "faith", theme: "Holy Spirit to Those Who Ask", text: "If you then, who are evil, know how to give good gifts to your children, how much more will the heavenly Father give the Holy Spirit to those who ask him!", ref: "LUKE 11:13" },
+      { mood: "guidance", theme: "Hear the Word and Keep It", text: "Blessed rather are those who hear the word of God and keep it!", ref: "LUKE 11:28" },
+      { mood: "guidance", theme: "Full of Light", text: "If then your whole body is full of light, having no dark part, it will be wholly bright, as when a lamp with its rays gives you light.", ref: "LUKE 11:36" },
+      { mood: "peace", theme: "Not One Sparrow Forgotten", text: "Are not five sparrows sold for two pennies? And not one of them is forgotten before God.", ref: "LUKE 12:6" },
+      { mood: "strength", theme: "Holy Spirit Will Teach You", text: "For the Holy Spirit will teach you in that very hour what you ought to say.", ref: "LUKE 12:12" },
+      { mood: "guidance", theme: "Life Does Not Consist in Possessions", text: "Take care, and be on your guard against all covetousness, for one's life does not consist in the abundance of his possessions.", ref: "LUKE 12:15" },
+      { mood: "peace", theme: "Consider the Ravens", text: "Consider the ravens: they neither sow nor reap, they have neither storehouse nor barn, and yet God feeds them. Of how much more value are you than the birds!", ref: "LUKE 12:24" },
+      { mood: "guidance", theme: "Unfailing Treasure in Heaven", text: "Provide yourselves with moneybags that do not grow old, with a treasure in the heavens that does not fail.", ref: "LUKE 12:33" },
+      { mood: "guidance", theme: "Dressed for Action & Lamps Burning", text: "Stay dressed for action and keep your lamps burning.", ref: "LUKE 12:35" },
+      { mood: "guidance", theme: "To Whom Much Was Given", text: "Everyone to whom much was given, of him much will be required.", ref: "LUKE 12:48" },
+      { mood: "comfort", theme: "Freed from Bondage", text: "Woman, you are freed from your disability.", ref: "LUKE 13:12" },
+      { mood: "guidance", theme: "Strive to Enter the Narrow Door", text: "Strive to enter through the narrow door.", ref: "LUKE 13:24" },
+      { mood: "love", theme: "Invite the Poor and Humble", text: "When you give a feast, invite the poor, the crippled, the lame, the blind, and you will be blessed... For you will be repaid at the resurrection of the just.", ref: "LUKE 14:13–14" },
+      { mood: "love", theme: "Rejoice with Me — Found Sheep", text: "Rejoice with me, for I have found my sheep that was lost.", ref: "LUKE 15:6" },
+      { mood: "love", theme: "Joy Before the Angels of God", text: "Just so, I tell you, there is joy before the angels of God over one sinner who repents.", ref: "LUKE 15:10" },
+      { mood: "love", theme: "The Prodigal Son Embraced", text: "For this my son was dead, and is alive again; he was lost, and is found.", ref: "LUKE 15:24" },
+      { mood: "love", theme: "All That Is Mine Is Yours", text: "Son, you are always with me, and all that is mine is yours.", ref: "LUKE 15:31" },
+      { mood: "guidance", theme: "God Knows Your Hearts", text: "God knows your hearts. For what is exalted among men is an abomination in the sight of God.", ref: "LUKE 16:15" },
+      { mood: "faith", theme: "Increase Our Faith — Sycamore Tree", text: "If you had faith like a grain of mustard seed, you could say to this mulberry tree, 'Be uprooted and planted in the sea,' and it would obey you.", ref: "LUKE 17:6" },
+      { mood: "faith", theme: "Grateful Samaritan Leper", text: "Rise and go your way; your faith has made you well.", ref: "LUKE 17:19" },
+      { mood: "faith", theme: "Always Pray and Not Lose Heart", text: "And he told them a parable to the effect that they ought always to pray and not lose heart.", ref: "LUKE 18:1" },
+      { mood: "faith", theme: "God Will Give Justice Speedily", text: "And will not God give justice to his elect, who cry to him day and night? Will he delay long over them? I tell you, he will give justice to them speedily.", ref: "LUKE 18:7–8" },
+      { mood: "comfort", theme: "God, Be Merciful to Me", text: "I tell you, this man went down to his house justified, rather than the other. For everyone who exalts himself will be humbled, but the one who humbles himself will be exalted.", ref: "LUKE 18:14" },
+      { mood: "faith", theme: "Receive Sight; Your Faith Has Healed You", text: "And Jesus said to him, 'Recover your sight; your faith has made you well.'", ref: "LUKE 18:42" },
+      { mood: "love", theme: "Salvation Come to Zacchaeus's House", text: "Today salvation has come to this house, since he also is a son of Abraham.", ref: "LUKE 19:9" },
+      { mood: "faith", theme: "The Stones Would Cry Out", text: "I tell you, if these were silent, the very stones would cry out.", ref: "LUKE 19:40" },
+      { mood: "strength", theme: "Words and Wisdom None Can Resist", text: "For I will give you a mouth and wisdom, which none of your adversaries will be able to withstand or contradict.", ref: "LUKE 21:15" },
+      { mood: "strength", theme: "Not a Hair of Your Head Will Perish", text: "But not a hair of your head will perish. By your endurance you will gain your lives.", ref: "LUKE 21:18–19" },
+      { mood: "strength", theme: "Straighten Up and Raise Your Heads", text: "Now when these things begin to take place, straighten up and raise your heads, because your redemption is drawing near.", ref: "LUKE 21:28" },
+      { mood: "love", theme: "Do This in Remembrance of Me", text: "This is my body, which is given for you. Do this in remembrance of me.", ref: "LUKE 22:19" },
+      { mood: "love", theme: "I Am Among You as One Who Serves", text: "But I am among you as the one who serves.", ref: "LUKE 22:27" },
+      { mood: "strength", theme: "I Have Prayed for You That Your Faith Not Fail", text: "Simon, Simon, behold, Satan demanded to have you, that he might sift you like wheat, but I have prayed for you that your faith may not fail.", ref: "LUKE 22:31–32" },
+      { mood: "comfort", theme: "Why Are You Troubled? See My Hands", text: "Why are you troubled, and why do doubts arise in your hearts? See my hands and my feet, that it is I myself.", ref: "LUKE 24:38–39" },
+      { mood: "guidance", theme: "Opened Their Minds to Understand Scriptures", text: "Then he opened their minds to understand the Scriptures.", ref: "LUKE 24:45" },
+      { mood: "strength", theme: "Clothed with Power from on High", text: "And behold, I am sending the promise of my Father upon you. But stay in the city until you are clothed with power from on high.", ref: "LUKE 24:49" },
+
+      // 301 - 365: Gospel of John & Revelation — Deep Intimacy & Eternal Glory
+      { mood: "guidance", theme: "Come and You Will See", text: "What are you seeking?... 'Come and you will see.'", ref: "JOHN 1:38–39" },
+      { mood: "faith", theme: "You Will See Greater Things", text: "Because I said to you, 'I saw you under the fig tree,' do you believe? You will see greater things than these.", ref: "JOHN 1:50" },
+      { mood: "faith", theme: "Heaven Opened & Angels Ascending", text: "Truly, truly, I say to you, you will see heaven opened, and the angels of God ascending and descending on the Son of Man.", ref: "JOHN 1:51" },
+      { mood: "faith", theme: "Fill the Jars with Water", text: "Jesus said to the servants, 'Fill the jars with water.' And they filled them up to the brim.", ref: "JOHN 2:7" },
+      { mood: "guidance", theme: "Born Again from Above", text: "Truly, truly, I say to you, unless one is born again he cannot see the kingdom of God.", ref: "JOHN 3:3" },
+      { mood: "guidance", theme: "The Wind Blows Where It Wishes", text: "The wind blows where it wishes, and you hear its sound, but you do not know where it comes from or where it goes. So it is with everyone who is born of the Spirit.", ref: "JOHN 3:8" },
+      { mood: "faith", theme: "Son of Man Lifted Up", text: "And as Moses lifted up the serpent in the wilderness, so must the Son of Man be lifted up, that whoever believes in him may have eternal life.", ref: "JOHN 3:14–15" },
+      { mood: "guidance", theme: "Walking in the Truth & Light", text: "But whoever does what is true comes to the light, so that it may be clearly seen that his works have been carried out in God.", ref: "JOHN 3:21" },
+      { mood: "comfort", theme: "The Gift of God", text: "If you knew the gift of God, and who it is that is saying to you, 'Give me a drink,' you would have asked him, and he would have given you living water.", ref: "JOHN 4:10" },
+      { mood: "guidance", theme: "God Is Spirit", text: "God is spirit, and those who worship him must worship in spirit and truth.", ref: "JOHN 4:24" },
+      { mood: "faith", theme: "I Who Speak to You Am He", text: "The woman said to him, 'I know that Messiah is coming'... Jesus said to her, 'I who speak to you am he.'", ref: "JOHN 4:25–26" },
+      { mood: "strength", theme: "My Food Is to Do the Father's Will", text: "My food is to do the will of him who sent me and to accomplish his work.", ref: "JOHN 4:34" },
+      { mood: "faith", theme: "Fields White for Harvest", text: "Look, I tell you, lift up your eyes, and see that the fields are white for harvest.", ref: "JOHN 4:35" },
+      { mood: "faith", theme: "Go; Your Son Will Live", text: "Jesus said to him, 'Go; your son will live.' The man believed the word that Jesus spoke to him and went on his way.", ref: "JOHN 4:50" },
+      { mood: "strength", theme: "Do You Want to Be Healed?", text: "When Jesus saw him lying there and knew that he had already been there a long time, he said to him, 'Do you want to be healed?'", ref: "JOHN 5:6" },
+      { mood: "strength", theme: "Get Up, Take Up Your Bed, and Walk", text: "Jesus said to him, 'Get up, take up your bed, and walk.' And at once the man was healed.", ref: "JOHN 5:8–9" },
+      { mood: "guidance", theme: "My Father Is Working Until Now", text: "My Father is working until now, and I am working.", ref: "JOHN 5:17" },
+      { mood: "love", theme: "The Father Loves the Son", text: "For the Father loves the Son and shows him all that he himself is doing.", ref: "JOHN 5:20" },
+      { mood: "faith", theme: "The Dead Will Hear the Voice of the Son", text: "Truly, truly, I say to you, an hour is coming, and is now here, when the dead will hear the voice of the Son of God, and those who hear will live.", ref: "JOHN 5:25" },
+      { mood: "guidance", theme: "The Scriptures Bear Witness About Me", text: "You search the Scriptures because you think that in them you have eternal life; and it is they that bear witness about me.", ref: "JOHN 5:39" },
+      { mood: "peace", theme: "It Is I; Do Not Be Afraid", text: "But he said to them, 'It is I; do not be afraid.' Then they were glad to take him into the boat.", ref: "JOHN 6:20–21" },
+      { mood: "guidance", theme: "Food That Endures to Eternal Life", text: "Do not work for the food that perishes, but for the food that endures to eternal life, which the Son of Man will give to you.", ref: "JOHN 6:27" },
+      { mood: "faith", theme: "The Work of God Is to Believe", text: "This is the work of God, that you believe in him whom he has sent.", ref: "JOHN 6:29" },
+      { mood: "comfort", theme: "True Bread from Heaven", text: "For the bread of God is he who comes down from heaven and gives life to the world.", ref: "JOHN 6:33" },
+      { mood: "faith", theme: "Will of My Father — Raise Him Up", text: "For this is the will of my Father, that everyone who looks on the Son and believes in him should have eternal life, and I will raise him up on the last day.", ref: "JOHN 6:40" },
+      { mood: "faith", theme: "Taught by God", text: "It is written in the Prophets, 'And they will all be taught by God.' Everyone who has heard and learned from the Father comes to me.", ref: "JOHN 6:45" },
+      { mood: "comfort", theme: "Living Bread from Heaven", text: "I am the living bread that came down from heaven. If anyone eats of this bread, he will live forever.", ref: "JOHN 6:51" },
+      { mood: "love", theme: "Abiding in Me and I in Him", text: "Whoever feeds on my flesh and drinks my blood abides in me, and I in him.", ref: "JOHN 6:56" },
+      { mood: "guidance", theme: "Judge with Right Judgment", text: "Do not judge by appearances, but judge with right judgment.", ref: "JOHN 7:24" },
+      { mood: "love", theme: "Neither Do I Condemn You", text: "Has no one condemned you?... 'Neither do I condemn you; go, and from now on sin no more.'", ref: "JOHN 8:10–11" },
+      { mood: "peace", theme: "He Who Sent Me Is With Me", text: "And he who sent me is with me. He has not left me alone, for I always do the things that are pleasing to him.", ref: "JOHN 8:29" },
+      { mood: "faith", theme: "Never See Death", text: "Truly, truly, I say to you, if anyone keeps my word, he will never see death.", ref: "JOHN 8:51" },
+      { mood: "faith", theme: "Before Abraham Was, I Am", text: "Truly, truly, I say to you, before Abraham was, I am.", ref: "JOHN 8:58" },
+      { mood: "guidance", theme: "Works of God Displayed in Him", text: "It was not that this man sinned, or his parents, but that the works of God might be displayed in him.", ref: "JOHN 9:3" },
+      { mood: "guidance", theme: "While I Am in the World, I Am the Light", text: "As long as I am in the world, I am the light of the world.", ref: "JOHN 9:5" },
+      { mood: "comfort", theme: "He Calls His Own Sheep by Name", text: "The sheep hear his voice, and he calls his own sheep by name and leads them out.", ref: "JOHN 10:3" },
+      { mood: "guidance", theme: "The Sheep Follow Him", text: "When he has brought out all his own, he goes before them, and the sheep follow him, for they know his voice.", ref: "JOHN 10:4" },
+      { mood: "love", theme: "One Flock, One Shepherd", text: "And I have other sheep that are not of this fold. I must bring them also, and they will listen to my voice. So there will be one flock, one shepherd.", ref: "JOHN 10:16" },
+      { mood: "strength", theme: "My Sheep Hear My Voice", text: "My sheep hear my voice, and I know them, and they follow me.", ref: "JOHN 10:27" },
+      { mood: "strength", theme: "No One Can Snatch Them Out of the Father's Hand", text: "My Father, who has given them to me, is greater than all, and no one is able to snatch them out of the Father's hand.", ref: "JOHN 10:29" },
+      { mood: "faith", theme: "I and the Father Are One", text: "I and the Father are one.", ref: "JOHN 10:30" },
+      { mood: "faith", theme: "For the Glory of God", text: "Did I not tell you that if you believed you would see the glory of God?", ref: "JOHN 11:40" },
+      { mood: "strength", theme: "Lazarus, Come Out!", text: "He cried out with a loud voice, 'Lazarus, come out.' The man who had died came out.", ref: "JOHN 11:43–44" },
+      { mood: "guidance", theme: "Grain of Wheat Bearing Much Fruit", text: "Truly, truly, I say to you, unless a grain of wheat falls into the earth and dies, it remains alone; but if it dies, it bears much fruit.", ref: "JOHN 12:24" },
+      { mood: "love", theme: "The Father Will Honor Him", text: "If anyone serves me, he must follow me; and where I am, there will my servant be also. If anyone serves me, the Father will honor him.", ref: "JOHN 12:26" },
+      { mood: "love", theme: "Draw All People to Myself", text: "And I, when I am lifted up from the earth, will draw all people to myself.", ref: "JOHN 12:32" },
+      { mood: "guidance", theme: "Become Sons of Light", text: "While you have the light, believe in the light, that you may become sons of light.", ref: "JOHN 12:36" },
+      { mood: "comfort", theme: "You Will Understand Afterward", text: "What I am doing you do not understand now, but afterward you will understand.", ref: "JOHN 13:7" },
+      { mood: "love", theme: "Example of Humble Washing", text: "For I have given you an example, that you also should do just as I have done to you.", ref: "JOHN 13:15" },
+      { mood: "peace", theme: "Blessed If You Do Them", text: "If you know these things, blessed are you if you do them.", ref: "JOHN 13:17" },
+      { mood: "faith", theme: "Whoever Sees Me Sees the Father", text: "Whoever has seen me has seen the Father.", ref: "JOHN 14:9" },
+      { mood: "faith", theme: "Greater Works Than These", text: "Truly, truly, I say to you, whoever believes in me will also do the works that I do; and greater works than these will he do.", ref: "JOHN 14:12" },
+      { mood: "love", theme: "If You Love Me, Keep My Commandments", text: "If you love me, you will keep my commandments.", ref: "JOHN 14:15" },
+      { mood: "comfort", theme: "Another Helper Forever", text: "And I will ask the Father, and he will give you another Helper, to be with you forever, even the Spirit of truth.", ref: "JOHN 14:16–17" },
+      { mood: "love", theme: "Because I Live, You Also Will Live", text: "Because I live, you also will live.", ref: "JOHN 14:19" },
+      { mood: "love", theme: "Loved by My Father", text: "Whoever has my commandments and keeps them, he it is who loves me. And he who loves me will be loved by my Father, and I will love him and manifest myself to him.", ref: "JOHN 14:21" },
+      { mood: "love", theme: "We Will Make Our Home With Him", text: "If anyone loves me, he will keep my word, and my Father will love him, and we will come to him and make our home with him.", ref: "JOHN 14:23" },
+      { mood: "guidance", theme: "Pruned to Bear More Fruit", text: "Every branch in me that does not bear fruit he takes away, and every branch that does bear fruit he prunes, that it may bear more fruit.", ref: "JOHN 15:2" },
+      { mood: "faith", theme: "Ask Whatever You Wish", text: "If you abide in me, and my words abide in you, ask whatever you wish, and it will be done for you.", ref: "JOHN 15:7" },
+      { mood: "guidance", theme: "By This My Father Is Glorified", text: "By this my Father is glorified, that you bear much fruit and so prove to be my disciples.", ref: "JOHN 15:8" },
+      { mood: "love", theme: "I Have Called You Friends", text: "No longer do I call you servants... but I have called you friends, for all that I have heard from my Father I have made known to you.", ref: "JOHN 15:15" },
+      { mood: "guidance", theme: "Chosen and Appointed to Bear Fruit", text: "You did not choose me, but I chose you and appointed you that you should go and bear fruit and that your fruit should abide.", ref: "JOHN 15:16" },
+      { mood: "love", theme: "The Father Himself Loves You", text: "Ask, and you will receive, that your joy may be full... For the Father himself loves you, because you have loved me.", ref: "JOHN 16:24–27" },
+      { mood: "faith", theme: "This Is Eternal Life — Knowing God", text: "And this is eternal life, that they know you, the only true God, and Jesus Christ whom you have sent.", ref: "JOHN 17:3" },
+      { mood: "guidance", theme: "Sanctify Them in the Truth", text: "Sanctify them in the truth; your word is truth.", ref: "JOHN 17:17" },
+      { mood: "love", theme: "That They May All Be One", text: "That they may all be one, just as you, Father, are in me, and I in you, that they also may be in us.", ref: "JOHN 17:21" },
+      { mood: "love", theme: "Feed My Lambs, Tend My Sheep", text: "Simon, son of John, do you love me?... 'Feed my lambs... Tend my sheep... Feed my sheep.'", ref: "JOHN 21:15–17" },
+      { mood: "strength", theme: "Be Faithful Unto Death — Crown of Life", text: "Do not fear what you are about to suffer... Be faithful unto death, and I will give you the crown of life.", ref: "REVELATION 2:10" },
+      { mood: "comfort", theme: "Open Door No One Can Shut", text: "I know your works. Behold, I have set before you an open door, which no one is able to shut.", ref: "REVELATION 3:8" },
+      { mood: "comfort", theme: "Wipe Away Every Tear Forever", text: "For the Lamb in the midst of the throne will be their shepherd, and he will guide them to springs of living water, and God will wipe away every tear from their eyes.", ref: "REVELATION 7:17" }
+    ];
+
+    // Mood-specific prayers & daily action steps
+    const MOOD_PRAYERS = {
+      peace: {
+        prayer: "Lord Jesus, Prince of Peace, quiet every anxious wave within my heart today. Help me rest in Your unshakable presence. Amen.",
+        action: "Walk in the Word: Pause for 3 deep breaths and surrender your heaviest worry to Christ."
+      },
+      strength: {
+        prayer: "Risen Savior, fill my spirit with Your courage and unfailing power. Where I feel weak, let Your grace carry me through. Amen.",
+        action: "Walk in the Word: Step forward boldly today knowing Jesus walks beside you."
+      },
+      love: {
+        prayer: "Merciful Lord, soften my heart with Your unconditional love. Teach me to forgive freely just as You have forgiven me. Amen.",
+        action: "Walk in the Word: Show an unexpected act of kindness or forgiveness to someone today."
+      },
+      guidance: {
+        prayer: "Light of the World, illuminate my path and grant me wisdom in every decision I face today. Lead me in Your truth. Amen.",
+        action: "Walk in the Word: Seek God's wisdom before making your most important choice today."
+      },
+      faith: {
+        prayer: "Almighty Lord, increase my faith and help me trust Your promises even when I cannot yet see the way. Amen.",
+        action: "Walk in the Word: Bring your deepest prayer to God with confident expectation."
+      },
+      comfort: {
+        prayer: "Gentle Shepherd, wrap my weary soul in Your tender embrace and restore my spirit with Your living water. Amen.",
+        action: "Walk in the Word: Allow yourself a moment of quiet rest in God's unconditional care."
+      }
+    };
+
+    let selectedMood = "all";
+    let brokenVessels = new Set();
+    let unlockedRelics = new Set();
+    let unseenIndices = [];
+    let currentTeaching = null;
+    let currentTeachingNum = 1;
+    let currentVessel = TWELVE_VESSELS[0];
+    let voiceMuted = false;
+    let audioCtx = null;
+    let harpInterval = null;
+    let harpPlaying = false;
+
+    // =========================================================================
+    // 3. STREAK & RELIC PERSISTENCE (LOCALSTORAGE)
+    // =========================================================================
+    function initProgress() {
+      try {
+        const savedRelics = JSON.parse(localStorage.getItem("sacred_unlocked_relics") || "[]");
+        savedRelics.forEach(id => unlockedRelics.add(id));
+        document.getElementById("relicCount").textContent = unlockedRelics.size;
+
+        const today = new Date().toISOString().slice(0, 10);
+        const lastDate = localStorage.getItem("sacred_last_date");
+        let streak = parseInt(localStorage.getItem("sacred_streak") || "1", 10);
+
+        if (lastDate && lastDate !== today) {
+          const diff = (new Date(today) - new Date(lastDate)) / (1000 * 60 * 60 * 24);
+          streak = diff === 1 ? streak + 1 : 1;
+        }
+        localStorage.setItem("sacred_last_date", today);
+        localStorage.setItem("sacred_streak", String(streak));
+        document.getElementById("streakCount").textContent = streak;
+      } catch (e) {}
+    }
+
+    function unlockRelicForVessel(vesselId) {
+      unlockedRelics.add(vesselId);
+      document.getElementById("relicCount").textContent = unlockedRelics.size;
+      try {
+        localStorage.setItem("sacred_unlocked_relics", JSON.stringify([...unlockedRelics]));
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 4. MOOD FILTER & NON-REPEATING SHUFFLE DECK
+    // =========================================================================
+    function setMood(mood, btnEl) {
+      selectedMood = mood;
+      document.querySelectorAll(".mood-pill").forEach(b => b.classList.remove("active"));
+      btnEl.classList.add("active");
+      unseenIndices = []; // reset deck for new mood
+    }
+
+    function getDayOfYearNumber() {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 0, 0);
+      const diff = now - start;
+      const oneDay = 1000 * 60 * 60 * 24;
+      return Math.max(1, Math.min(365, Math.floor(diff / oneDay)));
+    }
+
+    function openDailyWordOfYear() {
+      closeAllDrawers();
+      const dayNum = getDayOfYearNumber();
+      const teaching = JESUS_TEACHINGS[(dayNum - 1) % JESUS_TEACHINGS.length];
+      currentTeaching = teaching;
+      currentTeachingNum = dayNum;
+      displayTeachingInModal(currentVessel, teaching, dayNum);
+    }
+
+    function getNextRandomTeaching() {
+      // Free Tier draws from the 108 base teachings; Sanctuary Pass VIP draws from all 365+ teachings
+      const maxPoolSize = isSanctuaryVIP ? JESUS_TEACHINGS.length : 108;
+      const matchingPool = JESUS_TEACHINGS
+        .slice(0, maxPoolSize)
+        .map((t, idx) => ({ teaching: t, idx }))
+        .filter(item => selectedMood === "all" || item.teaching.mood === selectedMood);
+
+      if (unseenIndices.length === 0) {
+        unseenIndices = matchingPool.map(m => m.idx);
+        for (let i = unseenIndices.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [unseenIndices[i], unseenIndices[j]] = [unseenIndices[j], unseenIndices[i]];
+        }
+      }
+      const nextIdx = unseenIndices.pop() ?? 0;
+      return { teaching: JESUS_TEACHINGS[nextIdx], number: nextIdx + 1 };
+    }
+
+    // =========================================================================
+    // 5. RENDER THE 12 ANCIENT SACRED VESSELS
+    // =========================================================================
+    function renderVesselsGrid() {
+      const grid = document.getElementById("vesselsGrid");
+      grid.innerHTML = "";
+      TWELVE_VESSELS.forEach((v) => {
+        const slot = document.createElement("div");
+        slot.className = "vessel-slot" + (brokenVessels.has(v.id) ? " broken" : "");
+        slot.innerHTML = `
+          <span class="vessel-numeral">${v.roman}</span>
+          <div class="vessel-svg-wrap">
+            <svg class="intact-jar" viewBox="0 0 80 96" width="68" height="80">
+              <defs>
+                <linearGradient id="g${v.id}" x1="20%" y1="10%" x2="85%" y2="90%">
+                  <stop offset="0%" stop-color="${v.color1}"/><stop offset="100%" stop-color="${v.color2}"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx="40" cy="14" rx="12" ry="3.5" fill="#FFD97D" stroke="#8A5A12"/>
+              <path d="M31 22 C16 22, 14 44, 24 50 M49 22 C64 22, 66 44, 56 50" stroke="#F3D078" stroke-width="3" fill="none"/>
+              <path d="M28 14 H52 L47 26 C64 38, 66 64, 50 82 L54 88 H26 L30 82 C14 64, 16 38, 33 26 Z" fill="url(#g${v.id})" stroke="#F5D376" stroke-width="1.5"/>
+              <path d="M40 34 V46 M35 39 H45" stroke="#FFF4C8" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <div class="broken-relic">
+              <span style="font-size:22px;">${v.relicIcon}</span>
+              <span style="font-size:8.5px; color:#ffd97d; font-family:'Cinzel',serif; margin-top:2px;">${v.relicName.split(" ")[0]}</span>
+            </div>
+          </div>
+          <div class="vessel-label">${v.name}</div>
+        `;
+        slot.addEventListener("click", (e) => handleVesselStrike(v, slot, e));
+        grid.appendChild(slot);
+      });
+    }
+
+    // =========================================================================
+    // 6. AMBIENT SANCTUARY HARP SYNTHESIZER (WEB AUDIO API)
+    // =========================================================================
+    function getAudioCtx() {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!audioCtx) audioCtx = new AudioContextClass();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      return audioCtx;
+    }
+
+    function toggleAmbientHarp() {
+      harpPlaying = !harpPlaying;
+      const b1 = document.getElementById("musicBtnDesktop");
+      const b2 = document.getElementById("musicBtnApp");
+
+      if (harpPlaying) {
+        b1.textContent = "🎵 Sanctuary Harp: ON";
+        b1.classList.add("active-music");
+        b2.classList.add("active");
+        playHarpArpeggioNote();
+        harpInterval = setInterval(playHarpArpeggioNote, 1350);
+      } else {
+        b1.textContent = "🎵 Sanctuary Harp: OFF";
+        b1.classList.remove("active-music");
+        b2.classList.remove("active");
+        clearInterval(harpInterval);
+      }
+    }
+
+    // Celestial F-Major Pentatonic Harp Notes
+    const HARP_SCALE = [261.63, 293.66, 349.23, 392.00, 440.00, 523.25, 587.33, 698.46, 783.99];
+    let harpStep = 0;
+
+    function playHarpArpeggioNote() {
+      if (!harpPlaying) return;
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+        // Pick two harmonious notes
+        const f1 = HARP_SCALE[harpStep % HARP_SCALE.length];
+        const f2 = HARP_SCALE[(harpStep + 2) % HARP_SCALE.length] * 0.5;
+        harpStep++;
+
+        [f1, f2].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          const start = now + idx * 0.18;
+          osc.frequency.setValueAtTime(freq, start);
+          gain.gain.setValueAtTime(0.001, start);
+          gain.gain.linearRampToValueAtTime(0.035, start + 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.0005, start + 2.4);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(start);
+          osc.stop(start + 2.5);
+        });
+      } catch (e) {}
+    }
+
+    function playShatterAndChoirSound() {
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+        [1500, 2200, 2900, 1800].forEach((f, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.frequency.setValueAtTime(f, now + idx * 0.03);
+          gain.gain.setValueAtTime(0.16, now + idx * 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.03 + 0.15);
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.start(now + idx * 0.03); osc.stop(now + idx * 0.03 + 0.16);
+        });
+        [261.63, 329.63, 392.00, 523.25].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.frequency.setValueAtTime(freq, now + 0.18 + i * 0.06);
+          gain.gain.setValueAtTime(0.075, now + 0.18 + i * 0.06);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 2.2);
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.start(now + 0.18 + i * 0.06); osc.stop(now + 2.3);
+        });
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 7. STRIKE VESSEL -> GOLDEN CRACK -> SHATTER -> REVEAL ANGEL & RELIC
+    // =========================================================================
+    function spawnShatterParticles(x, y, color1, color2) {
+      for (let i = 0; i < 20; i++) {
+        const el = document.createElement("div");
+        el.className = "shard-particle";
+        const isSpark = i % 3 === 0;
+        const size = isSpark ? 6 : 11;
+        el.style.width = size + "px";
+        el.style.height = size + "px";
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+        el.style.background = isSpark ? "#FFE896" : (i % 2 === 0 ? color1 : color2);
+        el.style.borderRadius = isSpark ? "50%" : "2px";
+        document.body.appendChild(el);
+
+        const angle = (Math.PI * 2 * i) / 20;
+        const dist = 50 + Math.random() * 85;
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist + 25;
+
+        el.animate(
+          [
+            { transform: "translate(-50%, -50%) scale(1)", opacity: 1 },
+            { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) rotate(240deg) scale(0.2)`, opacity: 0 }
+          ],
+          { duration: 680, easing: "cubic-bezier(0.15, 0.85, 0.3, 1)" }
+        ).onfinish = () => el.remove();
+      }
+    }
+
+    const hammerEl = document.getElementById("sacred-hammer");
+    document.addEventListener("mousemove", (e) => {
+      hammerEl.style.left = e.clientX + "px";
+      hammerEl.style.top = e.clientY + "px";
+    });
+
+    function handleVesselStrike(vessel, slotEl, event) {
+      // Check Monetization Gate: Free Tier allows 3 vessels per day unless Sanctuary Pass VIP is active
+      if (!isSanctuaryVIP && freeDailyVesselsUsed >= 3) {
+        openPaywallDrawer("limit_reached");
+        return;
+      }
+
+      const rect = slotEl.getBoundingClientRect();
+      const cx = event.clientX || (rect.left + rect.width / 2);
+      const cy = event.clientY || (rect.top + rect.height / 2);
+      hammerEl.style.left = cx + "px";
+      hammerEl.style.top = cy + "px";
+      hammerEl.classList.remove("swinging");
+      void hammerEl.offsetWidth;
+      hammerEl.classList.add("swinging");
+
+      // Haptic vibration on supported mobile devices (or Capacitor Haptics)
+      if (window.SacredIOSBridge && window.SacredIOSBridge.triggerHapticImpact) {
+        window.SacredIOSBridge.triggerHapticImpact();
+      } else if (navigator.vibrate) {
+        navigator.vibrate([40, 30, 80]);
+      }
+
+      slotEl.classList.add("cracking");
+      playShatterAndChoirSound();
+
+      setTimeout(() => {
+        slotEl.classList.remove("cracking");
+        spawnShatterParticles(cx, cy, vessel.color1, vessel.color2);
+
+        const flash = document.getElementById("divineFlash");
+        flash.classList.remove("active"); void flash.offsetWidth; flash.classList.add("active");
+
+        brokenVessels.add(vessel.id);
+        unlockRelicForVessel(vessel.id);
+        slotEl.classList.add("broken");
+
+        if (!isSanctuaryVIP) {
+          freeDailyVesselsUsed++;
+          saveSubscriptionState();
+          updateSubscriptionUI();
+        }
+
+        currentVessel = vessel;
+        const picked = getNextRandomTeaching();
+        currentTeaching = picked.teaching;
+        currentTeachingNum = picked.number;
+
+        setTimeout(() => {
+          displayTeachingInModal(vessel, picked.teaching, picked.number);
+        }, 280);
+      }, 180);
+    }
+
+    function displayTeachingInModal(vessel, teaching, num) {
+      const moodData = MOOD_PRAYERS[teaching.mood] || MOOD_PRAYERS.peace;
+      document.getElementById("verseTheme").textContent = teaching.theme;
+      document.getElementById("relicBadge").textContent = `${vessel.relicIcon} ${vessel.relicName}`;
+      document.getElementById("verseText").textContent = `“${teaching.text}”`;
+      document.getElementById("verseRef").textContent = teaching.ref;
+      document.getElementById("versePrayer").textContent = `“${moodData.prayer}”`;
+      document.getElementById("verseReflection").textContent =
+        `${moodData.action} (Day/Word #${num} of ${JESUS_TEACHINGS.length})`;
+
+      document.getElementById("memoryQuizBox").classList.remove("active");
+      updateFavHeartUI();
+      addGracePoints(10);
+
+      document.getElementById("angelModal").classList.add("visible");
+      speakTeachingAloud(teaching, moodData.prayer);
+    }
+
+    function anotherRandomTeaching() {
+      const picked = getNextRandomTeaching();
+      currentTeaching = picked.teaching;
+      currentTeachingNum = picked.number;
+      displayTeachingInModal(currentVessel, picked.teaching, picked.number);
+    }
+
+    function speakTeachingAloud(teaching, prayerText) {
+      const waveEl = document.getElementById("voiceWave");
+      if (!("speechSynthesis" in window) || voiceMuted) return;
+      window.speechSynthesis.cancel();
+      const fullSpeech = `${teaching.text} ... ${teaching.ref.replace(":", " verse ")}. ... Prayer: ${prayerText}`;
+      const u = new SpeechSynthesisUtterance(fullSpeech);
+      u.lang = "en-US";
+      u.rate = 0.88;
+      u.onstart = () => waveEl.classList.add("speaking");
+      u.onend = () => waveEl.classList.remove("speaking");
+      window.speechSynthesis.speak(u);
+    }
+
+    function replayAngelVoice() {
+      if (currentTeaching) {
+        const moodData = MOOD_PRAYERS[currentTeaching.mood] || MOOD_PRAYERS.peace;
+        speakTeachingAloud(currentTeaching, moodData.prayer);
+      }
+    }
+
+    function closeAngelModal() {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      document.getElementById("angelModal").classList.remove("visible");
+      // When all 12 clay vessels are broken, summon the 13th Golden Miracle Vessel!
+      if (brokenVessels.size === 12) {
+        setTimeout(() => {
+          openGoldenVesselDrawer();
+        }, 380);
+      }
+    }
+
+    function resetAllVessels() {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      document.getElementById("angelModal").classList.remove("visible");
+      brokenVessels.clear();
+      renderVesselsGrid();
+    }
+
+    function toggleVoiceMute() {
+      voiceMuted = !voiceMuted;
+      document.getElementById("toggleVoiceBtn").textContent = voiceMuted ? "🔇 Voice: OFF" : "🔊 Voice: ON";
+      if (voiceMuted && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    }
+
+    function toggleFullscreenMode() {
+      document.body.classList.toggle("fullscreen-mode");
+    }
+
+    // =========================================================================
+    // 8. EXPORT / SHARE HIGH-RES SACRED BLESSING CARD (PNG IMAGE GENERATOR)
+    // =========================================================================
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(" ");
+      let line = "";
+      let currentY = y;
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + " ";
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line.trim(), x, currentY);
+          line = words[n] + " ";
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line.trim(), x, currentY);
+      return currentY + lineHeight;
+    }
+
+    function saveBlessingCardPNG() {
+      if (!currentTeaching) return;
+      const moodData = MOOD_PRAYERS[currentTeaching.mood] || MOOD_PRAYERS.peace;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 1620;
+      const ctx = canvas.getContext("2d");
+
+      const bgGrad = ctx.createRadialGradient(540, 380, 80, 540, 810, 980);
+      bgGrad.addColorStop(0, "#3A2814");
+      bgGrad.addColorStop(0.55, "#191109");
+      bgGrad.addColorStop(1, "#0B0805");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1080, 1620);
+
+      ctx.strokeStyle = "#D4AF37";
+      ctx.lineWidth = 5;
+      ctx.strokeRect(54, 54, 972, 1512);
+      ctx.strokeStyle = "rgba(255, 217, 125, 0.45)";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(72, 72, 936, 1476);
+
+      ctx.fillStyle = "#D4AF37";
+      ctx.font = "600 28px Cinzel, Georgia, serif";
+      ctx.textAlign = "center";
+      ctx.fillText("THE TWELVE SACRED VESSELS", 540, 165);
+
+      ctx.fillStyle = "#FFD97D";
+      ctx.font = "700 42px Cinzel, Georgia, serif";
+      ctx.fillText(currentTeaching.theme.toUpperCase(), 540, 235);
+
+      ctx.fillStyle = "#FFD97D";
+      ctx.font = "48px serif";
+      ctx.fillText("✞", 540, 330);
+
+      ctx.fillStyle = "#FFF8E8";
+      ctx.font = "italic 600 54px 'Cormorant Garamond', Georgia, serif";
+      const afterQuoteY = wrapCanvasText(
+        ctx,
+        `“${currentTeaching.text}”`,
+        540,
+        440,
+        840,
+        74
+      );
+
+      ctx.fillStyle = "#FFD97D";
+      ctx.font = "700 38px Cinzel, Georgia, serif";
+      ctx.fillText(`— ${currentTeaching.ref} —`, 540, afterQuoteY + 55);
+
+      ctx.fillStyle = "#E6D5B8";
+      ctx.font = "italic 36px 'Cormorant Garamond', Georgia, serif";
+      wrapCanvasText(
+        ctx,
+        `Prayer: “${moodData.prayer}”`,
+        540,
+        afterQuoteY + 165,
+        800,
+        50
+      );
+
+      ctx.fillStyle = "#B8A686";
+      ctx.font = "500 26px Cinzel, Georgia, serif";
+      ctx.fillText(
+        `Vessel ${currentVessel.roman}: ${currentVessel.relicName} • Words of Jesus Christ`,
+        540,
+        1490
+      );
+
+      const link = document.createElement("a");
+      const safeRef = currentTeaching.ref.replace(/[^a-z0-9]/gi, "_");
+      link.download = `Sacred_Blessing_${safeRef}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    // =========================================================================
+    // 9. DRAWER NAVIGATION CONTROLLER
+    // =========================================================================
+    function closeAllDrawers() {
+      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.remove("open");
+          el.classList.remove("active");
+        }
+      });
+      const angelModal = document.getElementById("angelModal");
+      if (angelModal && angelModal.classList.contains("visible")) {
+        angelModal.classList.remove("visible");
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      }
+    }
+
+    function openLibraryDrawer() {
+      closeAllDrawers();
+      renderLibraryList("");
+      document.getElementById("libraryDrawer").classList.add("open");
+    }
+
+    function filterLibrary() {
+      const q = document.getElementById("verseSearch").value.trim().toLowerCase();
+      renderLibraryList(q);
+    }
+
+    function renderLibraryList(query) {
+      const list = document.getElementById("libraryList");
+      const filtered = JESUS_TEACHINGS
+        .map((t, idx) => ({ ...t, num: idx + 1 }))
+        .filter(t =>
+          !query ||
+          t.text.toLowerCase().includes(query) ||
+          t.ref.toLowerCase().includes(query) ||
+          t.theme.toLowerCase().includes(query)
+        );
+
+      list.innerHTML = filtered.map(t => {
+        const isVIPWord = t.num > 108;
+        const badge = isVIPWord
+          ? (isSanctuaryVIP ? `<span style="color:#ffd97d;">👑 VIP #${t.num}</span>` : `<span style="color:#fca5a5;">🔒 VIP #${t.num}</span>`)
+          : `<span>#${t.num} (Free)</span>`;
+        return `
+          <div class="saved-item" onclick="selectFromLibrary(${t.num - 1})">
+            <div class="saved-item-verse">“${t.text}”</div>
+            <div class="saved-item-ref">${badge} • ${t.theme} — ${t.ref}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function selectFromLibrary(index) {
+      if (index >= 108 && !isSanctuaryVIP) {
+        openPaywallDrawer("Unlock Teachings #109–#365+ with Sanctuary Pass VIP");
+        return;
+      }
+      closeAllDrawers();
+      currentTeaching = JESUS_TEACHINGS[index];
+      currentTeachingNum = index + 1;
+      displayTeachingInModal(currentVessel, currentTeaching, index + 1);
+    }
+
+    function openRelicsDrawer() {
+      closeAllDrawers();
+      const list = document.getElementById("relicsList");
+      list.innerHTML = TWELVE_VESSELS.map(v => {
+        const isUnlocked = unlockedRelics.has(v.id);
+        return `
+          <div class="relic-card ${isUnlocked ? "" : "locked"}">
+            <div class="relic-icon-box">${isUnlocked ? v.relicIcon : "🔒"}</div>
+            <div>
+              <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
+                Vessel ${v.roman}: ${v.relicName} ${isUnlocked ? "✓" : "(Strike Vessel " + v.roman + " to Unlock)"}
+              </div>
+              <div style="font-size:14px; color:var(--text-light); margin-top:3px; line-height:1.35;">
+                ${v.relicStory}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+      document.getElementById("relicsDrawer").classList.add("open");
+    }
+
+    // =========================================================================
+    // 10. DAILY PRAYER & VESSEL STRIKE REMINDER ENGINE (ALARMS + iOS CALENDAR)
+    // =========================================================================
+    const DEFAULT_REMINDERS = [
+      {
+        id: "morning",
+        icon: "🌅",
+        title: "Morning Sanctuary & Vessel",
+        subtitle: "Begin your day with the Word of Jesus Christ",
+        time: "07:00",
+        enabled: true
+      },
+      {
+        id: "midday",
+        icon: "☀️",
+        title: "Midday Peace & Pause",
+        subtitle: "Breathe in Christ's peace amidst your daily work",
+        time: "12:30",
+        enabled: false
+      },
+      {
+        id: "evening",
+        icon: "🌙",
+        title: "Evening Rest & Reflection",
+        subtitle: "Lay down your burdens before sleep in His grace",
+        time: "21:00",
+        enabled: true
+      }
+    ];
+
+    let prayerReminders = [];
+    let lastTriggeredMinute = "";
+    let pushBannerTimeout = null;
+
+    function loadReminders() {
+      try {
+        const saved = localStorage.getItem("sacred_prayer_reminders");
+        prayerReminders = saved ? JSON.parse(saved) : DEFAULT_REMINDERS;
+      } catch (e) {
+        prayerReminders = [...DEFAULT_REMINDERS];
+      }
+      updateNextAlarmCountdown();
+    }
+
+    function saveReminders() {
+      try {
+        localStorage.setItem("sacred_prayer_reminders", JSON.stringify(prayerReminders));
+      } catch (e) {}
+      updateNextAlarmCountdown();
+    }
+
+    function openReminderDrawer() {
+      closeAllDrawers();
+      if ("Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission();
+      }
+      renderRemindersList();
+      updateNextAlarmCountdown();
+      document.getElementById("reminderDrawer").classList.add("open");
+    }
+
+    function renderRemindersList() {
+      const list = document.getElementById("remindersList");
+      list.innerHTML = prayerReminders.map((r, idx) => `
+        <div class="reminder-card ${r.enabled ? "active-alarm" : ""}">
+          <div style="display:flex; align-items:center; gap:10px; flex:1;">
+            <span style="font-size:22px;">${r.icon || "🔔"}</span>
+            <div style="flex:1;">
+              <div style="font-family:'Cinzel',serif; font-size:12.5px; color:var(--gold-bright); font-weight:700;">
+                ${r.title}
+              </div>
+              <div style="font-size:13px; color:var(--text-muted); line-height:1.25;">
+                ${r.subtitle}
+              </div>
+            </div>
+          </div>
+          <input
+            type="time"
+            class="reminder-time-input"
+            value="${r.time}"
+            onchange="updateReminderTime(${idx}, this.value)"
+          />
+          <div
+            class="ios-switch ${r.enabled ? "on" : ""}"
+            onclick="toggleReminderSwitch(${idx})"
+            title="Enable/Disable Daily Reminder"
+          ></div>
+        </div>
+      `).join("");
+    }
+
+    function toggleReminderSwitch(idx) {
+      prayerReminders[idx].enabled = !prayerReminders[idx].enabled;
+      if (prayerReminders[idx].enabled) {
+        playCathedralBellChime();
+        if ("Notification" in window && Notification.permission === "default") {
+          Notification.requestPermission();
+        }
+      }
+      saveReminders();
+      renderRemindersList();
+    }
+
+    function updateReminderTime(idx, newTime) {
+      if (!newTime) return;
+      prayerReminders[idx].time = newTime;
+      prayerReminders[idx].enabled = true;
+      saveReminders();
+      renderRemindersList();
+    }
+
+    function addCustomReminder() {
+      const timeVal = document.getElementById("customAlarmTime").value || "08:00";
+      const labelEl = document.getElementById("customAlarmLabel");
+      const title = labelEl.value.trim() || "Personal Prayer & Vessel Strike";
+
+      prayerReminders.push({
+        id: "custom_" + Date.now(),
+        icon: "🙏",
+        title: title,
+        subtitle: "Daily custom reminder to strike a Sacred Vessel & pray",
+        time: timeVal,
+        enabled: true
+      });
+      labelEl.value = "";
+      playCathedralBellChime();
+      saveReminders();
+      renderRemindersList();
+    }
+
+    function updateNextAlarmCountdown() {
+      const banner = document.getElementById("nextAlarmCountdown");
+      if (!banner) return;
+      const active = prayerReminders.filter(r => r.enabled);
+      if (active.length === 0) {
+        banner.textContent = "🔕 No active reminders — Toggle a switch below to set a daily prayer bell";
+        return;
+      }
+
+      const now = new Date();
+      const nowMins = now.getHours() * 60 + now.getMinutes();
+      let bestDiff = Infinity;
+      let nextReminder = active[0];
+
+      active.forEach(r => {
+        const [hh, mm] = r.time.split(":").map(Number);
+        const targetMins = hh * 60 + mm;
+        let diff = targetMins - nowMins;
+        if (diff <= 0) diff += 24 * 60;
+        if (diff < bestDiff) {
+          bestDiff = diff;
+          nextReminder = r;
+        }
+      });
+
+      const hours = Math.floor(bestDiff / 60);
+      const mins = bestDiff % 60;
+      banner.textContent = `🔔 Next Bell: "${nextReminder.title}" at ${nextReminder.time} (in ${hours}h ${mins}m)`;
+    }
+
+    function playCathedralBellChime() {
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+        const partials = [
+          { freq: 523.25, gain: 0.22, dur: 2.8 },
+          { freq: 1046.50, gain: 0.12, dur: 2.1 },
+          { freq: 1567.98, gain: 0.07, dur: 1.5 },
+          { freq: 783.99, gain: 0.14, dur: 2.4 }
+        ];
+        partials.forEach(p => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(p.freq, now);
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.linearRampToValueAtTime(p.gain, now + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.0005, now + p.dur);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + p.dur + 0.05);
+        });
+      } catch (e) {}
+    }
+
+    function triggerSanctuaryNotification(title, message) {
+      playCathedralBellChime();
+      if (navigator.vibrate) navigator.vibrate([100, 60, 150]);
+
+      document.getElementById("pushTitle").textContent = `🔔 ${title.toUpperCase()}`;
+      document.getElementById("pushMessage").textContent = message;
+      const pushBanner = document.getElementById("iosPushBanner");
+      pushBanner.classList.add("show");
+
+      clearTimeout(pushBannerTimeout);
+      pushBannerTimeout = setTimeout(() => {
+        pushBanner.classList.remove("show");
+      }, 7500);
+
+      if ("Notification" in window && Notification.permission === "granted") {
+        try {
+          new Notification(`⚱️ ${title}`, { body: message, silent: false });
+        } catch (e) {}
+      }
+    }
+
+    function handlePushBannerClick() {
+      document.getElementById("iosPushBanner").classList.remove("show");
+      closeAllDrawers();
+      const nextUnbroken = TWELVE_VESSELS.find(v => !brokenVessels.has(v.id)) || TWELVE_VESSELS[0];
+      if (brokenVessels.size === 12) resetAllVessels();
+      const slots = document.querySelectorAll(".vessel-slot");
+      const targetSlot = slots[nextUnbroken.id - 1];
+      if (targetSlot) {
+        handleVesselStrike(nextUnbroken, targetSlot, {});
+      }
+    }
+
+    function exportToIOSCalendar() {
+      const active = prayerReminders.filter(r => r.enabled);
+      const listToExport = active.length > 0 ? active : [prayerReminders[0]];
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, "0");
+      const dd = String(now.getDate()).padStart(2, "0");
+
+      const eventsICS = listToExport.map((r, i) => {
+        const [hour, minute] = r.time.split(":");
+        const dtStart = `${yyyy}${mm}${dd}T${hour}${minute}00`;
+        return [
+          "BEGIN:VEVENT",
+          `UID:sacred-vessels-${r.id}-${i}@sacredvessels.app`,
+          `DTSTAMP:${dtStart}Z`,
+          `DTSTART:${dtStart}`,
+          "DURATION:PT10M",
+          "RRULE:FREQ=DAILY",
+          `SUMMARY:⚱️ ${r.title} — Strike a Sacred Vessel & Pray`,
+          `DESCRIPTION:${r.subtitle}. Open The Twelve Sacred Vessels app to strike an ancient jar and hear the Angel read Jesus's Word for today.`,
+          "BEGIN:VALARM",
+          "TRIGGER:-PT0M",
+          "ACTION:DISPLAY",
+          "DESCRIPTION:⚱️ Time to strike a Sacred Vessel & receive Jesus's Word!",
+          "END:VALARM",
+          "END:VEVENT"
+        ].join("\r\n");
+      }).join("\r\n");
+
+      const icsContent = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//The Twelve Sacred Vessels//Words of Jesus Christ//EN",
+        "CALSCALE:GREGORIAN",
+        eventsICS,
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Sacred_Vessels_Daily_Prayer_Alarm.ics";
+      link.click();
+    }
+
+    // =========================================================================
+    // 11. FAITH RANKS, GRACE POINTS & THE 13TH GOLDEN MIRACLE VESSEL
+    // =========================================================================
+    let gracePoints = 0;
+
+    function loadGracePoints() {
+      try {
+        gracePoints = parseInt(localStorage.getItem("sacred_grace_points") || "0", 10);
+      } catch (e) {
+        gracePoints = 0;
+      }
+      updateRankBadge();
+    }
+
+    function addGracePoints(pts) {
+      gracePoints += pts;
+      try {
+        localStorage.setItem("sacred_grace_points", String(gracePoints));
+      } catch (e) {}
+      updateRankBadge();
+    }
+
+    function getFaithRankName(pts) {
+      if (pts >= 500) return "Guardian of the Word";
+      if (pts >= 300) return "Light Bearer";
+      if (pts >= 150) return "Peacemaker";
+      if (pts >= 50) return "Disciple";
+      return "Seeker";
+    }
+
+    function updateRankBadge() {
+      const rank = getFaithRankName(gracePoints);
+      const badge = document.getElementById("faithRankBadge");
+      if (badge) {
+        badge.innerHTML = `✨ Rank: ${rank} • <span id="gracePointsText">${gracePoints}</span> Grace Pts`;
+      }
+    }
+
+    function openGoldenVesselDrawer() {
+      closeAllDrawers();
+      document.getElementById("goldenVesselDrawer").classList.add("open");
+    }
+
+    function strikeGoldenMiracleVessel(event) {
+      const cx = event.clientX || window.innerWidth / 2;
+      const cy = event.clientY || window.innerHeight / 2;
+      playShatterAndChoirSound();
+      playCathedralBellChime();
+      spawnShatterParticles(cx, cy, "#FFF8DC", "#FFD700");
+
+      addGracePoints(100);
+      closeAllDrawers();
+      brokenVessels.clear();
+      renderVesselsGrid();
+
+      const grandVessel = {
+        id: 13,
+        roman: "XIII",
+        name: "13th Golden Miracle Chalice",
+        relicIcon: "👑",
+        relicName: "Grand Apostolic Blessing (+100 Grace)"
+      };
+      currentVessel = grandVessel;
+      const picked = getNextRandomTeaching();
+      currentTeaching = picked.teaching;
+      currentTeachingNum = picked.number;
+      displayTeachingInModal(grandVessel, picked.teaching, picked.number);
+    }
+
+    // =========================================================================
+    // 12. 🕯️ SANCTUARY CANDLES (24H ALTAR) & ❤️ FAVORITES / PRAYER JOURNAL
+    // =========================================================================
+    let activeCandles = [];
+    let journalEntries = [];
+
+    function loadCandlesAndJournal() {
+      try {
+        activeCandles = JSON.parse(localStorage.getItem("sacred_candles") || "[]");
+        journalEntries = JSON.parse(localStorage.getItem("sacred_journal") || "[]");
+      } catch (e) {}
+      if (activeCandles.length === 0) {
+        activeCandles = [
+          { intention: "Peace for My Family", time: "23h 58m left" },
+          { intention: "Healing & Strength", time: "23h 40m left" },
+          { intention: "Gratitude to Christ", time: "24h 00m left" }
+        ];
+      }
+    }
+
+    function openCandlesDrawer() {
+      closeAllDrawers();
+      renderCandlesAltar();
+      renderJournalList();
+      document.getElementById("candlesDrawer").classList.add("open");
+    }
+
+    function renderCandlesAltar() {
+      const grid = document.getElementById("candlesAltarGrid");
+      grid.innerHTML = activeCandles.slice(0, 6).map(c => `
+        <div class="candle-holder">
+          <div class="candle-flame"></div>
+          <div class="candle-wax"></div>
+          <div style="font-family:'Cinzel',serif; font-size:9.5px; color:var(--gold-bright); margin-top:5px; font-weight:700;">
+            ${c.intention}
+          </div>
+          <div style="font-size:10px; color:var(--text-muted);">🕯️ ${c.time}</div>
+        </div>
+      `).join("");
+    }
+
+    function lightNewCandle() {
+      const input = document.getElementById("candleIntentionInput");
+      const text = input.value.trim() || "Personal Prayer Intention";
+      activeCandles.unshift({ intention: text, time: "24h 00m left" });
+      input.value = "";
+      playCathedralBellChime();
+      addGracePoints(15);
+      try {
+        localStorage.setItem("sacred_candles", JSON.stringify(activeCandles));
+      } catch (e) {}
+      renderCandlesAltar();
+    }
+
+    function toggleFavoriteCurrentVerse() {
+      if (!currentTeaching) return;
+      const existingIdx = journalEntries.findIndex(j => j.ref === currentTeaching.ref && j.text === currentTeaching.text);
+      if (existingIdx >= 0) {
+        journalEntries.splice(existingIdx, 1);
+      } else {
+        journalEntries.unshift({
+          type: "favorite",
+          text: currentTeaching.text,
+          ref: currentTeaching.ref,
+          theme: currentTeaching.theme,
+          date: new Date().toLocaleDateString()
+        });
+        addGracePoints(10);
+      }
+      try {
+        localStorage.setItem("sacred_journal", JSON.stringify(journalEntries));
+      } catch (e) {}
+      updateFavHeartUI();
+    }
+
+    function updateFavHeartUI() {
+      const btn = document.getElementById("favHeartBtn");
+      if (!btn || !currentTeaching) return;
+      const isFav = journalEntries.some(j => j.ref === currentTeaching.ref && j.text === currentTeaching.text);
+      btn.textContent = isFav ? "❤️ Saved" : "🤍 Save";
+    }
+
+    function addJournalEntry() {
+      const input = document.getElementById("journalNoteInput");
+      const note = input.value.trim();
+      if (!note) return;
+      journalEntries.unshift({
+        type: "note",
+        text: note,
+        ref: "PERSONAL PRAYER JOURNAL",
+        theme: "Reflection",
+        date: new Date().toLocaleDateString()
+      });
+      input.value = "";
+      addGracePoints(15);
+      try {
+        localStorage.setItem("sacred_journal", JSON.stringify(journalEntries));
+      } catch (e) {}
+      renderJournalList();
+    }
+
+    function renderJournalList() {
+      const list = document.getElementById("journalList");
+      if (journalEntries.length === 0) {
+        list.innerHTML = `<p style="color:var(--text-muted); text-align:center; font-style:italic; padding:12px;">Tap '🤍 Save' on any Word of Jesus or write a personal prayer note above.</p>`;
+        return;
+      }
+      list.innerHTML = journalEntries.map(j => `
+        <div class="saved-item">
+          <div class="saved-item-verse">“${j.text}”</div>
+          <div class="saved-item-ref">${j.type === "favorite" ? "❤️ " : "✍️ "}${j.ref} • ${j.date}</div>
+        </div>
+      `).join("");
+    }
+
+    // =========================================================================
+    // 13. 👼 ASK THE ANGEL — SPIRITUAL COUNSEL ENGINE
+    // =========================================================================
+    function openAskAngelDrawer() {
+      closeAllDrawers();
+      document.getElementById("askAngelDrawer").classList.add("open");
+    }
+
+    function fillAngelPrompt(text) {
+      document.getElementById("angelQuestionInput").value = text;
+      submitAskAngel();
+    }
+
+    function submitAskAngel() {
+      const q = document.getElementById("angelQuestionInput").value.trim();
+      if (!q) return;
+      const lower = q.toLowerCase();
+
+      // Match best mood & verse based on user's heartfelt words
+      let targetMood = "peace";
+      let angelCounsel = "Beloved soul, Heaven hears the quiet cry of your heart. Do not carry this weight alone—Jesus walks beside you right now.";
+
+      if (lower.includes("forgiv") || lower.includes("hurt") || lower.includes("anger") || lower.includes("love") || lower.includes("enemy")) {
+        targetMood = "love";
+        angelCounsel = "The Angel says: 'Releasing bitterness sets your own spirit free. Let Christ's boundless mercy heal the wound within your heart.'";
+      } else if (lower.includes("tired") || lower.includes("exhaust") || lower.includes("sad") || lower.includes("grief") || lower.includes("lonely") || lower.includes("alon")) {
+        targetMood = "comfort";
+        angelCounsel = "The Angel says: 'You are deeply known and cherished by the Good Shepherd. Rest your weary shoulders in His gentle embrace today.'";
+      } else if (lower.includes("decis") || lower.includes("way") || lower.includes("lost") || lower.includes("confus") || lower.includes("wis") || lower.includes("guid")) {
+        targetMood = "guidance";
+        angelCounsel = "The Angel says: 'When the path ahead seems veiled, take one step in trust. Christ is the Light who illuminates every crossroads.'";
+      } else if (lower.includes("weak") || lower.includes("afraid") || lower.includes("fear") || lower.includes("hard") || lower.includes("strength")) {
+        targetMood = "strength";
+        angelCounsel = "The Angel says: 'His power is made perfect in weakness. Take heart—the One who overcame the world lives within you.'";
+      } else if (lower.includes("pray") || lower.includes("miracl") || lower.includes("impossible") || lower.includes("hope") || lower.includes("healing")) {
+        targetMood = "faith";
+        angelCounsel = "The Angel says: 'With God, all things are possible. Keep knocking in faith, for the Father delights to answer His children.'";
+      }
+
+      const pool = JESUS_TEACHINGS.filter(t => t.mood === targetMood);
+      const chosen = pool[Math.floor(Math.random() * pool.length)] || JESUS_TEACHINGS[0];
+      const moodData = MOOD_PRAYERS[targetMood];
+
+      const resultBox = document.getElementById("angelCounselResult");
+      resultBox.innerHTML = `
+        <div class="sacred-scroll-card" style="margin-top:4px;">
+          <div class="scroll-theme-badge">Angel's Spiritual Counsel</div>
+          <p style="font-size:15px; color:#f3e3c2; margin-bottom:10px; line-height:1.4;">
+            ${angelCounsel}
+          </p>
+          <p class="jesus-quote-text" style="font-size:19px;">“${chosen.text}”</p>
+          <div class="scripture-reference">${chosen.ref}</div>
+          <div class="prayer-box">
+            <div class="prayer-box-title">🙏 Personal Prayer for Your Situation</div>
+            <div class="prayer-box-text">“${moodData.prayer}”</div>
+          </div>
+          <button class="btn-sacred btn-primary-gold" style="width:100%; margin-top:6px;" onclick="speakCounselAloud('${chosen.text.replace(/'/g, "\\'")}', '${chosen.ref}', '${moodData.prayer.replace(/'/g, "\\'")}')">
+            🔊 Hear the Angel Speak This Counsel
+          </button>
+        </div>
+      `;
+
+      addGracePoints(20);
+      speakTeachingAloud(chosen, moodData.prayer);
+    }
+
+    function speakCounselAloud(text, ref, prayer) {
+      speakTeachingAloud({ text, ref }, prayer);
+    }
+
+    // =========================================================================
+    // 14. 🌙 SLEEP & MEDITATE AUDIO MODE (NIGHT RAIN + CONTINUOUS READING)
+    // =========================================================================
+    let sleepPlaying = false;
+    let sleepLoopInterval = null;
+    let rainNode = null;
+    let rainGain = null;
+    let rainActive = false;
+
+    function openSleepDrawer() {
+      closeAllDrawers();
+      document.getElementById("sleepDrawer").classList.add("open");
+    }
+
+    function stopSleepModeAndClose() {
+      if (sleepPlaying) toggleSleepAutoPlay();
+      if (rainActive) toggleNightRain();
+      closeAllDrawers();
+    }
+
+    function setSleepTimer(mins, btnEl) {
+      document.querySelectorAll("#sleepDrawer .mood-pill").forEach(b => {
+        if (b.id !== "rainToggleBtn") b.classList.remove("active");
+      });
+      btnEl.classList.add("active");
+    }
+
+    function toggleNightRain() {
+      rainActive = !rainActive;
+      const btn = document.getElementById("rainToggleBtn");
+      if (rainActive) {
+        btn.textContent = "🌧️ Gentle Rain: ON";
+        btn.classList.add("active");
+        startGentleRainSound();
+      } else {
+        btn.textContent = "🌧️ Gentle Rain: OFF";
+        btn.classList.remove("active");
+        stopGentleRainSound();
+      }
+    }
+
+    function startGentleRainSound() {
+      try {
+        const ctx = getAudioCtx();
+        const bufferSize = 2 * ctx.sampleRate;
+        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          output[i] = (lastOut + 0.02 * white) / 1.02;
+          lastOut = output[i];
+          output[i] *= 0.12; // Soft soothing brown noise rain
+        }
+        rainNode = ctx.createBufferSource();
+        rainNode.buffer = noiseBuffer;
+        rainNode.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.value = 650;
+
+        rainGain = ctx.createGain();
+        rainGain.gain.value = 0.25;
+
+        rainNode.connect(filter);
+        filter.connect(rainGain);
+        rainGain.connect(ctx.destination);
+        rainNode.start();
+      } catch (e) {}
+    }
+
+    function stopGentleRainSound() {
+      if (rainNode) {
+        try { rainNode.stop(); } catch (e) {}
+        rainNode = null;
+      }
+    }
+
+    function toggleSleepAutoPlay() {
+      sleepPlaying = !sleepPlaying;
+      const btn = document.getElementById("sleepStartBtn");
+      if (sleepPlaying) {
+        btn.textContent = "⏸️ Pause Night Sanctuary Reading";
+        if (!harpPlaying) toggleAmbientHarp();
+        if (!rainActive) toggleNightRain();
+        readNextSleepVerse();
+        sleepLoopInterval = setInterval(readNextSleepVerse, 18000);
+      } else {
+        btn.textContent = "▶️ Start Continuous Night Reading";
+        clearInterval(sleepLoopInterval);
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      }
+    }
+
+    function readNextSleepVerse() {
+      if (!sleepPlaying) return;
+      const picked = getNextRandomTeaching();
+      const t = picked.teaching;
+      const moodData = MOOD_PRAYERS[t.mood] || MOOD_PRAYERS.peace;
+      document.getElementById("sleepVerseTheme").textContent = t.theme;
+      document.getElementById("sleepVerseText").textContent = `“${t.text}”`;
+      document.getElementById("sleepVerseRef").textContent = t.ref;
+      speakTeachingAloud(t, moodData.prayer);
+    }
+
+    // =========================================================================
+    // 15. 🧠 GOSPEL MEMORY & WISDOM CHALLENGE ("SEAL THIS WORD IN YOUR HEART")
+    // =========================================================================
+    function startMemoryQuiz() {
+      if (!currentTeaching) return;
+      const box = document.getElementById("memoryQuizBox");
+      box.classList.add("active");
+
+      const words = currentTeaching.text.replace(/[.,;!?'"“”]/g, "").split(/\s+/).filter(w => w.length >= 5);
+      const targetWord = words[Math.floor(words.length / 2)] || "peace";
+      const distractors = ["glory", "light", "heart", "faith", "mercy", "grace", "truth", "world"]
+        .filter(d => d.toLowerCase() !== targetWord.toLowerCase())
+        .slice(0, 2);
+
+      const options = [targetWord, ...distractors].sort(() => Math.random() - 0.5);
+      const maskedQuote = currentTeaching.text.replace(new RegExp(`\\b${targetWord}\\b`, "i"), "_______");
+
+      document.getElementById("verseText").textContent = `“${maskedQuote}”`;
+      document.getElementById("quizPrompt").textContent = "🧠 Tap the missing word spoken by Jesus (+25 Grace):";
+
+      const choicesEl = document.getElementById("quizChoices");
+      choicesEl.innerHTML = options.map(opt => `
+        <button class="quiz-btn" onclick="checkQuizAnswer('${opt}', '${targetWord}')">${opt}</button>
+      `).join("");
+    }
+
+    function checkQuizAnswer(selected, correct) {
+      if (selected.toLowerCase() === correct.toLowerCase()) {
+        playCathedralBellChime();
+        addGracePoints(25);
+        document.getElementById("verseText").textContent = `“${currentTeaching.text}”`;
+        document.getElementById("quizPrompt").innerHTML = "✨ <strong>Word Sealed in Your Heart! (+25 Grace Points Awarded)</strong>";
+        document.getElementById("quizChoices").innerHTML = "";
+      } else {
+        document.getElementById("quizPrompt").textContent = "🙏 Try again — Listen closely to the Word of Christ:";
+      }
+    }
+
+    // ============================================================================
+    // 16. SANCTUARY PASS MONETIZATION (FREE TIER vs VIP + APPLE STOREKIT 2)
+    // ============================================================================
+    let isSanctuaryVIP = false;
+    let freeDailyVesselsUsed = 0;
+    let selectedPaywallPlan = "annual";
+
+    function loadSubscriptionState() {
+      try {
+        const dayBadge = document.getElementById("dayOfYearNum");
+        if (dayBadge) dayBadge.textContent = getDayOfYearNumber();
+
+        const saved = JSON.parse(localStorage.getItem("sacred_vessels_subscription_v1"));
+        const today = new Date().toISOString().slice(0, 10);
+        if (saved) {
+          isSanctuaryVIP = !!saved.isVIP;
+          selectedPaywallPlan = saved.plan || "annual";
+          if (saved.lastDate === today) {
+            freeDailyVesselsUsed = saved.usedToday || 0;
+          } else {
+            freeDailyVesselsUsed = 0;
+          }
+        }
+      } catch (e) {}
+      saveSubscriptionState();
+      updateSubscriptionUI();
+    }
+
+    function saveSubscriptionState() {
+      try {
+        const today = new Date().toISOString().slice(0, 10);
+        localStorage.setItem("sacred_vessels_subscription_v1", JSON.stringify({
+          isVIP: isSanctuaryVIP,
+          plan: selectedPaywallPlan,
+          lastDate: today,
+          usedToday: freeDailyVesselsUsed
+        }));
+      } catch (e) {}
+    }
+
+    function updateSubscriptionUI() {
+      const remaining = Math.max(0, 3 - freeDailyVesselsUsed);
+      const badgeApp = document.getElementById("passBadgeApp");
+      const btnDesktop = document.getElementById("passBtnDesktop");
+      const quotaBanner = document.getElementById("quotaStatusBanner");
+      const subscribeBtn = document.getElementById("mainSubscribeBtn");
+
+      if (isSanctuaryVIP) {
+        if (badgeApp) {
+          badgeApp.innerHTML = `👑 VIP PASS`;
+          badgeApp.style.background = "linear-gradient(135deg, rgba(251, 191, 36, 0.35), rgba(217, 119, 6, 0.25))";
+          badgeApp.style.borderColor = "#fbbf24";
+          badgeApp.style.color = "#fef08a";
+        }
+        if (btnDesktop) {
+          btnDesktop.textContent = "👑 VIP Sanctuary Pass (Active)";
+          btnDesktop.classList.add("active-music");
+        }
+        if (quotaBanner) {
+          quotaBanner.innerHTML = `👑 <strong>Sanctuary Pass VIP Active:</strong> Unlimited 12 Vessels + 13th Golden Chalice, All ${JESUS_TEACHINGS.length} Teachings, Sleep Audio & Unlimited HD Cards Unlocked!`;
+          quotaBanner.style.color = "#86efac";
+          quotaBanner.style.borderColor = "rgba(34, 197, 94, 0.45)";
+        }
+        if (subscribeBtn) {
+          subscribeBtn.textContent = "✅ Sanctuary Pass Active (Tap to Switch to Free)";
+          subscribeBtn.onclick = toggleVIPStatusDirectly;
+        }
+      } else {
+        if (badgeApp) {
+          badgeApp.innerHTML = `💎 Free (${remaining}/3)`;
+          badgeApp.style.background = remaining === 0
+            ? "linear-gradient(135deg, rgba(239, 68, 68, 0.28), rgba(185, 28, 28, 0.2))"
+            : "linear-gradient(135deg, rgba(251, 191, 36, 0.25), rgba(180, 83, 9, 0.2))";
+          badgeApp.style.borderColor = remaining === 0 ? "#f87171" : "rgba(251, 191, 36, 0.55)";
+          badgeApp.style.color = remaining === 0 ? "#fca5a5" : "#fde68a";
+        }
+        if (btnDesktop) {
+          btnDesktop.textContent = `💎 Sanctuary Pass (Free: ${remaining}/3)`;
+          btnDesktop.classList.remove("active-music");
+        }
+        if (quotaBanner) {
+          quotaBanner.innerHTML = remaining === 0
+            ? `🔒 <strong>Daily Free Limit Reached (3/3 Vessels Broken Today).</strong> Upgrade to Sanctuary Pass VIP for Unlimited Vessels & All ${JESUS_TEACHINGS.length} Words!`
+            : `🏺 <strong>Free Tier Status:</strong> <span id="freeQuotaRemainingText">${remaining} of 3</span> Daily Vessels Remaining Today`;
+          quotaBanner.style.color = remaining === 0 ? "#fca5a5" : "#fde68a";
+        }
+        if (subscribeBtn) {
+          subscribeBtn.textContent = (selectedPaywallPlan === "annual" || selectedPaywallPlan === "yearly")
+            ? "✨ Start 7-Day Free Trial ($19.99/yr)"
+            : "✨ Subscribe Monthly ($2.99/mo)";
+          subscribeBtn.onclick = showApplePaySheet;
+        }
+      }
+    }
+
+    function openPaywallDrawer(reason) {
+      closeAllDrawers();
+      updateSubscriptionUI();
+      const quotaBanner = document.getElementById("quotaStatusBanner");
+      const reasonBanner = document.getElementById("paywallReasonBanner");
+      if (reasonBanner) {
+        reasonBanner.textContent = (reason && reason !== "limit_reached") ? reason : "Unlock the Full Sanctuary";
+      }
+      if (reason === "limit_reached" && !isSanctuaryVIP && quotaBanner) {
+        quotaBanner.innerHTML = `🔒 <strong>You've opened all 3 Free Vessels for today!</strong> Start your 7-Day Free Trial of Sanctuary Pass to break all 12 Vessels without limits.`;
+        quotaBanner.style.color = "#fca5a5";
+        playCathedralBellChime();
+      }
+      document.getElementById("paywallDrawer").classList.add("open");
+    }
+
+    function openLegalDrawer() {
+      closeAllDrawers();
+      document.getElementById("legalDrawer").classList.add("open");
+    }
+
+    function selectPaywallPlan(plan) {
+      selectedPaywallPlan = plan;
+      const isAnnual = (plan === "annual" || plan === "yearly");
+      const annualCard = document.getElementById("planAnnual");
+      const monthlyCard = document.getElementById("planMonthly");
+      if (annualCard) annualCard.classList.toggle("selected", isAnnual);
+      if (monthlyCard) monthlyCard.classList.toggle("selected", !isAnnual);
+
+      const prodIdEl = document.getElementById("storeKitProductId");
+      const summaryEl = document.getElementById("storeKitSummary");
+      if (prodIdEl) {
+        prodIdEl.textContent = isAnnual
+          ? "com.sacredvessels.pass.yearly"
+          : "com.sacredvessels.pass.monthly";
+      }
+      if (summaryEl) {
+        summaryEl.textContent = isAnnual
+          ? "7-Day Free Trial, then $19.99/year. Cancel anytime in Settings > Apple ID."
+          : "$2.99/month (Auto-renewable). Cancel anytime in Settings > Apple ID.";
+      }
+      updateSubscriptionUI();
+    }
+
+    async function showApplePaySheet() {
+      // If running inside Native iOS Capacitor with RevenueCat configured, trigger native StoreKit 2 sheet
+      if (window.SacredIOSBridge && window.SacredIOSBridge.isNativeIOS && window.SacredIOSBridge.purchasePlan) {
+        const success = await window.SacredIOSBridge.purchasePlan(selectedPaywallPlan);
+        if (success) confirmApplePaySubscription();
+        return;
+      }
+      const sheet = document.getElementById("applePaySheet");
+      if (sheet) {
+        sheet.classList.add("show");
+        sheet.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+
+    function confirmApplePaySubscription() {
+      isSanctuaryVIP = true;
+      unseenIndices = []; // Reset pool so all 365+ teachings are immediately active
+      saveSubscriptionState();
+      updateSubscriptionUI();
+      playCathedralBellChime();
+      addGracePoints(50);
+
+      const sheet = document.getElementById("applePaySheet");
+      if (sheet) sheet.classList.remove("show");
+
+      triggerSanctuaryNotification(
+        "👑 Sanctuary Pass VIP Activated!",
+        `Thank you for supporting the Sanctuary! All 12 Sacred Vessels, the 13th Golden Chalice, and all ${JESUS_TEACHINGS.length} Gospel Teachings are now unlocked without limits.`
+      );
+      closeAllDrawers();
+    }
+
+    async function restoreIOSPurchases() {
+      if (window.SacredIOSBridge && window.SacredIOSBridge.isNativeIOS && window.SacredIOSBridge.restorePurchases) {
+        const restored = await window.SacredIOSBridge.restorePurchases();
+        if (!restored) return;
+      }
+      isSanctuaryVIP = true;
+      unseenIndices = [];
+      saveSubscriptionState();
+      updateSubscriptionUI();
+      playCathedralBellChime();
+      triggerSanctuaryNotification(
+        "✅ Apple ID Purchases Restored",
+        "Your Sanctuary Pass VIP subscription has been restored from App Store StoreKit 2."
+      );
+    }
+
+    function toggleVIPStatusDirectly() {
+      isSanctuaryVIP = !isSanctuaryVIP;
+      unseenIndices = [];
+      if (!isSanctuaryVIP) {
+        freeDailyVesselsUsed = 0; // Reset quota when testing Free mode
+      }
+      saveSubscriptionState();
+      updateSubscriptionUI();
+      playCathedralBellChime();
+      triggerSanctuaryNotification(
+        isSanctuaryVIP ? "👑 Switched to VIP Mode" : "🏺 Switched to Free Tier (3 Vessels/Day)",
+        isSanctuaryVIP
+          ? `Unlimited Sacred Vessels and all ${JESUS_TEACHINGS.length} teachings unlocked.`
+          : "Free Tier active: Break 3 Vessels to test the automatic App Store Paywall popup!"
+      );
+    }
+
+    // Live Background Clock Check (Every 15 seconds)
+    setInterval(() => {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+      const currentHM = `${hh}:${mm}`;
+
+      let h12 = now.getHours() % 12 || 12;
+      document.getElementById("iosClock").textContent = `${h12}:${mm}`;
+
+      updateNextAlarmCountdown();
+
+      if (currentHM !== lastTriggeredMinute) {
+        const due = prayerReminders.find(r => r.enabled && r.time === currentHM);
+        if (due) {
+          lastTriggeredMinute = currentHM;
+          triggerSanctuaryNotification(
+            due.title,
+            `It is ${due.time} — Tap here to strike a Sacred Vessel and hear the Angel read Jesus's Word for you today.`
+          );
+        }
+      }
+    }, 15000);
+
+    initProgress();
+    loadGracePoints();
+    loadCandlesAndJournal();
+    loadReminders();
+    loadSubscriptionState();
+    renderVesselsGrid();
+
+    // Register Offline PWA Service Worker & Auto-Fullscreen on iPhone Home Screen / Mobile
+    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
+    if (
+      window.navigator.standalone === true ||
+      window.matchMedia("(display-mode: standalone)").matches ||
+      location.search.includes("standalone=1") ||
+      window.innerWidth <= 500
+    ) {
+      document.body.classList.add("fullscreen-mode");
+    }
+  </script>
+  <!-- Optional Native iOS Capacitor + RevenueCat StoreKit 2 Bridge -->
+  <script src="./ios-storekit-bridge.js" onerror=""></script>
+</body>
+</html>

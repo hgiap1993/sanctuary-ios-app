@@ -1,0 +1,21 @@
+{
+  "appId": "com.sacredvessels.jesuswords",
+  "appName": "Sanctuary",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "iosScheme": "capacitor"
+  },
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#0c0805",
+    "preferredContentMode": "mobile"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_vessel",
+      "iconColor": "#D4AF37",
+      "sound": "cathedral_bell.wav"
+    }
+  }
+}
