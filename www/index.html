@@ -11,6 +11,14 @@
   <link rel="manifest" href="./manifest.json" />
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23120b05'/%3E%3Ccircle cx='256' cy='256' r='224' fill='none' stroke='%23d4af37' stroke-width='8'/%3E%3Cpath d='M188 118 H324 L298 176 C376 232, 384 348, 306 420 L324 446 H188 L206 420 C128 348, 136 232, 214 176 Z' fill='%23d4af37' stroke='%23fff8dc' stroke-width='6'/%3E%3Cpath d='M256 218 V292 M224 250 H288' stroke='%23ffffff' stroke-width='14' stroke-linecap='round'/%3E%3C/svg%3E" />
   <title>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</title>
+  <!-- Viral Social Sharing Open Graph & Twitter Card Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="⚱️ Sanctuary: The Twelve Sacred Vessels — Hear Jesus's Word Today" />
+  <meta property="og:description" content="Strike one of the 12 ancient clay vessels to release divine light, angelic voice readings, and 365+ Words of Jesus Christ for peace & sleep." />
+  <meta property="og:url" content="https://hgiap1993.github.io/sanctuary-ios-app/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="⚱️ Sanctuary: 12 Sacred Vessels & Daily Words of Jesus" />
+  <meta name="twitter:description" content="Break a Sacred Vessel and receive a personal Gospel Word & Angelic Prayer for your heart today." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1210,6 +1218,89 @@
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Viral Social Share Studio Styles */
+    .viral-reward-banner {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.24), rgba(35, 24, 10, 0.95));
+      border: 1.5px solid #ffd97d;
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 18px rgba(212, 175, 55, 0.22);
+    }
+
+    .viral-progress-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 6px;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .viral-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #d4af37, #fff1a8, #ffd97d);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .viral-preview-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.14), rgba(0, 0, 0, 0.65));
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 14px;
+      padding: 8px;
+      margin-bottom: 8px;
+    }
+
+    #viralPreviewCanvas {
+      max-height: 195px;
+      width: auto;
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.75), 0 0 14px rgba(212, 175, 55, 0.3);
+      cursor: pointer;
+    }
+
+    .viral-social-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .social-share-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.15s, filter 0.15s;
+      text-decoration: none;
+    }
+
+    .social-share-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.12);
+    }
+
+    .social-whatsapp { background: linear-gradient(135deg, #1fa855, #128c7e); }
+    .social-facebook { background: linear-gradient(135deg, #1877f2, #0c5dc7); }
+    .social-twitter  { background: linear-gradient(135deg, #27272a, #09090b); border-color: rgba(255,217,125,0.4); }
+    .social-telegram { background: linear-gradient(135deg, #2aabee, #229ed9); }
+    .social-sms      { background: linear-gradient(135deg, #10b981, #047857); }
+    .social-download { background: linear-gradient(135deg, #b45309, #78350f); border-color: #ffd97d; }
+  
   </style>
 </head>
 <body>
@@ -1221,6 +1312,7 @@
     </div>
     <div class="controls">
       <button class="bar-btn" id="passBtnDesktop" onclick="openPaywallDrawer()" style="border-color:#ffd97d; color:#ffd97d; font-weight:600;">💎 Sanctuary Pass (Free: 3/3)</button>
+      <button class="bar-btn" onclick="openViralShareDrawer()" style="border-color:#ffd97d; color:#ffd97d; font-weight:700;">🚀 Share &amp; Bless</button>
       <button class="bar-btn" onclick="openAskAngelDrawer()">👼 Ask Angel</button>
       <button class="bar-btn" onclick="openCandlesDrawer()">🕯️ Candles & Journal</button>
       <button class="bar-btn" onclick="openGoldenVesselDrawer()">👑 13th Golden Jar</button>
@@ -1271,6 +1363,7 @@
           <button class="icon-btn" onclick="openDailyWordOfYear()" title="Today's Gospel Word of the Year">📅 Day <span id="dayOfYearNum">1</span></button>
           <button class="icon-btn" onclick="openReminderDrawer()" title="Daily Prayer Reminders">🔔</button>
           <button class="icon-btn" id="voiceBtnApp" onclick="openVoiceDrawer()" title="Choose Natural Angel Voice">🎙️</button>
+          <button class="icon-btn" onclick="openViralShareDrawer()" title="Share Blessing & Earn Free VIP" style="border-color:#ffd97d;">📲</button>
           <button class="icon-btn" id="musicBtnApp" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵</button>
           <button class="icon-btn" onclick="openLibraryDrawer()">📜 365</button>
           <button class="icon-btn" onclick="resetAllVessels()">↺</button>
@@ -1329,7 +1422,8 @@
             <span class="scroll-theme-badge" id="verseTheme">Divine Peace</span>
             <span class="relic-unlocked-pill" id="relicBadge">🏺 Relic Discovered</span>
             <button class="icon-btn" id="favHeartBtn" onclick="toggleFavoriteCurrentVerse()" style="padding:2px 8px;">🤍 Save</button>
-            <button class="icon-btn" onclick="openVoiceDrawer()" style="padding:2px 8px;" id="modalVoicePill">🎙️ Change Voice</button>
+            <button class="icon-btn" onclick="openVoiceDrawer()" style="padding:2px 8px;" id="modalVoicePill">🎙️ Voice</button>
+            <button class="icon-btn" onclick="openViralShareDrawer()" style="padding:2px 8px; border-color:#ffd97d; color:#ffd97d;">📲 Share</button>
           </div>
           <p class="jesus-quote-text" id="verseText"></p>
           <div class="scripture-reference" id="verseRef"></div>
@@ -1353,9 +1447,9 @@
 
         <div class="revelation-actions">
           <button class="btn-sacred btn-secondary-outline" onclick="replayAngelVoice()">🔊 Listen</button>
-          <button class="btn-sacred btn-secondary-outline" onclick="startMemoryQuiz()">🧠 Seal Word (+25)</button>
-          <button class="btn-sacred btn-secondary-outline" onclick="saveBlessingCardPNG()">🖼️ Save Card</button>
-          <button class="btn-sacred btn-primary-gold" onclick="closeAngelModal()">🔨 Next Vessel</button>
+          <button class="btn-sacred btn-secondary-outline" onclick="startMemoryQuiz()">🧠 Quiz (+25)</button>
+          <button class="btn-sacred btn-secondary-outline" onclick="openViralShareDrawer()" style="border-color:#ffd97d; color:#ffd97d;">📲 Share (+30)</button>
+          <button class="btn-sacred btn-primary-gold" onclick="closeAngelModal()">🔨 Next Jar</button>
         </div>
       </div>
 
@@ -1738,6 +1832,97 @@
             <button class="icon-btn" onclick="previewSelectedVoice()" style="padding:5px 10px; font-weight:700; border-color:#ffd97d;">
               🔊 Test Voice
             </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer 11: 🚀 Viral Social Share & Blessing Card Studio (TikTok / IG Stories / WhatsApp / iOS Share) -->
+      <div class="library-drawer" id="viralShareDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Spread the Word of Jesus • Bless a Friend Today</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:16.5px; color:var(--gold-bright);">📲 Share Sacred Blessing Studio</h2>
+          </div>
+          <button class="icon-btn" onclick="closeViralShareDrawerAndResume()">✕ Close</button>
+        </div>
+
+        <div class="drawer-list" style="gap:6px; padding-right:2px;">
+          <!-- Viral Ambassador Reward Progress Banner -->
+          <div class="viral-reward-banner">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700;" id="viralRewardTitle">
+                🕊️ Ambassador of Light: Share with 3 Friends
+              </span>
+              <span style="font-family:'Cinzel',serif; font-size:11px; color:#fff; font-weight:700;" id="viralShareCountBadge">
+                0 / 3 Shared
+              </span>
+            </div>
+            <div style="font-size:12px; color:var(--text-light); margin-top:2px;" id="viralRewardSubtitle">
+              Earn <strong>+30 Grace Pts</strong> per share! Share 3 times to unlock <strong>👑 Sanctuary Pass VIP</strong> free!
+            </div>
+            <div class="viral-progress-track">
+              <div class="viral-progress-fill" id="viralProgressFill"></div>
+            </div>
+          </div>
+
+          <!-- Aspect Ratio & Royal Theme Selectors -->
+          <div style="display:flex; justify-content:space-between; gap:6px; flex-wrap:wrap;">
+            <div class="mood-pills" style="gap:4px;">
+              <button class="mood-pill active" id="ratioStoryBtn" onclick="setViralCardRatio('story', this)">📱 9:16 Story/TikTok</button>
+              <button class="mood-pill" id="ratioPostBtn" onclick="setViralCardRatio('post', this)">🟦 4:5 IG/FB Feed</button>
+              <button class="mood-pill" id="ratioScrollBtn" onclick="setViralCardRatio('scroll', this)">📜 2:3 Scroll</button>
+            </div>
+            <div class="mood-pills" style="gap:4px;">
+              <button class="mood-pill active" onclick="setViralCardTheme('gold', this)">✨ Gold</button>
+              <button class="mood-pill" onclick="setViralCardTheme('starlight', this)">🌌 Night</button>
+              <button class="mood-pill" onclick="setViralCardTheme('dawn', this)">🌅 Dawn</button>
+              <button class="mood-pill" onclick="setViralCardTheme('parchment', this)">📜 Scroll</button>
+            </div>
+          </div>
+
+          <!-- Live 1080p Canvas Preview -->
+          <div class="viral-preview-stage">
+            <canvas id="viralPreviewCanvas" width="1080" height="1920" onclick="shareNativeWithCardImage()" title="Tap to Share HD Card"></canvas>
+          </div>
+
+          <!-- Primary Native iOS / Android Share Sheet (Image + Caption + Deep Link) -->
+          <button class="btn-sacred btn-primary-gold" style="width:100%; padding:11px; font-size:12px;" onclick="shareNativeWithCardImage()">
+            📲 Share HD Card + Link (iPhone / IG Story / TikTok / AirDrop)
+          </button>
+
+          <!-- 1-Tap Direct Social Network Buttons -->
+          <div class="viral-social-grid">
+            <button class="social-share-btn social-whatsapp" onclick="shareToSocialPlatform('whatsapp')">
+              🟢 WhatsApp
+            </button>
+            <button class="social-share-btn social-facebook" onclick="shareToSocialPlatform('facebook')">
+              🔵 Facebook
+            </button>
+            <button class="social-share-btn social-twitter" onclick="shareToSocialPlatform('twitter')">
+              𝕏 Post on X
+            </button>
+            <button class="social-share-btn social-telegram" onclick="shareToSocialPlatform('telegram')">
+              ✈️ Telegram
+            </button>
+            <button class="social-share-btn social-sms" onclick="shareToSocialPlatform('sms')">
+              💬 iMessage/SMS
+            </button>
+            <button class="social-share-btn social-download" onclick="downloadViralCardPNG()">
+              📥 Save HD PNG
+            </button>
+          </div>
+
+          <!-- Ready-to-Paste Viral Caption & Deep Link Box -->
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:12px; padding:8px 10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <span style="font-family:'Cinzel',serif; font-size:10px; color:var(--gold-bright);">
+                📋 VIRAL CAPTION &amp; DEEP LINK (FOR TIKTOK / REELS / IG):
+              </span>
+              <button class="icon-btn" id="copyViralBtn" onclick="copyViralCaptionAndLink()" style="padding:3px 9px; font-size:10.5px; border-color:#ffd97d; color:#ffd97d;">
+                📋 Copy Caption + Link
+              </button>
+            </div>
+            <div id="viralCaptionPreview" style="font-size:11.5px; color:var(--text-light); line-height:1.35; max-height:54px; overflow-y:auto; user-select:all;"></div>
           </div>
         </div>
       </div>
@@ -3198,10 +3383,150 @@
     }
 
     // =========================================================================
-    // 8. EXPORT / SHARE HIGH-RES SACRED BLESSING CARD (PNG IMAGE GENERATOR)
+    // 8. VIRAL SOCIAL SHARING STUDIO, 9:16 STORY GENERATOR & DEEP-LINK ENGINE
     // =========================================================================
+    const APP_PUBLIC_URL = "https://hgiap1993.github.io/sanctuary-ios-app/";
+    let viralCardRatio = "story"; // 'story' (1080x1920), 'post' (1080x1350), 'scroll' (1080x1620)
+    let viralCardTheme = "gold";  // 'gold', 'starlight', 'dawn', 'parchment'
+    let viralShareCount = 0;
+    let reopenModalAfterShareClose = false;
+
+    const VIRAL_CARD_THEMES = {
+      gold: {
+        bg0: "#3E2A14",
+        bg1: "#191109",
+        bg2: "#0B0805",
+        borderOuter: "#D4AF37",
+        borderInner: "rgba(255, 217, 125, 0.45)",
+        header: "#D4AF37",
+        accent: "#FFD97D",
+        quote: "#FFF8E8",
+        prayer: "#E6D5B8",
+        muted: "#B8A686",
+        ctaBg: "rgba(212, 175, 55, 0.16)"
+      },
+      starlight: {
+        bg0: "#1B2A4A",
+        bg1: "#0D1528",
+        bg2: "#050811",
+        borderOuter: "#93C5FD",
+        borderInner: "rgba(191, 219, 254, 0.4)",
+        header: "#93C5FD",
+        accent: "#FDE68A",
+        quote: "#F8FAFC",
+        prayer: "#CBD5E1",
+        muted: "#94A3B8",
+        ctaBg: "rgba(147, 197, 253, 0.14)"
+      },
+      dawn: {
+        bg0: "#4C1D24",
+        bg1: "#271016",
+        bg2: "#11070A",
+        borderOuter: "#FDBA74",
+        borderInner: "rgba(253, 186, 116, 0.42)",
+        header: "#FDBA74",
+        accent: "#FDE047",
+        quote: "#FFF7ED",
+        prayer: "#FED7AA",
+        muted: "#D6BCFA",
+        ctaBg: "rgba(253, 186, 116, 0.15)"
+      },
+      parchment: {
+        bg0: "#FBF3DC",
+        bg1: "#EFE0B9",
+        bg2: "#DEC896",
+        borderOuter: "#8B5A2B",
+        borderInner: "rgba(139, 90, 43, 0.45)",
+        header: "#7C2D12",
+        accent: "#9A3412",
+        quote: "#1C1917",
+        prayer: "#44403C",
+        muted: "#57534E",
+        ctaBg: "rgba(139, 90, 43, 0.12)"
+      }
+    };
+
+    function loadViralShareState() {
+      try {
+        viralShareCount = parseInt(localStorage.getItem("sacred_viral_shares_v1") || "0", 10);
+      } catch (e) {
+        viralShareCount = 0;
+      }
+      updateViralRewardBannerUI();
+    }
+
+    function recordViralShareAction(platformName) {
+      viralShareCount += 1;
+      try {
+        localStorage.setItem("sacred_viral_shares_v1", String(viralShareCount));
+      } catch (e) {}
+      addGracePoints(30);
+      playCathedralBellChime();
+
+      if (viralShareCount >= 3 && !isSanctuaryVIP) {
+        isSanctuaryVIP = true;
+        unseenIndices = [];
+        saveSubscriptionState();
+        updateSubscriptionUI();
+        addGracePoints(100);
+        triggerSanctuaryNotification(
+          "👑 Ambassador of Light — VIP Unlocked!",
+          "Thank you for sharing Jesus's Word with 3 friends! Sanctuary Pass VIP & +100 Grace Points are now unlocked for you!"
+        );
+      } else {
+        triggerSanctuaryNotification(
+          "🕊️ Blessing Shared (+30 Grace Pts)",
+          `Shared via ${platformName}! ${viralShareCount < 3 ? `Share ${3 - viralShareCount} more time(s) to unlock FREE Sanctuary Pass VIP!` : "You are an Ambassador of Light!"}`
+        );
+      }
+      updateViralRewardBannerUI();
+    }
+
+    function updateViralRewardBannerUI() {
+      const countBadge = document.getElementById("viralShareCountBadge");
+      const fillEl = document.getElementById("viralProgressFill");
+      const titleEl = document.getElementById("viralRewardTitle");
+      const subEl = document.getElementById("viralRewardSubtitle");
+      const pct = Math.min(100, Math.round((viralShareCount / 3) * 100));
+
+      if (countBadge) countBadge.textContent = `${viralShareCount} / 3 Shared`;
+      if (fillEl) fillEl.style.width = pct + "%";
+      if (viralShareCount >= 3) {
+        if (titleEl) titleEl.innerHTML = "👑 Ambassador of Light (VIP Reward Unlocked!)";
+        if (subEl) subEl.innerHTML = "Thank you for spreading Christ's peace! Every additional share awards <strong>+30 Grace Points</strong>.";
+      }
+    }
+
+    function getActiveShareTeaching() {
+      if (currentTeaching) {
+        const idx = JESUS_TEACHINGS.findIndex(t => t.ref === currentTeaching.ref && t.text === currentTeaching.text);
+        return {
+          teaching: currentTeaching,
+          num: idx >= 0 ? idx + 1 : (currentTeachingNum || 1),
+          vessel: currentVessel || TWELVE_VESSELS[0]
+        };
+      }
+      return {
+        teaching: JESUS_TEACHINGS[0],
+        num: 1,
+        vessel: TWELVE_VESSELS[0]
+      };
+    }
+
+    function getViralDeepLink() {
+      const { num } = getActiveShareTeaching();
+      return `${APP_PUBLIC_URL}?verse=${num}`;
+    }
+
+    function getViralShareCaption() {
+      const { teaching } = getActiveShareTeaching();
+      const moodData = MOOD_PRAYERS[teaching.mood] || MOOD_PRAYERS.peace;
+      const link = getViralDeepLink();
+      return `⚱️ I just broke a Sacred Vessel and received this Word from Jesus today:\n\n“${teaching.text}” — ${teaching.ref}\n\n🙏 Prayer: “${moodData.prayer}”\n\n✨ Tap to break your Sacred Vessel & hear the Angel read Jesus's Word for your heart today:\n${link}\n\n#Jesus #DailyPrayer #BibleVerse #ChristianTikTok #Faith #PeaceInChrist #SacredVessels`;
+    }
+
     function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
-      const words = text.split(" ");
+      const words = (text || "").split(" ");
       let line = "";
       let currentY = y;
       for (let n = 0; n < words.length; n++) {
@@ -3219,88 +3544,293 @@
       return currentY + lineHeight;
     }
 
-    function saveBlessingCardPNG() {
-      if (!currentTeaching) return;
-      const moodData = MOOD_PRAYERS[currentTeaching.mood] || MOOD_PRAYERS.peace;
+    function renderViralCardToCanvas(canvas) {
+      if (!canvas) return;
+      const { teaching, vessel, num } = getActiveShareTeaching();
+      const moodData = MOOD_PRAYERS[teaching.mood] || MOOD_PRAYERS.peace;
+      const palette = VIRAL_CARD_THEMES[viralCardTheme] || VIRAL_CARD_THEMES.gold;
 
-      const canvas = document.createElement("canvas");
-      canvas.width = 1080;
-      canvas.height = 1620;
+      const W = 1080;
+      const H = viralCardRatio === "story" ? 1920 : (viralCardRatio === "post" ? 1350 : 1620);
+      canvas.width = W;
+      canvas.height = H;
       const ctx = canvas.getContext("2d");
 
-      const bgGrad = ctx.createRadialGradient(540, 380, 80, 540, 810, 980);
-      bgGrad.addColorStop(0, "#3A2814");
-      bgGrad.addColorStop(0.55, "#191109");
-      bgGrad.addColorStop(1, "#0B0805");
+      // Background radial gradient
+      const bgGrad = ctx.createRadialGradient(W / 2, H * 0.26, 70, W / 2, H * 0.5, H * 0.72);
+      bgGrad.addColorStop(0, palette.bg0);
+      bgGrad.addColorStop(0.58, palette.bg1);
+      bgGrad.addColorStop(1, palette.bg2);
       ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, 1080, 1620);
+      ctx.fillRect(0, 0, W, H);
 
-      ctx.strokeStyle = "#D4AF37";
+      // Subtle sacred halo rings
+      ctx.save();
+      ctx.strokeStyle = palette.borderInner;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(W / 2, H * 0.24, 210, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(W / 2, H * 0.24, 275, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+
+      // Double Ornate Cathedral Border
+      ctx.strokeStyle = palette.borderOuter;
       ctx.lineWidth = 5;
-      ctx.strokeRect(54, 54, 972, 1512);
-      ctx.strokeStyle = "rgba(255, 217, 125, 0.45)";
+      ctx.strokeRect(48, 48, W - 96, H - 96);
+      ctx.strokeStyle = palette.borderInner;
       ctx.lineWidth = 2;
-      ctx.strokeRect(72, 72, 936, 1476);
+      ctx.strokeRect(66, 66, W - 132, H - 132);
 
-      ctx.fillStyle = "#D4AF37";
-      ctx.font = "600 28px Cinzel, Georgia, serif";
+      const topOffset = viralCardRatio === "story" ? 175 : (viralCardRatio === "post" ? 130 : 155);
+
+      // Top Sanctuary Header
+      ctx.fillStyle = palette.header;
+      ctx.font = "600 26px Cinzel, Georgia, serif";
       ctx.textAlign = "center";
-      ctx.fillText("THE TWELVE SACRED VESSELS", 540, 165);
+      ctx.fillText("⚱️ SANCTUARY • THE TWELVE SACRED VESSELS", W / 2, topOffset);
 
-      ctx.fillStyle = "#FFD97D";
+      // Theme Title
+      ctx.fillStyle = palette.accent;
       ctx.font = "700 42px Cinzel, Georgia, serif";
-      ctx.fillText(currentTeaching.theme.toUpperCase(), 540, 235);
+      ctx.fillText(teaching.theme.toUpperCase(), W / 2, topOffset + 66);
 
-      ctx.fillStyle = "#FFD97D";
-      ctx.font = "48px serif";
-      ctx.fillText("✞", 540, 330);
+      // Cross Emblem
+      ctx.fillStyle = palette.accent;
+      ctx.font = "46px Georgia, serif";
+      ctx.fillText("✞", W / 2, topOffset + 145);
 
-      ctx.fillStyle = "#FFF8E8";
-      ctx.font = "italic 600 54px 'Cormorant Garamond', Georgia, serif";
+      // Main Quote of Jesus Christ
+      const quoteFontSize = viralCardRatio === "post" ? 46 : 52;
+      const quoteLineHeight = viralCardRatio === "post" ? 64 : 72;
+      ctx.fillStyle = palette.quote;
+      ctx.font = `italic 600 ${quoteFontSize}px 'Cormorant Garamond', Georgia, serif`;
       const afterQuoteY = wrapCanvasText(
         ctx,
-        `“${currentTeaching.text}”`,
-        540,
-        440,
-        840,
-        74
+        `“${teaching.text}”`,
+        W / 2,
+        topOffset + 235,
+        850,
+        quoteLineHeight
       );
 
-      ctx.fillStyle = "#FFD97D";
-      ctx.font = "700 38px Cinzel, Georgia, serif";
-      ctx.fillText(`— ${currentTeaching.ref} —`, 540, afterQuoteY + 55);
+      // Scripture Reference
+      ctx.fillStyle = palette.accent;
+      ctx.font = "700 36px Cinzel, Georgia, serif";
+      ctx.fillText(`— ${teaching.ref} —`, W / 2, afterQuoteY + 45);
 
-      ctx.fillStyle = "#E6D5B8";
-      ctx.font = "italic 36px 'Cormorant Garamond', Georgia, serif";
+      // Guided Prayer
+      const prayerFontSize = viralCardRatio === "post" ? 31 : 35;
+      ctx.fillStyle = palette.prayer;
+      ctx.font = `italic ${prayerFontSize}px 'Cormorant Garamond', Georgia, serif`;
       wrapCanvasText(
         ctx,
-        `Prayer: “${moodData.prayer}”`,
-        540,
-        afterQuoteY + 165,
-        800,
-        50
+        `Angelic Prayer: “${moodData.prayer}”`,
+        W / 2,
+        afterQuoteY + 135,
+        810,
+        prayerFontSize + 14
       );
 
-      ctx.fillStyle = "#B8A686";
-      ctx.font = "500 26px Cinzel, Georgia, serif";
+      // Viral Call-To-Action Footer Badge at bottom of card
+      const ctaBoxY = H - (viralCardRatio === "story" ? 255 : 210);
+      ctx.fillStyle = palette.ctaBg;
+      ctx.strokeStyle = palette.borderOuter;
+      ctx.lineWidth = 2;
+      ctx.fillRect(110, ctaBoxY, W - 220, 118);
+      ctx.strokeRect(110, ctaBoxY, W - 220, 118);
+
+      ctx.fillStyle = palette.accent;
+      ctx.font = "700 25px Cinzel, Georgia, serif";
+      ctx.fillText(`✨ BREAK A SACRED VESSEL & RECEIVE YOUR WORD #${num}`, W / 2, ctaBoxY + 48);
+
+      ctx.fillStyle = palette.quote;
+      ctx.font = "600 23px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillText("🔗 hgiap1993.github.io/sanctuary-ios-app", W / 2, ctaBoxY + 88);
+
+      ctx.fillStyle = palette.muted;
+      ctx.font = "500 22px Cinzel, Georgia, serif";
       ctx.fillText(
-        `Vessel ${currentVessel.roman}: ${currentVessel.relicName} • Words of Jesus Christ`,
-        540,
-        1490
+        `Vessel ${vessel.roman}: ${vessel.relicName} • Daily Words of Jesus Christ`,
+        W / 2,
+        H - 82
       );
+    }
 
+    function openViralShareDrawer() {
+      const angelModal = document.getElementById("angelModal");
+      reopenModalAfterShareClose = angelModal && angelModal.classList.contains("visible");
+      closeAllDrawers();
+      updateViralRewardBannerUI();
+      const canvas = document.getElementById("viralPreviewCanvas");
+      renderViralCardToCanvas(canvas);
+      const capEl = document.getElementById("viralCaptionPreview");
+      if (capEl) capEl.textContent = getViralShareCaption();
+      document.getElementById("viralShareDrawer").classList.add("open");
+    }
+
+    function closeViralShareDrawerAndResume() {
+      document.getElementById("viralShareDrawer").classList.remove("open");
+      if (reopenModalAfterShareClose && currentTeaching) {
+        document.getElementById("angelModal").classList.add("visible");
+      }
+    }
+
+    function setViralCardRatio(ratio, btnEl) {
+      viralCardRatio = ratio;
+      ["ratioStoryBtn", "ratioPostBtn", "ratioScrollBtn"].forEach(id => {
+        const b = document.getElementById(id);
+        if (b) b.classList.remove("active");
+      });
+      if (btnEl) btnEl.classList.add("active");
+      renderViralCardToCanvas(document.getElementById("viralPreviewCanvas"));
+    }
+
+    function setViralCardTheme(theme, btnEl) {
+      viralCardTheme = theme;
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll(".mood-pill").forEach(b => b.classList.remove("active"));
+        btnEl.classList.add("active");
+      }
+      renderViralCardToCanvas(document.getElementById("viralPreviewCanvas"));
+    }
+
+    function downloadViralCardPNG() {
+      const { teaching } = getActiveShareTeaching();
+      const canvas = document.getElementById("viralPreviewCanvas") || document.createElement("canvas");
+      renderViralCardToCanvas(canvas);
       const link = document.createElement("a");
-      const safeRef = currentTeaching.ref.replace(/[^a-z0-9]/gi, "_");
-      link.download = `Sacred_Blessing_${safeRef}.png`;
+      const safeRef = teaching.ref.replace(/[^a-z0-9]/gi, "_");
+      link.download = `Sanctuary_${viralCardRatio.toUpperCase()}_${safeRef}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
+      recordViralShareAction("HD Story Card Download");
+    }
+
+    function saveBlessingCardPNG() {
+      openViralShareDrawer();
+    }
+
+    async function shareNativeWithCardImage() {
+      const { teaching } = getActiveShareTeaching();
+      const canvas = document.getElementById("viralPreviewCanvas") || document.createElement("canvas");
+      renderViralCardToCanvas(canvas);
+      const caption = getViralShareCaption();
+      const deepLink = getViralDeepLink();
+
+      if (navigator.share) {
+        try {
+          const blob = await new Promise(res => canvas.toBlob(res, "image/png"));
+          if (blob) {
+            const safeRef = teaching.ref.replace(/[^a-z0-9]/gi, "_");
+            const file = new File([blob], `Sacred_Blessing_${safeRef}.png`, { type: "image/png" });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                title: `⚱️ Word of Jesus — ${teaching.ref}`,
+                text: caption,
+                files: [file]
+              });
+              recordViralShareAction("iOS / Mobile Share Sheet");
+              return;
+            }
+          }
+          await navigator.share({
+            title: `⚱️ Word of Jesus — ${teaching.ref}`,
+            text: caption,
+            url: deepLink
+          });
+          recordViralShareAction("Native Share");
+          return;
+        } catch (err) {
+          if (err && err.name === "AbortError") return;
+        }
+      }
+      // Fallback on desktop browsers without navigator.share: download PNG + copy caption
+      downloadViralCardPNG();
+      copyViralCaptionAndLink();
+    }
+
+    function shareToSocialPlatform(platform) {
+      const { teaching } = getActiveShareTeaching();
+      const caption = getViralShareCaption();
+      const deepLink = getViralDeepLink();
+      const shortQuote = `⚱️ “${teaching.text}” — ${teaching.ref} 🙏 Break a Sacred Vessel & hear Jesus's Word today:`;
+      let shareUrl = "";
+
+      if (platform === "whatsapp") {
+        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(caption)}`;
+        recordViralShareAction("WhatsApp");
+      } else if (platform === "facebook") {
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(deepLink)}&quote=${encodeURIComponent(shortQuote)}`;
+        recordViralShareAction("Facebook");
+      } else if (platform === "twitter") {
+        const tweet = `⚱️ “${teaching.text}” — ${teaching.ref}\n\n🙏 Break a Sacred Vessel & receive Jesus's Word for your heart today:\n${deepLink}\n\n#Jesus #DailyPrayer #BibleVerse #SacredVessels`;
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`;
+        recordViralShareAction("X (Twitter)");
+      } else if (platform === "telegram") {
+        shareUrl = `https://t.me/share/url?url=${encodeURIComponent(deepLink)}&text=${encodeURIComponent(shortQuote)}`;
+        recordViralShareAction("Telegram");
+      } else if (platform === "sms") {
+        window.location.href = `sms:?&body=${encodeURIComponent(caption)}`;
+        recordViralShareAction("iMessage / SMS");
+        return;
+      }
+
+      if (shareUrl) {
+        window.open(shareUrl, "_blank", "noopener,noreferrer");
+      }
+    }
+
+    function copyViralCaptionAndLink() {
+      const caption = getViralShareCaption();
+      const btn = document.getElementById("copyViralBtn");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(caption).catch(() => {});
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = caption;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      if (btn) {
+        btn.textContent = "✅ Copied Viral Caption + Link!";
+        setTimeout(() => {
+          btn.textContent = "📋 Copy Caption + Link";
+        }, 2800);
+      }
+      recordViralShareAction("Copied Viral Link");
+    }
+
+    function checkIncomingViralDeepLink() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const verseParam = parseInt(params.get("verse") || "0", 10);
+        if (verseParam >= 1 && verseParam <= JESUS_TEACHINGS.length) {
+          const targetTeaching = JESUS_TEACHINGS[verseParam - 1];
+          const vessel = TWELVE_VESSELS[(verseParam - 1) % TWELVE_VESSELS.length];
+          currentVessel = vessel;
+          currentTeaching = targetTeaching;
+          currentTeachingNum = verseParam;
+          setTimeout(() => {
+            displayTeachingInModal(vessel, targetTeaching, verseParam);
+            triggerSanctuaryNotification(
+              "🕊️ A Friend Sent You This Blessing!",
+              `Someone shared Jesus's Word #${verseParam} (${targetTeaching.ref}) with you today. Tap any vessel to explore more!`
+            );
+          }, 550);
+        }
+      } catch (e) {}
     }
 
     // =========================================================================
     // 9. DRAWER NAVIGATION CONTROLLER
     // =========================================================================
     function closeAllDrawers() {
-      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer"].forEach(id => {
+      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer", "viralShareDrawer"].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
           el.classList.remove("open");
@@ -3887,9 +4417,14 @@
             <div class="prayer-box-title">🙏 Personal Prayer for Your Situation</div>
             <div class="prayer-box-text">“${moodData.prayer}”</div>
           </div>
-          <button class="btn-sacred btn-primary-gold" style="width:100%; margin-top:6px;" onclick="speakCounselAloud('${chosen.text.replace(/'/g, "\\'")}', '${chosen.ref}', '${moodData.prayer.replace(/'/g, "\\'")}')">
-            🔊 Hear the Angel Speak This Counsel
-          </button>
+          <div style="display:flex; gap:6px; margin-top:6px;">
+            <button class="btn-sacred btn-primary-gold" style="flex:1;" onclick="speakCounselAloud('${chosen.text.replace(/'/g, "\\'")}', '${chosen.ref}', '${moodData.prayer.replace(/'/g, "\\'")}')">
+              🔊 Hear Angel
+            </button>
+            <button class="btn-sacred btn-secondary-outline" style="flex:1; border-color:#ffd97d; color:#ffd97d;" onclick="currentTeaching = JESUS_TEACHINGS.find(t => t.ref === '${chosen.ref}') || JESUS_TEACHINGS[0]; openViralShareDrawer();">
+              📲 Share Counsel (+30)
+            </button>
+          </div>
         </div>
       `;
 
@@ -4279,7 +4814,9 @@
     loadReminders();
     loadSubscriptionState();
     loadVoicePreferences();
+    loadViralShareState();
     renderVesselsGrid();
+    checkIncomingViralDeepLink();
 
     // Register Offline PWA Service Worker & Auto-Fullscreen on iPhone Home Screen / Mobile
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
