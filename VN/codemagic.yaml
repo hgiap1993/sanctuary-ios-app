@@ -1,0 +1,59 @@
+# ============================================================================
+# CODEMAGIC CLOUD MAC BUILD — THE TWELVE SACRED VESSELS (iOS APP STORE)
+# ============================================================================
+# Build your iOS .ipa and publish directly to TestFlight / App Store Connect
+# from Windows without needing a physical Mac!
+# Website: https://codemagic.io (500 free macOS M2 build minutes/month)
+
+workflows:
+  ios-appstore-release:
+    name: Twelve Sacred Vessels — iOS App Store Release
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: Codemagic_AppStore_Integration
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.sacredvessels.jesuswords
+      vars:
+        BUNDLE_ID: "com.sacredvessels.jesuswords"
+        XCODE_WORKSPACE: "ios/App/App.xcworkspace"
+        XCODE_SCHEME: "App"
+      node: 22.11.0
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install Node & Capacitor iOS Dependencies
+        script: |
+          npm install
+      - name: Initialize & Sync Capacitor iOS Project
+        script: |
+          if [ ! -d "ios" ]; then
+            npx cap add ios
+          fi
+          npx cap sync ios
+      - name: Set Up Keychain & Provisioning Profiles
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+          keychain add-certificates
+          xcode-project use-profiles
+      - name: Increment Build Number & Archive .ipa
+        script: |
+          cd ios/App
+          agvtool new-version -all $(($BUILD_NUMBER + 1))
+          cd ../..
+          xcode-project build-ipa \
+            --workspace "$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false

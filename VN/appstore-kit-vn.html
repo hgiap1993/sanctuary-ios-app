@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bộ Công Cụ Xuất Ảnh App Store Việt Nam — Icon 1024x1024 & 5 Screenshot 1290x2796</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0805;
+      --card: #17110a;
+      --gold: #d4af37;
+      --gold-bright: #ffd97d;
+      --text: #f7eed7;
+      --muted: #b8a686;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #2b1d0e 0%, #0b0805 70%);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding: 28px 24px 80px;
+    }
+    .header {
+      max-width: 1320px;
+      margin: 0 auto 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      padding-bottom: 18px;
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-bright);
+      font-size: 24px;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #ffd97d 0%, #c59224 100%);
+      color: #1a1005;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      border: none;
+      padding: 13px 22px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13.5px;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+      transition: transform 0.15s;
+    }
+    .btn-gold:hover { transform: translateY(-2px); }
+    .btn-outline {
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--gold);
+      color: var(--gold-bright);
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      padding: 9px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 12px;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .btn-outline:hover { background: rgba(212, 175, 55, 0.25); }
+    .section-title {
+      max-width: 1320px;
+      margin: 28px auto 14px;
+      font-family: 'Cinzel', serif;
+      color: var(--gold-bright);
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .icon-showcase {
+      max-width: 1320px;
+      margin: 0 auto 32px;
+      background: rgba(25, 17, 9, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .icon-preview-wrap canvas {
+      width: 220px;
+      height: 220px;
+      border-radius: 44px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.35);
+      border: 1px solid rgba(255, 217, 125, 0.4);
+    }
+    .screenshots-grid {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 18px;
+    }
+    .shot-card {
+      background: rgba(25, 17, 9, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 18px;
+      padding: 14px;
+      text-align: center;
+    }
+    .shot-card canvas {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.65);
+    }
+    .shot-label {
+      font-family: 'Cinzel', serif;
+      font-size: 12.5px;
+      color: var(--gold-bright);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1>⚱️ Bộ Ảnh App Store (Bản Việt Nam) — Thánh Đường: Lời Chúa Mỗi Ngày</h1>
+      <div class="sub">Icon 1024×1024 chuẩn Apple + 5 Ảnh Chụp Màn Hình Tiếng Việt 1290×2796 px sẵn sàng tải lên App Store Connect</div>
+    </div>
+    <button class="btn-gold" onclick="downloadAllAppStoreAssets()">⬇️ Tải Trọn Bộ 6 File PNG (1 Icon + 5 Ảnh Tiếng Việt)</button>
+  </div>
+
+  <div class="section-title">1. Official App Store Icon (1024 × 1024 px — Required in Xcode &amp; App Store Connect)</div>
+  <div class="icon-showcase">
+    <div class="icon-preview-wrap">
+      <canvas id="iconCanvas" width="1024" height="1024"></canvas>
+    </div>
+    <div style="flex:1; min-width:260px;">
+      <h3 style="font-family:'Cinzel',serif; color:var(--gold-bright); font-size:18px; margin-bottom:8px;">
+        VN_AppIcon_1024x1024.png (Apple StoreKit &amp; Xcode Ready)
+      </h3>
+      <p style="color:var(--muted); font-size:14px; line-height:1.6; margin-bottom:14px;">
+        • <strong>Resolution:</strong> Exact <code>1024 × 1024 px</code> PNG.<br/>
+        • <strong>Apple Compliance:</strong> Solid opaque dark sanctuary background (no transparency/alpha channel, square corners so iOS applies its native squircle mask cleanly).<br/>
+        • <strong>Artwork:</strong> Golden Sacred Vessel of Christ with radiant Cross, Kintsugi halo, and celestial rays.
+      </p>
+      <button class="btn-gold" onclick="downloadCanvas('iconCanvas', 'VN_AppIcon_1024x1024.png')">⬇️ Download VN_AppIcon_1024x1024.png</button>
+    </div>
+  </div>
+
+  <div class="section-title">2. Five iPhone 6.7" / 6.9" App Store Screenshots (1290 × 2796 px — Ready to Upload)</div>
+  <div class="screenshots-grid">
+    <div class="shot-card">
+      <canvas id="shot1" width="1290" height="2796"></canvas>
+      <div class="shot-label">Slide 1: Strike the 12 Vessels</div>
+      <button class="btn-outline" onclick="downloadCanvas('shot1', 'VN_01_AppStore_Strike_12_Vessels_1290x2796.png')">⬇️ Save Slide 1 (PNG)</button>
+    </div>
+    <div class="shot-card">
+      <canvas id="shot2" width="1290" height="2796"></canvas>
+      <div class="shot-label">Slide 2: 365+ Words &amp; Angel Voice</div>
+      <button class="btn-outline" onclick="downloadCanvas('shot2', 'VN_02_AppStore_365_Words_Angel_1290x2796.png')">⬇️ Save Slide 2 (PNG)</button>
+    </div>
+    <div class="shot-card">
+      <canvas id="shot3" width="1290" height="2796"></canvas>
+      <div class="shot-label">Slide 3: Ask the Angel &amp; Alarms</div>
+      <button class="btn-outline" onclick="downloadCanvas('shot3', 'VN_03_AppStore_Ask_Angel_Alarms_1290x2796.png')">⬇️ Save Slide 3 (PNG)</button>
+    </div>
+    <div class="shot-card">
+      <canvas id="shot4" width="1290" height="2796"></canvas>
+      <div class="shot-label">Slide 4: 24h Candles &amp; Relics</div>
+      <button class="btn-outline" onclick="downloadCanvas('shot4', 'VN_04_AppStore_Candles_Relics_1290x2796.png')">⬇️ Save Slide 4 (PNG)</button>
+    </div>
+    <div class="shot-card">
+      <canvas id="shot5" width="1290" height="2796"></canvas>
+      <div class="shot-label">Slide 5: Night Rain Sleep Mode</div>
+      <button class="btn-outline" onclick="downloadCanvas('shot5', 'VN_05_AppStore_Sleep_Mode_1290x2796.png')">⬇️ Save Slide 5 (PNG)</button>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. RENDER 1024x1024 OFFICIAL APPLE APP ICON
+    // =========================================================================
+    function renderAppIcon() {
+      const c = document.getElementById("iconCanvas");
+      const ctx = c.getContext("2d");
+
+      // Solid opaque radial background (Apple forbids transparency on 1024x1024 icons)
+      const bg = ctx.createRadialGradient(512, 360, 60, 512, 512, 720);
+      bg.addColorStop(0, "#4a3216");
+      bg.addColorStop(0.5, "#1b1208");
+      bg.addColorStop(1, "#090603");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, 1024, 1024);
+
+      // Celestial Rays
+      ctx.save();
+      ctx.translate(512, 430);
+      for (let i = 0; i < 16; i++) {
+        ctx.rotate((Math.PI * 2) / 16);
+        const rayGrad = ctx.createLinearGradient(0, 0, 0, -450);
+        rayGrad.addColorStop(0, "rgba(255, 217, 125, 0.22)");
+        rayGrad.addColorStop(1, "rgba(255, 217, 125, 0)");
+        ctx.fillStyle = rayGrad;
+        ctx.beginPath();
+        ctx.moveTo(-22, 0);
+        ctx.lineTo(22, 0);
+        ctx.lineTo(6, -450);
+        ctx.lineTo(-6, -450);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // Outer Sacred Gold Ring
+      ctx.strokeStyle = "#d4af37";
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.arc(512, 512, 440, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.strokeStyle = "rgba(255, 225, 140, 0.35)";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(512, 512, 412, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Golden Vessel Body
+      const jarGrad = ctx.createLinearGradient(320, 220, 700, 820);
+      jarGrad.addColorStop(0, "#fff2b2");
+      jarGrad.addColorStop(0.35, "#e6b84c");
+      jarGrad.addColorStop(0.75, "#b37c18");
+      jarGrad.addColorStop(1, "#634106");
+
+      // Handles
+      ctx.strokeStyle = "#ffd97d";
+      ctx.lineWidth = 28;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(390, 340);
+      ctx.bezierCurveTo(230, 340, 230, 540, 345, 595);
+      ctx.moveTo(634, 340);
+      ctx.bezierCurveTo(794, 340, 794, 540, 679, 595);
+      ctx.stroke();
+
+      // Amphora Silhouette
+      ctx.fillStyle = jarGrad;
+      ctx.strokeStyle = "#fff6d6";
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.moveTo(385, 250);
+      ctx.lineTo(639, 250);
+      ctx.lineTo(595, 355);
+      ctx.bezierCurveTo(760, 465, 765, 690, 610, 820);
+      ctx.lineTo(645, 868);
+      ctx.lineTo(379, 868);
+      ctx.lineTo(414, 820);
+      ctx.bezierCurveTo(259, 690, 264, 465, 429, 355);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Vessel Lip
+      ctx.fillStyle = "#ffe596";
+      ctx.beginPath();
+      ctx.ellipse(512, 250, 134, 28, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Glowing Cross on Vessel
+      ctx.strokeStyle = "#ffffff";
+      ctx.shadowColor = "#ffd97d";
+      ctx.shadowBlur = 35;
+      ctx.lineWidth = 26;
+      ctx.beginPath();
+      ctx.moveTo(512, 435);
+      ctx.lineTo(512, 635);
+      ctx.moveTo(432, 515);
+      ctx.lineTo(592, 515);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Top Sanctuary Badge
+      ctx.fillStyle = "#ffd97d";
+      ctx.font = "700 44px Cinzel, Georgia, serif";
+      ctx.textAlign = "center";
+      ctx.fillText("⚱️ THÁNH ĐƯỜNG • XII ⚱️", 512, 165);
+    }
+
+    // =========================================================================
+    // 2. RENDER 5 OFFICIAL 1290x2796 APP STORE SCREENSHOT POSTERS
+    // =========================================================================
+    const SLIDES = [
+      {
+        id: "shot1",
+        badge: "THÁNH ĐƯỜNG: LỜI CHÚA MỖI NGÀY",
+        title1: "ĐẬP 12 BÌNH THÁNH",
+        title2: "NHẬN LỜI CHÚA",
+        subtitle: "Dùng Búa Thánh đập mở 12 chiếc bình cổ đại & lắng nghe Lời Chúa Giê-su phán dạy mỗi ngày",
+        icon: "🔨⚱️",
+        cardTheme: "BÌNH I • CHUM ĐÁ TIỆC CƯỚI CA-NA",
+        verse: "“Ta để sự bình an lại cho các con; Ta ban sự bình an của Ta cho các con. Lòng các con chớ bối rối và đừng sợ hãi.”",
+        ref: "GIĂNG 14:27",
+        footer: "✨ Vết Nứt Vàng Kintsugi • Âm Thanh Sống Động • 12 Thánh Tích"
+      },
+      {
+        id: "shot2",
+        badge: "KHO TÀNG 365+ LỜI CHÚA GIÊ-SU TIẾNG VIỆT",
+        title1: "365+ LỜI CHÚA",
+        title2: "& GIỌNG THIÊN THẦN",
+        subtitle: "Thiên Sứ hiện ra và đọc vang Lời Chúa Giê-su cùng lời cầu nguyện ấm áp bằng Tiếng Việt",
+        icon: "👼📜",
+        cardTheme: "NGÀY 1 / 365 • GIỌNG ĐỌC THIÊN THẦN",
+        verse: "“Ta là ánh sáng của thế gian; người nào theo Ta sẽ không đi trong nơi tối tăm, nhưng có ánh sáng của sự sống.”",
+        ref: "GIĂNG 8:12",
+        footer: "🔊 Giọng Đọc Tiếng Việt • 6 Chủ Đề Tâm Trạng • Lưu Thiệp 1080p"
+      },
+      {
+        id: "shot3",
+        badge: "TÂM SỰ CÙNG THIÊN THẦN & CHUÔNG NHẮC",
+        title1: "HỎI THIÊN THẦN &",
+        title2: "CHUÔNG CẦU NGUYỆN",
+        subtitle: "Giãi bày nỗi lòng bằng Tiếng Việt & cài đặt Chuông Nhà Thờ nhắc cầu nguyện Sáng – Trưa – Tối",
+        icon: "🔔🙏",
+        cardTheme: "LỜI KHUYÊN & CẦU NGUYỆN TÂM LINH",
+        verse: "“Hỡi những ai mệt mỏi và gánh nặng, hãy đến cùng Ta, Ta sẽ cho các con được yên nghỉ.”",
+        ref: "MA-THI-Ơ 11:28–29",
+        footer: "📅 Đồng Bộ Lịch iPhone (.ics) • Chuông Nhắc Sáng, Trưa & Tối"
+      },
+      {
+        id: "shot4",
+        badge: "BÀN THỜ NẾN 24 GIỜ & BẢO TÀNG THÁNH TÍCH",
+        title1: "THẮP NẾN 24 GIỜ",
+        title2: "& CHÉN VÀNG THỨ 13",
+        subtitle: "Thắp ngọn nến cầu bình an 24h cho gia đình, lưu nhật ký ân điển & mở khóa Chén Vàng Thứ 13",
+        icon: "🕯️🏆",
+        cardTheme: "CHIẾC CHÉN VÀNG PHÉP LẠ THỨ 13",
+        verse: "“Hãy xin, sẽ được; hãy tìm, sẽ gặp; hãy gõ cửa, sẽ mở cho.”",
+        ref: "MA-THI-Ơ 7:7",
+        footer: "👑 Mở Khóa Chén Vàng Thứ 13 • Tích Điểm Ân Điển & Cấp Bậc Đức Tin"
+      },
+      {
+        id: "shot5",
+        badge: "CHẾ ĐỘ NGỦ BÌNH AN & TIẾNG MƯA ĐÊM",
+        title1: "12 BÌNH THÁNH &",
+        title2: "GIẤC NGỦ BÌNH AN",
+        subtitle: "Chìm vào giấc ngủ sâu với Lời Chúa dịu êm trên nền tiếng mưa đêm và đàn hạc Thánh Đường",
+        icon: "🌙🌧️",
+        cardTheme: "BÌNH AN ĐÊM KHUYA • HẸN GIỜ 15 / 30 / 60 PHÚT",
+        verse: "“Trong thế gian các con sẽ có hoạn nạn; nhưng hãy vững lòng, Ta đã thắng thế gian rồi!”",
+        ref: "GIĂNG 16:33",
+        footer: "🎵 Nhạc Đàn Hạc Thánh Đường • Tiếng Mưa Đêm Dịu Êm Ru Ngủ"
+      }
+    ];
+
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(" ");
+      let line = "";
+      let cy = y;
+      for (let i = 0; i < words.length; i++) {
+        const test = line + words[i] + " ";
+        if (ctx.measureText(test).width > maxWidth && i > 0) {
+          ctx.fillText(line.trim(), x, cy);
+          line = words[i] + " ";
+          cy += lineHeight;
+        } else {
+          line = test;
+        }
+      }
+      ctx.fillText(line.trim(), x, cy);
+      return cy + lineHeight;
+    }
+
+    function renderScreenshotPoster(slide, index) {
+      const c = document.getElementById(slide.id);
+      const ctx = c.getContext("2d");
+
+      // Background
+      const bg = ctx.createRadialGradient(645, 500, 100, 645, 1400, 1800);
+      if (index === 4) {
+        bg.addColorStop(0, "#1b2948");
+        bg.addColorStop(0.55, "#0d1324");
+        bg.addColorStop(1, "#060810");
+      } else {
+        bg.addColorStop(0, "#422c14");
+        bg.addColorStop(0.55, "#191108");
+        bg.addColorStop(1, "#090604");
+      }
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, 1290, 2796);
+
+      // Gold Border Frame
+      ctx.strokeStyle = "rgba(212, 175, 55, 0.55)";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(44, 44, 1202, 2708);
+
+      // Top Marketing Header
+      ctx.fillStyle = "#ffd97d";
+      ctx.font = "700 32px Cinzel, Georgia, serif";
+      ctx.textAlign = "center";
+      ctx.fillText(slide.badge, 645, 175);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "800 84px Cinzel, Georgia, serif";
+      ctx.fillText(slide.title1, 645, 295);
+
+      ctx.fillStyle = "#ffd97d";
+      ctx.font = "800 84px Cinzel, Georgia, serif";
+      ctx.fillText(slide.title2, 645, 395);
+
+      ctx.fillStyle = "#e5d5b5";
+      ctx.font = "500 40px 'Plus Jakarta Sans', sans-serif";
+      wrapText(ctx, slide.subtitle, 645, 485, 1040, 56);
+
+      // Simulated iPhone 16 Pro Mockup Frame in Center-Bottom
+      const phoneX = 115, phoneY = 670, phoneW = 1060, phoneH = 1960;
+      ctx.save();
+      ctx.fillStyle = "#0e0a06";
+      ctx.strokeStyle = "#d4af37";
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.roundRect(phoneX, phoneY, phoneW, phoneH, 90);
+      ctx.fill();
+      ctx.stroke();
+
+      // Dynamic Island
+      ctx.fillStyle = "#000000";
+      ctx.beginPath();
+      ctx.roundRect(645 - 140, phoneY + 36, 280, 56, 28);
+      ctx.fill();
+
+      // App Header inside Phone
+      ctx.fillStyle = "#ffd97d";
+      ctx.font = "700 30px Cinzel, Georgia, serif";
+      ctx.fillText("THÁNH ĐƯỜNG: LỜI CHÚA MỖI NGÀY", 645, phoneY + 170);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "700 48px Cinzel, Georgia, serif";
+      ctx.fillText("12 Bình Thánh & Giấc Ngủ Bình An", 645, phoneY + 240);
+
+      // Big Center Icon / Emblem
+      ctx.font = "150px serif";
+      ctx.fillText(slide.icon, 645, phoneY + 460);
+
+      // Sacred Scroll Card inside Phone
+      const cardX = phoneX + 70, cardY = phoneY + 560, cardW = phoneW - 140, cardH = 880;
+      ctx.fillStyle = "rgba(38, 26, 13, 0.92)";
+      ctx.strokeStyle = "#ffd97d";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.roundRect(cardX, cardY, cardW, cardH, 40);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = "#ffd97d";
+      ctx.font = "700 30px Cinzel, Georgia, serif";
+      ctx.fillText(slide.cardTheme, 645, cardY + 95);
+
+      ctx.fillStyle = "#fff9eb";
+      ctx.font = "italic 600 56px 'Cormorant Garamond', Georgia, serif";
+      const afterVerseY = wrapText(ctx, slide.verse, 645, cardY + 215, cardW - 120, 74);
+
+      ctx.fillStyle = "#ffd97d";
+      ctx.font = "700 40px Cinzel, Georgia, serif";
+      ctx.fillText(`— ${slide.ref} —`, 645, afterVerseY + 40);
+
+      // Bottom Mini Vessels Row inside Phone
+      const jarY = cardY + cardH + 140;
+      ctx.font = "72px serif";
+      ctx.fillText("🏺   ⚱️   🏆   🕯️   🕊️   👑", 645, jarY);
+
+      ctx.fillStyle = "#ffd97d";
+      ctx.font = "600 32px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillText(slide.footer, 645, phoneY + phoneH - 95);
+      ctx.restore();
+    }
+
+    function downloadCanvas(canvasId, filename) {
+      const c = document.getElementById(canvasId);
+      const a = document.createElement("a");
+      a.download = filename;
+      a.href = c.toDataURL("image/png");
+      a.click();
+    }
+
+    function downloadAllAppStoreAssets() {
+      const items = [
+        { id: "iconCanvas", name: "VN_AppIcon_1024x1024.png" },
+        { id: "shot1", name: "VN_01_AppStore_Strike_12_Vessels_1290x2796.png" },
+        { id: "shot2", name: "VN_02_AppStore_365_Words_Angel_1290x2796.png" },
+        { id: "shot3", name: "VN_03_AppStore_Ask_Angel_Alarms_1290x2796.png" },
+        { id: "shot4", name: "VN_04_AppStore_Candles_Relics_1290x2796.png" },
+        { id: "shot5", name: "VN_05_AppStore_Sleep_Mode_1290x2796.png" }
+      ];
+      items.forEach((item, idx) => {
+        setTimeout(() => downloadCanvas(item.id, item.name), idx * 350);
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderAppIcon();
+      SLIDES.forEach((s, i) => renderScreenshotPoster(s, i));
+    });
+  </script>
+</body>
+</html>

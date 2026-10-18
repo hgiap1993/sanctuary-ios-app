@@ -1,0 +1,15 @@
+{
+  "appId": "com.sanctuary.thanhduongvn",
+  "appName": "Thánh Đường",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "iosScheme": "capacitor",
+    "allowNavigation": []
+  },
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#0b0805",
+    "preferredContentMode": "mobile"
+  }
+}

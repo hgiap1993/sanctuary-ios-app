@@ -1,0 +1,10 @@
+{
+  "name": "Thánh Đường: Lời Chúa Mỗi Ngày — 12 Bình Thánh & Giấc Ngủ Bình An",
+  "short_name": "Thánh Đường",
+  "description": "Đập 12 Bình Thánh Cổ Đại, lắng nghe Thiên Thần đọc 365+ Lời Chúa Giê-su, thắp nến 24h và ngủ bình an.",
+  "start_url": "./index.html?standalone=1",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0805",
+  "theme_color": "#0b0805"
+}
