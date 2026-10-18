@@ -2600,82 +2600,88 @@
 
     // =========================================================================
     // =========================================================================
-    // 7. NATURAL ANGEL VOICE STUDIO — 6 PERSONAS, NEURAL RANKING & CLOUD FALLBACK
+    // 7. NATURAL ANGEL VOICE STUDIO — 6 PERSONAS, CLOUD NEURAL AI & BREATH PROSODY
     // =========================================================================
     const VOICE_PERSONAS = [
       {
         id: "seraphina",
         icon: "👼",
-        name: "Seraphina — Warm Angelic",
-        desc: "Gentle, compassionate female voice with natural breathing pauses & warm sanctuary acoustics",
+        name: "Seraphina — Warm Angelic (British Neural)",
+        desc: "Gentle, compassionate cathedral voice with natural breathing pauses & warm sanctuary acoustics",
         gender: "female",
-        rate: 0.91,
-        pitch: 1.03,
+        cloudLang: "en-GB",
+        rate: 0.92,
+        pitch: 1.02,
         pauseMs: 430,
-        preferredKeywords: ["ava", "aria", "jenny", "sonia", "samantha", "allison", "victoria", "karen", "moira", "tessa", "serena", "google uk english female", "natural", "neural", "premium", "enhanced", "siri"]
+        preferredKeywords: ["sonia", "libby", "ava", "aria", "jenny", "samantha", "moira", "serena"]
       },
       {
         id: "nocturne",
         icon: "🌙",
-        name: "Nocturne — Sleep Whisper",
-        desc: "Ultra-calm, slow bedtime cadence (0.82x) with deep warmth for falling asleep in peace",
+        name: "Nocturne — Deep Sleep Whisper",
+        desc: "Ultra-calm, velvet-warm bedtime cadence (0.83x) for releasing anxiety and falling asleep in peace",
         gender: "female",
-        rate: 0.82,
-        pitch: 0.93,
-        pauseMs: 640,
-        preferredKeywords: ["sonia", "ava", "jenny", "moira", "samantha", "karen", "serena", "google uk english female", "natural", "neural"]
+        cloudLang: "en-GB",
+        rate: 0.83,
+        pitch: 0.90,
+        pauseMs: 650,
+        preferredKeywords: ["sonia", "moira", "ava", "jenny", "samantha", "karen", "serena"]
       },
       {
         id: "gabriel",
         icon: "🙏",
-        name: "Gabriel — Deep Pastor",
-        desc: "Resonant, reassuring male cathedral voice with steady authority and fatherly warmth",
+        name: "Gabriel — Deep Sanctuary Pastor",
+        desc: "Resonant, reassuring low-register cathedral voice with steady warmth and comfort",
         gender: "male",
-        rate: 0.90,
-        pitch: 0.88,
-        pauseMs: 470,
-        preferredKeywords: ["andrew", "brian", "christopher", "guy", "eric", "steffan", "ryan", "daniel", "oliver", "aaron", "arthur", "google uk english male", "natural", "neural"]
+        cloudLang: "en-AU",
+        rate: 0.86,
+        pitch: 0.85,
+        pauseMs: 480,
+        preferredKeywords: ["andrew", "brian", "christopher", "guy", "eric", "steffan", "ryan", "daniel", "oliver", "arthur"]
       },
       {
         id: "shepherd",
         icon: "📖",
         name: "Good Shepherd — Gentle Father",
-        desc: "Slow, contemplative storytelling voice with deep low-register warmth and unhurried pauses",
+        desc: "Slow, contemplative storytelling voice with deep warmth and unhurried reflective pauses",
         gender: "male",
-        rate: 0.84,
-        pitch: 0.82,
-        pauseMs: 590,
-        preferredKeywords: ["brian", "christopher", "andrew", "daniel", "arthur", "oliver", "google uk english male", "natural", "neural"]
+        cloudLang: "en-US",
+        rate: 0.82,
+        pitch: 0.80,
+        pauseMs: 600,
+        preferredKeywords: ["brian", "christopher", "andrew", "daniel", "arthur", "oliver"]
       },
       {
         id: "celeste",
         icon: "✨",
-        name: "Celeste — Pure Lyric & Harp",
-        desc: "Bright, crystalline angelic voice accompanied by soft celestial harp arpeggios on each phrase",
+        name: "Celeste — Pure Lyric & Celestial Harp",
+        desc: "Luminous, uplifting angelic voice accompanied by soft celestial harp arpeggios on each phrase",
         gender: "female",
-        rate: 0.94,
-        pitch: 1.10,
+        cloudLang: "en-IE",
+        rate: 0.95,
+        pitch: 1.07,
         pauseMs: 390,
         chimeOnPhrase: true,
-        preferredKeywords: ["libby", "maisie", "sonia", "ava", "tessa", "moira", "samantha", "google us english", "natural", "neural"]
+        preferredKeywords: ["emily", "libby", "maisie", "sonia", "ava", "moira", "samantha"]
       },
       {
         id: "grace_clear",
         icon: "🕊️",
-        name: "Grace — Crisp Devotional",
-        desc: "Clear, natural conversational cadence ideal for daytime study & Scripture memorization",
+        name: "Grace — Crisp American Devotional",
+        desc: "Clear, natural conversational cadence ideal for daytime reading & Scripture memorization",
         gender: "female",
-        rate: 0.97,
+        cloudLang: "en-US",
+        rate: 0.96,
         pitch: 1.00,
-        pauseMs: 340,
-        preferredKeywords: ["emma", "michelle", "ana", "aria", "samantha", "alex", "google us english", "natural", "neural"]
+        pauseMs: 350,
+        preferredKeywords: ["ava", "emma", "michelle", "aria", "jenny", "samantha"]
       }
     ];
 
     let currentPersonaId = "seraphina";
     let customSystemVoiceURI = "auto";
-    let customVoiceRate = 0.91;
-    let customVoicePitch = 1.03;
+    let customVoiceRate = 0.92;
+    let customVoicePitch = 1.02;
     let warmCathedralPadEnabled = true;
     let speechQueueTimeouts = [];
     let activeWarmPadNodes = [];
@@ -2685,12 +2691,12 @@
 
     function loadVoicePreferences() {
       try {
-        const saved = JSON.parse(localStorage.getItem("sacred_voice_prefs_v1") || "null");
+        const saved = JSON.parse(localStorage.getItem("sacred_voice_prefs_v2") || "null");
         if (saved) {
           currentPersonaId = saved.personaId || "seraphina";
           customSystemVoiceURI = saved.systemVoiceURI || "auto";
-          customVoiceRate = typeof saved.rate === "number" ? saved.rate : 0.91;
-          customVoicePitch = typeof saved.pitch === "number" ? saved.pitch : 1.03;
+          customVoiceRate = typeof saved.rate === "number" ? saved.rate : 0.92;
+          customVoicePitch = typeof saved.pitch === "number" ? saved.pitch : 1.02;
           warmCathedralPadEnabled = saved.warmPad !== false;
         }
       } catch (e) {}
@@ -2699,7 +2705,7 @@
 
     function saveVoicePreferences() {
       try {
-        localStorage.setItem("sacred_voice_prefs_v1", JSON.stringify({
+        localStorage.setItem("sacred_voice_prefs_v2", JSON.stringify({
           personaId: currentPersonaId,
           systemVoiceURI: customSystemVoiceURI,
           rate: customVoiceRate,
@@ -2806,6 +2812,17 @@
       previewSelectedVoice();
     }
 
+    function isTrueHighQualityNeuralVoice(v) {
+      if (!v || !v.name) return false;
+      const name = v.name.toLowerCase();
+      // Reject old robotic Windows SAPI5 desktop voices
+      if (name.includes("desktop") || name.includes("microsoft david") || name.includes("microsoft zira") || name.includes("microsoft mark")) {
+        return false;
+      }
+      // Accept Microsoft Edge Online Natural, Apple Enhanced/Premium/Siri, or Vietnamese native neural voices
+      return /natural|neural|online|premium|enhanced|siri|hoaimy|namminh|linh/i.test(name);
+    }
+
     function scoreSystemVoice(v, targetLangPrefix, persona) {
       const name = (v.name || "").toLowerCase();
       const lang = (v.lang || "").toLowerCase();
@@ -2815,17 +2832,18 @@
       else if (targetLangPrefix === "en" && lang.includes("en")) score += 80;
       else return -999;
 
-      if (name.includes("natural") || name.includes("neural") || name.includes("online")) score += 65;
-      if (name.includes("premium") || name.includes("enhanced") || name.includes("siri")) score += 55;
-      if (name.includes("google")) score += 35;
+      if (name.includes("natural") || name.includes("neural") || name.includes("online")) score += 85;
+      if (name.includes("premium") || name.includes("enhanced") || name.includes("siri")) score += 70;
+      if (name.includes("google")) score += 25;
 
+      // Strongly penalize old robotic Windows SAPI5 voices so Cloud Neural AI is preferred
       if (name.includes("desktop") || name.includes("microsoft david") || name.includes("microsoft zira") || name.includes("microsoft mark")) {
-        score -= 25;
+        score -= 150;
       }
 
       if (persona && persona.preferredKeywords) {
         persona.preferredKeywords.forEach((kw, idx) => {
-          if (name.includes(kw)) score += (40 - idx * 2);
+          if (name.includes(kw)) score += (45 - idx * 2);
         });
       }
       return score;
@@ -2838,10 +2856,10 @@
 
       const allVoices = ("speechSynthesis" in window) ? (window.speechSynthesis.getVoices() || []) : [];
       const langVoices = allVoices.filter(v => (v.lang || "").toLowerCase().startsWith("en"));
-      const listToUse = langVoices.length > 0 ? langVoices : allVoices;
+      const listToUse = langVoices;
 
       if (countLabel) {
-        countLabel.textContent = `${listToUse.length + 1} voices ready`;
+        countLabel.textContent = `${listToUse.length + 4} voices ready`;
       }
 
       const persona = getCurrentPersona();
@@ -2849,10 +2867,14 @@
 
       select.innerHTML =
         `<option value="auto" ${customSystemVoiceURI === "auto" ? "selected" : ""}>✨ Auto-Match Best Neural Voice for "${persona.name.split("—")[0].trim()}"</option>` +
-        `<option value="cloud_tts" ${customSystemVoiceURI === "cloud_tts" ? "selected" : ""}>☁️ Sanctuary Cloud Neural Voice (Universal Warm Audio)</option>` +
+        `<option value="cloud_en_gb" ${customSystemVoiceURI === "cloud_en_gb" ? "selected" : ""}>☁️ Sanctuary Cloud Neural — British Cathedral (en-GB)</option>` +
+        `<option value="cloud_en_us" ${customSystemVoiceURI === "cloud_en_us" ? "selected" : ""}>☁️ Sanctuary Cloud Neural — American Devotional (en-US)</option>` +
+        `<option value="cloud_en_au" ${customSystemVoiceURI === "cloud_en_au" ? "selected" : ""}>☁️ Sanctuary Cloud Neural — Australian Pastoral (en-AU)</option>` +
+        `<option value="cloud_en_ie" ${customSystemVoiceURI === "cloud_en_ie" ? "selected" : ""}>☁️ Sanctuary Cloud Neural — Celtic Lyric (en-IE)</option>` +
         sorted.map(v => {
-          const isNatural = /natural|neural|online|premium|enhanced|siri|google/i.test(v.name);
-          const badge = isNatural ? "⭐ Natural" : "Standard";
+          const isNatural = isTrueHighQualityNeuralVoice(v);
+          const isRobotic = /desktop|microsoft david|microsoft zira|microsoft mark/i.test(v.name);
+          const badge = isNatural ? "⭐ Neural" : (isRobotic ? "Legacy" : "Device");
           const selected = v.voiceURI === customSystemVoiceURI ? "selected" : "";
           return `<option value="${v.voiceURI.replace(/"/g, "&quot;")}" ${selected}>${badge}: ${v.name} (${v.lang})</option>`;
         }).join("");
@@ -2866,7 +2888,7 @@
 
     function pickBestVoiceObject(persona) {
       if (!("speechSynthesis" in window)) return null;
-      if (customSystemVoiceURI === "cloud_tts") return null;
+      if (customSystemVoiceURI && customSystemVoiceURI.startsWith("cloud_")) return null;
       const allVoices = window.speechSynthesis.getVoices() || [];
       if (allVoices.length === 0) return null;
 
@@ -2875,9 +2897,12 @@
         if (exact) return exact;
       }
 
+      // In "auto" mode, ONLY pick a local voice if it is a true high-quality Neural/Enhanced voice
+      // (Never auto-pick robotic Microsoft David/Zira Desktop when Cloud Neural AI is available!)
       const scored = allVoices
+        .filter(v => isTrueHighQualityNeuralVoice(v))
         .map(v => ({ voice: v, score: scoreSystemVoice(v, "en", persona) }))
-        .filter(item => item.score > 0)
+        .filter(item => item.score > 100)
         .sort((a, b) => b.score - a.score);
 
       return scored.length > 0 ? scored[0].voice : null;
@@ -2986,6 +3011,14 @@
       return chunks;
     }
 
+    function resolveCloudLangForCurrentVoice(persona, defaultLang) {
+      if (customSystemVoiceURI === "cloud_en_gb") return "en-GB";
+      if (customSystemVoiceURI === "cloud_en_us") return "en-US";
+      if (customSystemVoiceURI === "cloud_en_au") return "en-AU";
+      if (customSystemVoiceURI === "cloud_en_ie") return "en-IE";
+      return (persona && persona.cloudLang) || defaultLang;
+    }
+
     function playCloudAudioSegment(text, langCode, rate, pitch, onDone, sessionId) {
       if (sessionId !== currentSpeechSessionId || voiceMuted) return;
       try {
@@ -2993,8 +3026,8 @@
         const audio = new Audio();
         audio.referrerPolicy = "no-referrer";
         audio.src = url;
-        const effectiveRate = Math.max(0.68, Math.min(1.25, rate * (pitch < 0.92 ? 0.92 : pitch > 1.08 ? 1.05 : 1.0)));
-        if (Math.abs(pitch - 1.0) > 0.06) {
+        const effectiveRate = Math.max(0.72, Math.min(1.22, rate * (pitch < 0.90 ? 0.93 : pitch > 1.06 ? 1.04 : 1.0)));
+        if (Math.abs(pitch - 1.0) > 0.05) {
           audio.preservesPitch = false;
           audio.mozPreservesPitch = false;
           audio.webkitPreservesPitch = false;
@@ -3026,8 +3059,9 @@
 
       const persona = getCurrentPersona();
       const chosenVoice = pickBestVoiceObject(persona);
-      const useCloudEngine = (customSystemVoiceURI === "cloud_tts") || !chosenVoice;
-      const baseRate = customVoiceRate || persona.rate || 0.90;
+      const useCloudEngine = !chosenVoice || (customSystemVoiceURI && customSystemVoiceURI.startsWith("cloud_"));
+      const cloudLang = resolveCloudLangForCurrentVoice(persona, "en-GB");
+      const baseRate = customVoiceRate || persona.rate || 0.92;
       const basePitch = customVoicePitch || persona.pitch || 1.00;
       const pauseMs = persona.pauseMs || 420;
 
@@ -3080,7 +3114,7 @@
         };
 
         if (useCloudEngine || !("speechSynthesis" in window)) {
-          playCloudAudioSegment(seg.text, "en", seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
+          playCloudAudioSegment(seg.text, cloudLang, seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
           return;
         }
 
@@ -3096,7 +3130,7 @@
           if (!started && !finished && sessionId === currentSpeechSessionId) {
             finished = true;
             try { window.speechSynthesis.cancel(); } catch (e) {}
-            playCloudAudioSegment(seg.text, "en", seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
+            playCloudAudioSegment(seg.text, cloudLang, seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
           }
         }, 1100);
         speechQueueTimeouts.push(fallbackTimer);
@@ -3114,7 +3148,7 @@
           if (finished) return;
           finished = true;
           clearTimeout(fallbackTimer);
-          playCloudAudioSegment(seg.text, "en", seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
+          playCloudAudioSegment(seg.text, cloudLang, seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
         };
         window.speechSynthesis.speak(u);
       }

@@ -4432,7 +4432,7 @@
 
     // =========================================================================
     // =========================================================================
-    // 7. NATURAL ANGEL VOICE STUDIO — 6 PERSONAS, NEURAL RANKING & CLOUD FALLBACK
+    // 7. NATURAL ANGEL VOICE STUDIO — 6 PERSONAS, CLOUD NEURAL AI & BREATH PROSODY
     // =========================================================================
     const VOICE_PERSONAS = [
       {
@@ -4506,8 +4506,8 @@
 
     let currentPersonaId = "seraphina";
     let customSystemVoiceURI = "auto";
-    let customVoiceRate = 0.91;
-    let customVoicePitch = 1.03;
+    let customVoiceRate = 0.92;
+    let customVoicePitch = 1.02;
     let warmCathedralPadEnabled = true;
     let speechQueueTimeouts = [];
     let activeWarmPadNodes = [];
@@ -4517,12 +4517,12 @@
 
     function loadVoicePreferences() {
       try {
-        const saved = JSON.parse(localStorage.getItem("sacred_vn_voice_prefs_v1") || "null");
+        const saved = JSON.parse(localStorage.getItem("sacred_voice_prefs_v2") || "null");
         if (saved) {
           currentPersonaId = saved.personaId || "seraphina";
           customSystemVoiceURI = saved.systemVoiceURI || "auto";
-          customVoiceRate = typeof saved.rate === "number" ? saved.rate : 0.91;
-          customVoicePitch = typeof saved.pitch === "number" ? saved.pitch : 1.03;
+          customVoiceRate = typeof saved.rate === "number" ? saved.rate : 0.92;
+          customVoicePitch = typeof saved.pitch === "number" ? saved.pitch : 1.02;
           warmCathedralPadEnabled = saved.warmPad !== false;
         }
       } catch (e) {}
@@ -4531,7 +4531,7 @@
 
     function saveVoicePreferences() {
       try {
-        localStorage.setItem("sacred_vn_voice_prefs_v1", JSON.stringify({
+        localStorage.setItem("sacred_voice_prefs_v2", JSON.stringify({
           personaId: currentPersonaId,
           systemVoiceURI: customSystemVoiceURI,
           rate: customVoiceRate,
@@ -4638,6 +4638,17 @@
       previewSelectedVoice();
     }
 
+    function isTrueHighQualityNeuralVoice(v) {
+      if (!v || !v.name) return false;
+      const name = v.name.toLowerCase();
+      // Reject old robotic Windows SAPI5 desktop voices
+      if (name.includes("desktop") || name.includes("microsoft david") || name.includes("microsoft zira") || name.includes("microsoft mark")) {
+        return false;
+      }
+      // Accept Microsoft Edge Online Natural, Apple Enhanced/Premium/Siri, or Vietnamese native neural voices
+      return /natural|neural|online|premium|enhanced|siri|hoaimy|namminh|linh/i.test(name);
+    }
+
     function scoreSystemVoice(v, targetLangPrefix, persona) {
       const name = (v.name || "").toLowerCase();
       const lang = (v.lang || "").toLowerCase();
@@ -4647,17 +4658,18 @@
       else if (targetLangPrefix === "en" && lang.includes("en")) score += 80;
       else return -999;
 
-      if (name.includes("natural") || name.includes("neural") || name.includes("online")) score += 65;
-      if (name.includes("premium") || name.includes("enhanced") || name.includes("siri")) score += 55;
-      if (name.includes("google")) score += 35;
+      if (name.includes("natural") || name.includes("neural") || name.includes("online")) score += 85;
+      if (name.includes("premium") || name.includes("enhanced") || name.includes("siri")) score += 70;
+      if (name.includes("google")) score += 25;
 
+      // Strongly penalize old robotic Windows SAPI5 voices so Cloud Neural AI is preferred
       if (name.includes("desktop") || name.includes("microsoft david") || name.includes("microsoft zira") || name.includes("microsoft mark")) {
-        score -= 25;
+        score -= 150;
       }
 
       if (persona && persona.preferredKeywords) {
         persona.preferredKeywords.forEach((kw, idx) => {
-          if (name.includes(kw)) score += (40 - idx * 2);
+          if (name.includes(kw)) score += (45 - idx * 2);
         });
       }
       return score;
@@ -4681,9 +4693,10 @@
 
       select.innerHTML =
         `<option value="auto" ${customSystemVoiceURI === "auto" ? "selected" : ""}>✨ Tự động chọn giọng Tiếng Việt hay nhất cho "${persona.name.split("—")[0].trim()}"</option>` +
-        `<option value="cloud_tts" ${customSystemVoiceURI === "cloud_tts" ? "selected" : ""}>☁️ Giọng Đọc Đám Mây Tiếng Việt (Cloud Neural AI — Mọi trình duyệt)</option>` +
+        `<option value="cloud_vi" ${customSystemVoiceURI === "cloud_vi" ? "selected" : ""}>☁️ Giọng Đọc Đám Mây Tiếng Việt (Cloud Neural AI — Mọi trình duyệt)</option>` +
         sorted.map(v => {
-          const isNatural = /natural|neural|online|premium|enhanced|siri|google/i.test(v.name);
+          const isNatural = isTrueHighQualityNeuralVoice(v);
+          const isRobotic = /desktop|microsoft david|microsoft zira|microsoft mark/i.test(v.name);
           const badge = isNatural ? "⭐ Tự nhiên (Neural)" : "Cơ bản";
           const selected = v.voiceURI === customSystemVoiceURI ? "selected" : "";
           return `<option value="${v.voiceURI.replace(/"/g, "&quot;")}" ${selected}>${badge}: ${v.name} (${v.lang})</option>`;
@@ -4698,7 +4711,7 @@
 
     function pickBestVoiceObject(persona) {
       if (!("speechSynthesis" in window)) return null;
-      if (customSystemVoiceURI === "cloud_tts") return null;
+      if (customSystemVoiceURI && customSystemVoiceURI.startsWith("cloud_")) return null;
       const allVoices = window.speechSynthesis.getVoices() || [];
       if (allVoices.length === 0) return null;
 
@@ -4707,9 +4720,12 @@
         if (exact) return exact;
       }
 
+      // In "auto" mode, ONLY pick a local voice if it is a true high-quality Neural/Enhanced voice
+      // (Never auto-pick robotic Microsoft David/Zira Desktop when Cloud Neural AI is available!)
       const scored = allVoices
+        .filter(v => isTrueHighQualityNeuralVoice(v))
         .map(v => ({ voice: v, score: scoreSystemVoice(v, "vi", persona) }))
-        .filter(item => item.score > 0)
+        .filter(item => item.score > 100)
         .sort((a, b) => b.score - a.score);
 
       return scored.length > 0 ? scored[0].voice : null;
@@ -4817,6 +4833,14 @@
       return chunks;
     }
 
+    function resolveCloudLangForCurrentVoice(persona, defaultLang) {
+      if (customSystemVoiceURI === "cloud_en_gb") return "en-GB";
+      if (customSystemVoiceURI === "cloud_en_us") return "en-US";
+      if (customSystemVoiceURI === "cloud_en_au") return "en-AU";
+      if (customSystemVoiceURI === "cloud_en_ie") return "en-IE";
+      return (persona && persona.cloudLang) || defaultLang;
+    }
+
     function playCloudAudioSegment(text, langCode, rate, pitch, onDone, sessionId) {
       if (sessionId !== currentSpeechSessionId || voiceMuted) return;
       try {
@@ -4824,8 +4848,8 @@
         const audio = new Audio();
         audio.referrerPolicy = "no-referrer";
         audio.src = url;
-        const effectiveRate = Math.max(0.68, Math.min(1.25, rate * (pitch < 0.92 ? 0.92 : pitch > 1.08 ? 1.05 : 1.0)));
-        if (Math.abs(pitch - 1.0) > 0.06) {
+        const effectiveRate = Math.max(0.72, Math.min(1.22, rate * (pitch < 0.90 ? 0.93 : pitch > 1.06 ? 1.04 : 1.0)));
+        if (Math.abs(pitch - 1.0) > 0.05) {
           audio.preservesPitch = false;
           audio.mozPreservesPitch = false;
           audio.webkitPreservesPitch = false;
@@ -4857,8 +4881,9 @@
 
       const persona = getCurrentPersona();
       const chosenVoice = pickBestVoiceObject(persona);
-      const useCloudEngine = (customSystemVoiceURI === "cloud_tts") || !chosenVoice;
-      const baseRate = customVoiceRate || persona.rate || 0.90;
+      const useCloudEngine = !chosenVoice || (customSystemVoiceURI && customSystemVoiceURI.startsWith("cloud_"));
+      const cloudLang = "vi";
+      const baseRate = customVoiceRate || persona.rate || 0.92;
       const basePitch = customVoicePitch || persona.pitch || 1.00;
       const pauseMs = persona.pauseMs || 420;
 
@@ -4911,7 +4936,7 @@
         };
 
         if (useCloudEngine || !("speechSynthesis" in window)) {
-          playCloudAudioSegment(seg.text, "vi", seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
+          playCloudAudioSegment(seg.text, cloudLang, seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
           return;
         }
 
@@ -4927,7 +4952,7 @@
           if (!started && !finished && sessionId === currentSpeechSessionId) {
             finished = true;
             try { window.speechSynthesis.cancel(); } catch (e) {}
-            playCloudAudioSegment(seg.text, "vi", seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
+            playCloudAudioSegment(seg.text, cloudLang, seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
           }
         }, 1100);
         speechQueueTimeouts.push(fallbackTimer);
@@ -4945,7 +4970,7 @@
           if (finished) return;
           finished = true;
           clearTimeout(fallbackTimer);
-          playCloudAudioSegment(seg.text, "vi", seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
+          playCloudAudioSegment(seg.text, cloudLang, seg.rate, seg.pitch, () => scheduleNext(seg.delayAfter), sessionId);
         };
         window.speechSynthesis.speak(u);
       }
