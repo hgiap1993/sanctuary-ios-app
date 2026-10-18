@@ -1226,6 +1226,7 @@
       <button class="bar-btn" onclick="openSleepDrawer()">🌙 Sleep Mode</button>
       <button class="bar-btn" onclick="openReminderDrawer()">🔔 Reminders</button>
       <button class="bar-btn" id="musicBtnDesktop" onclick="toggleAmbientHarp()">🎵 Harp: OFF</button>
+      <button class="bar-btn" id="voiceStudioBtnDesktop" onclick="openVoiceDrawer()" style="border-color:#ffd97d; color:#ffd97d;">🎙️ Voice: Seraphina</button>
       <button class="bar-btn" id="toggleVoiceBtn" onclick="toggleVoiceMute()">🔊 Voice: ON</button>
       <button class="bar-btn" id="fullscreenBtn" onclick="toggleFullscreenMode()">📱 Fullscreen</button>
     </div>
@@ -1268,6 +1269,7 @@
         <div style="display:flex; gap:4px;">
           <button class="icon-btn" onclick="openDailyWordOfYear()" title="Today's Gospel Word of the Year">📅 Day <span id="dayOfYearNum">1</span></button>
           <button class="icon-btn" onclick="openReminderDrawer()" title="Daily Prayer Reminders">🔔</button>
+          <button class="icon-btn" id="voiceBtnApp" onclick="openVoiceDrawer()" title="Choose Natural Angel Voice">🎙️</button>
           <button class="icon-btn" id="musicBtnApp" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵</button>
           <button class="icon-btn" onclick="openLibraryDrawer()">📜 365</button>
           <button class="icon-btn" onclick="resetAllVessels()">↺</button>
@@ -1326,6 +1328,7 @@
             <span class="scroll-theme-badge" id="verseTheme">Divine Peace</span>
             <span class="relic-unlocked-pill" id="relicBadge">🏺 Relic Discovered</span>
             <button class="icon-btn" id="favHeartBtn" onclick="toggleFavoriteCurrentVerse()" style="padding:2px 8px;">🤍 Save</button>
+            <button class="icon-btn" onclick="openVoiceDrawer()" style="padding:2px 8px;" id="modalVoicePill">🎙️ Change Voice</button>
           </div>
           <p class="jesus-quote-text" id="verseText"></p>
           <div class="scripture-reference" id="verseRef"></div>
@@ -1549,6 +1552,7 @@
               <button class="mood-pill" onclick="setSleepTimer(30, this)">⏱️ 30 Min</button>
               <button class="mood-pill" onclick="setSleepTimer(60, this)">⏱️ 60 Min</button>
               <button class="mood-pill" id="rainToggleBtn" onclick="toggleNightRain()">🌧️ Gentle Rain: OFF</button>
+              <button class="mood-pill" onclick="openVoiceDrawer()">🎙️ Choose Voice</button>
             </div>
             <button class="btn-sacred btn-primary-gold" style="width:100%;" id="sleepStartBtn" onclick="toggleSleepAutoPlay()">
               ▶️ Start Continuous Night Reading
@@ -1675,6 +1679,64 @@
               3. APPLE STANDARD END USER LICENSE AGREEMENT (EULA)
             </div>
             <p>This application is licensed under the Standard Apple Licensed Application End User License Agreement: <em>https://www.apple.com/legal/internet-services/itunes/dev/stdeula/</em></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer 10: 🎙️ Natural Angel Voice Studio (6 Voice Personas + Prosody & System Picker) -->
+      <div class="library-drawer" id="voiceDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Natural Prosody &amp; Warm Cathedral Audio</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">🎙️ Choose Angel &amp; Narrator Voice</h2>
+          </div>
+          <button class="icon-btn" onclick="closeVoiceDrawerAndResume()">✕ Close</button>
+        </div>
+
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px; font-style:italic;">
+          Select from 6 natural voice styles with human breath pauses &amp; warm cathedral acoustics, or pick any neural voice installed on your device:
+        </p>
+
+        <!-- 6 Curated Natural Voice Personas -->
+        <div class="drawer-list" id="voicePersonasList" style="gap:7px; max-height:290px;"></div>
+
+        <!-- Custom Device Neural Voice Picker + Speed & Warmth Controls -->
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.32); border-radius:12px; padding:10px 12px; margin-top:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-family:'Cinzel',serif; font-size:10.5px; color:var(--gold-bright); font-weight:700;">
+              🎛️ DEVICE NEURAL VOICE ENGINE:
+            </span>
+            <span style="font-size:11px; color:var(--text-muted);" id="detectedVoiceCountLabel">Scanning voices...</span>
+          </div>
+          <select id="systemVoiceSelect" onchange="handleSystemVoiceChange(this.value)" style="width:100%; background:#140e08; color:var(--gold-bright); border:1px solid rgba(212,175,55,0.45); padding:7px 10px; border-radius:8px; font-size:12.5px; margin-bottom:8px; outline:none;">
+            <option value="auto">✨ Auto-Select Best Natural Neural Voice</option>
+          </select>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12px; color:var(--text-light);">
+            <div>
+              <div style="display:flex; justify-content:space-between;">
+                <span>🐢 Speed (Pace):</span>
+                <strong id="voiceSpeedVal" style="color:var(--gold-bright);">0.90x</strong>
+              </div>
+              <input type="range" id="voiceSpeedSlider" min="0.72" max="1.12" step="0.02" value="0.90" oninput="updateVoiceSliders()" style="width:100%; accent-color:#d4af37;" />
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between;">
+                <span>🎻 Warmth (Pitch):</span>
+                <strong id="voicePitchVal" style="color:var(--gold-bright);">1.00</strong>
+              </div>
+              <input type="range" id="voicePitchSlider" min="0.78" max="1.20" step="0.02" value="1.00" oninput="updateVoiceSliders()" style="width:100%; accent-color:#d4af37;" />
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:6px; border-top:1px solid rgba(212,175,55,0.2);">
+            <label style="font-size:12.5px; color:var(--text-light); display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="warmPadCheckbox" checked onchange="toggleWarmPadSetting(this.checked)" style="accent-color:#d4af37;" />
+              <span>🏛️ Warm Cathedral Acoustic Pad (Softens AI edge)</span>
+            </label>
+            <button class="icon-btn" onclick="previewSelectedVoice()" style="padding:5px 10px; font-weight:700; border-color:#ffd97d;">
+              🔊 Test Voice
+            </button>
           </div>
         </div>
       </div>
@@ -2535,17 +2597,436 @@
       displayTeachingInModal(currentVessel, picked.teaching, picked.number);
     }
 
+    // =========================================================================
+    // 7B. 🎙️ NATURAL ANGEL VOICE STUDIO (6 PERSONAS + HUMAN BREATH PROSODY)
+    // =========================================================================
+    const VOICE_PERSONAS = [
+      {
+        id: "seraphina",
+        icon: "👼",
+        name: "Seraphina — Gentle Celestial Angel",
+        desc: "Warm, tender female voice with soft breath pauses & cathedral glow",
+        gender: "female",
+        rate: 0.90,
+        pitch: 1.04,
+        pauseMs: 420,
+        preferredKeywords: ["ava", "aria", "jenny", "sonia", "samantha", "karen", "moira", "natural", "neural", "premium", "enhanced", "google uk english female", "google us english"]
+      },
+      {
+        id: "nocturne",
+        icon: "🌙",
+        name: "Nocturne — Deep Sleep & Night Peace",
+        desc: "Slow, soothing, velvet-warm cadence ideal for bedtime & anxiety relief",
+        gender: "female",
+        rate: 0.80,
+        pitch: 0.92,
+        pauseMs: 620,
+        preferredKeywords: ["moira", "sonia", "ava", "allison", "tessa", "samantha", "natural", "neural", "google uk english female"]
+      },
+      {
+        id: "gabriel",
+        icon: "🙏",
+        name: "Gabriel — Noble Sanctuary Herald (Male)",
+        desc: "Rich, resonant, reassuring male voice for strength & courage verses",
+        gender: "male",
+        rate: 0.88,
+        pitch: 0.88,
+        pauseMs: 460,
+        preferredKeywords: ["andrew", "brian", "guy", "christopher", "eric", "daniel", "alex", "aaron", "arthur", "natural", "neural", "google uk english male"]
+      },
+      {
+        id: "shepherd",
+        icon: "📖",
+        name: "Good Shepherd — Contemplative Elder (Male)",
+        desc: "Unhurried, deep pastoral reading with reflective pauses between clauses",
+        gender: "male",
+        rate: 0.82,
+        pitch: 0.82,
+        pauseMs: 580,
+        preferredKeywords: ["brian", "christopher", "daniel", "oliver", "andrew", "guy", "google uk english male", "natural"]
+      },
+      {
+        id: "celeste",
+        icon: "✨",
+        name: "Celeste — Radiant Harp & Lyric Voice",
+        desc: "Bright, uplifting angelic voice accompanied by soft harp harmonics",
+        gender: "female",
+        rate: 0.94,
+        pitch: 1.10,
+        pauseMs: 380,
+        chimeOnPhrase: true,
+        preferredKeywords: ["emma", "libby", "jenny", "aria", "victoria", "karen", "samantha", "natural", "neural"]
+      },
+      {
+        id: "grace_clear",
+        icon: "🕊️",
+        name: "Grace — Crisp & Clear Devotional Reader",
+        desc: "Balanced, articulate everyday reading pace for Scripture memorization",
+        gender: "female",
+        rate: 0.96,
+        pitch: 1.00,
+        pauseMs: 340,
+        preferredKeywords: ["emma", "ava", "samantha", "nicky", "google us english", "natural", "neural"]
+      }
+    ];
+
+    let currentPersonaId = "seraphina";
+    let customSystemVoiceURI = "auto";
+    let customVoiceRate = 0.90;
+    let customVoicePitch = 1.04;
+    let warmCathedralPadEnabled = true;
+    let speechQueueTimeouts = [];
+    let activeWarmPadNodes = [];
+    let reopenModalAfterVoiceClose = false;
+
+    function loadVoicePreferences() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("sacred_voice_prefs_v1") || "null");
+        if (saved) {
+          currentPersonaId = saved.personaId || "seraphina";
+          customSystemVoiceURI = saved.systemVoiceURI || "auto";
+          customVoiceRate = typeof saved.rate === "number" ? saved.rate : 0.90;
+          customVoicePitch = typeof saved.pitch === "number" ? saved.pitch : 1.04;
+          warmCathedralPadEnabled = saved.warmPad !== false;
+        }
+      } catch (e) {}
+      syncVoiceControlsUI();
+    }
+
+    function saveVoicePreferences() {
+      try {
+        localStorage.setItem("sacred_voice_prefs_v1", JSON.stringify({
+          personaId: currentPersonaId,
+          systemVoiceURI: customSystemVoiceURI,
+          rate: customVoiceRate,
+          pitch: customVoicePitch,
+          warmPad: warmCathedralPadEnabled
+        }));
+      } catch (e) {}
+    }
+
+    function getCurrentPersona() {
+      return VOICE_PERSONAS.find(p => p.id === currentPersonaId) || VOICE_PERSONAS[0];
+    }
+
+    function syncVoiceControlsUI() {
+      const persona = getCurrentPersona();
+      const desktopBtn = document.getElementById("voiceStudioBtnDesktop");
+      if (desktopBtn) {
+        desktopBtn.textContent = `🎙️ Voice: ${persona.name.split("—")[0].trim()}`;
+      }
+      const speedSlider = document.getElementById("voiceSpeedSlider");
+      const pitchSlider = document.getElementById("voicePitchSlider");
+      const speedVal = document.getElementById("voiceSpeedVal");
+      const pitchVal = document.getElementById("voicePitchVal");
+      const padCheck = document.getElementById("warmPadCheckbox");
+
+      if (speedSlider) speedSlider.value = customVoiceRate;
+      if (pitchSlider) pitchSlider.value = customVoicePitch;
+      if (speedVal) speedVal.textContent = customVoiceRate.toFixed(2) + "x";
+      if (pitchVal) pitchVal.textContent = customVoicePitch.toFixed(2);
+      if (padCheck) padCheck.checked = warmCathedralPadEnabled;
+
+      renderVoicePersonasList();
+      populateSystemVoicesDropdown();
+    }
+
+    function openVoiceDrawer() {
+      const angelModal = document.getElementById("angelModal");
+      reopenModalAfterVoiceClose = angelModal && angelModal.classList.contains("visible");
+      closeAllDrawers();
+      syncVoiceControlsUI();
+      document.getElementById("voiceDrawer").classList.add("open");
+    }
+
+    function closeVoiceDrawerAndResume() {
+      document.getElementById("voiceDrawer").classList.remove("open");
+      if (reopenModalAfterVoiceClose && currentTeaching) {
+        document.getElementById("angelModal").classList.add("visible");
+      }
+    }
+
+    function renderVoicePersonasList() {
+      const list = document.getElementById("voicePersonasList");
+      if (!list) return;
+      list.innerHTML = VOICE_PERSONAS.map(p => {
+        const isSelected = p.id === currentPersonaId;
+        return `
+          <div class="paywall-plan-card ${isSelected ? "selected" : ""}" onclick="selectVoicePersona('${p.id}')" style="margin-bottom:2px; padding:9px 12px;">
+            <div style="display:flex; align-items:center; gap:10px; flex:1;">
+              <span style="font-size:22px;">${p.icon}</span>
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:12.5px; color:var(--gold-bright); font-weight:700;">
+                  ${p.name} ${isSelected ? "✓" : ""}
+                </div>
+                <div style="font-size:12px; color:var(--text-muted); line-height:1.25;">
+                  ${p.desc}
+                </div>
+              </div>
+            </div>
+            <span style="font-size:11px; color:var(--gold-bright); font-family:'Cinzel',serif; padding-left:6px;">🔊 Try</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function selectVoicePersona(personaId) {
+      currentPersonaId = personaId;
+      const persona = getCurrentPersona();
+      customVoiceRate = persona.rate;
+      customVoicePitch = persona.pitch;
+      customSystemVoiceURI = "auto";
+      saveVoicePreferences();
+      syncVoiceControlsUI();
+      previewSelectedVoice();
+    }
+
+    function updateVoiceSliders() {
+      const speedSlider = document.getElementById("voiceSpeedSlider");
+      const pitchSlider = document.getElementById("voicePitchSlider");
+      if (speedSlider) customVoiceRate = parseFloat(speedSlider.value);
+      if (pitchSlider) customVoicePitch = parseFloat(pitchSlider.value);
+      document.getElementById("voiceSpeedVal").textContent = customVoiceRate.toFixed(2) + "x";
+      document.getElementById("voicePitchVal").textContent = customVoicePitch.toFixed(2);
+      saveVoicePreferences();
+    }
+
+    function toggleWarmPadSetting(checked) {
+      warmCathedralPadEnabled = checked;
+      saveVoicePreferences();
+    }
+
+    function handleSystemVoiceChange(voiceURI) {
+      customSystemVoiceURI = voiceURI;
+      saveVoicePreferences();
+      previewSelectedVoice();
+    }
+
+    function scoreSystemVoice(v, targetLangPrefix, persona) {
+      const name = (v.name || "").toLowerCase();
+      const lang = (v.lang || "").toLowerCase();
+      let score = 0;
+
+      if (lang.startsWith(targetLangPrefix)) score += 100;
+      else if (targetLangPrefix === "en" && lang.includes("en")) score += 80;
+      else return -999;
+
+      // Strongly prefer Natural / Neural / Online / Enhanced / Premium voices over old SAPI desktop voices
+      if (name.includes("natural") || name.includes("neural") || name.includes("online")) score += 65;
+      if (name.includes("premium") || name.includes("enhanced") || name.includes("siri")) score += 55;
+      if (name.includes("google")) score += 35;
+
+      // Penalize old robotic Windows SAPI5 voices (David, Zira, Mark, An) when better voices exist
+      if (name.includes("desktop") || name.includes("microsoft david") || name.includes("microsoft zira") || name.includes("microsoft mark")) {
+        score -= 25;
+      }
+
+      if (persona && persona.preferredKeywords) {
+        persona.preferredKeywords.forEach((kw, idx) => {
+          if (name.includes(kw)) score += (40 - idx * 2);
+        });
+      }
+      return score;
+    }
+
+    function populateSystemVoicesDropdown() {
+      if (!("speechSynthesis" in window)) return;
+      const select = document.getElementById("systemVoiceSelect");
+      const countLabel = document.getElementById("detectedVoiceCountLabel");
+      if (!select) return;
+
+      const allVoices = window.speechSynthesis.getVoices() || [];
+      const langVoices = allVoices.filter(v => (v.lang || "").toLowerCase().startsWith("en"));
+      const listToUse = langVoices.length > 0 ? langVoices : allVoices;
+
+      if (countLabel) {
+        countLabel.textContent = `${listToUse.length} voices ready`;
+      }
+
+      const persona = getCurrentPersona();
+      const sorted = [...listToUse].sort((a, b) => scoreSystemVoice(b, "en", persona) - scoreSystemVoice(a, "en", persona));
+
+      select.innerHTML = `<option value="auto">✨ Auto-Match Best Neural Voice for "${persona.name.split("—")[0].trim()}"</option>` +
+        sorted.map(v => {
+          const isNatural = /natural|neural|online|premium|enhanced|siri|google/i.test(v.name);
+          const badge = isNatural ? "⭐ Natural" : "Standard";
+          const selected = v.voiceURI === customSystemVoiceURI ? "selected" : "";
+          return `<option value="${v.voiceURI.replace(/"/g, "&quot;")}" ${selected}>${badge}: ${v.name} (${v.lang})</option>`;
+        }).join("");
+    }
+
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        populateSystemVoicesDropdown();
+      };
+    }
+
+    function pickBestVoiceObject(persona) {
+      if (!("speechSynthesis" in window)) return null;
+      const allVoices = window.speechSynthesis.getVoices() || [];
+      if (allVoices.length === 0) return null;
+
+      if (customSystemVoiceURI && customSystemVoiceURI !== "auto") {
+        const exact = allVoices.find(v => v.voiceURI === customSystemVoiceURI || v.name === customSystemVoiceURI);
+        if (exact) return exact;
+      }
+
+      const scored = allVoices
+        .map(v => ({ voice: v, score: scoreSystemVoice(v, "en", persona) }))
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score);
+
+      return scored.length > 0 ? scored[0].voice : allVoices[0];
+    }
+
+    // Warm Cathedral Choir Pad underneath voice to remove cold digital edge
+    function startWarmSpeechPad() {
+      stopWarmSpeechPad();
+      if (!warmCathedralPadEnabled) return;
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+        const freqs = [174.61, 220.00, 261.63, 349.23]; // Warm F-Major 7th sanctuary chord
+        freqs.forEach(f => {
+          const osc = ctx.createOscillator();
+          const filter = ctx.createBiquadFilter();
+          const gain = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(f, now);
+          filter.type = "lowpass";
+          filter.frequency.setValueAtTime(340, now);
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.linearRampToValueAtTime(0.014, now + 0.6);
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          activeWarmPadNodes.push({ osc, gain, ctx });
+        });
+      } catch (e) {}
+    }
+
+    function stopWarmSpeechPad() {
+      activeWarmPadNodes.forEach(node => {
+        try {
+          const now = node.ctx.currentTime;
+          node.gain.gain.cancelScheduledValues(now);
+          node.gain.gain.linearRampToValueAtTime(0.0001, now + 0.4);
+          setTimeout(() => {
+            try { node.osc.stop(); } catch (e) {}
+          }, 450);
+        } catch (e) {}
+      });
+      activeWarmPadNodes = [];
+    }
+
+    function stopAllAngelSpeech() {
+      speechQueueTimeouts.forEach(t => clearTimeout(t));
+      speechQueueTimeouts = [];
+      stopAllAngelSpeech();
+      stopWarmSpeechPad();
+      const waveEl = document.getElementById("voiceWave");
+      if (waveEl) waveEl.classList.remove("speaking");
+    }
+
+    function formatScriptureRefForNaturalSpeech(ref) {
+      if (!ref) return "";
+      let s = ref
+        .replace(/1 CORINTHIANS/i, "First Corinthians")
+        .replace(/2 CORINTHIANS/i, "Second Corinthians")
+        .replace(/MATTHEW/i, "the Gospel of Matthew")
+        .replace(/MARK/i, "the Gospel of Mark")
+        .replace(/LUKE/i, "the Gospel of Luke")
+        .replace(/JOHN/i, "the Gospel of John")
+        .replace(/ACTS/i, "the Book of Acts")
+        .replace(/REVELATION/i, "the Book of Revelation")
+        .replace(/(d+):(d+)[–-](d+)/, "chapter $1, verses $2 to $3")
+        .replace(/(d+):(d+)/, "chapter $1, verse $2");
+      return s;
+    }
+
+    function splitIntoNaturalBreathPhrases(text) {
+      return text
+        .replace(/.../g, " — ")
+        .split(/(?<=[.;!?—])s+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
     function speakTeachingAloud(teaching, prayerText) {
       const waveEl = document.getElementById("voiceWave");
       if (!("speechSynthesis" in window) || voiceMuted) return;
-      window.speechSynthesis.cancel();
-      const fullSpeech = `${teaching.text} ... ${teaching.ref.replace(":", " verse ")}. ... Prayer: ${prayerText}`;
-      const u = new SpeechSynthesisUtterance(fullSpeech);
-      u.lang = "en-US";
-      u.rate = 0.88;
-      u.onstart = () => waveEl.classList.add("speaking");
-      u.onend = () => waveEl.classList.remove("speaking");
-      window.speechSynthesis.speak(u);
+
+      stopAllAngelSpeech();
+
+      const persona = getCurrentPersona();
+      const chosenVoice = pickBestVoiceObject(persona);
+      const baseRate = customVoiceRate || persona.rate || 0.90;
+      const basePitch = customVoicePitch || persona.pitch || 1.00;
+      const pauseMs = persona.pauseMs || 420;
+
+      const versePhrases = splitIntoNaturalBreathPhrases(teaching.text);
+      const spokenRef = formatScriptureRefForNaturalSpeech(teaching.ref);
+      const prayerPhrases = prayerText ? splitIntoNaturalBreathPhrases(prayerText) : [];
+
+      const segments = [
+        ...versePhrases.map((text, idx) => ({
+          text,
+          rate: baseRate * (idx === 0 ? 0.97 : 1.0),
+          pitch: basePitch,
+          delayAfter: pauseMs
+        })),
+        {
+          text: spokenRef,
+          rate: baseRate * 0.93,
+          pitch: basePitch * 0.97,
+          delayAfter: pauseMs + 220
+        },
+        ...prayerPhrases.map(text => ({
+          text,
+          rate: baseRate * 0.94,
+          pitch: basePitch * 0.98,
+          delayAfter: pauseMs
+        }))
+      ];
+
+      if (waveEl) waveEl.classList.add("speaking");
+      startWarmSpeechPad();
+      if (persona.chimeOnPhrase) playHarpArpeggioNote();
+
+      let currentIdx = 0;
+
+      function speakNextSegment() {
+        if (voiceMuted || currentIdx >= segments.length) {
+          if (waveEl) waveEl.classList.remove("speaking");
+          stopWarmSpeechPad();
+          return;
+        }
+        const seg = segments[currentIdx++];
+        const u = new SpeechSynthesisUtterance(seg.text);
+        u.lang = chosenVoice ? chosenVoice.lang : "en-US";
+        if (chosenVoice) u.voice = chosenVoice;
+        u.rate = Math.max(0.65, Math.min(1.25, seg.rate));
+        u.pitch = Math.max(0.65, Math.min(1.35, seg.pitch));
+
+        u.onend = () => {
+          const tid = setTimeout(speakNextSegment, seg.delayAfter);
+          speechQueueTimeouts.push(tid);
+        };
+        u.onerror = () => {
+          const tid = setTimeout(speakNextSegment, 150);
+          speechQueueTimeouts.push(tid);
+        };
+        window.speechSynthesis.speak(u);
+      }
+
+      speakNextSegment();
+    }
+
+    function previewSelectedVoice() {
+      const sample = currentTeaching || JESUS_TEACHINGS[0];
+      const moodData = MOOD_PRAYERS[sample.mood] || MOOD_PRAYERS.peace;
+      speakTeachingAloud(sample, moodData.prayer);
     }
 
     function replayAngelVoice() {
@@ -2556,7 +3037,7 @@
     }
 
     function closeAngelModal() {
-      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      stopAllAngelSpeech();
       document.getElementById("angelModal").classList.remove("visible");
       // When all 12 clay vessels are broken, summon the 13th Golden Miracle Vessel!
       if (brokenVessels.size === 12) {
@@ -2567,7 +3048,7 @@
     }
 
     function resetAllVessels() {
-      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      stopAllAngelSpeech();
       document.getElementById("angelModal").classList.remove("visible");
       brokenVessels.clear();
       renderVesselsGrid();
@@ -2686,7 +3167,7 @@
     // 9. DRAWER NAVIGATION CONTROLLER
     // =========================================================================
     function closeAllDrawers() {
-      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer"].forEach(id => {
+      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer"].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
           el.classList.remove("open");
@@ -2696,7 +3177,7 @@
       const angelModal = document.getElementById("angelModal");
       if (angelModal && angelModal.classList.contains("visible")) {
         angelModal.classList.remove("visible");
-        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+        stopAllAngelSpeech();
       }
     }
 
@@ -3378,7 +3859,7 @@
       } else {
         btn.textContent = "▶️ Start Continuous Night Reading";
         clearInterval(sleepLoopInterval);
-        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+        stopAllAngelSpeech();
       }
     }
 
@@ -3664,6 +4145,7 @@
     loadCandlesAndJournal();
     loadReminders();
     loadSubscriptionState();
+    loadVoicePreferences();
     renderVesselsGrid();
 
     // Register Offline PWA Service Worker & Auto-Fullscreen on iPhone Home Screen / Mobile
