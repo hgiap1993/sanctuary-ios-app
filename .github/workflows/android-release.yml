@@ -1,0 +1,50 @@
+name: Build Android APK & Google Play AAB (Sanctuary Global)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-android:
+    name: Build Capacitor Android (.apk & .aab)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java JDK 21 (Required for Capacitor 6 / Android SDK 34)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Install Dependencies & Initialize Capacitor Android
+        run: |
+          npm install
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
+          npx cap sync android
+
+      - name: Build Direct-Install APK & Google Play AAB Bundle
+        working-directory: ./android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug bundleRelease
+
+      - name: Upload Android APK (For Testing) & AAB (For Google Play Store)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sanctuary-Android-APK-and-PlayStore-AAB
+          path: |
+            android/app/build/outputs/apk/debug/*.apk
+            android/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: ignore

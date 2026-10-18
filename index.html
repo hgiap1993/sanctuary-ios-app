@@ -1022,7 +1022,7 @@
     /* iOS Bottom Sanctuary Navigation Dock */
     .ios-bottom-dock {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       background: rgba(14, 10, 6, 0.96);
       border-top: 1px solid rgba(212, 175, 55, 0.28);
       padding: 5px 6px 3px;
@@ -1301,6 +1301,204 @@
     .social-sms      { background: linear-gradient(135deg, #10b981, #047857); }
     .social-download { background: linear-gradient(135deg, #b45309, #78350f); border-color: #ffd97d; }
   
+
+    /* 7-Day Miracle Journey Tracker */
+    .seven-day-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin: 4px auto 2px;
+      padding: 4px 10px;
+      background: rgba(20, 14, 8, 0.78);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      border-radius: 99px;
+      max-width: 350px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .seven-day-bar:hover {
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+    }
+
+    .day-step {
+      width: 24px;
+      height: 20px;
+      border-radius: 99px;
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      color: var(--text-muted);
+      transition: all 0.25s;
+    }
+
+    .day-step.done {
+      background: linear-gradient(135deg, #d4af37, #9a6f18);
+      color: #120c06;
+      border-color: #ffe89e;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.45);
+    }
+
+    .day-step.today-active {
+      border-color: #ffd97d;
+      color: #ffd97d;
+      box-shadow: 0 0 10px rgba(255, 217, 125, 0.55);
+      animation: pulseToday 2s infinite alternate;
+    }
+
+    @keyframes pulseToday {
+      0% { transform: scale(0.96); }
+      100% { transform: scale(1.06); }
+    }
+
+    /* Glowing Amen Community Button inside Angel Modal */
+    .amen-receive-btn {
+      width: 100%;
+      margin-bottom: 6px;
+      padding: 9px 14px;
+      border-radius: 12px;
+      border: 1.5px solid #ffe58f;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.28), rgba(65, 42, 14, 0.92));
+      color: #fff8e7;
+      font-family: 'Cinzel', serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.28);
+      transition: all 0.22s ease;
+      flex-shrink: 0;
+    }
+
+    .amen-receive-btn:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, rgba(245, 208, 97, 0.4), rgba(90, 58, 18, 0.95));
+      box-shadow: 0 6px 22px rgba(255, 217, 125, 0.45);
+    }
+
+    .amen-receive-btn.sealed {
+      background: linear-gradient(135deg, #f5d372, #c89629);
+      color: #161006;
+      border-color: #ffffff;
+      box-shadow: 0 0 24px rgba(255, 225, 130, 0.75);
+    }
+
+    /* 4-4-6 Sacred Breath Prayer Circle in Sleep & Meditate Mode */
+    .breath-prayer-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 4px auto;
+    }
+
+    .breath-halo-circle {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 224, 130, 0.38) 0%, rgba(56, 189, 248, 0.18) 55%, transparent 75%);
+      border: 2px solid rgba(255, 217, 125, 0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(255, 217, 125, 0.35);
+      transition: transform 3.8s ease-in-out, box-shadow 3.8s ease-in-out, border-color 1.5s ease;
+      cursor: pointer;
+    }
+
+    .breath-halo-circle.inhale {
+      transform: scale(1.28);
+      border-color: #fde68a;
+      box-shadow: 0 0 38px rgba(253, 230, 138, 0.75), inset 0 0 18px rgba(253, 230, 138, 0.35);
+      transition: transform 4s ease-out, box-shadow 4s ease-out;
+    }
+
+    .breath-halo-circle.hold {
+      transform: scale(1.28);
+      border-color: #93c5fd;
+      box-shadow: 0 0 42px rgba(147, 197, 253, 0.8), inset 0 0 22px rgba(147, 197, 253, 0.4);
+      transition: transform 0.4s linear, box-shadow 1s ease;
+    }
+
+    .breath-halo-circle.exhale {
+      transform: scale(0.86);
+      border-color: rgba(212, 175, 55, 0.45);
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.22);
+      transition: transform 6s ease-in-out, box-shadow 6s ease-in-out;
+    }
+
+    /* 30-Second Sacred Onboarding Welcome Modal */
+    .onboarding-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 130;
+      background: radial-gradient(circle at 50% 22%, rgba(56, 38, 18, 0.98) 0%, rgba(10, 7, 4, 0.99) 85%);
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 46px 18px 22px;
+      text-align: center;
+    }
+
+    .onboarding-overlay.show {
+      display: flex;
+      animation: fadeInSheet 0.35s ease-out;
+    }
+
+    .onboard-option-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin: 8px 0;
+    }
+
+    .onboard-choice-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(212, 175, 55, 0.32);
+      border-radius: 12px;
+      padding: 9px 8px;
+      cursor: pointer;
+      color: var(--text-light);
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .onboard-choice-card.selected {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.28), rgba(45, 30, 12, 0.92));
+      border-color: #ffd97d;
+      color: #ffd97d;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.35);
+    }
+
+    /* Ergonomic Touch Top Bar Improvements */
+    .top-actions .icon-btn {
+      min-height: 30px;
+      padding: 5px 9px;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+  
   </style>
 </head>
 <body>
@@ -1321,6 +1519,7 @@
       <button class="bar-btn" id="musicBtnDesktop" onclick="toggleAmbientHarp()">🎵 Harp: OFF</button>
       <button class="bar-btn" id="voiceStudioBtnDesktop" onclick="openVoiceDrawer()" style="border-color:#ffd97d; color:#ffd97d;">🎙️ Voice: Seraphina</button>
       <button class="bar-btn" id="toggleVoiceBtn" onclick="toggleVoiceMute()">🔊 Voice: ON</button>
+      <button class="bar-btn" onclick="openOnboardingOverlay()">✨ Intro</button>
       <button class="bar-btn" id="fullscreenBtn" onclick="toggleFullscreenMode()">📱 Fullscreen</button>
     </div>
   </div>
@@ -1348,35 +1547,37 @@
       <div class="light-rays"></div>
       <div class="divine-flash" id="divineFlash"></div>
 
-      <!-- Top Bar: Streak, Relics, Reminder Bell, Harp Music & Restore -->
+      <!-- Top Bar: Ergonomic Touch Targets (Apple HIG Friendly) -->
       <div class="top-actions">
         <div class="streak-group">
-          <div class="counter-pill" title="Daily Prayer Streak">🔥 <span id="streakCount">1</span>d</div>
-          <button class="icon-btn" onclick="openRelicsDrawer()" title="Sacred Relics Unlocked">
+          <div class="counter-pill" onclick="claimDailyJourneyBlessing()" style="cursor:pointer;" title="Daily Prayer Streak">🔥 <span id="streakCount">1</span>d</div>
+          <button class="icon-btn" onclick="openRelicsDrawer()" title="12 Sacred Relics Museum">
             🏆 <span id="relicCount">0</span>/12
           </button>
           <button class="icon-btn" id="passBadgeApp" onclick="openPaywallDrawer()" title="Sanctuary Pass Subscription">
             💎 Free (3/3)
           </button>
         </div>
-        <div style="display:flex; gap:4px;">
-          <button class="icon-btn" onclick="openDailyWordOfYear()" title="Today's Gospel Word of the Year">📅 Day <span id="dayOfYearNum">1</span></button>
-          <button class="icon-btn" onclick="openReminderDrawer()" title="Daily Prayer Reminders">🔔</button>
+        <div style="display:flex; gap:5px;">
+          <button class="icon-btn" onclick="openDailyWordOfYear()" title="Today's Gospel Word">📅 <span id="dayOfYearNum">1</span></button>
           <button class="icon-btn" id="voiceBtnApp" onclick="openVoiceDrawer()" title="Choose Natural Angel Voice">🎙️</button>
-          <button class="icon-btn" onclick="openViralShareDrawer()" title="Share Blessing & Earn Free VIP" style="border-color:#ffd97d;">📲</button>
           <button class="icon-btn" id="musicBtnApp" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵</button>
-          <button class="icon-btn" onclick="openLibraryDrawer()">📜 365</button>
-          <button class="icon-btn" onclick="resetAllVessels()">↺</button>
+          <button class="icon-btn" onclick="openLibraryDrawer()" title="All 365+ Words of Jesus">📜 365</button>
+          <button class="icon-btn" onclick="resetAllVessels()" title="Restore All 12 Sacred Vessels">↺</button>
         </div>
       </div>
 
-      <!-- Sanctuary Header + Faith Rank & Grace Points -->
+      <!-- Sanctuary Header + Faith Rank & 7-Day Miracle Journey -->
       <div class="sanctuary-header">
         <div class="sanctuary-subtitle">Sanctuary: Jesus Daily Prayer • 365 Sleep &amp; Gospel Words</div>
         <h1 class="sanctuary-title">12 Sacred Vessels &amp; Sleep Word</h1>
-        <div class="rank-bar" id="faithRankBadge">
-          ✨ Rank: Seeker • <span id="gracePointsText">0</span> Grace Pts
+        <div style="display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;">
+          <div class="rank-bar" id="faithRankBadge">
+            ✨ Rank: Seeker • <span id="gracePointsText">0</span> Grace Pts
+          </div>
+          <button class="icon-btn" onclick="openReminderDrawer()" style="padding:2px 8px; font-size:9.5px; min-height:22px;" title="Daily Prayer Bell">🔔 Bell</button>
         </div>
+        <div class="seven-day-bar" id="sevenDayJourneyBar" onclick="claimDailyJourneyBlessing()" title="Complete 7 Days of Vessel Prayer for +100 Miracle Grace"></div>
       </div>
 
       <!-- 1. MOOD / PRAYER INTENT SELECTOR -->
@@ -1444,6 +1645,11 @@
             <div class="quiz-choices" id="quizChoices"></div>
           </div>
         </div>
+
+        <button class="amen-receive-btn" id="amenReceiveBtn" onclick="sealAmenForCurrentVerse(event)">
+          <span>🙏 AMEN — I RECEIVE THIS WORD</span>
+          <span style="font-size:10px; opacity:0.88;" id="amenGlobalCountText">• 14,842 Christians said Amen</span>
+        </button>
 
         <div class="revelation-actions">
           <button class="btn-sacred btn-secondary-outline" onclick="replayAngelVoice()">🔊 Listen</button>
@@ -1620,13 +1826,16 @@
           <button class="icon-btn" onclick="stopSleepModeAndClose()">✕ Close</button>
         </div>
         <div style="text-align:center; padding:10px 8px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
-          <div>
-            <div style="font-size:44px; margin-bottom:4px;">🌌</div>
-            <h3 style="font-family:'Cinzel',serif; font-size:15px; color:var(--gold-bright); margin-bottom:4px;">
-              Drift to Sleep in Christ's Peace
-            </h3>
-            <p style="font-size:13.5px; color:var(--text-muted); font-style:italic;">
-              The Angel continuously reads comforting Words of Jesus every 18 seconds over gentle night rain & sanctuary harp.
+          <div class="breath-prayer-wrap">
+            <div class="breath-halo-circle" id="breathHaloCircle" onclick="toggleBreathPrayerGuide()">
+              <span style="font-size:20px;" id="breathPhaseIcon">🕊️</span>
+              <span style="font-family:'Cinzel',serif; font-size:8.5px; color:var(--gold-bright); font-weight:700;" id="breathTimerSec">4-4-6</span>
+            </div>
+            <div style="font-family:'Cinzel',serif; font-size:12.5px; color:var(--gold-bright); margin-top:6px; font-weight:700;" id="breathGuideLabel">
+              🌬️ Tap Circle for 4-4-6 Sacred Breath Prayer
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); font-style:italic; margin-top:1px;" id="breathGuideSub">
+              Inhale Christ's peace (4s) • Hold in stillness (4s) • Exhale every worry (6s)
             </p>
           </div>
 
@@ -1661,7 +1870,7 @@
         <div class="drawer-header">
           <div>
             <div class="sanctuary-subtitle" id="paywallReasonBanner">Unlock the Full Sanctuary</div>
-            <h2 style="font-family:'Cinzel',serif; font-size:18px; color:var(--gold-bright);">💎 Sanctuary Pass VIP</h2>
+            <h2 style="font-family:'Cinzel',serif; font-size:18px; color:var(--gold-bright); cursor:pointer;" onclick="handleSecretDevTap()" title="Sanctuary Pass VIP">💎 Sanctuary Pass VIP</h2>
           </div>
           <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
         </div>
@@ -1736,7 +1945,7 @@
 
           <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-muted); padding:4px 4px 0;">
             <span style="cursor:pointer; text-decoration:underline;" onclick="restoreIOSPurchases()">Restore Purchases</span>
-            <span style="cursor:pointer; text-decoration:underline;" onclick="toggleVIPStatusDirectly()">⚡ Switch Free / VIP</span>
+            <span id="devSwitchVipLink" style="cursor:pointer; text-decoration:underline; display:none;" onclick="toggleVIPStatusDirectly()">⚡ Dev: Switch Free/VIP</span>
             <span style="cursor:pointer; text-decoration:underline; color:var(--gold-bright);" onclick="openLegalDrawer()">Terms &amp; Privacy</span>
           </div>
         </div>
@@ -1774,6 +1983,15 @@
               3. APPLE STANDARD END USER LICENSE AGREEMENT (EULA)
             </div>
             <p>This application is licensed under the Standard Apple Licensed Application End User License Agreement: <em>https://www.apple.com/legal/internet-services/itunes/dev/stdeula/</em></p>
+          </div>
+          <div class="saved-item" style="cursor:default; border-color:rgba(248,113,113,0.4);">
+            <div style="font-family:'Cinzel',serif; color:#fca5a5; font-size:12px; font-weight:700; margin-bottom:4px;">
+              4. DATA CONTROL &amp; COMPLETE LOCAL DATA DELETION (APPLE &amp; GOOGLE PLAY COMPLIANCE)
+            </div>
+            <p style="margin-bottom:8px;">You have 100% ownership and control over all data stored on your device (prayer journal notes, lit candles, streaks, and voice settings). You may permanently erase all local data at any time:</p>
+            <button class="btn-sacred btn-secondary-outline" style="width:100%; border-color:#f87171; color:#fca5a5;" onclick="resetAllUserDataCompletely()">
+              🗑️ Delete All My Local Data &amp; Reset Sanctuary
+            </button>
           </div>
         </div>
       </div>
@@ -1923,6 +2141,71 @@
               </button>
             </div>
             <div id="viralCaptionPreview" style="font-size:11.5px; color:var(--text-light); line-height:1.35; max-height:54px; overflow-y:auto; user-select:all;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sacred Onboarding Welcome Experience (First Visit / ✨ Intro Button) -->
+      <div class="onboarding-overlay" id="onboardingOverlay">
+        <div>
+          <div style="font-size:42px; margin-bottom:4px; filter:drop-shadow(0 0 18px rgba(255,215,0,0.65));">⚱️✨</div>
+          <div class="sanctuary-subtitle">Welcome to the Sacred Sanctuary</div>
+          <h2 style="font-family:'Cinzel',serif; font-size:20px; color:var(--gold-bright); margin:4px 0 6px;">
+            The Twelve Sacred Vessels
+          </h2>
+          <p style="font-size:13.5px; color:var(--text-light); line-height:1.45; max-width:330px; margin:0 auto;">
+            Each ancient clay vessel holds a living <strong>Red-Letter Word of Jesus Christ</strong>, a sacred Biblical relic, and an Angelic prayer spoken aloud for your soul.
+          </p>
+        </div>
+
+        <div style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.3); border-radius:14px; padding:10px 12px;">
+          <div style="font-family:'Cinzel',serif; font-size:10.5px; color:var(--gold-bright); font-weight:700; margin-bottom:4px;">
+            1. WHAT DOES YOUR HEART NEED MOST TODAY?
+          </div>
+          <div class="onboard-option-grid" id="onboardMoodGrid">
+            <div class="onboard-choice-card selected" onclick="selectOnboardMood('peace', this)">
+              <span style="font-size:18px;">🕊️</span>
+              <span>Peace &amp; Calm</span>
+            </div>
+            <div class="onboard-choice-card" onclick="selectOnboardMood('strength', this)">
+              <span style="font-size:18px;">💪</span>
+              <span>Strength &amp; Courage</span>
+            </div>
+            <div class="onboard-choice-card" onclick="selectOnboardMood('comfort', this)">
+              <span style="font-size:18px;">🌿</span>
+              <span>Healing &amp; Rest</span>
+            </div>
+            <div class="onboard-choice-card" onclick="selectOnboardMood('faith', this)">
+              <span style="font-size:18px;">🙏</span>
+              <span>Faith &amp; Miracles</span>
+            </div>
+          </div>
+
+          <div style="font-family:'Cinzel',serif; font-size:10.5px; color:var(--gold-bright); font-weight:700; margin:8px 0 4px;">
+            2. CHOOSE YOUR ANGELIC NARRATOR VOICE:
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px;" id="onboardVoiceGrid">
+            <div class="onboard-choice-card selected" onclick="selectOnboardVoice('seraphina', this)">
+              <span style="font-size:17px;">👼</span>
+              <span style="font-size:10px;">Seraphina</span>
+            </div>
+            <div class="onboard-choice-card" onclick="selectOnboardVoice('gabriel', this)">
+              <span style="font-size:17px;">🙏</span>
+              <span style="font-size:10px;">Gabriel</span>
+            </div>
+            <div class="onboard-choice-card" onclick="selectOnboardVoice('nocturne', this)">
+              <span style="font-size:17px;">🌙</span>
+              <span style="font-size:10px;">Nocturne</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn-sacred btn-primary-gold" style="width:100%; padding:13px; font-size:13px;" onclick="completeOnboardingAndStrikeFirst()">
+            ⚱️ Enter Sanctuary &amp; Receive +50 Grace Blessing
+          </button>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:6px; cursor:pointer;" onclick="closeOnboardingOverlay()">
+            Skip Intro &amp; Go Directly to 12 Vessels →
           </div>
         </div>
       </div>
@@ -2769,6 +3052,7 @@
         `${moodData.action} (Day/Word #${num} of ${JESUS_TEACHINGS.length})`;
 
       document.getElementById("memoryQuizBox").classList.remove("active");
+      resetAmenButtonForNewVerse(num);
       updateFavHeartUI();
       addGracePoints(10);
 
@@ -4452,6 +4736,7 @@
 
     function stopSleepModeAndClose() {
       if (sleepPlaying) toggleSleepAutoPlay();
+      if (breathGuideActive) toggleBreathPrayerGuide();
       if (rainActive) toggleNightRain();
       closeAllDrawers();
     }
@@ -4808,6 +5093,255 @@
       }
     }, 15000);
 
+    // =========================================================================
+    // 17. 7-DAY MIRACLE JOURNEY, AMEN COMMUNITY SEAL, 4-4-6 BREATH & ONBOARDING
+    // =========================================================================
+    let amenSealedForCurrentVerse = false;
+    let globalAmenCount = 14842;
+    let breathGuideActive = false;
+    let breathGuideTimeout = null;
+    let secretDevTapCount = 0;
+    let onboardSelectedMood = "peace";
+
+    function renderSevenDayJourney() {
+      const bar = document.getElementById("sevenDayJourneyBar");
+      if (!bar) return;
+      const streak = parseInt(localStorage.getItem("sacred_streak") || "1", 10);
+      const dayInCycle = ((streak - 1) % 7) + 1;
+      let stepsHtml = `<span style="font-family:'Cinzel',serif; font-size:9px; color:var(--gold-bright); font-weight:700; margin-right:2px;">7-DAY MIRACLE:</span>`;
+      for (let d = 1; d <= 7; d++) {
+        const isDone = d < dayInCycle;
+        const isToday = d === dayInCycle;
+        const cls = isDone ? "done" : (isToday ? "today-active" : "");
+        const label = d === 7 ? "👑" : (isDone ? "✓" : "D" + d);
+        stepsHtml += `<div class="day-step ${cls}">${label}</div>`;
+      }
+      bar.innerHTML = stepsHtml;
+    }
+
+    function claimDailyJourneyBlessing() {
+      const streak = parseInt(localStorage.getItem("sacred_streak") || "1", 10);
+      playCathedralBellChime();
+      triggerSanctuaryNotification(
+        `🔥 Day ${streak} of Your 7-Day Miracle Journey!`,
+        "Strike a Sacred Vessel each day for 7 days to unlock the Sunday Grand Apostolic Chalice (+100 Grace)!"
+      );
+    }
+
+    function resetAmenButtonForNewVerse(teachingNum) {
+      amenSealedForCurrentVerse = false;
+      globalAmenCount = 14200 + ((teachingNum * 73 + getDayOfYearNumber() * 19) % 4800);
+      const btn = document.getElementById("amenReceiveBtn");
+      if (btn) {
+        btn.classList.remove("sealed");
+        btn.innerHTML = `
+          <span>🙏 AMEN — I RECEIVE THIS WORD</span>
+          <span style="font-size:10px; opacity:0.88;" id="amenGlobalCountText">• ${globalAmenCount.toLocaleString()} Christians said Amen</span>
+        `;
+      }
+    }
+
+    function playCathedralAmenChord() {
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+        // Warm Plagal "A-men" Cadence: Bb Major (IV) -> F Major (I)
+        const chord1 = [233.08, 293.66, 349.23, 466.16];
+        const chord2 = [174.61, 261.63, 349.23, 523.25];
+        chord1.forEach(freq => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.linearRampToValueAtTime(0.045, now + 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.95);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 1.0);
+        });
+        chord2.forEach(freq => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, now + 0.65);
+          gain.gain.setValueAtTime(0.001, now + 0.65);
+          gain.gain.linearRampToValueAtTime(0.06, now + 0.78);
+          gain.gain.exponentialRampToValueAtTime(0.0005, now + 2.4);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + 0.65);
+          osc.stop(now + 2.45);
+        });
+      } catch (e) {}
+    }
+
+    function sealAmenForCurrentVerse(event) {
+      if (amenSealedForCurrentVerse) return;
+      amenSealedForCurrentVerse = true;
+      globalAmenCount += 1;
+      addGracePoints(20);
+      playCathedralAmenChord();
+
+      const cx = (event && event.clientX) || window.innerWidth / 2;
+      const cy = (event && event.clientY) || window.innerHeight * 0.75;
+      spawnShatterParticles(cx, cy, "#FFF8DC", "#FFD700");
+
+      const btn = document.getElementById("amenReceiveBtn");
+      if (btn) {
+        btn.classList.add("sealed");
+        btn.innerHTML = `✨ AMEN SEALED IN HEAVEN (+20 GRACE) • ${globalAmenCount.toLocaleString()} SOULS UNITED`;
+      }
+    }
+
+    function toggleBreathPrayerGuide() {
+      breathGuideActive = !breathGuideActive;
+      const circle = document.getElementById("breathHaloCircle");
+      const label = document.getElementById("breathGuideLabel");
+      const sub = document.getElementById("breathGuideSub");
+      const sec = document.getElementById("breathTimerSec");
+      clearTimeout(breathGuideTimeout);
+
+      if (!breathGuideActive) {
+        if (circle) circle.className = "breath-halo-circle";
+        if (label) label.textContent = "🌬️ Tap Circle for 4-4-6 Sacred Breath Prayer";
+        if (sub) sub.textContent = "Inhale Christ's peace (4s) • Hold in stillness (4s) • Exhale every worry (6s)";
+        if (sec) sec.textContent = "4-4-6";
+        return;
+      }
+
+      function runBreathCycle() {
+        if (!breathGuideActive) return;
+        // Phase 1: Inhale (4s)
+        if (circle) circle.className = "breath-halo-circle inhale";
+        if (label) label.textContent = "🌬️ Inhale Slowly... (4s)";
+        if (sub) sub.textContent = "“Lord Jesus Christ, breathe Your peace into my soul...”";
+        if (sec) sec.textContent = "INHALE";
+        playHarpArpeggioNote();
+
+        breathGuideTimeout = setTimeout(() => {
+          if (!breathGuideActive) return;
+          // Phase 2: Hold (4s)
+          if (circle) circle.className = "breath-halo-circle hold";
+          if (label) label.textContent = "✨ Hold in Stillness... (4s)";
+          if (sub) sub.textContent = "“Be still, and know that I am God...”";
+          if (sec) sec.textContent = "HOLD";
+
+          breathGuideTimeout = setTimeout(() => {
+            if (!breathGuideActive) return;
+            // Phase 3: Exhale (6s)
+            if (circle) circle.className = "breath-halo-circle exhale";
+            if (label) label.textContent = "🕊️ Exhale Every Worry... (6s)";
+            if (sub) sub.textContent = "“I surrender all my anxiety and burdens into Your hands.”";
+            if (sec) sec.textContent = "EXHALE";
+
+            breathGuideTimeout = setTimeout(runBreathCycle, 6000);
+          }, 4000);
+        }, 4000);
+      }
+
+      runBreathCycle();
+    }
+
+    function openOnboardingOverlay() {
+      document.getElementById("onboardingOverlay").classList.add("show");
+    }
+
+    function closeOnboardingOverlay() {
+      try {
+        localStorage.setItem("sacred_onboarding_done_v1", "1");
+      } catch (e) {}
+      document.getElementById("onboardingOverlay").classList.remove("show");
+    }
+
+    function selectOnboardMood(mood, cardEl) {
+      onboardSelectedMood = mood;
+      document.querySelectorAll("#onboardMoodGrid .onboard-choice-card").forEach(c => c.classList.remove("selected"));
+      if (cardEl) cardEl.classList.add("selected");
+      const matchingPill = document.querySelector(`#moodPills .mood-pill[onclick*="'${mood}'"]`);
+      if (matchingPill) setMood(mood, matchingPill);
+    }
+
+    function selectOnboardVoice(personaId, cardEl) {
+      document.querySelectorAll("#onboardVoiceGrid .onboard-choice-card").forEach(c => c.classList.remove("selected"));
+      if (cardEl) cardEl.classList.add("selected");
+      selectVoicePersona(personaId);
+    }
+
+    function completeOnboardingAndStrikeFirst() {
+      closeOnboardingOverlay();
+      addGracePoints(50);
+      playCathedralBellChime();
+      const firstSlot = document.querySelector(".vessel-slot");
+      if (firstSlot) {
+        handleVesselStrike(TWELVE_VESSELS[0], firstSlot, {});
+      }
+    }
+
+    function checkFirstTimeOnboarding() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("verse")) return; // Skip onboarding if opening a friend's shared verse deep link
+        const done = localStorage.getItem("sacred_onboarding_done_v1");
+        if (!done) {
+          document.getElementById("onboardingOverlay").classList.add("show");
+        }
+      } catch (e) {}
+    }
+
+    function handleSecretDevTap() {
+      secretDevTapCount++;
+      if (secretDevTapCount >= 5) {
+        const devLink = document.getElementById("devSwitchVipLink");
+        if (devLink) devLink.style.display = "inline";
+        triggerSanctuaryNotification("🛠️ Developer Mode Unlocked", "The Free/VIP test switch is now visible at the bottom of the Paywall.");
+        secretDevTapCount = 0;
+      }
+    }
+
+    function resetAllUserDataCompletely() {
+      try {
+        [
+          "sacred_unlocked_relics",
+          "sacred_last_date",
+          "sacred_streak",
+          "sacred_grace_points",
+          "sacred_candles",
+          "sacred_journal",
+          "sacred_prayer_reminders",
+          "sacred_vip_status",
+          "sacred_free_quota_date",
+          "sacred_free_quota_used",
+          "sacred_voice_prefs_v1",
+          "sacred_voice_prefs_v2",
+          "sacred_viral_shares_v1",
+          "sacred_onboarding_done_v1"
+        ].forEach(k => localStorage.removeItem(k));
+      } catch (e) {}
+      brokenVessels.clear();
+      unlockedRelics.clear();
+      gracePoints = 0;
+      isSanctuaryVIP = false;
+      freeDailyVesselsUsed = 0;
+      viralShareCount = 0;
+      activeCandles = [];
+      journalEntries = [];
+      initProgress();
+      loadGracePoints();
+      loadCandlesAndJournal();
+      loadReminders();
+      loadSubscriptionState();
+      loadViralShareState();
+      renderVesselsGrid();
+      renderSevenDayJourney();
+      closeAllDrawers();
+      triggerSanctuaryNotification(
+        "🗑️ All Local Data Erased",
+        "Your personal prayer journal, candles, streaks, and local preferences have been completely reset."
+      );
+    }
+
     initProgress();
     loadGracePoints();
     loadCandlesAndJournal();
@@ -4816,19 +5350,25 @@
     loadVoicePreferences();
     loadViralShareState();
     renderVesselsGrid();
+    renderSevenDayJourney();
+    checkFirstTimeOnboarding();
     checkIncomingViralDeepLink();
 
-    // Register Offline PWA Service Worker & Auto-Fullscreen on iPhone Home Screen / Mobile
+    // Register Offline PWA Service Worker & Auto-Fullscreen on iPhone, iPad, Android & Capacitor Native
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js").catch(() => {});
       });
     }
+    const isMobileOrTabletDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent || "") ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) ||
+      Boolean(window.Capacitor);
     if (
+      isMobileOrTabletDevice ||
       window.navigator.standalone === true ||
       window.matchMedia("(display-mode: standalone)").matches ||
       location.search.includes("standalone=1") ||
-      window.innerWidth <= 500
+      window.innerWidth <= 820
     ) {
       document.body.classList.add("fullscreen-mode");
     }
