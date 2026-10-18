@@ -1,28 +1,26 @@
 /**
  * ============================================================================
- * THE TWELVE SACRED VESSELS — OFFLINE SERVICE WORKER (PWA + iOS CACHE)
+ * THE TWELVE SACRED VESSELS — NETWORK-FIRST SERVICE WORKER (v2.0)
  * ============================================================================
- * Ensures 100% offline capability for all 365+ Words of Jesus Christ,
- * Web Audio Sanctuary Harp/Rain synthesizers, and Sacred Vessels UI.
+ * Uses Network-First strategy so updates to index.html and voice engines take
+ * effect immediately when online, while still working 100% offline.
  */
 
-const CACHE_NAME = "sacred-vessels-sanctuary-v1.2";
+const CACHE_NAME = "sacred-vessels-sanctuary-v2.0";
 const ASSETS_TO_CACHE = [
   "./",
   "./index.html",
   "./manifest.json",
-  "./ios-storekit-bridge.js",
-  "./privacy-terms.html",
-  "./appstore-kit.html"
+  "./ios-storekit-bridge.js"
 ];
 
 self.addEventListener("install", (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE).catch(() => {});
     })
   );
-  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -42,26 +40,26 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  // Do not intercept external TTS audio streams
+  if (event.request.url.includes("translate.google")) return;
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request)
-        .then((networkResponse) => {
-          if (
-            networkResponse &&
-            networkResponse.status === 200 &&
-            networkResponse.type === "basic"
-          ) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseClone);
-            });
-          }
-          return networkResponse;
-        })
-        .catch(() => caches.match("./index.html"));
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (
+          networkResponse &&
+          networkResponse.status === 200 &&
+          networkResponse.type === "basic"
+        ) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() =>
+        caches.match(event.request).then((cached) => cached || caches.match("./index.html"))
+      )
   );
 });
