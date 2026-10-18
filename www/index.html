@@ -2029,9 +2029,9 @@
             <div>
               <div style="display:flex; justify-content:space-between;">
                 <span>🐢 Speed (Pace):</span>
-                <strong id="voiceSpeedVal" style="color:var(--gold-bright);">0.90x</strong>
+                <strong id="voiceSpeedVal" style="color:var(--gold-bright);">1.05x</strong>
               </div>
-              <input type="range" id="voiceSpeedSlider" min="0.72" max="1.12" step="0.02" value="0.90" oninput="updateVoiceSliders()" style="width:100%; accent-color:#d4af37;" />
+              <input type="range" id="voiceSpeedSlider" min="0.75" max="1.28" step="0.02" value="1.05" oninput="updateVoiceSliders()" style="width:100%; accent-color:#d4af37;" />
             </div>
             <div>
               <div style="display:flex; justify-content:space-between;">
@@ -3076,60 +3076,60 @@
         id: "seraphina",
         icon: "👼",
         name: "Seraphina — Warm Angelic (British Neural)",
-        desc: "Gentle, compassionate cathedral voice with natural breathing pauses & warm sanctuary acoustics",
+        desc: "Natural, flowing cathedral voice (1.05x) with warm sanctuary acoustics & smooth breath cadence",
         gender: "female",
         cloudLang: "en-GB",
-        rate: 0.92,
-        pitch: 1.02,
-        pauseMs: 430,
+        rate: 1.05,
+        pitch: 1.01,
+        pauseMs: 210,
         preferredKeywords: ["sonia", "libby", "ava", "aria", "jenny", "samantha", "moira", "serena"]
       },
       {
         id: "nocturne",
         icon: "🌙",
         name: "Nocturne — Deep Sleep Whisper",
-        desc: "Ultra-calm, velvet-warm bedtime cadence (0.83x) for releasing anxiety and falling asleep in peace",
+        desc: "Calm, velvet-warm bedtime cadence (0.94x) for releasing anxiety and falling asleep in peace",
         gender: "female",
         cloudLang: "en-GB",
-        rate: 0.83,
-        pitch: 0.90,
-        pauseMs: 650,
+        rate: 0.94,
+        pitch: 0.94,
+        pauseMs: 360,
         preferredKeywords: ["sonia", "moira", "ava", "jenny", "samantha", "karen", "serena"]
       },
       {
         id: "gabriel",
         icon: "🙏",
         name: "Gabriel — Deep Sanctuary Pastor",
-        desc: "Resonant, reassuring low-register cathedral voice with steady warmth and comfort",
+        desc: "Resonant, reassuring pastoral voice (1.00x) with steady warmth and natural flow",
         gender: "male",
         cloudLang: "en-AU",
-        rate: 0.86,
-        pitch: 0.85,
-        pauseMs: 480,
+        rate: 1.00,
+        pitch: 0.90,
+        pauseMs: 240,
         preferredKeywords: ["andrew", "brian", "christopher", "guy", "eric", "steffan", "ryan", "daniel", "oliver", "arthur"]
       },
       {
         id: "shepherd",
         icon: "📖",
         name: "Good Shepherd — Gentle Father",
-        desc: "Slow, contemplative storytelling voice with deep warmth and unhurried reflective pauses",
+        desc: "Warm, unhurried storytelling voice (0.96x) with comforting fatherly resonance",
         gender: "male",
         cloudLang: "en-US",
-        rate: 0.82,
-        pitch: 0.80,
-        pauseMs: 600,
+        rate: 0.96,
+        pitch: 0.88,
+        pauseMs: 280,
         preferredKeywords: ["brian", "christopher", "andrew", "daniel", "arthur", "oliver"]
       },
       {
         id: "celeste",
         icon: "✨",
         name: "Celeste — Pure Lyric & Celestial Harp",
-        desc: "Luminous, uplifting angelic voice accompanied by soft celestial harp arpeggios on each phrase",
+        desc: "Luminous, expressive angelic voice (1.06x) accompanied by soft celestial harp arpeggios",
         gender: "female",
         cloudLang: "en-IE",
-        rate: 0.95,
-        pitch: 1.07,
-        pauseMs: 390,
+        rate: 1.06,
+        pitch: 1.04,
+        pauseMs: 200,
         chimeOnPhrase: true,
         preferredKeywords: ["emily", "libby", "maisie", "sonia", "ava", "moira", "samantha"]
       },
@@ -3137,20 +3137,20 @@
         id: "grace_clear",
         icon: "🕊️",
         name: "Grace — Crisp American Devotional",
-        desc: "Clear, natural conversational cadence ideal for daytime reading & Scripture memorization",
+        desc: "Brisk, natural conversational pace (1.08x) ideal for daytime reading & Scripture study",
         gender: "female",
         cloudLang: "en-US",
-        rate: 0.96,
+        rate: 1.08,
         pitch: 1.00,
-        pauseMs: 350,
+        pauseMs: 180,
         preferredKeywords: ["ava", "emma", "michelle", "aria", "jenny", "samantha"]
       }
     ];
 
     let currentPersonaId = "seraphina";
     let customSystemVoiceURI = "auto";
-    let customVoiceRate = 0.92;
-    let customVoicePitch = 1.02;
+    let customVoiceRate = 1.05;
+    let customVoicePitch = 1.01;
     let warmCathedralPadEnabled = true;
     let speechQueueTimeouts = [];
     let activeWarmPadNodes = [];
@@ -3160,12 +3160,12 @@
 
     function loadVoicePreferences() {
       try {
-        const saved = JSON.parse(localStorage.getItem("sacred_voice_prefs_v2") || "null");
+        const saved = JSON.parse(localStorage.getItem("sacred_voice_prefs_v3") || "null");
         if (saved) {
           currentPersonaId = saved.personaId || "seraphina";
           customSystemVoiceURI = saved.systemVoiceURI || "auto";
-          customVoiceRate = typeof saved.rate === "number" ? saved.rate : 0.92;
-          customVoicePitch = typeof saved.pitch === "number" ? saved.pitch : 1.02;
+          customVoiceRate = typeof saved.rate === "number" ? saved.rate : 1.05;
+          customVoicePitch = typeof saved.pitch === "number" ? saved.pitch : 1.01;
           warmCathedralPadEnabled = saved.warmPad !== false;
         }
       } catch (e) {}
@@ -3174,7 +3174,7 @@
 
     function saveVoicePreferences() {
       try {
-        localStorage.setItem("sacred_voice_prefs_v2", JSON.stringify({
+        localStorage.setItem("sacred_voice_prefs_v3", JSON.stringify({
           personaId: currentPersonaId,
           systemVoiceURI: customSystemVoiceURI,
           rate: customVoiceRate,
@@ -3495,7 +3495,7 @@
         const audio = new Audio();
         audio.referrerPolicy = "no-referrer";
         audio.src = url;
-        const effectiveRate = Math.max(0.72, Math.min(1.22, rate * (pitch < 0.90 ? 0.93 : pitch > 1.06 ? 1.04 : 1.0)));
+        const effectiveRate = Math.max(0.75, Math.min(1.30, rate));
         if (Math.abs(pitch - 1.0) > 0.05) {
           audio.preservesPitch = false;
           audio.mozPreservesPitch = false;
@@ -3530,31 +3530,31 @@
       const chosenVoice = pickBestVoiceObject(persona);
       const useCloudEngine = !chosenVoice || (customSystemVoiceURI && customSystemVoiceURI.startsWith("cloud_"));
       const cloudLang = resolveCloudLangForCurrentVoice(persona, "en-GB");
-      const baseRate = customVoiceRate || persona.rate || 0.92;
-      const basePitch = customVoicePitch || persona.pitch || 1.00;
-      const pauseMs = persona.pauseMs || 420;
+      const baseRate = customVoiceRate || persona.rate || 1.05;
+      const basePitch = customVoicePitch || persona.pitch || 1.01;
+      const pauseMs = persona.pauseMs ?? 210;
 
       const versePhrases = splitIntoNaturalBreathPhrases(teaching.text);
       const spokenRef = formatScriptureRefForNaturalSpeech(teaching.ref);
       const prayerPhrases = prayerText ? splitIntoNaturalBreathPhrases(prayerText) : [];
 
       const segments = [
-        ...versePhrases.map((text, idx) => ({
+        ...versePhrases.map(text => ({
           text,
-          rate: baseRate * (idx === 0 ? 0.97 : 1.0),
+          rate: baseRate,
           pitch: basePitch,
           delayAfter: pauseMs
         })),
         {
           text: spokenRef,
-          rate: baseRate * 0.93,
-          pitch: basePitch * 0.97,
-          delayAfter: pauseMs + 220
+          rate: baseRate * 0.98,
+          pitch: basePitch * 0.98,
+          delayAfter: pauseMs + 80
         },
         ...prayerPhrases.map(text => ({
           text,
-          rate: baseRate * 0.94,
-          pitch: basePitch * 0.98,
+          rate: baseRate * 0.99,
+          pitch: basePitch * 0.99,
           delayAfter: pauseMs
         }))
       ].filter(s => s.text && s.text.trim().length > 0);
@@ -5314,7 +5314,7 @@
           "sacred_free_quota_date",
           "sacred_free_quota_used",
           "sacred_voice_prefs_v1",
-          "sacred_voice_prefs_v2",
+          "sacred_voice_prefs_v3",
           "sacred_viral_shares_v1",
           "sacred_onboarding_done_v1"
         ].forEach(k => localStorage.removeItem(k));
