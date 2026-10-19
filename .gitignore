@@ -1,0 +1,6 @@
+node_modules/
+expo-store-app/node_modules/
+.expo/
+expo-store-app/.expo/
+*.p8
+App Store Connect API.txt

@@ -199,17 +199,17 @@
       position: fixed;
       top: 0;
       z-index: 200;
-      background: rgba(11, 9, 7, 0.88);
-      backdrop-filter: blur(8px);
-      max-width: 100%;
+      background: rgba(11, 9, 7, 0.92);
+      backdrop-filter: blur(12px);
+      max-width: 920px;
     }
 
     body.fullscreen-mode .iphone-frame {
       width: 100vw;
-      height: 100vh;
+      height: 100dvh;
       border-radius: 0;
       box-shadow: none;
-      padding-top: 44px;
+      padding-top: 52px;
     }
 
     body.fullscreen-mode .dynamic-island,
@@ -218,15 +218,24 @@
       display: none;
     }
 
-    @media (max-width: 500px) {
-      .desktop-bar { display: none; }
-      .iphone-frame {
+    @media (max-width: 820px) {
+      .desktop-bar,
+      body.fullscreen-mode .desktop-bar {
+        display: none !important;
+      }
+      .iphone-frame,
+      body.fullscreen-mode .iphone-frame {
         width: 100vw;
         height: 100dvh;
         border-radius: 0;
         box-shadow: none;
+        padding-top: env(safe-area-inset-top, 0px);
       }
-      .dynamic-island { display: none; }
+      .dynamic-island,
+      .ios-status-bar,
+      .home-indicator {
+        display: none !important;
+      }
     }
 
     /* iOS Status Bar */
@@ -390,13 +399,7 @@
     }
 
     .mood-label {
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 4px;
+      display: none;
     }
 
     .mood-pills {
@@ -433,26 +436,28 @@
       box-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
     }
 
-    /* 12 Ancient Sacred Vessels Grid */
+    /* 12 Ancient Sacred Vessels Grid — Optimized 3x4 Portrait on iPhone */
     .vessels-stage {
       position: relative;
       flex: 1;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(4, 1fr);
-      gap: 8px 10px;
-      padding: 6px 16px 10px;
+      gap: 9px 10px;
+      padding: 6px 14px 10px;
       z-index: 10;
       align-items: center;
       justify-items: center;
     }
 
-    body.fullscreen-mode .vessels-stage {
-      max-width: 740px;
-      width: 100%;
-      margin: 0 auto;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(3, 1fr);
+    @media (min-width: 640px) {
+      body.fullscreen-mode .vessels-stage {
+        max-width: 740px;
+        width: 100%;
+        margin: 0 auto;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+      }
     }
 
     .vessel-slot {
@@ -463,17 +468,18 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-radius: 15px;
-      background: radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.09) 0%, transparent 70%);
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      transition: all 0.25s ease;
+      border-radius: 16px;
+      background: radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.11) 0%, rgba(20, 14, 8, 0.45) 75%);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
     }
 
+    .vessel-slot:active:not(.broken),
     .vessel-slot:hover:not(.broken) {
-      transform: translateY(-3px) scale(1.03);
-      border-color: rgba(255, 217, 125, 0.6);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.22);
+      transform: translateY(-2px) scale(1.02);
+      border-color: rgba(255, 217, 125, 0.65);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
     }
 
     /* Kintsugi Golden Crack Animation right before breaking */
@@ -490,8 +496,8 @@
 
     .vessel-svg-wrap {
       position: relative;
-      width: 70px;
-      height: 82px;
+      width: 72px;
+      height: 84px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -500,17 +506,17 @@
     .vessel-numeral {
       position: absolute;
       top: 5px;
-      left: 7px;
+      left: 8px;
       font-family: 'Cinzel', serif;
       font-size: 9.5px;
       font-weight: 700;
-      color: rgba(255, 217, 125, 0.65);
+      color: rgba(255, 217, 125, 0.7);
     }
 
     .vessel-label {
       font-family: 'Cinzel', serif;
-      font-size: 8.5px;
-      letter-spacing: 0.7px;
+      font-size: 9px;
+      letter-spacing: 0.6px;
       color: var(--text-muted);
       margin-top: 2px;
       text-transform: uppercase;
@@ -532,7 +538,7 @@
       display: flex;
     }
 
-    /* Sacred Floating Hammer */
+    /* Sacred Floating Hammer — Auto-hides on iPhone Touch Screens except when striking */
     #sacred-hammer {
       position: fixed;
       width: 68px;
@@ -541,6 +547,19 @@
       z-index: 120;
       transform: translate(-25%, -35%) rotate(-22deg);
       filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.75));
+      transition: opacity 0.2s ease;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .sanctuary-app {
+        cursor: default;
+      }
+      #sacred-hammer {
+        opacity: 0;
+      }
+      #sacred-hammer.swinging {
+        opacity: 1;
+      }
     }
 
     #sacred-hammer.swinging {
@@ -781,7 +800,7 @@
 
     .revelation-actions {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 7px;
       width: 100%;
       max-width: 420px;
@@ -790,12 +809,13 @@
     }
 
     .btn-sacred {
+      min-height: 40px;
       padding: 9px 10px;
-      border-radius: 11px;
+      border-radius: 12px;
       font-family: 'Cinzel', serif;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.7px;
+      letter-spacing: 0.6px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1095,10 +1115,10 @@
     /* iOS Bottom Sanctuary Navigation Dock */
     .ios-bottom-dock {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       background: rgba(14, 10, 6, 0.96);
       border-top: 1px solid rgba(212, 175, 55, 0.28);
-      padding: 5px 6px 3px;
+      padding: 6px 8px max(6px, env(safe-area-inset-bottom, 0px));
       z-index: 92;
       flex-shrink: 0;
     }
@@ -1113,16 +1133,18 @@
       justify-content: center;
       gap: 2px;
       cursor: pointer;
-      padding: 3px 2px;
+      padding: 4px 2px;
+      min-height: 44px;
       border-radius: 10px;
       transition: all 0.2s;
       font-family: 'Cinzel', serif;
-      font-size: 8.5px;
+      font-size: 9px;
+      font-weight: 600;
       letter-spacing: 0.4px;
     }
 
     .dock-tab span.dock-icon {
-      font-size: 16px;
+      font-size: 17px;
     }
 
     .dock-tab:hover, .dock-tab.active {
@@ -1375,20 +1397,9 @@
     .social-download { background: linear-gradient(135deg, #b45309, #78350f); border-color: #ffd97d; }
   
 
-    /* 7-Day Miracle Journey Tracker */
+    /* 7-Day Miracle Journey Tracker (Hidden on main stage to maximize iPhone vessel space; streak pill in top bar claims daily blessing) */
     .seven-day-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      margin: 4px auto 2px;
-      padding: 4px 10px;
-      background: rgba(20, 14, 8, 0.78);
-      border: 1px solid rgba(212, 175, 55, 0.32);
-      border-radius: 99px;
-      max-width: 350px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      display: none;
     }
 
     .seven-day-bar:hover {
@@ -1525,7 +1536,8 @@
       text-align: center;
     }
 
-    .onboarding-overlay.show {
+    .onboarding-overlay.show,
+    .onboarding-overlay.visible {
       display: flex;
       animation: fadeInSheet 0.35s ease-out;
     }
@@ -1577,7 +1589,7 @@
       position: absolute;
       left: 10px;
       right: 10px;
-      bottom: 58px;
+      bottom: 62px;
       z-index: 88;
       background: linear-gradient(135deg, rgba(36, 25, 12, 0.97), rgba(14, 10, 6, 0.98));
       border: 1.5px solid #ffd97d;
@@ -1591,7 +1603,8 @@
       animation: fadeInSheet 0.35s ease-out;
     }
 
-    .smart-install-banner.show {
+    .smart-install-banner.show,
+    .smart-install-banner.visible {
       display: flex;
     }
 
@@ -1754,7 +1767,6 @@
             <span class="relic-unlocked-pill" id="relicBadge">🏺 Relic Discovered</span>
             <button class="icon-btn" id="favHeartBtn" onclick="toggleFavoriteCurrentVerse()" style="padding:2px 8px;">🤍 Save</button>
             <button class="icon-btn" onclick="openVoiceDrawer()" style="padding:2px 8px;" id="modalVoicePill">🎙️ Voice</button>
-            <button class="icon-btn" onclick="openViralShareDrawer()" style="padding:2px 8px; border-color:#ffd97d; color:#ffd97d;">📲 Share</button>
           </div>
           <p class="jesus-quote-text" id="verseText"></p>
           <div class="scripture-reference" id="verseRef"></div>
@@ -1783,8 +1795,7 @@
 
         <div class="revelation-actions">
           <button class="btn-sacred btn-secondary-outline" onclick="replayAngelVoice()">🔊 Listen</button>
-          <button class="btn-sacred btn-secondary-outline" onclick="startMemoryQuiz()">🧠 Quiz (+25)</button>
-          <button class="btn-sacred btn-secondary-outline" onclick="openViralShareDrawer()" style="border-color:#ffd97d; color:#ffd97d;">📲 Share (+30)</button>
+          <button class="btn-sacred btn-secondary-outline" onclick="openViralShareDrawer()" style="border-color:#ffd97d; color:#ffd97d;">📲 Share</button>
           <button class="btn-sacred btn-primary-gold" onclick="closeAngelModal()">🔨 Next Jar</button>
         </div>
       </div>
@@ -2363,7 +2374,7 @@
             Add to your iPhone / Android Home Screen in 2 taps
           </div>
         </div>
-        <button class="btn-primary" onclick="openInstallAppDrawer()" style="padding:6px 12px; font-size:10.5px; min-height:30px; flex-shrink:0;">
+        <button class="btn-sacred btn-primary-gold" onclick="openInstallAppDrawer()" style="padding:6px 12px; font-size:10.5px; min-height:32px; flex-shrink:0;">
           📲 Install
         </button>
         <button onclick="dismissSmartInstallBanner()" style="background:transparent; border:none; color:var(--text-muted); font-size:15px; cursor:pointer; padding:4px;" title="Dismiss">✕</button>
@@ -2374,12 +2385,12 @@
         <div class="drawer-header">
           <div>
             <div class="sanctuary-subtitle">Instant Full-Screen App • Works 100% Offline • No App Store Wait</div>
-            <div class="drawer-title">📲 Install Sanctuary to Home Screen</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:16.5px; color:var(--gold-bright);">📲 Install Sanctuary to Home Screen</h2>
           </div>
-          <button class="drawer-close" onclick="closeAllDrawers()">✕</button>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
         </div>
 
-        <div class="library-list" style="gap:12px;">
+        <div class="drawer-list" style="gap:10px;">
           <!-- Reward Banner -->
           <div style="background:linear-gradient(135deg, rgba(45, 31, 14, 0.95), rgba(20, 13, 6, 0.98)); border:1.5px solid var(--gold-bright); border-radius:16px; padding:14px; text-align:center;">
             <div style="display:inline-block; background:linear-gradient(90deg, #ffd97d, #d4af37); color:#1a1105; font-family:'Cinzel',serif; font-size:9.5px; font-weight:800; padding:2px 10px; border-radius:99px; margin-bottom:6px;">
@@ -2395,10 +2406,10 @@
 
           <!-- OS Selector Tabs (Auto-highlights user's detected device) -->
           <div style="display:flex; gap:8px;">
-            <button id="installTabIOS" class="btn-secondary" onclick="switchInstallOsTab('ios')" style="flex:1; justify-content:center; padding:9px; font-size:11.5px; border-color:var(--gold-bright); color:var(--gold-bright); background:rgba(212,175,55,0.2);">
+            <button id="installTabIOS" class="btn-sacred btn-secondary-outline" onclick="switchInstallOsTab('ios')" style="flex:1; justify-content:center; padding:9px; font-size:11.5px; border-color:var(--gold-bright); color:var(--gold-bright); background:rgba(212,175,55,0.2);">
                iPhone / iPad (Safari)
             </button>
-            <button id="installTabAndroid" class="btn-secondary" onclick="switchInstallOsTab('android')" style="flex:1; justify-content:center; padding:9px; font-size:11.5px;">
+            <button id="installTabAndroid" class="btn-sacred btn-secondary-outline" onclick="switchInstallOsTab('android')" style="flex:1; justify-content:center; padding:9px; font-size:11.5px;">
               🤖 Android / Chrome
             </button>
           </div>
@@ -2444,7 +2455,7 @@
 
           <!-- Android / Desktop Chrome 1-Tap Instructions -->
           <div id="installGuideAndroid" style="display:none; flex-direction:column; gap:10px;">
-            <button id="nativePwaInstallBtn" class="btn-primary" onclick="triggerNativePwaInstall()" style="width:100%; justify-content:center; padding:13px; font-size:13.5px;">
+            <button id="nativePwaInstallBtn" class="btn-sacred btn-primary-gold" onclick="triggerNativePwaInstall()" style="width:100%; justify-content:center; padding:13px; font-size:13px;">
               📲 Tap Here for 1-Click Instant App Install
             </button>
 
@@ -2483,7 +2494,7 @@
                 Claim your <strong>+50 Grace Points</strong> Home Screen Blessing!
               </div>
             </div>
-            <button class="btn-primary" id="claimInstallRewardBtn" onclick="claimHomeScreenInstallReward()" style="padding:8px 14px; font-size:11.5px;">
+            <button class="btn-sacred btn-primary-gold" id="claimInstallRewardBtn" onclick="claimHomeScreenInstallReward()" style="padding:8px 14px; font-size:11.5px;">
               ✨ Claim +50 Grace
             </button>
           </div>
@@ -2497,7 +2508,7 @@
               Your <strong>Sanctuary Pass VIP</strong> works seamlessly on both Web, Home Screen App, and iOS/Android.
             </p>
             <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-              <button class="btn-secondary" onclick="openPaywallDrawer()" style="font-size:11.5px; padding:8px 14px; border-color:#ffd97d; color:#ffd97d;">
+              <button class="btn-sacred btn-secondary-outline" onclick="openPaywallDrawer()" style="font-size:11.5px; padding:8px 14px; border-color:#ffd97d; color:#ffd97d;">
                 💎 Unlock Sanctuary Pass VIP ($2.99/mo • $19.99/yr • $49.99 Lifetime)
               </button>
             </div>
