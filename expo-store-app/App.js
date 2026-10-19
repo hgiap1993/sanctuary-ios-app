@@ -1,18 +1,34 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import { StyleSheet, SafeAreaView, Platform, StatusBar as RNStatusBar, Vibration } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { WebView } from "react-native-webview";
 import { SANCTUARY_HTML } from "./sanctuaryHtml";
 
 /**
- * Optional Native RevenueCat SDK (react-native-purchases):
- * When building a custom native client or EAS production build with `react-native-purchases` installed,
- * this bridge automatically routes `INIT_STOREKIT`, `PURCHASE_PLAN`, and `RESTORE_PURCHASES`
- * from the WebView (`ios-storekit-bridge.js`) to StoreKit 2 / Google Play Billing.
+ * Direct Apple StoreKit 2 / StoreKit 1 Bridge (react-native-iap) + Optional RevenueCat SDK:
+ * Connects directly to Apple App Store Connect SKUs configured under App ID 6824383974:
+ * - com.sacredvessels.pass.yearly   (Subscription: $19.99/yr + 7-Day Free Trial)
+ * - com.sacredvessels.pass.monthly  (Subscription: $2.99/mo)
+ * - com.sacredvessels.pass.lifetime (Non-Consumable: $49.99 Lifetime Pass)
  */
+const SUBSCRIPTION_SKUS = [
+  "com.sacredvessels.pass.yearly",
+  "com.sacredvessels.pass.monthly"
+];
+const INAPP_SKUS = [
+  "com.sacredvessels.pass.lifetime"
+];
+const ALL_VALID_SKUS = [...SUBSCRIPTION_SKUS, ...INAPP_SKUS];
+
+let RNIap = null;
+try {
+  RNIap = require("react-native-iap");
+} catch (e) {
+  RNIap = null;
+}
+
 let Purchases = null;
 try {
-  // Dynamically require so Expo Go / standard WebView builds never crash if native module isn't linked yet
   Purchases = require("react-native-purchases").default;
 } catch (e) {
   Purchases = null;
@@ -20,6 +36,7 @@ try {
 
 export default function App() {
   const webViewRef = useRef(null);
+  const storeKitConnectedRef = useRef(false);
 
   const sendResponseToWebView = useCallback((payload) => {
     if (!webViewRef.current) return;
@@ -31,6 +48,36 @@ export default function App() {
       true;
     `);
   }, []);
+
+  const ensureStoreKitConnected = useCallback(async () => {
+    if (!RNIap) return false;
+    if (storeKitConnectedRef.current) return true;
+    try {
+      await RNIap.initConnection();
+      storeKitConnectedRef.current = true;
+      try {
+        await RNIap.getSubscriptions({ skus: SUBSCRIPTION_SKUS });
+      } catch (e) {}
+      try {
+        await RNIap.getProducts({ skus: INAPP_SKUS });
+      } catch (e) {}
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }, []);
+
+  useEffect(() => {
+    ensureStoreKitConnected();
+    return () => {
+      if (RNIap && storeKitConnectedRef.current) {
+        try {
+          RNIap.endConnection();
+        } catch (e) {}
+        storeKitConnectedRef.current = false;
+      }
+    };
+  }, [ensureStoreKitConnected]);
 
   const handleWebViewMessage = useCallback(async (event) => {
     try {
@@ -48,6 +95,27 @@ export default function App() {
       }
 
       if (type === "INIT_STOREKIT") {
+        // 1. Direct Apple StoreKit via react-native-iap
+        const connected = await ensureStoreKitConnected();
+        if (connected && RNIap) {
+          try {
+            const available = await RNIap.getAvailablePurchases();
+            const ownedPurchase = Array.isArray(available)
+              ? available.find((p) => ALL_VALID_SKUS.includes(p?.productId))
+              : null;
+            if (ownedPurchase) {
+              const plan = ownedPurchase.productId.includes("lifetime")
+                ? "lifetime"
+                : ownedPurchase.productId.includes("monthly")
+                ? "monthly"
+                : "annual";
+              sendResponseToWebView({ requestId, handled: true, isVIP: true, plan });
+              return;
+            }
+          } catch (e) {}
+        }
+
+        // 2. Optional RevenueCat fallback if API key is provided
         if (Purchases && payload?.apiKey && !payload.apiKey.includes("REPLACE_WITH_YOUR")) {
           await Purchases.configure({ apiKey: payload.apiKey });
           const customerInfo = await Purchases.getCustomerInfo();
@@ -55,77 +123,162 @@ export default function App() {
           const isVIP = Boolean(customerInfo?.entitlements?.active?.[entitlementId]);
           sendResponseToWebView({ requestId, handled: true, isVIP });
         } else {
-          sendResponseToWebView({ requestId, handled: false, isVIP: false });
+          sendResponseToWebView({ requestId, handled: true, isVIP: false });
         }
         return;
       }
 
       if (type === "PURCHASE_PLAN") {
-        if (!Purchases) {
-          // Fall back to interactive StoreKit 2 sheet inside the WebView
-          sendResponseToWebView({ requestId, handled: false });
-          return;
-        }
-        try {
-          const offerings = await Purchases.getOfferings();
-          const current = offerings?.current;
-          if (!current) {
-            sendResponseToWebView({ requestId, handled: false });
+        const planType = payload?.planType || "annual";
+        const productId =
+          payload?.productId ||
+          (planType === "lifetime"
+            ? "com.sacredvessels.pass.lifetime"
+            : planType === "monthly"
+            ? "com.sacredvessels.pass.monthly"
+            : "com.sacredvessels.pass.yearly");
+
+        // 1. Direct Apple StoreKit Purchase via react-native-iap
+        const connected = await ensureStoreKitConnected();
+        if (connected && RNIap) {
+          try {
+            let purchaseResult = null;
+            if (planType === "lifetime") {
+              purchaseResult = await RNIap.requestPurchase({
+                sku: productId,
+                andDangerouslyFinishTransactionAutomaticallyIOS: false
+              });
+            } else {
+              purchaseResult = await RNIap.requestSubscription({
+                sku: productId,
+                andDangerouslyFinishTransactionAutomaticallyIOS: false
+              });
+            }
+
+            const purchaseObj = Array.isArray(purchaseResult) ? purchaseResult[0] : purchaseResult;
+            if (purchaseObj) {
+              try {
+                await RNIap.finishTransaction({ purchase: purchaseObj, isConsumable: false });
+              } catch (e) {}
+              sendResponseToWebView({
+                requestId,
+                handled: true,
+                success: true,
+                isVIP: true,
+                plan: planType
+              });
+              return;
+            }
+          } catch (err) {
+            const isCancelled =
+              err?.code === "E_USER_CANCELLED" ||
+              String(err?.message || "").toLowerCase().includes("cancel");
+            sendResponseToWebView({
+              requestId,
+              handled: true,
+              success: false,
+              cancelled: isCancelled,
+              errorMessage: isCancelled ? "" : "Unable to complete App Store purchase at this moment. Please try again."
+            });
             return;
           }
-          const planType = payload?.planType || "annual";
-          const productId = payload?.productId;
-          const entitlementId = payload?.entitlementId || "sanctuary_vip";
+        }
 
-          let pkg = null;
-          if (planType === "lifetime") {
-            pkg =
-              current.lifetime ||
-              (current.availablePackages || []).find(
-                (p) => p.identifier === "$rc_lifetime" || p.product?.identifier === productId
-              );
-          } else if (planType === "monthly") {
-            pkg = current.monthly;
-          } else {
-            pkg = current.annual;
-          }
-
-          if (!pkg) {
-            sendResponseToWebView({ requestId, handled: false });
+        // 2. Optional RevenueCat fallback if installed & configured
+        if (Purchases) {
+          try {
+            const offerings = await Purchases.getOfferings();
+            const current = offerings?.current;
+            if (current) {
+              const entitlementId = payload?.entitlementId || "sanctuary_vip";
+              let pkg = null;
+              if (planType === "lifetime") {
+                pkg =
+                  current.lifetime ||
+                  (current.availablePackages || []).find(
+                    (p) => p.identifier === "$rc_lifetime" || p.product?.identifier === productId
+                  );
+              } else if (planType === "monthly") {
+                pkg = current.monthly;
+              } else {
+                pkg = current.annual;
+              }
+              if (pkg) {
+                const { customerInfo } = await Purchases.purchasePackage(pkg);
+                const unlocked = Boolean(customerInfo?.entitlements?.active?.[entitlementId]);
+                sendResponseToWebView({
+                  requestId,
+                  handled: true,
+                  success: unlocked,
+                  isVIP: unlocked,
+                  plan: planType
+                });
+                return;
+              }
+            }
+          } catch (err) {
+            sendResponseToWebView({ requestId, handled: true, success: false, cancelled: true });
             return;
           }
-
-          const { customerInfo } = await Purchases.purchasePackage(pkg);
-          const unlocked = Boolean(customerInfo?.entitlements?.active?.[entitlementId]);
-          sendResponseToWebView({
-            requestId,
-            handled: true,
-            success: unlocked,
-            isVIP: unlocked,
-            plan: planType
-          });
-        } catch (err) {
-          sendResponseToWebView({ requestId, handled: true, success: false, cancelled: true });
         }
+
+        sendResponseToWebView({
+          requestId,
+          handled: true,
+          success: false,
+          cancelled: false,
+          errorMessage: "Connecting to Apple App Store StoreKit... Please ensure you are signed in to your Apple ID."
+        });
         return;
       }
 
       if (type === "RESTORE_PURCHASES") {
-        if (!Purchases) {
-          sendResponseToWebView({ requestId, handled: false });
-          return;
+        // 1. Direct Apple StoreKit Restore via react-native-iap
+        const connected = await ensureStoreKitConnected();
+        if (connected && RNIap) {
+          try {
+            const available = await RNIap.getAvailablePurchases();
+            const ownedPurchase = Array.isArray(available)
+              ? available.find((p) => ALL_VALID_SKUS.includes(p?.productId))
+              : null;
+            if (ownedPurchase) {
+              const plan = ownedPurchase.productId.includes("lifetime")
+                ? "lifetime"
+                : ownedPurchase.productId.includes("monthly")
+                ? "monthly"
+                : "annual";
+              sendResponseToWebView({
+                requestId,
+                handled: true,
+                success: true,
+                isVIP: true,
+                plan
+              });
+              return;
+            }
+            sendResponseToWebView({ requestId, handled: true, success: false, isVIP: false });
+            return;
+          } catch (err) {
+            sendResponseToWebView({ requestId, handled: true, success: false, isVIP: false });
+            return;
+          }
         }
-        try {
-          const customerInfo = await Purchases.restorePurchases();
-          const entitlementId = payload?.entitlementId || "sanctuary_vip";
-          const unlocked = Boolean(customerInfo?.entitlements?.active?.[entitlementId]);
-          sendResponseToWebView({ requestId, handled: true, success: unlocked, isVIP: unlocked });
-        } catch (err) {
-          sendResponseToWebView({ requestId, handled: true, success: false });
+
+        // 2. Optional RevenueCat Restore
+        if (Purchases) {
+          try {
+            const customerInfo = await Purchases.restorePurchases();
+            const entitlementId = payload?.entitlementId || "sanctuary_vip";
+            const unlocked = Boolean(customerInfo?.entitlements?.active?.[entitlementId]);
+            sendResponseToWebView({ requestId, handled: true, success: unlocked, isVIP: unlocked });
+            return;
+          } catch (err) {}
         }
+
+        sendResponseToWebView({ requestId, handled: true, success: false, isVIP: false });
       }
     } catch (e) {}
-  }, [sendResponseToWebView]);
+  }, [ensureStoreKitConnected, sendResponseToWebView]);
 
   return (
     <SafeAreaView style={styles.container}>

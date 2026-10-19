@@ -2186,8 +2186,8 @@
             ✨ Start 7-Day Free Trial ($19.99/yr)
           </button>
 
-          <!-- Gift a Sanctuary Pass to Family / Friends -->
-          <div style="background:rgba(255,255,255,0.03); border:1px dashed rgba(212,175,55,0.38); border-radius:12px; padding:8px 11px; margin-top:2px;">
+          <!-- Gift a Sanctuary Pass to Family / Friends (Website Only — Auto-hidden on Native iOS per Guideline 3.1.1) -->
+          <div id="webGiftPassWrapper" style="background:rgba(255,255,255,0.03); border:1px dashed rgba(212,175,55,0.38); border-radius:12px; padding:8px 11px; margin-top:2px;">
             <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleGiftPassBox()">
               <span style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700;">
                 🎁 Gift a 1-Year Sanctuary Pass to a Loved One
@@ -5594,9 +5594,14 @@
 
     function openPaywallDrawer(reason) {
       closeAllDrawers();
+      const isNativeContainer = Boolean(window.Capacitor || window.ReactNativeWebView);
       const licWrap = document.getElementById("webLicenseKeyWrapper");
-      if (licWrap && (window.Capacitor || window.ReactNativeWebView)) {
-        licWrap.style.display = "none";
+      const giftWrap = document.getElementById("webGiftPassWrapper");
+      const simSheet = document.getElementById("applePaySheet");
+      if (isNativeContainer) {
+        if (licWrap) licWrap.style.display = "none";
+        if (giftWrap) giftWrap.style.display = "none";
+        if (simSheet) simSheet.style.display = "none";
       }
       selectPaywallPlan(selectedPaywallPlan || "annual");
       updateSubscriptionUI();
@@ -5651,14 +5656,21 @@
     }
 
     async function showApplePaySheet() {
+      const isNativeContainer = Boolean(window.Capacitor || window.ReactNativeWebView);
       // Check if Native StoreKit 2 / RevenueCat bridge handles purchase directly
       if (window.SacredIOSBridge && typeof window.SacredIOSBridge.purchasePlan === "function") {
         const result = await window.SacredIOSBridge.purchasePlan(selectedPaywallPlan);
         if (result && result.handled) {
-          if (result.success) confirmApplePaySubscription();
+          if (result.success) {
+            confirmApplePaySubscription();
+          } else if (result.errorMessage && !result.cancelled) {
+            triggerSanctuaryNotification(" App Store Notice", result.errorMessage);
+          }
           return;
         }
       }
+      // Never show simulated HTML sheet inside Native iOS / Android container
+      if (isNativeContainer) return;
       const sheet = document.getElementById("applePaySheet");
       if (sheet) {
         sheet.classList.add("show");
@@ -5736,7 +5748,13 @@
     async function restoreIOSPurchases() {
       if (window.SacredIOSBridge && typeof window.SacredIOSBridge.restorePurchases === "function") {
         const restored = await window.SacredIOSBridge.restorePurchases();
-        if (!restored) return;
+        if (!restored) {
+          triggerSanctuaryNotification(
+            "ℹ️ No Previous Purchases Found",
+            "No active Sanctuary Pass subscription or Lifetime Pass was found for this Apple ID."
+          );
+          return;
+        }
       }
       isSanctuaryVIP = true;
       unseenIndices = [];
@@ -6289,6 +6307,7 @@
     }
 
     function handleSecretDevTap() {
+      if (window.Capacitor || window.ReactNativeWebView) return;
       secretDevTapCount++;
       if (secretDevTapCount >= 5) {
         const devLink = document.getElementById("devSwitchVipLink");

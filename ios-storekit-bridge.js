@@ -263,16 +263,23 @@
       const normalizedPlan = planType === "yearly" ? "annual" : (planType || "annual");
       const productId = PRODUCT_IDS[normalizedPlan] || PRODUCT_IDS.annual;
 
-      // 1. Expo / React Native WebView with live RevenueCat
-      if (isExpoReactNative && hasLiveRevenueCatKey()) {
+      // 1. Expo / React Native WebView (Direct Native StoreKit via react-native-iap or RevenueCat)
+      if (isExpoReactNative) {
         const res = await sendToExpoNative("PURCHASE_PLAN", {
           planType: normalizedPlan,
           productId,
           entitlementId: ENTITLEMENT_ID
         });
         if (res && res.handled) {
-          return { handled: true, success: Boolean(res.success), planType: normalizedPlan };
+          return {
+            handled: true,
+            success: Boolean(res.success),
+            cancelled: Boolean(res.cancelled),
+            errorMessage: res.errorMessage || "",
+            planType: normalizedPlan
+          };
         }
+        return { handled: true, success: false, cancelled: true, planType: normalizedPlan };
       }
 
       // 2. Capacitor Native with live RevenueCat
@@ -321,19 +328,21 @@
         return { handled: true, success: false, openedWebCheckout: true, checkoutUrl: targetWebUrl };
       }
 
-      // 4. Fallback to Interactive StoreKit 2 Sheet in UI
+      // 4. Fallback to Interactive StoreKit 2 Sheet in UI (Web/PWA only)
       return { handled: false, productId, planType: normalizedPlan };
     },
 
     async restorePurchases() {
-      // 1. Expo / React Native WebView
-      if (isExpoReactNative && hasLiveRevenueCatKey()) {
+      // 1. Expo / React Native WebView (Direct Native StoreKit via react-native-iap or RevenueCat)
+      if (isExpoReactNative) {
         const res = await sendToExpoNative("RESTORE_PURCHASES", {
-          entitlementId: ENTITLEMENT_ID
+          entitlementId: ENTITLEMENT_ID,
+          productIds: PRODUCT_IDS
         });
         if (res && res.handled) {
           return Boolean(res.success);
         }
+        return false;
       }
 
       // 2. Capacitor Native
@@ -355,7 +364,7 @@
         }
       }
 
-      // 3. Simulator / Offline restore
+      // 3. Web Simulator / Offline restore
       return true;
     },
 
