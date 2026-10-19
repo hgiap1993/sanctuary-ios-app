@@ -3,6 +3,7 @@
     "name": "Sanctuary",
     "slug": "sanctuary-12-sacred-vessels",
     "version": "1.1.0",
+    "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -15,11 +16,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.sacredvessels.jesuswords",
-      "buildNumber": "1",
       "infoPlist": {
         "CFBundleDisplayName": "Sanctuary",
         "ITSAppUsesNonExemptEncryption": false,
-        "UIBackgroundModes": ["audio"],
+        "UIBackgroundModes": [
+          "audio"
+        ],
         "NSMicrophoneUsageDescription": "Sanctuary does not record your voice; audio permissions are used solely for peaceful ambient harp and scripture playback."
       }
     },
@@ -34,6 +36,15 @@
         "INTERNET",
         "VIBRATE"
       ]
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "be6bc40d-e5da-4c42-b719-cf6f565a16c4"
+      }
+    },
+    "owner": "phanxicovos-team",
+    "plugins": [
+      "expo-asset"
+    ]
   }
 }

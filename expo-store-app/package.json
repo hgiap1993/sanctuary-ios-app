@@ -14,12 +14,13 @@
     "ship:ios": "eas build --platform ios --profile production --auto-submit"
   },
   "dependencies": {
-    "expo": "~52.0.0",
-    "expo-status-bar": "~2.0.0",
-    "react": "18.3.1",
-    "react-native": "0.76.5",
+    "expo": "~54.0.37",
+    "expo-asset": "~12.0.13",
+    "expo-status-bar": "~3.0.9",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
     "react-native-iap": "^12.15.4",
-    "react-native-webview": "13.12.5"
+    "react-native-webview": "13.15.0"
   },
   "private": true
 }

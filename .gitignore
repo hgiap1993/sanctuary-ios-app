@@ -3,4 +3,11 @@ expo-store-app/node_modules/
 .expo/
 expo-store-app/.expo/
 *.p8
+*.p12
+*.key
+*.csr
+*.cer
+*.pem
+*.mobileprovision
+expo-store-app/credentials.json
 App Store Connect API.txt
