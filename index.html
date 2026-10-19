@@ -2191,17 +2191,17 @@
             </div>
           </div>
 
-          <!-- Simulated / Native iOS StoreKit 2 & Apple Pay Sheet -->
+          <!-- Native Google Play Billing / Google Pay & iOS StoreKit 2 Sheet -->
           <div class="apple-pay-sheet" id="applePaySheet">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-              <span style="font-weight:700; font-size:13.5px; color:#fff;"> App Store • StoreKit 2</span>
+              <span style="font-weight:700; font-size:13.5px; color:#fff;" id="storeSheetHeaderTitle">▶ Google Play • Google Pay</span>
               <span style="font-size:10.5px; color:#999;" id="storeKitProductId">com.sacredvessels.pass.yearly</span>
             </div>
             <div style="font-size:12px; color:#ddd; margin-bottom:10px; line-height:1.4;" id="storeKitSummary">
-              7-Day Free Trial ($0.00 today), then $19.99/year. Cancel anytime in Settings &gt; Apple ID.
+              7-Day Free Trial ($0.00 today), then $19.99/year. Cancel anytime in Google Play &gt; Subscriptions.
             </div>
-            <button class="btn-sacred btn-primary-gold" style="width:100%;" id="storeKitConfirmBtn" onclick="confirmApplePaySubscription()">
-              😊 Confirm with Face ID / Apple Pay
+            <button class="btn-sacred btn-primary-gold" style="width:100%;" id="storeKitConfirmBtn" onclick="executeGooglePayOrConfirm()">
+              💳 Pay with Google Pay / Google Play
             </button>
           </div>
 
@@ -5650,11 +5650,17 @@
       document.getElementById("legalDrawer").classList.add("open");
     }
 
+    function isAppleIOSPlatform() {
+      const ua = navigator.userAgent || "";
+      return /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    }
+
     function selectPaywallPlan(plan) {
       selectedPaywallPlan = plan || "annual";
       const isAnnual = (selectedPaywallPlan === "annual" || selectedPaywallPlan === "yearly");
       const isLifetime = (selectedPaywallPlan === "lifetime");
       const isMonthly = (selectedPaywallPlan === "monthly");
+      const isIOS = isAppleIOSPlatform();
 
       const annualCard = document.getElementById("planAnnual");
       const lifetimeCard = document.getElementById("planLifetime");
@@ -5663,35 +5669,124 @@
       if (lifetimeCard) lifetimeCard.classList.toggle("selected", isLifetime);
       if (monthlyCard) monthlyCard.classList.toggle("selected", isMonthly);
 
+      const headerTitleEl = document.getElementById("storeSheetHeaderTitle");
+      const confirmBtnEl = document.getElementById("storeKitConfirmBtn");
       const prodIdEl = document.getElementById("storeKitProductId");
       const summaryEl = document.getElementById("storeKitSummary");
+
+      if (headerTitleEl) {
+        headerTitleEl.textContent = isIOS ? " App Store • StoreKit 2" : "▶ Google Play • Google Pay";
+      }
+      if (confirmBtnEl) {
+        confirmBtnEl.textContent = isIOS ? "😊 Confirm with Face ID / Apple Pay" : "💳 Pay with Google Pay / Google Play";
+      }
       if (prodIdEl) {
         if (isLifetime) prodIdEl.textContent = "com.sacredvessels.pass.lifetime";
         else if (isMonthly) prodIdEl.textContent = "com.sacredvessels.pass.monthly";
         else prodIdEl.textContent = "com.sacredvessels.pass.yearly";
       }
       if (summaryEl) {
+        const cancelWhere = isIOS ? "Settings > Apple ID" : "Google Play > Subscriptions";
         if (isLifetime) {
           summaryEl.textContent = "One-Time Purchase: $49.99 (Non-Consumable). Own Sanctuary Pass VIP forever — never billed again + 250 Grace Bonus.";
         } else if (isMonthly) {
-          summaryEl.textContent = "$2.99/month (Auto-renewable). Cancel anytime in Settings > Apple ID.";
+          summaryEl.textContent = `$2.99/month (Auto-renewable). Cancel anytime in ${cancelWhere}.`;
         } else {
-          summaryEl.textContent = "7-Day Free Trial ($0.00 today), then $19.99/year. Cancel anytime in Settings > Apple ID.";
+          summaryEl.textContent = `7-Day Free Trial ($0.00 today), then $19.99/year. Cancel anytime in ${cancelWhere}.`;
         }
       }
       updateSubscriptionUI();
     }
 
-    async function showApplePaySheet() {
-      const isNativeContainer = Boolean(window.Capacitor || window.ReactNativeWebView);
-      // Check if Native StoreKit 2 / RevenueCat bridge handles purchase directly
+    async function executeGooglePayOrConfirm() {
+      // 1. Check Native Google Play Billing / StoreKit bridge first
       if (window.SacredIOSBridge && typeof window.SacredIOSBridge.purchasePlan === "function") {
         const result = await window.SacredIOSBridge.purchasePlan(selectedPaywallPlan);
         if (result && result.handled) {
           if (result.success) {
             confirmApplePaySubscription();
           } else if (result.errorMessage && !result.cancelled) {
-            triggerSanctuaryNotification(" App Store Notice", result.errorMessage);
+            triggerSanctuaryNotification(isAppleIOSPlatform() ? " App Store Notice" : "▶ Google Play Billing", result.errorMessage);
+          }
+          return;
+        }
+      }
+
+      // 2. If running in a browser supporting W3C PaymentRequest with Google Pay, invoke Google Pay sheet
+      if (!isAppleIOSPlatform() && window.PaymentRequest) {
+        try {
+          const isLifetime = (selectedPaywallPlan === "lifetime");
+          const isMonthly = (selectedPaywallPlan === "monthly");
+          const amountVal = isLifetime ? "49.99" : (isMonthly ? "2.99" : "19.99");
+          const labelText = isLifetime
+            ? "Lifetime Sanctuary Pass (Forever)"
+            : (isMonthly ? "Monthly Sanctuary Pass" : "Annual Sanctuary Pass (7-Day Free Trial)");
+
+          const supportedInstruments = [
+            {
+              supportedMethods: "https://google.com/pay",
+              data: {
+                environment: "TEST",
+                apiVersion: 2,
+                apiVersionMinor: 0,
+                merchantInfo: {
+                  merchantName: "Sanctuary: 12 Sacred Vessels"
+                },
+                allowedPaymentMethods: [
+                  {
+                    type: "CARD",
+                    parameters: {
+                      allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                      allowedCardNetworks: ["VISA", "MASTERCARD", "AMEX", "DISCOVER"]
+                    },
+                    tokenizationSpecification: {
+                      type: "PAYMENT_GATEWAY",
+                      parameters: {
+                        gateway: "example",
+                        gatewayMerchantId: "exampleGatewayMerchantId"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ];
+          const details = {
+            total: {
+              label: labelText,
+              amount: { currency: "USD", value: amountVal }
+            }
+          };
+          const request = new PaymentRequest(supportedInstruments, details);
+          const canMake = await request.canMakePayment().catch(() => false);
+          if (canMake) {
+            const paymentResponse = await request.show();
+            await paymentResponse.complete("success");
+            confirmApplePaySubscription();
+            return;
+          }
+        } catch (err) {
+          const msg = String((err && err.message) || "").toLowerCase();
+          if (msg.includes("cancel") || msg.includes("abort")) {
+            return;
+          }
+        }
+      }
+
+      // 3. Fallback confirmation
+      confirmApplePaySubscription();
+    }
+
+    async function showApplePaySheet() {
+      const isNativeContainer = Boolean(window.Capacitor || window.ReactNativeWebView);
+      // Check if Native Google Play Billing / StoreKit 2 / RevenueCat bridge handles purchase directly
+      if (window.SacredIOSBridge && typeof window.SacredIOSBridge.purchasePlan === "function") {
+        const result = await window.SacredIOSBridge.purchasePlan(selectedPaywallPlan);
+        if (result && result.handled) {
+          if (result.success) {
+            confirmApplePaySubscription();
+          } else if (result.errorMessage && !result.cancelled) {
+            triggerSanctuaryNotification(isAppleIOSPlatform() ? " App Store Notice" : "▶ Google Play Billing", result.errorMessage);
           }
           return;
         }
