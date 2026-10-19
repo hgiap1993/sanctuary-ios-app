@@ -15,7 +15,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="⚱️ Sanctuary: The Twelve Sacred Vessels — Hear Jesus's Word Today" />
   <meta property="og:description" content="Strike one of the 12 ancient clay vessels to release divine light, angelic voice readings, and 365+ Words of Jesus Christ for peace & sleep." />
-  <meta property="og:url" content="https://hgiap1993.github.io/sanctuary-ios-app/" />
+  <meta property="og:url" content="https://sanctuaryprayer.cloud/" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="⚱️ Sanctuary: 12 Sacred Vessels & Daily Words of Jesus" />
   <meta name="twitter:description" content="Break a Sacred Vessel and receive a personal Gospel Word & Angelic Prayer for your heart today." />
@@ -1865,12 +1865,12 @@
         </div>
       </div>
 
-      <!-- Drawer 8: 💎 Sanctuary Pass — iOS StoreKit Paywall ($2.99/mo & $19.99/yr) -->
+      <!-- Drawer 8: 💎 Sanctuary Pass — iOS StoreKit 2 Paywall ($2.99/mo, $19.99/yr & $49.99 Lifetime) -->
       <div class="library-drawer" id="paywallDrawer">
         <div class="drawer-header">
           <div>
             <div class="sanctuary-subtitle" id="paywallReasonBanner">Unlock the Full Sanctuary</div>
-            <h2 style="font-family:'Cinzel',serif; font-size:18px; color:var(--gold-bright); cursor:pointer;" onclick="handleSecretDevTap()" title="Sanctuary Pass VIP">💎 Sanctuary Pass VIP</h2>
+            <h2 style="font-family:'Cinzel',serif; font-size:18px; color:var(--gold-bright); cursor:pointer;" onclick="handleSecretDevTap()" title="Tap 5 times for StoreKit / RevenueCat Dev Settings">💎 Sanctuary Pass VIP</h2>
           </div>
           <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
         </div>
@@ -1882,27 +1882,27 @@
           </div>
 
           <!-- Benefits Box -->
-          <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.35); border-radius:14px; padding:11px 13px; margin-bottom:4px;">
-            <div style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700; margin-bottom:6px;">
-              ✨ SANCTUARY PASS INCLUDES:
+          <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.35); border-radius:14px; padding:10px 13px; margin-bottom:2px;">
+            <div style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700; margin-bottom:5px;">
+              ✨ SANCTUARY PASS VIP INCLUDES:
             </div>
-            <div style="font-size:13.5px; color:var(--text-light); line-height:1.55;">
-              <div>✅ <strong>Unlimited 12 Sacred Vessels & 13th Golden Chalice</strong> (Free tier: 3 vessels/day)</div>
-              <div>✅ <strong>All 365 Daily Words of Jesus (#1–365) & Deep Angelic Counsel</strong></div>
-              <div>✅ <strong>Sanctuary Harp, Gregorian Chant & Night Rain Sleep Mode</strong></div>
-              <div>✅ <strong>Unlimited HD Blessing Cards & 24h Sanctuary Candles</strong></div>
+            <div style="font-size:13px; color:var(--text-light); line-height:1.5;">
+              <div>✅ <strong>Unlimited 12 Sacred Vessels &amp; 13th Golden Chalice</strong> (Free: 3/day)</div>
+              <div>✅ <strong>All 365+ Red-Letter Words of Jesus &amp; Deep Angelic Counsel</strong></div>
+              <div>✅ <strong>Sanctuary Harp, Gregorian Chant &amp; Night Rain Sleep Mode</strong></div>
+              <div>✅ <strong>Unlimited 1080p HD Blessing Cards &amp; 24h Sanctuary Candles</strong></div>
             </div>
           </div>
 
-          <!-- Yearly Plan ($19.99/yr) -->
-          <div class="paywall-plan-card selected" id="planAnnual" onclick="selectPaywallPlan('annual')">
+          <!-- Plan 1: Yearly Plan ($19.99/yr + 7-Day Free Trial) -->
+          <div class="paywall-plan-card selected" id="planAnnual" onclick="selectPaywallPlan('annual')" style="margin-bottom:5px;">
             <span class="best-value-tag">SAVE 44% • 7-DAY FREE TRIAL</span>
             <div>
               <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
                 Annual Sanctuary Pass
               </div>
-              <div style="font-size:12.5px; color:var(--text-muted);">
-                7 days free, then $19.99/year ($1.66/mo)
+              <div style="font-size:12px; color:var(--text-muted);">
+                7 days free ($0 today), then $19.99/yr ($1.66/mo)
               </div>
             </div>
             <div style="font-family:'Cinzel',serif; font-size:16px; color:#fff; font-weight:700;">
@@ -1910,13 +1910,29 @@
             </div>
           </div>
 
-          <!-- Monthly Plan ($2.99/mo) -->
-          <div class="paywall-plan-card" id="planMonthly" onclick="selectPaywallPlan('monthly')">
+          <!-- Plan 2: Lifetime Eternal Pass ($49.99 One-Time Forever) -->
+          <div class="paywall-plan-card" id="planLifetime" onclick="selectPaywallPlan('lifetime')" style="margin-bottom:5px;">
+            <span class="best-value-tag" style="background:linear-gradient(90deg, #fde047, #f59e0b); color:#1a0f00;">👑 FOUNDER'S ETERNAL PASS • PAY ONCE</span>
+            <div>
+              <div style="font-family:'Cinzel',serif; font-size:13px; color:#fef08a; font-weight:700;">
+                Lifetime Sanctuary Pass
+              </div>
+              <div style="font-size:12px; color:var(--text-muted);">
+                One-time payment • Own forever + <strong>250 Grace Bonus</strong>
+              </div>
+            </div>
+            <div style="font-family:'Cinzel',serif; font-size:16px; color:#fde047; font-weight:700;">
+              $49.99<span style="font-size:9.5px; color:var(--text-muted); display:block; text-align:right;">forever</span>
+            </div>
+          </div>
+
+          <!-- Plan 3: Monthly Plan ($2.99/mo) -->
+          <div class="paywall-plan-card" id="planMonthly" onclick="selectPaywallPlan('monthly')" style="margin-bottom:4px;">
             <div>
               <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
                 Monthly Sanctuary Pass
               </div>
-              <div style="font-size:12.5px; color:var(--text-muted);">
+              <div style="font-size:12px; color:var(--text-muted);">
                 Flexible monthly blessing • Cancel anytime
               </div>
             </div>
@@ -1925,27 +1941,88 @@
             </div>
           </div>
 
-          <!-- Simulated iOS StoreKit / Apple Pay Sheet -->
+          <!-- Simulated / Native iOS StoreKit 2 & Apple Pay Sheet -->
           <div class="apple-pay-sheet" id="applePaySheet">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-              <span style="font-weight:700; font-size:14px; color:#fff;"> App Store • StoreKit 2</span>
-              <span style="font-size:11px; color:#999;" id="storeKitProductId">com.sacredvessels.pass.yearly</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-weight:700; font-size:13.5px; color:#fff;"> App Store • StoreKit 2</span>
+              <span style="font-size:10.5px; color:#999;" id="storeKitProductId">com.sacredvessels.pass.yearly</span>
             </div>
-            <div style="font-size:12.5px; color:#ddd; margin-bottom:10px;" id="storeKitSummary">
-              7-Day Free Trial, then $19.99/year. Cancel anytime in Settings &gt; Apple ID.
+            <div style="font-size:12px; color:#ddd; margin-bottom:10px; line-height:1.4;" id="storeKitSummary">
+              7-Day Free Trial ($0.00 today), then $19.99/year. Cancel anytime in Settings &gt; Apple ID.
             </div>
-            <button class="btn-sacred btn-primary-gold" style="width:100%;" onclick="confirmApplePaySubscription()">
+            <button class="btn-sacred btn-primary-gold" style="width:100%;" id="storeKitConfirmBtn" onclick="confirmApplePaySubscription()">
               😊 Confirm with Face ID / Apple Pay
             </button>
           </div>
 
-          <button class="btn-sacred btn-primary-gold" id="mainSubscribeBtn" onclick="showApplePaySheet()" style="margin-top:4px; padding:13px;">
+          <button class="btn-sacred btn-primary-gold" id="mainSubscribeBtn" onclick="showApplePaySheet()" style="margin-top:2px; padding:13px;">
             ✨ Start 7-Day Free Trial ($19.99/yr)
           </button>
 
+          <!-- Gift a Sanctuary Pass to Family / Friends -->
+          <div style="background:rgba(255,255,255,0.03); border:1px dashed rgba(212,175,55,0.38); border-radius:12px; padding:8px 11px; margin-top:2px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleGiftPassBox()">
+              <span style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700;">
+                🎁 Gift a 1-Year Sanctuary Pass to a Loved One
+              </span>
+              <span style="font-size:11px; color:var(--text-muted);" id="giftToggleArrow">▼ Give Gift</span>
+            </div>
+            <div id="giftPassFormBox" style="display:none; margin-top:8px; padding-top:8px; border-top:1px solid rgba(212,175,55,0.2);">
+              <div style="font-size:12px; color:var(--text-light); margin-bottom:6px;">
+                Send 365 days of Jesus's Words &amp; Peaceful Sleep to family or friends ($19.99 One-Year Gift Certificate):
+              </div>
+              <div style="display:flex; gap:6px; margin-bottom:6px;">
+                <input type="text" id="giftRecipientInput" class="search-input" placeholder="Recipient name (e.g., Mom, David)..." style="flex:1; padding:7px 10px; font-size:12px;">
+                <button class="btn-sacred btn-primary-gold" style="padding:7px 12px; font-size:11px; white-space:nowrap;" onclick="purchaseAndShareGiftPass()">
+                  🎁 Gift ($19.99)
+                </button>
+              </div>
+              <div id="giftCodeResultBanner" style="display:none; font-size:11.5px; color:#86efac; background:rgba(20,83,45,0.35); border:1px solid rgba(74,222,128,0.4); border-radius:8px; padding:7px 9px;"></div>
+            </div>
+          </div>
+
+          <!-- Redeem VIP License Key / Promo Code (For Gumroad / LemonSqueezy / Stripe Web Buyers) -->
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:12px; padding:8px 11px; margin-top:2px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleLicenseKeyBox()">
+              <span style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700;">
+                🔑 Have a VIP License Key or Promo Code?
+              </span>
+              <span style="font-size:11px; color:var(--text-muted);" id="licenseToggleArrow">▼ Enter Code</span>
+            </div>
+            <div id="licenseKeyFormBox" style="display:none; margin-top:8px; padding-top:8px; border-top:1px solid rgba(212,175,55,0.2);">
+              <div style="display:flex; gap:6px;">
+                <input type="text" id="vipLicenseKeyInput" class="search-input" placeholder="e.g. SANCTUARY-VIP-2026 or Gumroad Key" style="flex:1; padding:7px 10px; font-size:12px; margin-bottom:0;">
+                <button class="btn-sacred btn-primary-gold" style="padding:7px 12px; font-size:11px; white-space:nowrap;" onclick="redeemVipLicenseKeyFromUI()">
+                  🔓 Activate VIP
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live RevenueCat & Direct Web Checkout Configuration Panel (Revealed in Dev Mode: Tap 💎 5x) -->
+          <div id="devRevenueCatBox" style="display:none; background:rgba(15,23,42,0.88); border:1px solid rgba(96,165,250,0.45); border-radius:12px; padding:9px 11px; margin-top:4px;">
+            <div style="font-family:'Cinzel',serif; font-size:10.5px; color:#93c5fd; font-weight:700; margin-bottom:4px;">
+              🛠️ WEB CHECKOUT LINKS (STRIPE / GUMROAD / LEMONSQUEEZY) &amp; REVENUECAT
+            </div>
+            <div style="font-size:11px; color:#cbd5e1; margin-bottom:6px;" id="rcBridgeStatusText">
+              Environment: Web/Simulator • Entitlement: <code>sanctuary_vip</code>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:5px; margin-bottom:6px;">
+              <input type="text" id="webUrlAnnualInput" class="search-input" placeholder="Annual ($19.99) Stripe/Gumroad/LemonSqueezy URL" style="padding:5px 8px; font-size:11px; margin-bottom:0;">
+              <input type="text" id="webUrlLifetimeInput" class="search-input" placeholder="Lifetime ($49.99) Stripe/Gumroad/LemonSqueezy URL" style="padding:5px 8px; font-size:11px; margin-bottom:0;">
+              <input type="text" id="webUrlMonthlyInput" class="search-input" placeholder="Monthly ($2.99) Stripe/Gumroad/LemonSqueezy URL" style="padding:5px 8px; font-size:11px; margin-bottom:0;">
+            </div>
+            <div style="display:flex; gap:6px;">
+              <input type="text" id="rcApiKeyInput" class="search-input" placeholder="Optional: appl_... or goog_... RevenueCat Key" style="flex:1; padding:5px 8px; font-size:11px; margin-bottom:0;">
+              <button class="btn-sacred btn-secondary-outline" style="padding:5px 10px; font-size:11px; border-color:#60a5fa; color:#93c5fd; white-space:nowrap;" onclick="saveLiveRevenueCatKeyFromUI()">
+                💾 Save All
+              </button>
+            </div>
+          </div>
+
           <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-muted); padding:4px 4px 0;">
             <span style="cursor:pointer; text-decoration:underline;" onclick="restoreIOSPurchases()">Restore Purchases</span>
-            <span id="devSwitchVipLink" style="cursor:pointer; text-decoration:underline; display:none;" onclick="toggleVIPStatusDirectly()">⚡ Dev: Switch Free/VIP</span>
+            <span id="devSwitchVipLink" style="cursor:pointer; text-decoration:underline; display:none; color:#93c5fd;" onclick="toggleVIPStatusDirectly()">⚡ Dev: Switch Free/VIP</span>
             <span style="cursor:pointer; text-decoration:underline; color:var(--gold-bright);" onclick="openLegalDrawer()">Terms &amp; Privacy</span>
           </div>
         </div>
@@ -1963,11 +2040,11 @@
         <div class="drawer-list" style="font-size:13px; color:var(--text-light); line-height:1.55;">
           <div class="saved-item" style="cursor:default;">
             <div style="font-family:'Cinzel',serif; color:var(--gold-bright); font-size:12px; font-weight:700; margin-bottom:4px;">
-              1. AUTO-RENEWABLE SUBSCRIPTION TERMS (SANCTUARY PASS)
+              1. SUBSCRIPTION &amp; LIFETIME PASS TERMS (SANCTUARY PASS)
             </div>
-            <p>• <strong>Title of Publication:</strong> Sanctuary Pass VIP (Monthly: $2.99/month • Annual: $19.99/year with 7-Day Free Trial).</p>
-            <p>• <strong>Payment:</strong> Charged to your Apple ID account at confirmation of purchase or at the end of the 7-day free trial period.</p>
-            <p>• <strong>Auto-Renewal:</strong> Subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period.</p>
+            <p>• <strong>Title of Publications:</strong> Sanctuary Pass VIP — Monthly ($2.99/month), Annual ($19.99/year with 7-Day Free Trial), and Lifetime Eternal Pass ($49.99 one-time non-consumable purchase).</p>
+            <p>• <strong>Payment:</strong> Charged to your Apple ID or Google Play account at confirmation of purchase or at the end of the 7-day free trial period.</p>
+            <p>• <strong>Auto-Renewal:</strong> Monthly and Annual subscriptions automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. The Lifetime Pass is billed once and never renews.</p>
             <p>• <strong>Manage / Cancel:</strong> You can manage and cancel your subscriptions anytime by going to your Account Settings on the App Store after purchase.</p>
           </div>
           <div class="saved-item" style="cursor:default;">
@@ -2145,20 +2222,26 @@
         </div>
       </div>
 
-      <!-- Sacred Onboarding Welcome Experience (First Visit / ✨ Intro Button) -->
+      <!-- Sacred 3-Step Onboarding & Soft Trial Paywall Experience (First Visit / ✨ Intro Button) -->
       <div class="onboarding-overlay" id="onboardingOverlay">
         <div>
-          <div style="font-size:42px; margin-bottom:4px; filter:drop-shadow(0 0 18px rgba(255,215,0,0.65));">⚱️✨</div>
-          <div class="sanctuary-subtitle">Welcome to the Sacred Sanctuary</div>
-          <h2 style="font-family:'Cinzel',serif; font-size:20px; color:var(--gold-bright); margin:4px 0 6px;">
+          <div style="display:flex; justify-content:center; gap:6px; margin-bottom:8px;">
+            <span id="onboardDot1" onclick="goToOnboardStep(1)" style="cursor:pointer; padding:3px 10px; border-radius:99px; font-family:'Cinzel',serif; font-size:9.5px; font-weight:700; background:linear-gradient(90deg,#ffd97d,#d4af37); color:#161006;">1 • Heart &amp; Voice</span>
+            <span id="onboardDot2" onclick="goToOnboardStep(2)" style="cursor:pointer; padding:3px 10px; border-radius:99px; font-family:'Cinzel',serif; font-size:9.5px; font-weight:700; background:rgba(255,255,255,0.08); color:var(--text-muted);">2 • Daily Bells</span>
+            <span id="onboardDot3" onclick="goToOnboardStep(3)" style="cursor:pointer; padding:3px 10px; border-radius:99px; font-family:'Cinzel',serif; font-size:9.5px; font-weight:700; background:rgba(255,255,255,0.08); color:var(--text-muted);">3 • Sanctuary Pass</span>
+          </div>
+          <div style="font-size:36px; margin-bottom:2px; filter:drop-shadow(0 0 18px rgba(255,215,0,0.65));" id="onboardHeroIcon">⚱️✨</div>
+          <div class="sanctuary-subtitle" id="onboardHeroSubtitle">Welcome to the Sacred Sanctuary</div>
+          <h2 style="font-family:'Cinzel',serif; font-size:19px; color:var(--gold-bright); margin:2px 0 4px;" id="onboardHeroTitle">
             The Twelve Sacred Vessels
           </h2>
-          <p style="font-size:13.5px; color:var(--text-light); line-height:1.45; max-width:330px; margin:0 auto;">
-            Each ancient clay vessel holds a living <strong>Red-Letter Word of Jesus Christ</strong>, a sacred Biblical relic, and an Angelic prayer spoken aloud for your soul.
+          <p style="font-size:12.5px; color:var(--text-light); line-height:1.4; max-width:335px; margin:0 auto;" id="onboardHeroDesc">
+            Each ancient clay vessel holds a living <strong>Red-Letter Word of Jesus Christ</strong>, a sacred Biblical relic, and an Angelic prayer spoken aloud.
           </p>
         </div>
 
-        <div style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.3); border-radius:14px; padding:10px 12px;">
+        <!-- STEP 1: Heart Need & Angelic Voice -->
+        <div id="onboardStep1" style="text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.3); border-radius:14px; padding:10px 12px;">
           <div style="font-family:'Cinzel',serif; font-size:10.5px; color:var(--gold-bright); font-weight:700; margin-bottom:4px;">
             1. WHAT DOES YOUR HEART NEED MOST TODAY?
           </div>
@@ -2200,12 +2283,66 @@
           </div>
         </div>
 
+        <!-- STEP 2: Daily Cathedral Bell Reminders -->
+        <div id="onboardStep2" style="display:none; text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.3); border-radius:14px; padding:11px 12px;">
+          <div style="font-family:'Cinzel',serif; font-size:10.5px; color:var(--gold-bright); font-weight:700; margin-bottom:6px;">
+            🔔 CHOOSE YOUR DAILY PRAYER BELL TIMES:
+          </div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <div class="paywall-plan-card selected" onclick="toggleOnboardBell(0, this)" style="margin-bottom:0; padding:9px 12px;">
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:12px; color:var(--gold-bright); font-weight:700;">🌅 07:00 AM — Morning Grace Vessel</div>
+                <div style="font-size:11.5px; color:var(--text-muted);">Begin your morning with Jesus's Red-Letter Word</div>
+              </div>
+              <span class="onboard-bell-check" style="font-size:14px; color:#86efac; font-weight:700;">✓ ON</span>
+            </div>
+            <div class="paywall-plan-card selected" onclick="toggleOnboardBell(1, this)" style="margin-bottom:0; padding:9px 12px;">
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:12px; color:var(--gold-bright); font-weight:700;">☀️ 12:30 PM — Midday Peace Pause</div>
+                <div style="font-size:11.5px; color:var(--text-muted);">Breathe deeply &amp; release midday stress</div>
+              </div>
+              <span class="onboard-bell-check" style="font-size:14px; color:#86efac; font-weight:700;">✓ ON</span>
+            </div>
+            <div class="paywall-plan-card selected" onclick="toggleOnboardBell(2, this)" style="margin-bottom:0; padding:9px 12px;">
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:12px; color:var(--gold-bright); font-weight:700;">🌙 09:00 PM — Night Rest &amp; Sleep Word</div>
+                <div style="font-size:11.5px; color:var(--text-muted);">Drift to sleep with Night Rain &amp; Angelic Scripture</div>
+              </div>
+              <span class="onboard-bell-check" style="font-size:14px; color:#86efac; font-weight:700;">✓ ON</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Soft Onboarding Trial Paywall (7-Day Timeline + Lifetime Option) -->
+        <div id="onboardStep3" style="display:none; text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.38); border-radius:14px; padding:10px 12px;">
+          <div style="font-family:'Cinzel',serif; font-size:10.5px; color:var(--gold-bright); font-weight:700; margin-bottom:6px;">
+            ⏳ HOW YOUR 7-DAY FREE TRIAL WORKS:
+          </div>
+          <div style="font-size:12px; color:var(--text-light); line-height:1.45; display:flex; flex-direction:column; gap:5px; margin-bottom:8px; padding-left:4px; border-left:2px solid rgba(212,175,55,0.5);">
+            <div>🔓 <strong>Today (Day 1):</strong> Instant access to all 12 Sacred Vessels, 365+ Words of Jesus &amp; Sleep Mode (<strong>$0.00 due today</strong>).</div>
+            <div>🔔 <strong>Day 5:</strong> Receive a gentle reminder notification before your trial ends.</div>
+            <div>👑 <strong>Day 7:</strong> Continues at <strong>$19.99/yr</strong> ($1.66/mo) • Cancel anytime in 1 tap.</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;" id="onboardPlanGrid">
+            <div class="onboard-choice-card selected" id="onboardPlanAnnual" onclick="selectOnboardTrialPlan('annual')">
+              <span style="font-size:10px; color:#86efac; font-weight:700;">7-DAY FREE TRIAL</span>
+              <span style="font-size:13px; color:#fff;">$19.99/yr</span>
+              <span style="font-size:9.5px; color:var(--text-muted);">$0.00 Today • Best Value</span>
+            </div>
+            <div class="onboard-choice-card" id="onboardPlanLifetime" onclick="selectOnboardTrialPlan('lifetime')">
+              <span style="font-size:10px; color:#fde047; font-weight:700;">👑 PAY ONCE FOREVER</span>
+              <span style="font-size:13px; color:#fde047;">$49.99</span>
+              <span style="font-size:9.5px; color:var(--text-muted);">Lifetime Pass + 250 Grace</span>
+            </div>
+          </div>
+        </div>
+
         <div>
-          <button class="btn-sacred btn-primary-gold" style="width:100%; padding:13px; font-size:13px;" onclick="completeOnboardingAndStrikeFirst()">
-            ⚱️ Enter Sanctuary &amp; Receive +50 Grace Blessing
+          <button class="btn-sacred btn-primary-gold" id="onboardPrimaryBtn" style="width:100%; padding:13px; font-size:13px;" onclick="handleOnboardPrimaryAction()">
+            ✨ Next: Set Daily Prayer Bells (Step 2/3) →
           </button>
-          <div style="font-size:11px; color:var(--text-muted); margin-top:6px; cursor:pointer;" onclick="closeOnboardingOverlay()">
-            Skip Intro &amp; Go Directly to 12 Vessels →
+          <div id="onboardSecondaryAction" style="font-size:11px; color:var(--text-muted); margin-top:6px; cursor:pointer;" onclick="completeOnboardingAndStrikeFirst()">
+            Skip Intro &amp; Enter Free Tier (3 Vessels/Day) →
           </div>
         </div>
       </div>
@@ -3669,7 +3806,7 @@
     // =========================================================================
     // 8. VIRAL SOCIAL SHARING STUDIO, 9:16 STORY GENERATOR & DEEP-LINK ENGINE
     // =========================================================================
-    const APP_PUBLIC_URL = "https://hgiap1993.github.io/sanctuary-ios-app/";
+    const APP_PUBLIC_URL = "https://sanctuaryprayer.cloud/";
     let viralCardRatio = "story"; // 'story' (1080x1920), 'post' (1080x1350), 'scroll' (1080x1620)
     let viralCardTheme = "gold";  // 'gold', 'starlight', 'dawn', 'parchment'
     let viralShareCount = 0;
@@ -3932,7 +4069,7 @@
 
       ctx.fillStyle = palette.quote;
       ctx.font = "600 23px 'Plus Jakarta Sans', sans-serif";
-      ctx.fillText("🔗 hgiap1993.github.io/sanctuary-ios-app", W / 2, ctaBoxY + 88);
+      ctx.fillText("🔗 sanctuaryprayer.cloud", W / 2, ctaBoxY + 88);
 
       ctx.fillStyle = palette.muted;
       ctx.font = "500 22px Cinzel, Georgia, serif";
@@ -4866,9 +5003,10 @@
     }
 
     // ============================================================================
-    // 16. SANCTUARY PASS MONETIZATION (FREE TIER vs VIP + APPLE STOREKIT 2)
+    // 16. SANCTUARY PASS MONETIZATION (FREE TIER vs VIP + STOREKIT 2 / REVENUECAT)
     // ============================================================================
     let isSanctuaryVIP = false;
+    let isLifetimeVIP = false;
     let freeDailyVesselsUsed = 0;
     let selectedPaywallPlan = "annual";
 
@@ -4881,6 +5019,7 @@
         const today = new Date().toISOString().slice(0, 10);
         if (saved) {
           isSanctuaryVIP = !!saved.isVIP;
+          isLifetimeVIP = !!saved.isLifetime;
           selectedPaywallPlan = saved.plan || "annual";
           if (saved.lastDate === today) {
             freeDailyVesselsUsed = saved.usedToday || 0;
@@ -4898,6 +5037,7 @@
         const today = new Date().toISOString().slice(0, 10);
         localStorage.setItem("sacred_vessels_subscription_v1", JSON.stringify({
           isVIP: isSanctuaryVIP,
+          isLifetime: isLifetimeVIP,
           plan: selectedPaywallPlan,
           lastDate: today,
           usedToday: freeDailyVesselsUsed
@@ -4913,23 +5053,30 @@
       const subscribeBtn = document.getElementById("mainSubscribeBtn");
 
       if (isSanctuaryVIP) {
+        const vipLabel = isLifetimeVIP ? "👑 LIFETIME VIP" : "👑 VIP PASS";
         if (badgeApp) {
-          badgeApp.innerHTML = `👑 VIP PASS`;
+          badgeApp.innerHTML = vipLabel;
           badgeApp.style.background = "linear-gradient(135deg, rgba(251, 191, 36, 0.35), rgba(217, 119, 6, 0.25))";
           badgeApp.style.borderColor = "#fbbf24";
           badgeApp.style.color = "#fef08a";
         }
         if (btnDesktop) {
-          btnDesktop.textContent = "👑 VIP Sanctuary Pass (Active)";
+          btnDesktop.textContent = isLifetimeVIP
+            ? "👑 Lifetime Sanctuary Pass (Eternal VIP)"
+            : "👑 VIP Sanctuary Pass (Active)";
           btnDesktop.classList.add("active-music");
         }
         if (quotaBanner) {
-          quotaBanner.innerHTML = `👑 <strong>Sanctuary Pass VIP Active:</strong> Unlimited 12 Vessels + 13th Golden Chalice, All ${JESUS_TEACHINGS.length} Teachings, Sleep Audio & Unlimited HD Cards Unlocked!`;
+          quotaBanner.innerHTML = isLifetimeVIP
+            ? `👑 <strong>Founder's Eternal Lifetime Pass Active:</strong> Unlimited 12 Vessels + 13th Golden Chalice, All ${JESUS_TEACHINGS.length} Teachings &amp; Sleep Mode Owned Forever!`
+            : `👑 <strong>Sanctuary Pass VIP Active:</strong> Unlimited 12 Vessels + 13th Golden Chalice, All ${JESUS_TEACHINGS.length} Teachings, Sleep Audio &amp; Unlimited HD Cards Unlocked!`;
           quotaBanner.style.color = "#86efac";
           quotaBanner.style.borderColor = "rgba(34, 197, 94, 0.45)";
         }
         if (subscribeBtn) {
-          subscribeBtn.textContent = "✅ Sanctuary Pass Active (Tap to Switch to Free)";
+          subscribeBtn.textContent = isLifetimeVIP
+            ? "👑 Lifetime Sanctuary Pass Active (Tap to Test Free Tier)"
+            : "✅ Sanctuary Pass Active (Tap to Test Free Tier)";
           subscribeBtn.onclick = toggleVIPStatusDirectly;
         }
       } else {
@@ -4947,21 +5094,126 @@
         }
         if (quotaBanner) {
           quotaBanner.innerHTML = remaining === 0
-            ? `🔒 <strong>Daily Free Limit Reached (3/3 Vessels Broken Today).</strong> Upgrade to Sanctuary Pass VIP for Unlimited Vessels & All ${JESUS_TEACHINGS.length} Words!`
+            ? `🔒 <strong>Daily Free Limit Reached (3/3 Vessels Broken Today).</strong> Upgrade to Sanctuary Pass VIP for Unlimited Vessels &amp; All ${JESUS_TEACHINGS.length} Words!`
             : `🏺 <strong>Free Tier Status:</strong> <span id="freeQuotaRemainingText">${remaining} of 3</span> Daily Vessels Remaining Today`;
           quotaBanner.style.color = remaining === 0 ? "#fca5a5" : "#fde68a";
         }
         if (subscribeBtn) {
-          subscribeBtn.textContent = (selectedPaywallPlan === "annual" || selectedPaywallPlan === "yearly")
-            ? "✨ Start 7-Day Free Trial ($19.99/yr)"
-            : "✨ Subscribe Monthly ($2.99/mo)";
+          if (selectedPaywallPlan === "lifetime") {
+            subscribeBtn.textContent = "👑 Unlock Lifetime Sanctuary Pass ($49.99 Once)";
+          } else if (selectedPaywallPlan === "monthly") {
+            subscribeBtn.textContent = "✨ Subscribe Monthly ($2.99/mo)";
+          } else {
+            subscribeBtn.textContent = "✨ Start 7-Day Free Trial ($19.99/yr)";
+          }
           subscribeBtn.onclick = showApplePaySheet;
         }
+      }
+      refreshRevenueCatStatusUI();
+    }
+
+    function refreshRevenueCatStatusUI() {
+      const statusEl = document.getElementById("rcBridgeStatusText");
+      const inputEl = document.getElementById("rcApiKeyInput");
+      const annUrlEl = document.getElementById("webUrlAnnualInput");
+      const lifeUrlEl = document.getElementById("webUrlLifetimeInput");
+      const moUrlEl = document.getElementById("webUrlMonthlyInput");
+      if (!statusEl) return;
+      const bridge = window.SacredIOSBridge;
+      const envName = bridge
+        ? (bridge.isCapacitorNative ? "Capacitor iOS/Android" : (bridge.isExpoReactNative ? "Expo React Native" : "Web/PWA"))
+        : "Web/PWA";
+      const hasLive = bridge && typeof bridge.hasLiveKey === "function" && bridge.hasLiveKey();
+      const webUrls = (bridge && typeof bridge.getWebCheckoutUrls === "function") ? bridge.getWebCheckoutUrls() : {};
+      const hasWebLinks = Boolean(webUrls.annual || webUrls.lifetime || webUrls.monthly);
+
+      statusEl.innerHTML = `Env: <strong>${envName}</strong> • Mode: <strong style="color:${(hasLive || hasWebLinks) ? "#86efac" : "#fde047"};">${hasLive ? "LIVE REVENUECAT" : (hasWebLinks ? "DIRECT WEB CHECKOUT" : "STOREKIT SIMULATOR")}</strong>`;
+      if (inputEl && !inputEl.value && bridge && typeof bridge.getApiKey === "function") {
+        const currentKey = bridge.getApiKey();
+        if (currentKey && !currentKey.includes("REPLACE_WITH_YOUR")) {
+          inputEl.value = currentKey;
+        }
+      }
+      if (annUrlEl && !annUrlEl.value && webUrls.annual) annUrlEl.value = webUrls.annual;
+      if (lifeUrlEl && !lifeUrlEl.value && webUrls.lifetime) lifeUrlEl.value = webUrls.lifetime;
+      if (moUrlEl && !moUrlEl.value && webUrls.monthly) moUrlEl.value = webUrls.monthly;
+    }
+
+    function saveLiveRevenueCatKeyFromUI() {
+      const inputEl = document.getElementById("rcApiKeyInput");
+      const annUrlEl = document.getElementById("webUrlAnnualInput");
+      const lifeUrlEl = document.getElementById("webUrlLifetimeInput");
+      const moUrlEl = document.getElementById("webUrlMonthlyInput");
+
+      const val = inputEl ? inputEl.value.trim() : "";
+      const webUrls = {
+        annual: annUrlEl ? annUrlEl.value.trim() : "",
+        lifetime: lifeUrlEl ? lifeUrlEl.value.trim() : "",
+        monthly: moUrlEl ? moUrlEl.value.trim() : ""
+      };
+
+      if (window.SacredIOSBridge) {
+        if (typeof window.SacredIOSBridge.setCustomApiKey === "function") {
+          window.SacredIOSBridge.setCustomApiKey(val);
+        }
+        if (typeof window.SacredIOSBridge.setWebCheckoutUrls === "function") {
+          window.SacredIOSBridge.setWebCheckoutUrls(webUrls);
+        }
+      } else {
+        try {
+          if (val) localStorage.setItem("sacred_revenuecat_api_key", val);
+          else localStorage.removeItem("sacred_revenuecat_api_key");
+          localStorage.setItem("sacred_web_checkout_urls_v1", JSON.stringify(webUrls));
+        } catch (e) {}
+      }
+      refreshRevenueCatStatusUI();
+      playCathedralBellChime();
+      triggerSanctuaryNotification(
+        "💾 Web Checkout & RevenueCat Saved",
+        "Your Stripe/Gumroad/LemonSqueezy payment links and StoreKit settings are now active!"
+      );
+    }
+
+    function toggleLicenseKeyBox() {
+      const box = document.getElementById("licenseKeyFormBox");
+      const arrow = document.getElementById("licenseToggleArrow");
+      if (!box) return;
+      const isHidden = box.style.display === "none";
+      box.style.display = isHidden ? "block" : "none";
+      if (arrow) arrow.textContent = isHidden ? "▲ Hide" : "▼ Enter Code";
+    }
+
+    function redeemVipLicenseKeyFromUI() {
+      const input = document.getElementById("vipLicenseKeyInput");
+      const raw = input ? input.value.trim() : "";
+      if (!raw) return;
+
+      let check = { valid: false, plan: "annual" };
+      if (window.SacredIOSBridge && typeof window.SacredIOSBridge.verifyLicenseCode === "function") {
+        check = window.SacredIOSBridge.verifyLicenseCode(raw);
+      } else {
+        const up = raw.toUpperCase();
+        check = {
+          valid: up.startsWith("SANCTUARY-") || up.startsWith("JESUS-") || up.length >= 12,
+          plan: up.includes("LIFETIME") || up.includes("ETERNAL") ? "lifetime" : "annual"
+        };
+      }
+
+      if (check.valid) {
+        selectedPaywallPlan = check.plan;
+        confirmApplePaySubscription();
+        if (input) input.value = "";
+      } else {
+        triggerSanctuaryNotification(
+          "⚠️ Invalid License Code",
+          "Please check your VIP License Key from your email receipt (e.g. SANCTUARY-VIP-2026) and try again."
+        );
       }
     }
 
     function openPaywallDrawer(reason) {
       closeAllDrawers();
+      selectPaywallPlan(selectedPaywallPlan || "annual");
       updateSubscriptionUI();
       const quotaBanner = document.getElementById("quotaStatusBanner");
       const reasonBanner = document.getElementById("paywallReasonBanner");
@@ -4969,7 +5221,7 @@
         reasonBanner.textContent = (reason && reason !== "limit_reached") ? reason : "Unlock the Full Sanctuary";
       }
       if (reason === "limit_reached" && !isSanctuaryVIP && quotaBanner) {
-        quotaBanner.innerHTML = `🔒 <strong>You've opened all 3 Free Vessels for today!</strong> Start your 7-Day Free Trial of Sanctuary Pass to break all 12 Vessels without limits.`;
+        quotaBanner.innerHTML = `🔒 <strong>You've opened all 3 Free Vessels for today!</strong> Start your 7-Day Free Trial or unlock the Lifetime Pass to break all 12 Vessels without limits.`;
         quotaBanner.style.color = "#fca5a5";
         playCathedralBellChime();
       }
@@ -4982,34 +5234,45 @@
     }
 
     function selectPaywallPlan(plan) {
-      selectedPaywallPlan = plan;
-      const isAnnual = (plan === "annual" || plan === "yearly");
+      selectedPaywallPlan = plan || "annual";
+      const isAnnual = (selectedPaywallPlan === "annual" || selectedPaywallPlan === "yearly");
+      const isLifetime = (selectedPaywallPlan === "lifetime");
+      const isMonthly = (selectedPaywallPlan === "monthly");
+
       const annualCard = document.getElementById("planAnnual");
+      const lifetimeCard = document.getElementById("planLifetime");
       const monthlyCard = document.getElementById("planMonthly");
       if (annualCard) annualCard.classList.toggle("selected", isAnnual);
-      if (monthlyCard) monthlyCard.classList.toggle("selected", !isAnnual);
+      if (lifetimeCard) lifetimeCard.classList.toggle("selected", isLifetime);
+      if (monthlyCard) monthlyCard.classList.toggle("selected", isMonthly);
 
       const prodIdEl = document.getElementById("storeKitProductId");
       const summaryEl = document.getElementById("storeKitSummary");
       if (prodIdEl) {
-        prodIdEl.textContent = isAnnual
-          ? "com.sacredvessels.pass.yearly"
-          : "com.sacredvessels.pass.monthly";
+        if (isLifetime) prodIdEl.textContent = "com.sacredvessels.pass.lifetime";
+        else if (isMonthly) prodIdEl.textContent = "com.sacredvessels.pass.monthly";
+        else prodIdEl.textContent = "com.sacredvessels.pass.yearly";
       }
       if (summaryEl) {
-        summaryEl.textContent = isAnnual
-          ? "7-Day Free Trial, then $19.99/year. Cancel anytime in Settings > Apple ID."
-          : "$2.99/month (Auto-renewable). Cancel anytime in Settings > Apple ID.";
+        if (isLifetime) {
+          summaryEl.textContent = "One-Time Purchase: $49.99 (Non-Consumable). Own Sanctuary Pass VIP forever — never billed again + 250 Grace Bonus.";
+        } else if (isMonthly) {
+          summaryEl.textContent = "$2.99/month (Auto-renewable). Cancel anytime in Settings > Apple ID.";
+        } else {
+          summaryEl.textContent = "7-Day Free Trial ($0.00 today), then $19.99/year. Cancel anytime in Settings > Apple ID.";
+        }
       }
       updateSubscriptionUI();
     }
 
     async function showApplePaySheet() {
-      // If running inside Native iOS Capacitor with RevenueCat configured, trigger native StoreKit 2 sheet
-      if (window.SacredIOSBridge && window.SacredIOSBridge.isNativeIOS && window.SacredIOSBridge.purchasePlan) {
-        const success = await window.SacredIOSBridge.purchasePlan(selectedPaywallPlan);
-        if (success) confirmApplePaySubscription();
-        return;
+      // Check if Native StoreKit 2 / RevenueCat bridge handles purchase directly
+      if (window.SacredIOSBridge && typeof window.SacredIOSBridge.purchasePlan === "function") {
+        const result = await window.SacredIOSBridge.purchasePlan(selectedPaywallPlan);
+        if (result && result.handled) {
+          if (result.success) confirmApplePaySubscription();
+          return;
+        }
       }
       const sheet = document.getElementById("applePaySheet");
       if (sheet) {
@@ -5020,24 +5283,73 @@
 
     function confirmApplePaySubscription() {
       isSanctuaryVIP = true;
+      isLifetimeVIP = (selectedPaywallPlan === "lifetime");
       unseenIndices = []; // Reset pool so all 365+ teachings are immediately active
       saveSubscriptionState();
       updateSubscriptionUI();
       playCathedralBellChime();
-      addGracePoints(50);
+      addGracePoints(isLifetimeVIP ? 250 : 50);
 
       const sheet = document.getElementById("applePaySheet");
       if (sheet) sheet.classList.remove("show");
 
       triggerSanctuaryNotification(
-        "👑 Sanctuary Pass VIP Activated!",
-        `Thank you for supporting the Sanctuary! All 12 Sacred Vessels, the 13th Golden Chalice, and all ${JESUS_TEACHINGS.length} Gospel Teachings are now unlocked without limits.`
+        isLifetimeVIP ? "👑 Founder's Lifetime Pass Unlocked!" : "👑 Sanctuary Pass VIP Activated!",
+        isLifetimeVIP
+          ? `Thank you! You now own the Sanctuary Pass forever (+250 Grace Bonus awarded). All 12 Sacred Vessels, the 13th Golden Chalice & all ${JESUS_TEACHINGS.length} Words are permanently yours.`
+          : `Thank you for supporting the Sanctuary! All 12 Sacred Vessels, the 13th Golden Chalice, and all ${JESUS_TEACHINGS.length} Gospel Teachings are now unlocked without limits.`
       );
       closeAllDrawers();
     }
 
+    function toggleGiftPassBox() {
+      const box = document.getElementById("giftPassFormBox");
+      const arrow = document.getElementById("giftToggleArrow");
+      if (!box) return;
+      const isHidden = box.style.display === "none";
+      box.style.display = isHidden ? "block" : "none";
+      if (arrow) arrow.textContent = isHidden ? "▲ Hide" : "▼ Give Gift";
+    }
+
+    async function purchaseAndShareGiftPass() {
+      const input = document.getElementById("giftRecipientInput");
+      const recipient = (input && input.value.trim()) ? input.value.trim() : "My Loved One";
+
+      if (window.SacredIOSBridge && typeof window.SacredIOSBridge.purchasePlan === "function") {
+        const res = await window.SacredIOSBridge.purchasePlan("gift");
+        if (res && res.handled && !res.success) return;
+      }
+
+      playCathedralBellChime();
+      addGracePoints(100);
+      const giftUrl = `${ getAppPublicBaseUrl() }?gift_pass=1&recipient=${encodeURIComponent(recipient)}`;
+      const giftMessage = `🎁✨ Sacred Gift for ${recipient}: I gifted you a 1-Year Sanctuary Pass VIP to "Sanctuary: Jesus Daily Prayer"! Tap here to claim your 12 Sacred Vessels & 365 Words of Jesus: ${giftUrl}`;
+
+      const banner = document.getElementById("giftCodeResultBanner");
+      if (banner) {
+        banner.style.display = "block";
+        banner.innerHTML = `
+          <div>✅ <strong>1-Year Gift Pass Ready for ${recipient}! (+100 Grace)</strong></div>
+          <div style="margin-top:4px; word-break:break-all; font-size:10.5px; color:#fef08a;">${giftUrl}</div>
+        `;
+      }
+
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: `🎁 Sanctuary Pass VIP Gift for ${recipient}`,
+            text: giftMessage,
+            url: giftUrl
+          });
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(giftMessage);
+          triggerSanctuaryNotification("🎁 Gift Link Copied!", `Send the copied link to ${recipient} via iMessage, WhatsApp, or Email.`);
+        }
+      } catch (e) {}
+    }
+
     async function restoreIOSPurchases() {
-      if (window.SacredIOSBridge && window.SacredIOSBridge.isNativeIOS && window.SacredIOSBridge.restorePurchases) {
+      if (window.SacredIOSBridge && typeof window.SacredIOSBridge.restorePurchases === "function") {
         const restored = await window.SacredIOSBridge.restorePurchases();
         if (!restored) return;
       }
@@ -5048,16 +5360,17 @@
       playCathedralBellChime();
       triggerSanctuaryNotification(
         "✅ Apple ID Purchases Restored",
-        "Your Sanctuary Pass VIP subscription has been restored from App Store StoreKit 2."
+        "Your Sanctuary Pass VIP entitlement has been restored via StoreKit 2."
       );
     }
 
     function toggleVIPStatusDirectly() {
       isSanctuaryVIP = !isSanctuaryVIP;
-      unseenIndices = [];
       if (!isSanctuaryVIP) {
+        isLifetimeVIP = false;
         freeDailyVesselsUsed = 0; // Reset quota when testing Free mode
       }
+      unseenIndices = [];
       saveSubscriptionState();
       updateSubscriptionUI();
       playCathedralBellChime();
@@ -5102,6 +5415,8 @@
     let breathGuideTimeout = null;
     let secretDevTapCount = 0;
     let onboardSelectedMood = "peace";
+    let currentOnboardStep = 1;
+    let onboardSelectedPlan = "annual";
 
     function renderSevenDayJourney() {
       const bar = document.getElementById("sevenDayJourneyBar");
@@ -5245,6 +5560,7 @@
     }
 
     function openOnboardingOverlay() {
+      goToOnboardStep(1);
       document.getElementById("onboardingOverlay").classList.add("show");
     }
 
@@ -5253,6 +5569,114 @@
         localStorage.setItem("sacred_onboarding_done_v1", "1");
       } catch (e) {}
       document.getElementById("onboardingOverlay").classList.remove("show");
+    }
+
+    function goToOnboardStep(stepNum) {
+      currentOnboardStep = stepNum;
+      const s1 = document.getElementById("onboardStep1");
+      const s2 = document.getElementById("onboardStep2");
+      const s3 = document.getElementById("onboardStep3");
+      if (s1) s1.style.display = stepNum === 1 ? "block" : "none";
+      if (s2) s2.style.display = stepNum === 2 ? "block" : "none";
+      if (s3) s3.style.display = stepNum === 3 ? "block" : "none";
+
+      [1, 2, 3].forEach(n => {
+        const dot = document.getElementById("onboardDot" + n);
+        if (!dot) return;
+        if (n === stepNum) {
+          dot.style.background = "linear-gradient(90deg,#ffd97d,#d4af37)";
+          dot.style.color = "#161006";
+        } else {
+          dot.style.background = "rgba(255,255,255,0.08)";
+          dot.style.color = "var(--text-muted)";
+        }
+      });
+
+      const iconEl = document.getElementById("onboardHeroIcon");
+      const subEl = document.getElementById("onboardHeroSubtitle");
+      const titleEl = document.getElementById("onboardHeroTitle");
+      const descEl = document.getElementById("onboardHeroDesc");
+      const primaryBtn = document.getElementById("onboardPrimaryBtn");
+      const secondaryLink = document.getElementById("onboardSecondaryAction");
+
+      if (stepNum === 1) {
+        if (iconEl) iconEl.textContent = "⚱️✨";
+        if (subEl) subEl.textContent = "Step 1 of 3 • Personalize Your Sanctuary";
+        if (titleEl) titleEl.textContent = "The Twelve Sacred Vessels";
+        if (descEl) descEl.innerHTML = "Each ancient clay vessel holds a living <strong>Red-Letter Word of Jesus Christ</strong>, a sacred Biblical relic, and an Angelic prayer spoken aloud.";
+        if (primaryBtn) primaryBtn.textContent = "✨ Next: Set Daily Prayer Bells (Step 2/3) →";
+        if (secondaryLink) secondaryLink.textContent = "Skip Intro & Enter Free Tier (3 Vessels/Day) →";
+      } else if (stepNum === 2) {
+        if (iconEl) iconEl.textContent = "🔔🕊️";
+        if (subEl) subEl.textContent = "Step 2 of 3 • Daily Spiritual Rhythm";
+        if (titleEl) titleEl.textContent = "Cathedral Bell Reminders";
+        if (descEl) descEl.innerHTML = "Believers who set a daily Morning &amp; Evening prayer bell experience <strong>3x deeper peace</strong> and build an unbreakable 7-Day Miracle Streak.";
+        if (primaryBtn) primaryBtn.textContent = "✨ Next: Unlock Your 7-Day Free Gift (Step 3/3) →";
+        if (secondaryLink) secondaryLink.textContent = "Skip & Strike First Sacred Vessel Now →";
+      } else {
+        if (iconEl) iconEl.textContent = "👑👼";
+        if (subEl) subEl.textContent = "Step 3 of 3 • Try Everything Free for 7 Days";
+        if (titleEl) titleEl.textContent = "Unlock the Full Sanctuary";
+        if (descEl) descEl.innerHTML = "Experience all <strong>12 Sacred Vessels</strong>, the <strong>13th Golden Chalice</strong>, all <strong>365+ Words of Jesus</strong> &amp; <strong>Night Rain Sleep Mode</strong> free.";
+        selectOnboardTrialPlan(onboardSelectedPlan);
+        if (secondaryLink) secondaryLink.textContent = "Continue with Free Tier (3 Vessels/Day) & Strike First Vessel →";
+      }
+    }
+
+    function toggleOnboardBell(index, cardEl) {
+      if (prayerReminders[index]) {
+        prayerReminders[index].enabled = !prayerReminders[index].enabled;
+        saveReminders();
+        renderRemindersList();
+        const isOn = prayerReminders[index].enabled;
+        cardEl.classList.toggle("selected", isOn);
+        const checkEl = cardEl.querySelector(".onboard-bell-check");
+        if (checkEl) {
+          checkEl.textContent = isOn ? "✓ ON" : "OFF";
+          checkEl.style.color = isOn ? "#86efac" : "var(--text-muted)";
+        }
+      }
+      playHarpArpeggioNote();
+    }
+
+    function selectOnboardTrialPlan(plan) {
+      onboardSelectedPlan = plan;
+      selectedPaywallPlan = plan;
+      const ann = document.getElementById("onboardPlanAnnual");
+      const life = document.getElementById("onboardPlanLifetime");
+      if (ann) ann.classList.toggle("selected", plan === "annual");
+      if (life) life.classList.toggle("selected", plan === "lifetime");
+
+      const primaryBtn = document.getElementById("onboardPrimaryBtn");
+      if (primaryBtn && currentOnboardStep === 3) {
+        primaryBtn.textContent = plan === "lifetime"
+          ? "👑 Unlock Lifetime Sanctuary Pass ($49.99 Once)"
+          : "✨ Start 7-Day Free Trial ($0.00 Today)";
+      }
+    }
+
+    async function handleOnboardPrimaryAction() {
+      if (currentOnboardStep === 1) {
+        playHarpArpeggioNote();
+        goToOnboardStep(2);
+      } else if (currentOnboardStep === 2) {
+        playCathedralBellChime();
+        goToOnboardStep(3);
+      } else {
+        // Step 3: Trigger StoreKit 2 / RevenueCat trial or lifetime purchase
+        selectedPaywallPlan = onboardSelectedPlan || "annual";
+        selectPaywallPlan(selectedPaywallPlan);
+        closeOnboardingOverlay();
+        if (window.SacredIOSBridge && typeof window.SacredIOSBridge.purchasePlan === "function") {
+          const res = await window.SacredIOSBridge.purchasePlan(selectedPaywallPlan);
+          if (res && res.handled) {
+            if (res.success) confirmApplePaySubscription();
+            return;
+          }
+        }
+        openPaywallDrawer("Complete Your StoreKit 2 Confirmation Below");
+        showApplePaySheet();
+      }
     }
 
     function selectOnboardMood(mood, cardEl) {
@@ -5282,10 +5706,45 @@
     function checkFirstTimeOnboarding() {
       try {
         const params = new URLSearchParams(window.location.search);
+        // 1. Check if buyer returned from Stripe / Gumroad / LemonSqueezy / PayPal Web Checkout (?vip_unlocked=1&plan=lifetime)
+        if (params.get("vip_unlocked") === "1") {
+          const purchasedPlan = (params.get("plan") || "annual").toLowerCase();
+          selectedPaywallPlan = purchasedPlan;
+          isSanctuaryVIP = true;
+          isLifetimeVIP = (purchasedPlan === "lifetime");
+          saveSubscriptionState();
+          updateSubscriptionUI();
+          addGracePoints(isLifetimeVIP ? 250 : 100);
+          setTimeout(() => {
+            playCathedralBellChime();
+            triggerSanctuaryNotification(
+              isLifetimeVIP ? "👑 Lifetime Sanctuary Pass Unlocked!" : "👑 Sanctuary Pass VIP Activated!",
+              "Thank you for your payment! All 12 Sacred Vessels, the 13th Golden Chalice & all 365+ Words of Jesus are now unlocked."
+            );
+          }, 600);
+          return;
+        }
+        // 2. Check if user opened a Gift Pass link (?gift_pass=1&recipient=...)
+        if (params.get("gift_pass") === "1") {
+          const recipient = params.get("recipient") || "Beloved Friend";
+          isSanctuaryVIP = true;
+          selectedPaywallPlan = "annual";
+          saveSubscriptionState();
+          updateSubscriptionUI();
+          addGracePoints(100);
+          setTimeout(() => {
+            playCathedralBellChime();
+            triggerSanctuaryNotification(
+              `🎁 Welcome, ${recipient}! Gift Pass Activated!`,
+              "Your 1-Year Sanctuary Pass VIP gift is now active! All 12 Sacred Vessels & 365+ Words of Jesus are unlocked."
+            );
+          }, 700);
+          return;
+        }
         if (params.get("verse")) return; // Skip onboarding if opening a friend's shared verse deep link
         const done = localStorage.getItem("sacred_onboarding_done_v1");
         if (!done) {
-          document.getElementById("onboardingOverlay").classList.add("show");
+          openOnboardingOverlay();
         }
       } catch (e) {}
     }
@@ -5294,8 +5753,14 @@
       secretDevTapCount++;
       if (secretDevTapCount >= 5) {
         const devLink = document.getElementById("devSwitchVipLink");
+        const rcBox = document.getElementById("devRevenueCatBox");
         if (devLink) devLink.style.display = "inline";
-        triggerSanctuaryNotification("🛠️ Developer Mode Unlocked", "The Free/VIP test switch is now visible at the bottom of the Paywall.");
+        if (rcBox) rcBox.style.display = "block";
+        refreshRevenueCatStatusUI();
+        triggerSanctuaryNotification(
+          "🛠️ StoreKit & RevenueCat Dev Mode Unlocked",
+          "You can now paste your live RevenueCat API key or toggle Free/VIP testing at the bottom of the Paywall."
+        );
         secretDevTapCount = 0;
       }
     }
@@ -5311,6 +5776,7 @@
           "sacred_journal",
           "sacred_prayer_reminders",
           "sacred_vip_status",
+          "sacred_vessels_subscription_v1",
           "sacred_free_quota_date",
           "sacred_free_quota_used",
           "sacred_voice_prefs_v1",
@@ -5323,6 +5789,7 @@
       unlockedRelics.clear();
       gracePoints = 0;
       isSanctuaryVIP = false;
+      isLifetimeVIP = false;
       freeDailyVesselsUsed = 0;
       viralShareCount = 0;
       activeCandles = [];

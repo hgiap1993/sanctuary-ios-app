@@ -27,8 +27,8 @@ Copy chính xác từng dòng dưới đây vào mục **App Information** và *
 - **Bundle ID:** `com.sanctuary.sacredvessels`
 - **Primary Category:** `Lifestyle` (hoặc `Reference`) • **Secondary Category:** `Health & Fitness` (ngách Sleep & Meditation)
 - **Age Rating:** `4+`
-- **Marketing & Support URL:** `https://hgiap1993.github.io/sanctuary-ios-app/privacy-terms.html`
-- **Privacy Policy URL:** `https://hgiap1993.github.io/sanctuary-ios-app/privacy-terms.html#privacy`
+- **Marketing & Support URL:** `https://sanctuaryprayer.cloud/privacy-terms.html`
+- **Privacy Policy URL:** `https://sanctuaryprayer.cloud/privacy-terms.html#privacy`
 
 ---
 
@@ -62,23 +62,35 @@ Select your heart's need—Peace & Anxiety, Strength, Love & Forgiveness, Guidan
 • Light a flickering 24-hour Sanctuary Candle for loved ones and save your favorite verses in your private on-device Prayer Journal.
 • Set Morning, Midday, and Evening Cathedral Bell reminders synced directly to your iPhone Calendar.
 
-💎 SANCTUARY PASS VIP (AUTO-RENEWABLE SUBSCRIPTION)
+💎 SANCTUARY PASS VIP (SUBSCRIPTIONS & LIFETIME PASS)
 • Free Tier includes 3 Sacred Vessel strikes per day and 108 core Gospel teachings.
-• Upgrade to Sanctuary Pass VIP ($2.99/month or $19.99/year with a 7-Day Free Trial) to unlock Unlimited 12 Sacred Vessels + the 13th Golden Miracle Chalice, all 365+ Daily Teachings, Night Rain Sleep Mode, and Unlimited 1080p HD Blessing Card exports.
+• Upgrade to Sanctuary Pass VIP ($2.99/month, $19.99/year with a 7-Day Free Trial, or $49.99 One-Time Lifetime Eternal Pass) to unlock Unlimited 12 Sacred Vessels + the 13th Golden Miracle Chalice, all 365+ Daily Teachings, Night Rain Sleep Mode, and Unlimited 1080p HD Blessing Card exports.
 
 Privacy Policy & Terms of Use (EULA):
-• Privacy Policy: https://hgiap1993.github.io/sanctuary-ios-app/privacy-terms.html#privacy
-• Terms of Use (EULA): https://hgiap1993.github.io/sanctuary-ios-app/privacy-terms.html#eula
+• Privacy Policy: https://sanctuaryprayer.cloud/privacy-terms.html#privacy
+• Terms of Use (EULA): https://sanctuaryprayer.cloud/privacy-terms.html#eula
 • Standard Apple EULA: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 ```
 
 ---
 
-## 3. Cấu Hình 2 Gói Thuê Bao (In-App Purchases -> Subscriptions)
+## 3. Cấu Hình Các Gói Thanh Toán (In-App Purchases & Subscriptions)
+- **Entitlement Identifier (RevenueCat):** `sanctuary_vip`
 - **Subscription Group Name:** `Sanctuary Pass VIP`
-- **Gói Năm (Annual Pass - Khuyên dùng):**
-  - **Product ID:** `com.sacredvessels.pass.yearly`
-  - **Price:** `$19.99 / year` (Kèm **7-Day Free Trial**)
-- **Gói Tháng (Monthly Pass):**
-  - **Product ID:** `com.sacredvessels.pass.monthly`
-  - **Price:** `$2.99 / month`
+  1. **Gói Năm (Annual Pass - Mặc định & Khuyên dùng):**
+     - **Product ID:** `com.sacredvessels.pass.yearly`
+     - **Type:** Auto-Renewable Subscription
+     - **Price:** `$19.99 / year` (Kèm **7-Day Free Trial**)
+  2. **Gói Tháng (Monthly Pass):**
+     - **Product ID:** `com.sacredvessels.pass.monthly`
+     - **Type:** Auto-Renewable Subscription
+     - **Price:** `$2.99 / month`
+- **In-App Purchases (Non-Consumable / One-Time):**
+  3. **Gói Trọn Đời (Founder's Lifetime Sanctuary Pass):**
+     - **Product ID:** `com.sacredvessels.pass.lifetime`
+     - **Type:** Non-Consumable (Mua 1 lần dùng vĩnh viễn)
+     - **Price:** `$49.99`
+  4. **Thẻ Quà Tặng 1 Năm (1-Year Sanctuary Gift Pass):**
+     - **Product ID:** `com.sacredvessels.pass.gift1yr`
+     - **Type:** Non-Renewing Subscription / Consumable Gift
+     - **Price:** `$19.99`
