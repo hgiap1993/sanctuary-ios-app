@@ -53,55 +53,128 @@
       overflow-x: hidden;
     }
 
-    /* Desktop Top Preview Bar */
+    /* Desktop Top Preview Bar — Million-Dollar Hallow/Calm Minimalist Glass Header */
     .desktop-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      width: 100%;
-      max-width: 1040px;
-      padding: 10px 20px;
-      margin-bottom: 6px;
+      gap: 14px;
+      width: calc(100% - 32px);
+      max-width: 920px;
+      padding: 8px 16px;
+      margin: 8px auto 10px;
+      background: rgba(18, 13, 8, 0.82);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 12.5px;
       color: var(--text-muted);
+      position: relative;
+      z-index: 300;
     }
 
     .desktop-bar .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid rgba(212, 175, 55, 0.35);
       color: var(--gold-bright);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-weight: 600;
+      padding: 4px 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
     }
 
     .desktop-bar .controls {
       display: flex;
+      align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
 
     .bar-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.28);
       color: var(--text-light);
-      padding: 6px 12px;
-      border-radius: 8px;
+      padding: 6px 13px;
+      border-radius: 999px;
       cursor: pointer;
       font-size: 12px;
+      font-weight: 500;
       font-family: 'Plus Jakarta Sans', sans-serif;
       transition: all 0.2s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .bar-btn:hover, .bar-btn.active-music {
-      background: rgba(212, 175, 55, 0.24);
+      background: rgba(212, 175, 55, 0.22);
       border-color: var(--gold-bright);
       color: var(--gold-bright);
+    }
+
+    .bar-btn-vip {
+      background: linear-gradient(135deg, #ffd97d 0%, #c89b2b 100%);
+      border: 1px solid #ffe8a3;
+      color: #181005 !important;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+    }
+
+    .bar-btn-vip:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .desktop-more-wrap {
+      position: relative;
+    }
+
+    .desktop-more-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 230px;
+      background: linear-gradient(180deg, rgba(28, 20, 11, 0.98), rgba(14, 10, 6, 0.99));
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      border-radius: 16px;
+      padding: 8px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(16px);
+      z-index: 400;
+    }
+
+    .desktop-more-menu.open {
+      display: flex;
+    }
+
+    .desktop-more-menu .bar-btn {
+      width: 100%;
+      justify-content: flex-start;
+      border-radius: 10px;
+      border-color: transparent;
+      background: transparent;
+      padding: 8px 12px;
+      font-size: 12.5px;
+    }
+
+    .desktop-more-menu .bar-btn:hover {
+      background: rgba(212, 175, 55, 0.16);
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .desktop-more-divider {
+      height: 1px;
+      background: rgba(212, 175, 55, 0.18);
+      margin: 4px 6px;
     }
 
     /* iPhone 16 Pro Frame */
@@ -1550,26 +1623,35 @@
   </style>
 </head>
 <body>
-  <!-- Desktop Controls Bar -->
+  <!-- Desktop Controls Bar — Million-Dollar Hallow / Calm Minimalist Single-Line Header -->
   <div class="desktop-bar">
     <div class="badge">
-      <span>⚱️</span>
-      <span>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</span>
+      <span style="font-size:16px;">⚱️</span>
+      <span>SANCTUARY — 12 SACRED VESSELS</span>
     </div>
     <div class="controls">
-      <button class="bar-btn" id="installBtnDesktop" onclick="openInstallAppDrawer()" style="background:linear-gradient(135deg,rgba(212,175,55,0.28),rgba(40,28,12,0.9)); border-color:#ffd97d; color:#ffd97d; font-weight:700;">📲 Install App</button>
-      <button class="bar-btn" id="passBtnDesktop" onclick="openPaywallDrawer()" style="border-color:#ffd97d; color:#ffd97d; font-weight:600;">💎 Sanctuary Pass (Free: 3/3)</button>
-      <button class="bar-btn" onclick="openViralShareDrawer()" style="border-color:#ffd97d; color:#ffd97d; font-weight:700;">🚀 Share &amp; Bless</button>
-      <button class="bar-btn" onclick="openAskAngelDrawer()">👼 Ask Angel</button>
-      <button class="bar-btn" onclick="openCandlesDrawer()">🕯️ Candles & Journal</button>
-      <button class="bar-btn" onclick="openGoldenVesselDrawer()">👑 13th Golden Jar</button>
-      <button class="bar-btn" onclick="openSleepDrawer()">🌙 Sleep Mode</button>
-      <button class="bar-btn" onclick="openReminderDrawer()">🔔 Reminders</button>
-      <button class="bar-btn" id="musicBtnDesktop" onclick="toggleAmbientHarp()">🎵 Harp: OFF</button>
-      <button class="bar-btn" id="voiceStudioBtnDesktop" onclick="openVoiceDrawer()" style="border-color:#ffd97d; color:#ffd97d;">🎙️ Voice: Seraphina</button>
-      <button class="bar-btn" id="toggleVoiceBtn" onclick="toggleVoiceMute()">🔊 Voice: ON</button>
-      <button class="bar-btn" onclick="openOnboardingOverlay()">✨ Intro</button>
-      <button class="bar-btn" id="fullscreenBtn" onclick="toggleFullscreenMode()">📱 Fullscreen</button>
+      <button class="bar-btn" id="musicBtnDesktop" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵 Harp: OFF</button>
+      <button class="bar-btn" id="installBtnDesktop" onclick="openInstallAppDrawer()" style="border-color:rgba(255,217,125,0.65); color:var(--gold-bright); font-weight:600;">📲 Install App</button>
+      <button class="bar-btn bar-btn-vip" id="passBtnDesktop" onclick="openPaywallDrawer()">💎 Sanctuary Pass (Free: 3/3)</button>
+
+      <!-- Compact More Menu Dropdown (Keeps top bar 100% clean while preserving all features) -->
+      <div class="desktop-more-wrap">
+        <button class="bar-btn" id="desktopMoreBtn" onclick="toggleDesktopMoreMenu(event)" title="More Sanctuary Features">⋯ More ▾</button>
+        <div class="desktop-more-menu" id="desktopMoreMenu">
+          <button class="bar-btn" id="voiceStudioBtnDesktop" onclick="openVoiceDrawer(); closeDesktopMoreMenu();" style="color:var(--gold-bright);">🎙️ Voice: Seraphina</button>
+          <button class="bar-btn" id="toggleVoiceBtn" onclick="toggleVoiceMute()">🔊 Voice: ON</button>
+          <div class="desktop-more-divider"></div>
+          <button class="bar-btn" onclick="openViralShareDrawer(); closeDesktopMoreMenu();" style="color:var(--gold-bright);">🚀 Share &amp; Bless (+Grace)</button>
+          <button class="bar-btn" onclick="openAskAngelDrawer(); closeDesktopMoreMenu();">👼 Ask the Angel</button>
+          <button class="bar-btn" onclick="openCandlesDrawer(); closeDesktopMoreMenu();">🕯️ Candles &amp; Journal</button>
+          <button class="bar-btn" onclick="openGoldenVesselDrawer(); closeDesktopMoreMenu();">👑 13th Golden Chalice</button>
+          <button class="bar-btn" onclick="openSleepDrawer(); closeDesktopMoreMenu();">🌙 Night Rain Sleep Mode</button>
+          <button class="bar-btn" onclick="openReminderDrawer(); closeDesktopMoreMenu();">🔔 Daily Prayer Bells</button>
+          <div class="desktop-more-divider"></div>
+          <button class="bar-btn" onclick="openOnboardingOverlay(); closeDesktopMoreMenu();">✨ Welcome Intro</button>
+          <button class="bar-btn" id="fullscreenBtn" onclick="toggleFullscreenMode(); closeDesktopMoreMenu();">📱 Fullscreen View</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1596,36 +1678,34 @@
       <div class="light-rays"></div>
       <div class="divine-flash" id="divineFlash"></div>
 
-      <!-- Top Bar: Ergonomic Touch Targets (Apple HIG Friendly) -->
+      <!-- Top Bar: Hallow / Calm Minimalist 2-Cluster Layout -->
       <div class="top-actions">
         <div class="streak-group">
           <div class="counter-pill" onclick="claimDailyJourneyBlessing()" style="cursor:pointer;" title="Daily Prayer Streak">🔥 <span id="streakCount">1</span>d</div>
           <button class="icon-btn" onclick="openRelicsDrawer()" title="12 Sacred Relics Museum">
             🏆 <span id="relicCount">0</span>/12
           </button>
-          <button class="icon-btn" id="passBadgeApp" onclick="openPaywallDrawer()" title="Sanctuary Pass Subscription">
+        </div>
+        <div style="display:flex; align-items:center; gap:5px;">
+          <button class="icon-btn" id="musicBtnApp" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵</button>
+          <button class="icon-btn" id="voiceBtnApp" onclick="openVoiceDrawer()" title="Choose Natural Angel Voice">🎙️</button>
+          <button class="icon-btn" onclick="openLibraryDrawer()" title="All 365+ Words of Jesus">📜 365</button>
+          <button class="icon-btn" id="passBadgeApp" onclick="openPaywallDrawer()" style="border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18); font-weight:700;" title="Sanctuary Pass Subscription">
             💎 Free (3/3)
           </button>
         </div>
-        <div style="display:flex; gap:5px;">
-          <button class="icon-btn" onclick="openDailyWordOfYear()" title="Today's Gospel Word">📅 <span id="dayOfYearNum">1</span></button>
-          <button class="icon-btn" id="voiceBtnApp" onclick="openVoiceDrawer()" title="Choose Natural Angel Voice">🎙️</button>
-          <button class="icon-btn" id="musicBtnApp" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵</button>
-          <button class="icon-btn" onclick="openLibraryDrawer()" title="All 365+ Words of Jesus">📜 365</button>
-          <button class="icon-btn" onclick="resetAllVessels()" title="Restore All 12 Sacred Vessels">↺</button>
-        </div>
       </div>
 
-      <!-- Sanctuary Header + Faith Rank & 7-Day Miracle Journey -->
+      <!-- Sanctuary Header + Faith Rank & 7-Day Miracle Journey (Clean & Balanced) -->
       <div class="sanctuary-header">
-        <div class="sanctuary-subtitle">Sanctuary: Jesus Daily Prayer • 365 Sleep &amp; Gospel Words</div>
+        <div class="sanctuary-subtitle">Sanctuary: Jesus Daily Prayer • Day #<span id="dayOfYearNum" onclick="openDailyWordOfYear()" style="cursor:pointer; text-decoration:underline;">1</span></div>
         <h1 class="sanctuary-title">12 Sacred Vessels &amp; Sleep Word</h1>
-        <div style="display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;">
-          <div class="rank-bar" id="faithRankBadge">
-            ✨ Rank: Seeker • <span id="gracePointsText">0</span> Grace Pts
+        <div style="display:flex; align-items:center; justify-content:center; gap:5px; flex-wrap:nowrap;">
+          <div class="rank-bar" id="faithRankBadge" onclick="openReminderDrawer()" style="cursor:pointer;" title="Tap to set Daily Prayer Bell">
+            ✨ <span id="gracePointsText">0</span> Grace • 🔔
           </div>
-          <button class="icon-btn" onclick="openReminderDrawer()" style="padding:2px 8px; font-size:9.5px; min-height:22px;" title="Daily Prayer Bell">🔔 Bell</button>
-          <button class="icon-btn" id="installBtnApp" onclick="openInstallAppDrawer()" style="padding:2px 8px; font-size:9.5px; min-height:22px; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.2);" title="Install App to iPhone/Android Home Screen">📲 Install App</button>
+          <button class="icon-btn" id="installBtnApp" onclick="openInstallAppDrawer()" style="padding:2px 8px; font-size:9.5px; min-height:22px; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18);" title="Install App to Home Screen">📲 App</button>
+          <button class="icon-btn" onclick="resetAllVessels()" style="padding:2px 7px; font-size:10px; min-height:22px;" title="Restore All 12 Sacred Vessels">↺</button>
         </div>
         <div class="seven-day-bar" id="sevenDayJourneyBar" onclick="claimDailyJourneyBlessing()" title="Complete 7 Days of Vessel Prayer for +100 Miracle Grace"></div>
       </div>
@@ -4835,9 +4915,27 @@
       const rank = getFaithRankName(gracePoints);
       const badge = document.getElementById("faithRankBadge");
       if (badge) {
-        badge.innerHTML = `✨ Rank: ${rank} • <span id="gracePointsText">${gracePoints}</span> Grace Pts`;
+        badge.innerHTML = `✨ ${rank} • <span id="gracePointsText">${gracePoints}</span> Grace • 🔔`;
       }
     }
+
+    function toggleDesktopMoreMenu(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById("desktopMoreMenu");
+      if (menu) menu.classList.toggle("open");
+    }
+
+    function closeDesktopMoreMenu() {
+      const menu = document.getElementById("desktopMoreMenu");
+      if (menu) menu.classList.remove("open");
+    }
+
+    document.addEventListener("click", (e) => {
+      const wrap = document.querySelector(".desktop-more-wrap");
+      if (wrap && !wrap.contains(e.target)) {
+        closeDesktopMoreMenu();
+      }
+    });
 
     function openGoldenVesselDrawer() {
       closeAllDrawers();
