@@ -196,12 +196,7 @@
     }
 
     body.fullscreen-mode .desktop-bar {
-      position: fixed;
-      top: 0;
-      z-index: 200;
-      background: rgba(11, 9, 7, 0.92);
-      backdrop-filter: blur(12px);
-      max-width: 920px;
+      display: none !important;
     }
 
     body.fullscreen-mode .iphone-frame {
@@ -209,13 +204,13 @@
       height: 100dvh;
       border-radius: 0;
       box-shadow: none;
-      padding-top: 52px;
+      padding-top: max(6px, env(safe-area-inset-top, 0px)) !important;
     }
 
     body.fullscreen-mode .dynamic-island,
     body.fullscreen-mode .ios-status-bar,
     body.fullscreen-mode .home-indicator {
-      display: none;
+      display: none !important;
     }
 
     @media (max-width: 820px) {
@@ -229,7 +224,7 @@
         height: 100dvh;
         border-radius: 0;
         box-shadow: none;
-        padding-top: env(safe-area-inset-top, 0px);
+        padding-top: max(6px, env(safe-area-inset-top, 0px)) !important;
       }
       .dynamic-island,
       .ios-status-bar,
@@ -316,12 +311,12 @@
       100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
     }
 
-    /* Top Bar inside App (Streak + Relics + Music + Library) */
+    /* Top Bar inside App (Streak + Relics + Music + Voice + Senior Font + VIP) */
     .top-actions {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px 14px 2px;
+      padding: 6px 12px 4px;
       z-index: 15;
       gap: 4px;
     }
@@ -329,31 +324,34 @@
     .streak-group {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
 
     .counter-pill {
       font-family: 'Cinzel', serif;
-      font-size: 10px;
+      font-size: 11.5px;
       color: var(--gold-bright);
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid rgba(212, 175, 55, 0.32);
-      padding: 4px 8px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.42);
+      padding: 5px 10px;
+      min-height: 32px;
       border-radius: 20px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .icon-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(212, 175, 55, 0.32);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.42);
       color: var(--gold-bright);
-      padding: 4px 8px;
+      padding: 5px 10px;
+      min-height: 32px;
       border-radius: 20px;
       font-family: 'Cinzel', serif;
-      font-size: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
       display: inline-flex;
@@ -371,20 +369,21 @@
       position: relative;
       z-index: 10;
       text-align: center;
-      padding: 4px 16px 2px;
+      padding: 2px 14px 4px;
     }
 
     .sanctuary-subtitle {
       font-family: 'Cinzel', serif;
-      font-size: 9.5px;
-      letter-spacing: 2.5px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
       text-transform: uppercase;
-      color: var(--gold-primary);
+      color: #f0d48a;
     }
 
     .sanctuary-title {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       background: linear-gradient(180deg, #fff6d6 0%, #e7be55 55%, #b38222 100%);
       -webkit-background-clip: text;
@@ -395,16 +394,24 @@
     .mood-selector-wrap {
       position: relative;
       z-index: 15;
-      padding: 4px 14px 2px;
+      padding: 4px 12px 4px;
     }
 
     .mood-label {
-      display: none;
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #ecd189;
+      text-align: center;
+      margin-bottom: 5px;
+      text-transform: uppercase;
     }
 
     .mood-pills {
       display: flex;
-      gap: 6px;
+      gap: 7px;
       overflow-x: auto;
       padding-bottom: 4px;
       scrollbar-width: none;
@@ -416,14 +423,14 @@
 
     .mood-pill {
       flex-shrink: 0;
-      background: rgba(24, 17, 10, 0.92);
-      border: 1px solid rgba(212, 175, 55, 0.36);
-      color: #f5e7ce;
-      padding: 6px 12px;
+      background: rgba(24, 17, 10, 0.94);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: #fbf0d9;
+      padding: 8px 14px;
       border-radius: 99px;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 12.5px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
@@ -437,7 +444,7 @@
       box-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
     }
 
-    /* 12 Ancient Sacred Vessels Grid — Optimized 3x4 Portrait on iPhone */
+    /* 12 Ancient Sacred Vessels Grid — Optimized 3x4 Portrait on Mobile */
     .vessels-stage {
       position: relative;
       flex: 1;
@@ -445,7 +452,7 @@
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(4, 1fr);
       gap: 9px 10px;
-      padding: 6px 14px 10px;
+      padding: 6px 12px 8px;
       z-index: 10;
       align-items: center;
       justify-items: center;
@@ -470,8 +477,8 @@
       align-items: center;
       justify-content: center;
       border-radius: 16px;
-      background: radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.11) 0%, rgba(20, 14, 8, 0.45) 75%);
-      border: 1px solid rgba(212, 175, 55, 0.22);
+      background: radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.14) 0%, rgba(20, 14, 8, 0.55) 75%);
+      border: 1px solid rgba(212, 175, 55, 0.32);
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
     }
@@ -497,8 +504,8 @@
 
     .vessel-svg-wrap {
       position: relative;
-      width: 72px;
-      height: 84px;
+      width: 70px;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -509,20 +516,36 @@
       top: 5px;
       left: 8px;
       font-family: 'Cinzel', serif;
-      font-size: 11px;
-      font-weight: 700;
-      color: rgba(255, 224, 140, 0.9);
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #ffe89e;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
     }
 
     .vessel-label {
       font-family: 'Cinzel', serif;
-      font-size: 10px;
+      font-size: 11.8px;
       font-weight: 700;
-      letter-spacing: 0.5px;
-      color: #ebd9b8;
-      margin-top: 2px;
+      line-height: 1.18;
+      letter-spacing: 0.4px;
+      color: #fbf0d9;
+      margin-top: 3px;
+      padding: 0 4px;
+      text-align: center;
       text-transform: uppercase;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
     }
+
+    /* Global Senior Large-Print Scaling Classes */
+    body.font-scale-large .vessel-label { font-size: 12.8px !important; }
+    body.font-scale-large .mood-pill { font-size: 15px !important; padding: 9px 15px !important; }
+    body.font-scale-large .sanctuary-subtitle, body.font-scale-large .mood-label { font-size: 12px !important; }
+    body.font-scale-large .dock-tab { font-size: 11px !important; }
+
+    body.font-scale-xlarge .vessel-label { font-size: 13.8px !important; }
+    body.font-scale-xlarge .mood-pill { font-size: 16.5px !important; padding: 10px 17px !important; }
+    body.font-scale-xlarge .sanctuary-subtitle, body.font-scale-xlarge .mood-label { font-size: 13px !important; }
+    body.font-scale-xlarge .dock-tab { font-size: 11.5px !important; }
 
     .vessel-slot.broken .intact-jar {
       display: none;
@@ -1189,15 +1212,15 @@
       margin-top: 2px;
     }
 
-    /* iOS Bottom Sanctuary Navigation Dock — 5-Tab Apple HIG Full-Width Symmetrical Layout */
+    /* iOS Bottom Sanctuary Navigation Dock — 6-Tab Full-Width Symmetrical Layout (Phương án B) */
     .ios-bottom-dock {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       width: 100%;
-      gap: 4px;
+      gap: 3px;
       background: rgba(14, 10, 6, 0.98);
-      border-top: 1px solid rgba(212, 175, 55, 0.34);
-      padding: 6px 10px max(7px, env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid rgba(212, 175, 55, 0.38);
+      padding: 6px 6px max(8px, env(safe-area-inset-bottom, 0px));
       z-index: 92;
       flex-shrink: 0;
     }
@@ -1205,26 +1228,26 @@
     .dock-tab {
       background: none;
       border: 1px solid transparent;
-      color: var(--text-muted);
+      color: #e6d3ad;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 3px;
       cursor: pointer;
-      padding: 5px 4px;
-      min-height: 48px;
+      padding: 5px 2px;
+      min-height: 52px;
       border-radius: 12px;
       transition: all 0.2s ease;
       font-family: 'Cinzel', serif;
-      font-size: 9.5px;
+      font-size: 10.5px;
       font-weight: 700;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.2px;
       white-space: nowrap;
     }
 
     .dock-tab span.dock-icon {
-      font-size: 20px;
+      font-size: 21px;
       line-height: 1.1;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
     }
@@ -1784,10 +1807,10 @@
         </div>
         <div style="display:flex; align-items:center; gap:5px;">
           <button class="icon-btn" id="musicBtnApp" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵</button>
-          <button class="icon-btn" id="voiceBtnApp" onclick="openVoiceDrawer()" title="Choose Natural Angel Voice">🎙️</button>
-          <button class="icon-btn" onclick="openLibraryDrawer()" title="All 365+ Words of Jesus">📜 365</button>
-          <button class="icon-btn" id="passBadgeApp" onclick="openPaywallDrawer()" style="border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18); font-weight:700;" title="Sanctuary Pass Subscription">
-            💎 Free (3/3)
+          <button class="icon-btn" id="voiceBtnApp" onclick="openVoiceDrawer()" title="Choose Natural Angel Voice">🎙️ Voice</button>
+          <button class="icon-btn" id="topFontSizeBtn" onclick="cycleScriptureFontSize()" style="border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.16); font-weight:800;" title="Tap to Enlarge Text Size for Easy Senior Reading">🔍 Aa+</button>
+          <button class="icon-btn" id="passBadgeApp" onclick="openPaywallDrawer()" style="border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.22); font-weight:700;" title="Sanctuary Pass Subscription">
+            💎 VIP
           </button>
         </div>
       </div>
@@ -2710,7 +2733,7 @@
         </div>
       </div>
 
-      <!-- iOS Bottom Sanctuary Navigation Dock -->
+      <!-- iOS Bottom Sanctuary Navigation Dock (6-Tab Symmetrical Layout — Phương án B) -->
       <div class="ios-bottom-dock">
         <button class="dock-tab active" onclick="closeAllDrawers()">
           <span class="dock-icon">⚱️</span>
@@ -2731,6 +2754,10 @@
         <button class="dock-tab" onclick="openSleepDrawer()">
           <span class="dock-icon">🌙</span>
           <span>Sleep</span>
+        </button>
+        <button class="dock-tab" onclick="openLibraryDrawer()">
+          <span class="dock-icon">📜</span>
+          <span>365 Bible</span>
         </button>
       </div>
     </div>
@@ -6368,10 +6395,10 @@
       );
     }
 
-    let currentFontScale = "standard"; // "standard" | "large" | "xlarge"
+    let currentFontScale = "large"; // "standard" | "large" | "xlarge"
 
     function applyFontScale(scale) {
-      currentFontScale = scale || "standard";
+      currentFontScale = scale || "large";
       document.body.classList.remove("font-scale-large", "font-scale-xlarge");
       if (currentFontScale === "large") {
         document.body.classList.add("font-scale-large");
@@ -6385,8 +6412,10 @@
       };
       const btn1 = document.getElementById("fontSizeToggleBtn");
       const btn2 = document.getElementById("fontSizeLibraryBtn");
-      if (btn1) btn1.textContent = labelMap[currentFontScale] || "🔍 Aa";
-      if (btn2) btn2.textContent = labelMap[currentFontScale] || "🔍 Aa";
+      const btnTop = document.getElementById("topFontSizeBtn");
+      if (btn1) btn1.textContent = labelMap[currentFontScale] || "🔍 Aa+";
+      if (btn2) btn2.textContent = labelMap[currentFontScale] || "🔍 Aa+";
+      if (btnTop) btnTop.textContent = labelMap[currentFontScale] || "🔍 Aa+";
     }
 
     function cycleScriptureFontSize() {
@@ -6410,8 +6439,12 @@
         const saved = localStorage.getItem("sacred_font_scale_v1");
         if (saved === "large" || saved === "xlarge" || saved === "standard") {
           applyFontScale(saved);
+        } else {
+          applyFontScale("large");
         }
-      } catch (e) {}
+      } catch (e) {
+        applyFontScale("large");
+      }
     }
 
     initProgress();
