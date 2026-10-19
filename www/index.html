@@ -26,11 +26,11 @@
     :root {
       --bg-deep: #0b0907;
       --bg-sanctuary: #18120c;
-      --gold-bright: #ffd97d;
+      --gold-bright: #ffe08a;
       --gold-primary: #d4af37;
       --gold-dark: #8a661c;
-      --text-light: #f7eed7;
-      --text-muted: #b8a686;
+      --text-light: #fffbf2;
+      --text-muted: #dbc9a8;
     }
 
     * {
@@ -416,13 +416,14 @@
 
     .mood-pill {
       flex-shrink: 0;
-      background: rgba(24, 17, 10, 0.85);
-      border: 1px solid rgba(212, 175, 55, 0.28);
-      color: #e6d5b8;
-      padding: 4px 10px;
+      background: rgba(24, 17, 10, 0.92);
+      border: 1px solid rgba(212, 175, 55, 0.36);
+      color: #f5e7ce;
+      padding: 6px 12px;
       border-radius: 99px;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 11px;
+      font-size: 12.5px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
@@ -432,7 +433,7 @@
       background: linear-gradient(135deg, #f3cf68 0%, #bf9025 100%);
       color: #171006;
       border-color: #fff2b2;
-      font-weight: 600;
+      font-weight: 700;
       box-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
     }
 
@@ -508,16 +509,17 @@
       top: 5px;
       left: 8px;
       font-family: 'Cinzel', serif;
-      font-size: 9.5px;
+      font-size: 11px;
       font-weight: 700;
-      color: rgba(255, 217, 125, 0.7);
+      color: rgba(255, 224, 140, 0.9);
     }
 
     .vessel-label {
       font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.6px;
-      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #ebd9b8;
       margin-top: 2px;
       text-transform: uppercase;
     }
@@ -749,53 +751,123 @@
     }
 
     .jesus-quote-text {
-      font-size: 18px;
-      line-height: 1.34;
-      font-weight: 600;
+      font-size: 20.5px;
+      line-height: 1.38;
+      font-weight: 700;
       font-style: italic;
-      color: #fff8e8;
-      margin-bottom: 6px;
+      color: #fffcf5;
+      margin-bottom: 7px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+      transition: font-size 0.2s ease, line-height 0.2s ease;
     }
 
     .scripture-reference {
       font-family: 'Cinzel', serif;
-      font-size: 12px;
+      font-size: 13.5px;
       font-weight: 700;
       color: var(--gold-bright);
       letter-spacing: 1.5px;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
+      transition: font-size 0.2s ease;
     }
 
     /* Angel's Guided Prayer Box */
     .prayer-box {
-      background: rgba(0, 0, 0, 0.32);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      border-radius: 10px;
-      padding: 7px 10px;
+      background: rgba(0, 0, 0, 0.42);
+      border: 1px solid rgba(212, 175, 55, 0.36);
+      border-radius: 12px;
+      padding: 9px 12px;
       text-align: left;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
     .prayer-box-title {
       font-family: 'Cinzel', serif;
-      font-size: 9px;
+      font-size: 11px;
+      font-weight: 700;
       letter-spacing: 1.2px;
-      color: var(--gold-primary);
+      color: var(--gold-bright);
       text-transform: uppercase;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .prayer-box-text {
-      font-size: 13.5px;
+      font-size: 16.5px;
+      font-weight: 600;
       font-style: italic;
-      color: #e9dcc2;
-      line-height: 1.32;
+      color: #fff8e8;
+      line-height: 1.38;
+      transition: font-size 0.2s ease;
     }
 
     .action-step-note {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.25;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: #ebd9b8;
+      line-height: 1.35;
+      transition: font-size 0.2s ease;
+    }
+
+    /* Senior Large Print Modes (Triggered by 1-Tap "Aa" Button) */
+    body.font-scale-large .jesus-quote-text {
+      font-size: 24px;
+      line-height: 1.36;
+      font-style: normal;
+      font-weight: 700;
+    }
+    body.font-scale-large .scripture-reference {
+      font-size: 15px;
+    }
+    body.font-scale-large .prayer-box-text {
+      font-size: 19px;
+      line-height: 1.4;
+      font-style: normal;
+    }
+    body.font-scale-large .action-step-note {
+      font-size: 16.5px;
+      line-height: 1.38;
+      color: #fff6e0;
+    }
+    body.font-scale-large .saved-item-verse {
+      font-size: 20.5px;
+      font-style: normal;
+      font-weight: 700;
+    }
+    body.font-scale-large .saved-item-ref {
+      font-size: 13.5px;
+    }
+
+    body.font-scale-xlarge .jesus-quote-text {
+      font-size: 27px;
+      line-height: 1.34;
+      font-style: normal;
+      font-weight: 700;
+    }
+    body.font-scale-xlarge .scripture-reference {
+      font-size: 16.5px;
+    }
+    body.font-scale-xlarge .prayer-box-title {
+      font-size: 12.5px;
+    }
+    body.font-scale-xlarge .prayer-box-text {
+      font-size: 21.5px;
+      line-height: 1.38;
+      font-style: normal;
+      font-weight: 700;
+    }
+    body.font-scale-xlarge .action-step-note {
+      font-size: 18px;
+      line-height: 1.38;
+      color: #fffbf2;
+      font-weight: 600;
+    }
+    body.font-scale-xlarge .saved-item-verse {
+      font-size: 23px;
+      font-style: normal;
+      font-weight: 700;
+    }
+    body.font-scale-xlarge .saved-item-ref {
+      font-size: 14.5px;
     }
 
     .revelation-actions {
@@ -809,11 +881,11 @@
     }
 
     .btn-sacred {
-      min-height: 40px;
+      min-height: 42px;
       padding: 9px 10px;
       border-radius: 12px;
       font-family: 'Cinzel', serif;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.6px;
       cursor: pointer;
@@ -872,13 +944,14 @@
 
     .search-input {
       width: 100%;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(212, 175, 55, 0.35);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(212, 175, 55, 0.42);
       color: var(--text-light);
-      padding: 9px 12px;
+      padding: 10px 13px;
       border-radius: 10px;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 600;
       margin-bottom: 10px;
       outline: none;
     }
@@ -893,10 +966,10 @@
     }
 
     .saved-item {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(212, 175, 55, 0.22);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.28);
       border-radius: 12px;
-      padding: 11px 13px;
+      padding: 12px 14px;
       cursor: pointer;
       transition: background 0.2s;
     }
@@ -906,15 +979,19 @@
     }
 
     .saved-item-verse {
-      font-size: 15.5px;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.38;
       font-style: italic;
       color: var(--text-light);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
+      transition: font-size 0.2s ease;
     }
 
     .saved-item-ref {
       font-family: 'Cinzel', serif;
-      font-size: 10.5px;
+      font-size: 12px;
+      font-weight: 700;
       color: var(--gold-bright);
     }
 
@@ -1770,8 +1847,9 @@
           <div class="scroll-top-tags">
             <span class="scroll-theme-badge" id="verseTheme">Divine Peace</span>
             <span class="relic-unlocked-pill" id="relicBadge">🏺 Relic Discovered</span>
-            <button class="icon-btn" id="favHeartBtn" onclick="toggleFavoriteCurrentVerse()" style="padding:2px 8px;">🤍 Save</button>
-            <button class="icon-btn" onclick="openVoiceDrawer()" style="padding:2px 8px;" id="modalVoicePill">🎙️ Voice</button>
+            <button class="icon-btn" id="favHeartBtn" onclick="toggleFavoriteCurrentVerse()" style="padding:3px 9px; font-weight:700;">🤍 Save</button>
+            <button class="icon-btn" onclick="openVoiceDrawer()" style="padding:3px 9px; font-weight:700;" id="modalVoicePill">🎙️ Voice</button>
+            <button class="icon-btn" id="fontSizeToggleBtn" onclick="cycleScriptureFontSize()" style="padding:3px 9px; font-weight:700; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18);" title="Tap to Enlarge Text Size for Easy Reading">🔍 Aa</button>
           </div>
           <p class="jesus-quote-text" id="verseText"></p>
           <div class="scripture-reference" id="verseRef"></div>
@@ -1812,7 +1890,10 @@
             <div class="sanctuary-subtitle">Complete Yearly Gospel Treasury (Free: #1–108 • VIP: #1–365)</div>
             <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">📜 365 Words of Jesus Christ</h2>
           </div>
-          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <button class="icon-btn" id="fontSizeLibraryBtn" onclick="cycleScriptureFontSize()" style="padding:5px 10px; font-weight:700; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18);" title="Tap to Enlarge Text Size">🔍 Aa</button>
+            <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+          </div>
         </div>
         <div style="display:flex; gap:6px; margin-bottom:8px;">
           <input type="text" id="verseSearch" class="search-input" placeholder="Search 365 words by theme, keyword, or verse (e.g. Peace, John)..." oninput="filterLibrary()" style="margin-bottom:0; flex:1;" />
@@ -6268,12 +6349,59 @@
       );
     }
 
+    let currentFontScale = "standard"; // "standard" | "large" | "xlarge"
+
+    function applyFontScale(scale) {
+      currentFontScale = scale || "standard";
+      document.body.classList.remove("font-scale-large", "font-scale-xlarge");
+      if (currentFontScale === "large") {
+        document.body.classList.add("font-scale-large");
+      } else if (currentFontScale === "xlarge") {
+        document.body.classList.add("font-scale-xlarge");
+      }
+      const labelMap = {
+        standard: "🔍 Aa",
+        large: "🔍 Aa+",
+        xlarge: "🔍 Aa++"
+      };
+      const btn1 = document.getElementById("fontSizeToggleBtn");
+      const btn2 = document.getElementById("fontSizeLibraryBtn");
+      if (btn1) btn1.textContent = labelMap[currentFontScale] || "🔍 Aa";
+      if (btn2) btn2.textContent = labelMap[currentFontScale] || "🔍 Aa";
+    }
+
+    function cycleScriptureFontSize() {
+      const order = ["standard", "large", "xlarge"];
+      const nextIdx = (order.indexOf(currentFontScale) + 1) % order.length;
+      const nextScale = order[nextIdx];
+      applyFontScale(nextScale);
+      try {
+        localStorage.setItem("sacred_font_scale_v1", nextScale);
+      } catch (e) {}
+      const descMap = {
+        standard: "Standard Large Print (20.5px Scripture • 16.5px Prayer)",
+        large: "Extra-Large Senior Print (24px Bold Upright Scripture • 19px Prayer)",
+        xlarge: "Maximum Giant Print (27px Bold Upright Scripture • 21.5px Prayer)"
+      };
+      triggerSanctuaryNotification("🔍 Reading Text Size Updated", descMap[nextScale]);
+    }
+
+    function loadFontScalePreference() {
+      try {
+        const saved = localStorage.getItem("sacred_font_scale_v1");
+        if (saved === "large" || saved === "xlarge" || saved === "standard") {
+          applyFontScale(saved);
+        }
+      } catch (e) {}
+    }
+
     initProgress();
     loadGracePoints();
     loadCandlesAndJournal();
     loadReminders();
     loadSubscriptionState();
     loadVoicePreferences();
+    loadFontScalePreference();
     loadViralShareState();
     renderVesselsGrid();
     renderSevenDayJourney();
