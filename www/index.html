@@ -1502,11 +1502,11 @@
       filter: brightness(1.12);
     }
 
-    .social-whatsapp { background: linear-gradient(135deg, #1fa855, #128c7e); }
+    .social-instagram { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .social-tiktok   { background: linear-gradient(135deg, #00f2fe 0%, #161823 48%, #ff0050 100%); border-color: rgba(255,255,255,0.35); }
     .social-facebook { background: linear-gradient(135deg, #1877f2, #0c5dc7); }
     .social-twitter  { background: linear-gradient(135deg, #27272a, #09090b); border-color: rgba(255,217,125,0.4); }
     .social-telegram { background: linear-gradient(135deg, #2aabee, #229ed9); }
-    .social-sms      { background: linear-gradient(135deg, #10b981, #047857); }
     .social-download { background: linear-gradient(135deg, #b45309, #78350f); border-color: #ffd97d; }
   
 
@@ -2439,25 +2439,25 @@
 
           <!-- Primary Native iOS / Android Share Sheet (Image + Caption + Deep Link) -->
           <button class="btn-sacred btn-primary-gold" style="width:100%; padding:11px; font-size:12.5px;" onclick="shareNativeWithCardImage()">
-            🖼️📲 Share HD Blessing Image + Caption (FB / WhatsApp / Zalo / IG)
+            🖼️📲 Share HD Blessing Image + Caption (IG / TikTok / FB / X)
           </button>
 
           <!-- 1-Tap Direct Social Network Buttons (Auto-Attaches / Copies HD Card Image + Caption) -->
           <div class="viral-social-grid">
-            <button class="social-share-btn social-whatsapp" onclick="shareToSocialPlatform('whatsapp')">
-              🟢 WhatsApp (Image)
+            <button class="social-share-btn social-instagram" onclick="shareToSocialPlatform('instagram')">
+              📸 Instagram
+            </button>
+            <button class="social-share-btn social-tiktok" onclick="shareToSocialPlatform('tiktok')">
+              🎵 TikTok
             </button>
             <button class="social-share-btn social-facebook" onclick="shareToSocialPlatform('facebook')">
-              🔵 Facebook (Image)
+              🔵 Facebook
             </button>
             <button class="social-share-btn social-twitter" onclick="shareToSocialPlatform('twitter')">
-              𝕏 Post on X (Image)
+              𝕏 Post on X
             </button>
             <button class="social-share-btn social-telegram" onclick="shareToSocialPlatform('telegram')">
-              ✈️ Telegram (Image)
-            </button>
-            <button class="social-share-btn social-sms" onclick="copyViralCardImageToClipboard()">
-              🖼️ Copy HD Image
+              ✈️ Telegram
             </button>
             <button class="social-share-btn social-download" onclick="downloadViralCardPNG()">
               📥 Save HD PNG
@@ -4716,16 +4716,23 @@
       const shortQuote = `⚱️ “${teaching.text}” — ${teaching.ref} 🙏 Break a Sacred Vessel & hear Jesus's Word today:`;
 
       const platformNames = {
-        whatsapp: "WhatsApp",
+        instagram: "Instagram",
+        tiktok: "TikTok",
         facebook: "Facebook",
         twitter: "X (Twitter)",
-        telegram: "Telegram",
-        sms: "iMessage / SMS"
+        telegram: "Telegram"
       };
       const label = platformNames[platform] || "Social Media";
 
+      // Copy viral caption to clipboard for Instagram / TikTok so user can paste hashtags in 1 tap
+      if ((platform === "instagram" || platform === "tiktok") && navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(caption);
+        } catch (e) {}
+      }
+
       // 1. On Mobile (Android / iOS), use Web Share Level 2 with the actual HD PNG Image File attached!
-      // This allows selecting WhatsApp, Facebook, Zalo, Messenger, IG, Telegram, or X with the real PNG photo attached!
+      // This allows selecting Instagram Stories/Feed, TikTok, Facebook, Telegram, or X with the real PNG photo attached!
       const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
       if (isMobileDevice && navigator.share) {
         const sharedWithFile = await shareNativeWithCardImage(label);
@@ -4738,8 +4745,10 @@
       downloadViralCardPNG(true);
 
       let shareUrl = "";
-      if (platform === "whatsapp") {
-        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(caption)}`;
+      if (platform === "instagram") {
+        shareUrl = "https://www.instagram.com/";
+      } else if (platform === "tiktok") {
+        shareUrl = "https://www.tiktok.com/upload";
       } else if (platform === "facebook") {
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(deepLink)}&quote=${encodeURIComponent(shortQuote)}`;
       } else if (platform === "twitter") {
@@ -4747,16 +4756,12 @@
         shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`;
       } else if (platform === "telegram") {
         shareUrl = `https://t.me/share/url?url=${encodeURIComponent(deepLink)}&text=${encodeURIComponent(shortQuote)}`;
-      } else if (platform === "sms") {
-        window.location.href = `sms:?&body=${encodeURIComponent(caption)}`;
-        recordViralShareAction(label);
-        return;
       }
 
       recordViralShareAction(label);
       triggerSanctuaryNotification(
         `🖼️ HD Image Ready for ${label}!`,
-        `We copied the 1080p Blessing Card image to your clipboard & downloaded the PNG — press Paste (Ctrl+V) inside ${label} to attach the photo!`
+        `We saved the 1080p Blessing Card PNG & copied it to your clipboard — upload or press Paste (Ctrl+V) inside ${label}!`
       );
 
       if (shareUrl) {
