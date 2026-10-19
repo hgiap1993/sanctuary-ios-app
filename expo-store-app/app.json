@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Sanctuary",
+    "slug": "sanctuary-12-sacred-vessels",
+    "owner": "sanctuarystudio",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0b0805",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0b0805"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sanctuary.sacredvessels",
+      "buildNumber": "1",
+      "infoPlist": {
+        "CFBundleDisplayName": "Sanctuary",
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIBackgroundModes": ["audio"],
+        "NSMicrophoneUsageDescription": "Sanctuary does not record your voice; audio permissions are used solely for peaceful ambient harp and scripture playback."
+      }
+    },
+    "android": {
+      "package": "com.sanctuary.sacredvessels",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0b0805"
+      },
+      "permissions": [
+        "INTERNET",
+        "VIBRATE"
+      ]
+    }
+  }
+}

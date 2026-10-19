@@ -1498,7 +1498,55 @@
       justify-content: center;
       gap: 3px;
     }
-  
+
+    /* Smart Floating PWA Home Screen Install Banner */
+    .smart-install-banner {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 58px;
+      z-index: 88;
+      background: linear-gradient(135deg, rgba(36, 25, 12, 0.97), rgba(14, 10, 6, 0.98));
+      border: 1.5px solid #ffd97d;
+      border-radius: 16px;
+      padding: 9px 11px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85), 0 0 22px rgba(212, 175, 55, 0.32);
+      animation: fadeInSheet 0.35s ease-out;
+    }
+
+    .smart-install-banner.show {
+      display: flex;
+    }
+
+    .install-step-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      border-radius: 14px;
+      padding: 11px 13px;
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+    }
+
+    .install-step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd97d, #d4af37);
+      color: #161006;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
   </style>
 </head>
 <body>
@@ -1509,6 +1557,7 @@
       <span>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</span>
     </div>
     <div class="controls">
+      <button class="bar-btn" id="installBtnDesktop" onclick="openInstallAppDrawer()" style="background:linear-gradient(135deg,rgba(212,175,55,0.28),rgba(40,28,12,0.9)); border-color:#ffd97d; color:#ffd97d; font-weight:700;">📲 Install App</button>
       <button class="bar-btn" id="passBtnDesktop" onclick="openPaywallDrawer()" style="border-color:#ffd97d; color:#ffd97d; font-weight:600;">💎 Sanctuary Pass (Free: 3/3)</button>
       <button class="bar-btn" onclick="openViralShareDrawer()" style="border-color:#ffd97d; color:#ffd97d; font-weight:700;">🚀 Share &amp; Bless</button>
       <button class="bar-btn" onclick="openAskAngelDrawer()">👼 Ask Angel</button>
@@ -1576,6 +1625,7 @@
             ✨ Rank: Seeker • <span id="gracePointsText">0</span> Grace Pts
           </div>
           <button class="icon-btn" onclick="openReminderDrawer()" style="padding:2px 8px; font-size:9.5px; min-height:22px;" title="Daily Prayer Bell">🔔 Bell</button>
+          <button class="icon-btn" id="installBtnApp" onclick="openInstallAppDrawer()" style="padding:2px 8px; font-size:9.5px; min-height:22px; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.2);" title="Install App to iPhone/Android Home Screen">📲 Install App</button>
         </div>
         <div class="seven-day-bar" id="sevenDayJourneyBar" onclick="claimDailyJourneyBlessing()" title="Complete 7 Days of Vessel Prayer for +100 Miracle Grace"></div>
       </div>
@@ -2218,6 +2268,159 @@
               </button>
             </div>
             <div id="viralCaptionPreview" style="font-size:11.5px; color:var(--text-light); line-height:1.35; max-height:54px; overflow-y:auto; user-select:all;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Smart Floating Home Screen Install Banner (Auto-detects iOS Safari & Android Chrome) -->
+      <div class="smart-install-banner" id="smartInstallBanner">
+        <div style="font-size:26px; filter:drop-shadow(0 0 8px rgba(255,215,0,0.6));">⚱️</div>
+        <div style="flex:1; min-width:0;" onclick="openInstallAppDrawer()">
+          <div style="font-family:'Cinzel',serif; font-size:11.5px; font-weight:700; color:var(--gold-bright);">
+            📲 Install Sanctuary App (+50 Grace)
+          </div>
+          <div id="smartInstallBannerSub" style="font-size:11px; color:var(--text-light); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+            Add to your iPhone / Android Home Screen in 2 taps
+          </div>
+        </div>
+        <button class="btn-primary" onclick="openInstallAppDrawer()" style="padding:6px 12px; font-size:10.5px; min-height:30px; flex-shrink:0;">
+          📲 Install
+        </button>
+        <button onclick="dismissSmartInstallBanner()" style="background:transparent; border:none; color:var(--text-muted); font-size:15px; cursor:pointer; padding:4px;" title="Dismiss">✕</button>
+      </div>
+
+      <!-- Drawer 12: Install App to Home Screen (iOS Safari 2-Tap Guide & Android Chrome 1-Tap PWA + Web VIP) -->
+      <div class="library-drawer" id="installAppDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle">Instant Full-Screen App • Works 100% Offline • No App Store Wait</div>
+            <div class="drawer-title">📲 Install Sanctuary to Home Screen</div>
+          </div>
+          <button class="drawer-close" onclick="closeAllDrawers()">✕</button>
+        </div>
+
+        <div class="library-list" style="gap:12px;">
+          <!-- Reward Banner -->
+          <div style="background:linear-gradient(135deg, rgba(45, 31, 14, 0.95), rgba(20, 13, 6, 0.98)); border:1.5px solid var(--gold-bright); border-radius:16px; padding:14px; text-align:center;">
+            <div style="display:inline-block; background:linear-gradient(90deg, #ffd97d, #d4af37); color:#1a1105; font-family:'Cinzel',serif; font-size:9.5px; font-weight:800; padding:2px 10px; border-radius:99px; margin-bottom:6px;">
+              ✨ FULL-SCREEN SANCTUARY APP EXPERIENCE
+            </div>
+            <div style="font-family:'Cinzel',serif; font-size:15px; color:var(--gold-bright); font-weight:700; margin-bottom:4px;">
+              Open Directly from Your Phone Home Screen
+            </div>
+            <p style="font-size:12px; color:var(--text-light); line-height:1.4;">
+              Install <strong>Sanctuary: The Twelve Sacred Vessels</strong> on your iPhone, iPad, or Android device for instant full-screen prayer, offline 365 Words of Jesus, and Night Rain Sleep Mode.
+            </p>
+          </div>
+
+          <!-- OS Selector Tabs (Auto-highlights user's detected device) -->
+          <div style="display:flex; gap:8px;">
+            <button id="installTabIOS" class="btn-secondary" onclick="switchInstallOsTab('ios')" style="flex:1; justify-content:center; padding:9px; font-size:11.5px; border-color:var(--gold-bright); color:var(--gold-bright); background:rgba(212,175,55,0.2);">
+               iPhone / iPad (Safari)
+            </button>
+            <button id="installTabAndroid" class="btn-secondary" onclick="switchInstallOsTab('android')" style="flex:1; justify-content:center; padding:9px; font-size:11.5px;">
+              🤖 Android / Chrome
+            </button>
+          </div>
+
+          <!-- iOS Safari 2-Tap Instructions -->
+          <div id="installGuideIOS" style="display:flex; flex-direction:column; gap:10px;">
+            <div class="install-step-card">
+              <div class="install-step-num">1</div>
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
+                  Tap the Safari "Share" Button <span style="display:inline-block; background:rgba(255,255,255,0.12); padding:1px 7px; border-radius:6px; font-family:sans-serif;">⬆️</span>
+                </div>
+                <div style="font-size:12px; color:var(--text-light); line-height:1.4; margin-top:2px;">
+                  Look at the bottom center of your iPhone Safari browser bar (or top right on iPad) and tap the <strong>Share icon (square with arrow pointing up ⬆️)</strong>.
+                </div>
+              </div>
+            </div>
+
+            <div class="install-step-card">
+              <div class="install-step-num">2</div>
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
+                  Tap "Add to Home Screen" <span style="display:inline-block; background:rgba(255,255,255,0.12); padding:1px 7px; border-radius:6px; font-family:sans-serif;">➕</span>
+                </div>
+                <div style="font-size:12px; color:var(--text-light); line-height:1.4; margin-top:2px;">
+                  Scroll down slightly in the Share menu, tap <strong>"Add to Home Screen"</strong>, then tap <strong>"Add"</strong> in the top-right corner.
+                </div>
+              </div>
+            </div>
+
+            <div class="install-step-card">
+              <div class="install-step-num">3</div>
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
+                  Launch "Sanctuary" from Your Home Screen ⚱️
+                </div>
+                <div style="font-size:12px; color:var(--text-light); line-height:1.4; margin-top:2px;">
+                  The golden <strong>Sanctuary</strong> icon is now on your iPhone! Open it anytime for a 100% full-screen native experience with zero browser bars.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Android / Desktop Chrome 1-Tap Instructions -->
+          <div id="installGuideAndroid" style="display:none; flex-direction:column; gap:10px;">
+            <button id="nativePwaInstallBtn" class="btn-primary" onclick="triggerNativePwaInstall()" style="width:100%; justify-content:center; padding:13px; font-size:13.5px;">
+              📲 Tap Here for 1-Click Instant App Install
+            </button>
+
+            <div class="install-step-card">
+              <div class="install-step-num">1</div>
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
+                  Tap the Chrome Menu <span style="display:inline-block; background:rgba(255,255,255,0.12); padding:1px 7px; border-radius:6px; font-family:sans-serif;">⋮</span>
+                </div>
+                <div style="font-size:12px; color:var(--text-light); line-height:1.4; margin-top:2px;">
+                  If the 1-click button above doesn't open automatically, tap the <strong>three dots (⋮)</strong> in the top-right corner of Chrome.
+                </div>
+              </div>
+            </div>
+
+            <div class="install-step-card">
+              <div class="install-step-num">2</div>
+              <div>
+                <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
+                  Tap "Install App" or "Add to Home screen" 📲
+                </div>
+                <div style="font-size:12px; color:var(--text-light); line-height:1.4; margin-top:2px;">
+                  Confirm <strong>"Install"</strong> and the golden Sanctuary app icon will appear directly on your Android Home Screen!
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Claim +50 Grace Points After Installing -->
+          <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.35); border-radius:14px; padding:12px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+            <div>
+              <div style="font-family:'Cinzel',serif; font-size:12px; color:var(--gold-bright); font-weight:700;">
+                🎁 Installed to Your Home Screen?
+              </div>
+              <div style="font-size:11.5px; color:var(--text-light);">
+                Claim your <strong>+50 Grace Points</strong> Home Screen Blessing!
+              </div>
+            </div>
+            <button class="btn-primary" id="claimInstallRewardBtn" onclick="claimHomeScreenInstallReward()" style="padding:8px 14px; font-size:11.5px;">
+              ✨ Claim +50 Grace
+            </button>
+          </div>
+
+          <!-- Direct Web VIP Pass & License Key Shortcut -->
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.3); border-radius:14px; padding:12px; text-align:center;">
+            <div style="font-family:'Cinzel',serif; font-size:12px; color:var(--gold-bright); font-weight:700; margin-bottom:4px;">
+              💎 Want Unlimited Vessels &amp; All 365 Words of Jesus?
+            </div>
+            <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px;">
+              Your <strong>Sanctuary Pass VIP</strong> works seamlessly on both Web, Home Screen App, and iOS/Android.
+            </p>
+            <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+              <button class="btn-secondary" onclick="openPaywallDrawer()" style="font-size:11.5px; padding:8px 14px; border-color:#ffd97d; color:#ffd97d;">
+                💎 Unlock Sanctuary Pass VIP ($2.99/mo • $19.99/yr • $49.99 Lifetime)
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -4251,7 +4454,7 @@
     // 9. DRAWER NAVIGATION CONTROLLER
     // =========================================================================
     function closeAllDrawers() {
-      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer", "viralShareDrawer"].forEach(id => {
+      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer", "viralShareDrawer", "installAppDrawer"].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
           el.classList.remove("open");
@@ -5741,11 +5944,185 @@
           }, 700);
           return;
         }
+        // 3. Check if opened from privacy-terms.html or marketing link with ?open_paywall=1
+        if (params.get("open_paywall") === "1") {
+          const requestedPlan = params.get("plan");
+          if (requestedPlan === "lifetime" || requestedPlan === "annual" || requestedPlan === "monthly") {
+            selectedPaywallPlan = requestedPlan;
+          }
+          setTimeout(() => {
+            openPaywallDrawer();
+            if (requestedPlan) selectPaywallPlan(requestedPlan);
+          }, 350);
+          return;
+        }
+        // 4. Check if opened with ?open_install=1
+        if (params.get("open_install") === "1") {
+          setTimeout(() => {
+            openInstallAppDrawer();
+          }, 350);
+          return;
+        }
         if (params.get("verse")) return; // Skip onboarding if opening a friend's shared verse deep link
         const done = localStorage.getItem("sacred_onboarding_done_v1");
         if (!done) {
           openOnboardingOverlay();
         }
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 19. SMART PWA HOME SCREEN INSTALL ENGINE (iOS SAFARI & ANDROID CHROME)
+    // =========================================================================
+    let deferredPwaPrompt = null;
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPwaPrompt = e;
+      const nativeBtn = document.getElementById("nativePwaInstallBtn");
+      if (nativeBtn) {
+        nativeBtn.style.display = "flex";
+      }
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredPwaPrompt = null;
+      const banner = document.getElementById("smartInstallBanner");
+      if (banner) banner.classList.remove("visible");
+      claimHomeScreenInstallReward();
+    });
+
+    function isRunningStandalone() {
+      return Boolean(
+        window.navigator.standalone === true ||
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.Capacitor ||
+        window.ReactNativeWebView ||
+        location.search.includes("standalone=1")
+      );
+    }
+
+    function detectVisitorOs() {
+      const ua = navigator.userAgent || "";
+      const isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      if (isIOS) return "ios";
+      return "android";
+    }
+
+    function switchInstallOsTab(os) {
+      const tabIOS = document.getElementById("installTabIOS");
+      const tabAndroid = document.getElementById("installTabAndroid");
+      const guideIOS = document.getElementById("installGuideIOS");
+      const guideAndroid = document.getElementById("installGuideAndroid");
+      if (!tabIOS || !tabAndroid || !guideIOS || !guideAndroid) return;
+
+      if (os === "ios") {
+        tabIOS.style.borderColor = "var(--gold-bright)";
+        tabIOS.style.color = "var(--gold-bright)";
+        tabIOS.style.background = "rgba(212,175,55,0.2)";
+        tabAndroid.style.borderColor = "rgba(212,175,55,0.35)";
+        tabAndroid.style.color = "var(--text-light)";
+        tabAndroid.style.background = "rgba(255,255,255,0.04)";
+        guideIOS.style.display = "flex";
+        guideAndroid.style.display = "none";
+      } else {
+        tabAndroid.style.borderColor = "var(--gold-bright)";
+        tabAndroid.style.color = "var(--gold-bright)";
+        tabAndroid.style.background = "rgba(212,175,55,0.2)";
+        tabIOS.style.borderColor = "rgba(212,175,55,0.35)";
+        tabIOS.style.color = "var(--text-light)";
+        tabIOS.style.background = "rgba(255,255,255,0.04)";
+        guideIOS.style.display = "none";
+        guideAndroid.style.display = "flex";
+      }
+    }
+
+    function openInstallAppDrawer() {
+      closeAllDrawers();
+      const detected = detectVisitorOs();
+      switchInstallOsTab(detected);
+      const rewardClaimed = localStorage.getItem("sacred_pwa_install_reward_v1") === "true";
+      const rewardBtn = document.getElementById("claimInstallRewardBtn");
+      if (rewardBtn && rewardClaimed) {
+        rewardBtn.textContent = "✅ +50 Grace Claimed";
+      }
+      const drawer = document.getElementById("installAppDrawer");
+      if (drawer) drawer.classList.add("open");
+    }
+
+    async function triggerNativePwaInstall() {
+      if (deferredPwaPrompt) {
+        try {
+          deferredPwaPrompt.prompt();
+          const { outcome } = await deferredPwaPrompt.userChoice;
+          deferredPwaPrompt = null;
+          if (outcome === "accepted") {
+            claimHomeScreenInstallReward();
+          }
+          return;
+        } catch (e) {}
+      }
+      triggerSanctuaryNotification(
+        "📲 How to Add to Home Screen",
+        "Tap the browser menu (⋮ or Share ⬆️) and select 'Add to Home Screen' or 'Install App'."
+      );
+    }
+
+    function claimHomeScreenInstallReward() {
+      try {
+        if (localStorage.getItem("sacred_pwa_install_reward_v1") === "true") {
+          triggerSanctuaryNotification(
+            "⚱️ Home Screen Blessing Active",
+            "You have already claimed your +50 Grace Points for installing Sanctuary!"
+          );
+          return;
+        }
+        localStorage.setItem("sacred_pwa_install_reward_v1", "true");
+        addGracePoints(50);
+        playCathedralBellChime();
+        const rewardBtn = document.getElementById("claimInstallRewardBtn");
+        if (rewardBtn) rewardBtn.textContent = "✅ +50 Grace Claimed";
+        triggerSanctuaryNotification(
+          "🎉 +50 Grace Points Awarded!",
+          "Thank you for adding Sanctuary to your Home Screen! Open the golden icon anytime for instant full-screen prayer."
+        );
+      } catch (e) {}
+    }
+
+    function dismissSmartInstallBanner() {
+      const banner = document.getElementById("smartInstallBanner");
+      if (banner) banner.classList.remove("visible");
+      try {
+        sessionStorage.setItem("sacred_install_banner_dismissed", "true");
+      } catch (e) {}
+    }
+
+    function initSmartInstallBanner() {
+      try {
+        if (isRunningStandalone()) {
+          const btnApp = document.getElementById("installBtnApp");
+          const btnDesk = document.getElementById("installBtnDesktop");
+          if (btnApp) btnApp.style.display = "none";
+          if (btnDesk) btnDesk.style.display = "none";
+          return;
+        }
+        if (sessionStorage.getItem("sacred_install_banner_dismissed") === "true") return;
+        const detected = detectVisitorOs();
+        const sub = document.getElementById("smartInstallBannerSub");
+        if (sub) {
+          sub.textContent = detected === "ios"
+            ? "iPhone/iPad: Tap Share ⬆️ → 'Add to Home Screen'"
+            : "Android/Chrome: Tap to install full-screen App icon";
+        }
+        // Show floating banner after 4.5 seconds if onboarding overlay isn't open
+        setTimeout(() => {
+          const onboard = document.getElementById("onboardingOverlay");
+          if (onboard && onboard.classList.contains("visible")) return;
+          const banner = document.getElementById("smartInstallBanner");
+          if (banner && !isRunningStandalone()) {
+            banner.classList.add("visible");
+          }
+        }, 4500);
       } catch (e) {}
     }
 
@@ -5782,7 +6159,8 @@
           "sacred_voice_prefs_v1",
           "sacred_voice_prefs_v3",
           "sacred_viral_shares_v1",
-          "sacred_onboarding_done_v1"
+          "sacred_onboarding_done_v1",
+          "sacred_pwa_install_reward_v1"
         ].forEach(k => localStorage.removeItem(k));
       } catch (e) {}
       brokenVessels.clear();
@@ -5820,6 +6198,7 @@
     renderSevenDayJourney();
     checkFirstTimeOnboarding();
     checkIncomingViralDeepLink();
+    initSmartInstallBanner();
 
     // Register Offline PWA Service Worker & Auto-Fullscreen on iPhone, iPad, Android & Capacitor Native
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
