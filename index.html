@@ -14,11 +14,18 @@
   <!-- Viral Social Sharing Open Graph & Twitter Card Meta Tags -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="⚱️ Sanctuary: The Twelve Sacred Vessels — Hear Jesus's Word Today" />
-  <meta property="og:description" content="Strike one of the 12 ancient clay vessels to release divine light, angelic voice readings, and 365+ Words of Jesus Christ for peace & sleep." />
-  <meta property="og:url" content="https://sanctuaryprayer.cloud/" />
+  <meta property="og:description" content="Strike one of the 12 ancient clay vessels to release divine light, angelic voice readings, and 365+ Words of Jesus Christ for peace &amp; sleep." />
+  <meta property="og:url" content="https://hgiap1993.github.io/sanctuary-ios-app/" />
+  <meta property="og:image" content="https://hgiap1993.github.io/sanctuary-ios-app/og-share-banner.png" />
+  <meta property="og:image:secure_url" content="https://hgiap1993.github.io/sanctuary-ios-app/og-share-banner.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="500" />
+  <meta property="og:image:alt" content="Sanctuary: The Twelve Sacred Vessels &amp; Words of Jesus Christ" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="⚱️ Sanctuary: 12 Sacred Vessels & Daily Words of Jesus" />
-  <meta name="twitter:description" content="Break a Sacred Vessel and receive a personal Gospel Word & Angelic Prayer for your heart today." />
+  <meta name="twitter:title" content="⚱️ Sanctuary: 12 Sacred Vessels &amp; Daily Words of Jesus" />
+  <meta name="twitter:description" content="Break a Sacred Vessel and receive a personal Gospel Word &amp; Angelic Prayer for your heart today." />
+  <meta name="twitter:image" content="https://hgiap1993.github.io/sanctuary-ios-app/og-share-banner.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -2431,26 +2438,26 @@
           </div>
 
           <!-- Primary Native iOS / Android Share Sheet (Image + Caption + Deep Link) -->
-          <button class="btn-sacred btn-primary-gold" style="width:100%; padding:11px; font-size:12px;" onclick="shareNativeWithCardImage()">
-            📲 Share HD Card + Link (iPhone / IG Story / TikTok / AirDrop)
+          <button class="btn-sacred btn-primary-gold" style="width:100%; padding:11px; font-size:12.5px;" onclick="shareNativeWithCardImage()">
+            🖼️📲 Share HD Blessing Image + Caption (FB / WhatsApp / Zalo / IG)
           </button>
 
-          <!-- 1-Tap Direct Social Network Buttons -->
+          <!-- 1-Tap Direct Social Network Buttons (Auto-Attaches / Copies HD Card Image + Caption) -->
           <div class="viral-social-grid">
             <button class="social-share-btn social-whatsapp" onclick="shareToSocialPlatform('whatsapp')">
-              🟢 WhatsApp
+              🟢 WhatsApp (Image)
             </button>
             <button class="social-share-btn social-facebook" onclick="shareToSocialPlatform('facebook')">
-              🔵 Facebook
+              🔵 Facebook (Image)
             </button>
             <button class="social-share-btn social-twitter" onclick="shareToSocialPlatform('twitter')">
-              𝕏 Post on X
+              𝕏 Post on X (Image)
             </button>
             <button class="social-share-btn social-telegram" onclick="shareToSocialPlatform('telegram')">
-              ✈️ Telegram
+              ✈️ Telegram (Image)
             </button>
-            <button class="social-share-btn social-sms" onclick="shareToSocialPlatform('sms')">
-              💬 iMessage/SMS
+            <button class="social-share-btn social-sms" onclick="copyViralCardImageToClipboard()">
+              🖼️ Copy HD Image
             </button>
             <button class="social-share-btn social-download" onclick="downloadViralCardPNG()">
               📥 Save HD PNG
@@ -2459,13 +2466,18 @@
 
           <!-- Ready-to-Paste Viral Caption & Deep Link Box -->
           <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:12px; padding:8px 10px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; gap:6px; flex-wrap:wrap;">
               <span style="font-family:'Cinzel',serif; font-size:10px; color:var(--gold-bright);">
-                📋 VIRAL CAPTION &amp; DEEP LINK (FOR TIKTOK / REELS / IG):
+                📋 VIRAL CAPTION &amp; LINK (IMAGE AUTO-COPIED ON SHARE):
               </span>
-              <button class="icon-btn" id="copyViralBtn" onclick="copyViralCaptionAndLink()" style="padding:3px 9px; font-size:10.5px; border-color:#ffd97d; color:#ffd97d;">
-                📋 Copy Caption + Link
-              </button>
+              <div style="display:flex; gap:5px;">
+                <button class="icon-btn" id="copyImageBtn" onclick="copyViralCardImageToClipboard()" style="padding:3px 8px; font-size:10.5px; border-color:#86efac; color:#86efac;">
+                  🖼️ Copy Image
+                </button>
+                <button class="icon-btn" id="copyViralBtn" onclick="copyViralCaptionAndLink()" style="padding:3px 9px; font-size:10.5px; border-color:#ffd97d; color:#ffd97d;">
+                  📋 Copy Caption + Link
+                </button>
+              </div>
             </div>
             <div id="viralCaptionPreview" style="font-size:11.5px; color:var(--text-light); line-height:1.35; max-height:54px; overflow-y:auto; user-select:all;"></div>
           </div>
@@ -4196,7 +4208,7 @@
     // =========================================================================
     // 8. VIRAL SOCIAL SHARING STUDIO, 9:16 STORY GENERATOR & DEEP-LINK ENGINE
     // =========================================================================
-    const APP_PUBLIC_URL = "https://sanctuaryprayer.cloud/";
+    const APP_PUBLIC_URL = "https://hgiap1993.github.io/sanctuary-ios-app/";
     let viralCardRatio = "story"; // 'story' (1080x1920), 'post' (1080x1350), 'scroll' (1080x1620)
     let viralCardTheme = "gold";  // 'gold', 'starlight', 'dawn', 'parchment'
     let viralShareCount = 0;
@@ -4355,6 +4367,89 @@
       return currentY + lineHeight;
     }
 
+    function drawSacredVesselEmblemOnCanvas(ctx, cx, cy, palette) {
+      ctx.save();
+      // 1. Radiant Halo Glow behind Vessel
+      const haloGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, 145);
+      haloGrad.addColorStop(0, "rgba(255, 224, 138, 0.42)");
+      haloGrad.addColorStop(0.55, "rgba(212, 175, 55, 0.14)");
+      haloGrad.addColorStop(1, "rgba(212, 175, 55, 0)");
+      ctx.fillStyle = haloGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 145, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 2. Concentric Sacred Rings
+      ctx.strokeStyle = palette.borderOuter;
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 92, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.strokeStyle = palette.borderInner;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([8, 6]);
+      ctx.beginPath();
+      ctx.arc(cx, cy, 114, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 3. Celestial Angelic Wings flanking the Sacred Vessel
+      ctx.fillStyle = "rgba(255, 232, 163, 0.22)";
+      ctx.strokeStyle = palette.borderOuter;
+      ctx.lineWidth = 2;
+      // Left Wing
+      ctx.beginPath();
+      ctx.moveTo(cx - 34, cy + 8);
+      ctx.bezierCurveTo(cx - 95, cy - 48, cx - 155, cy - 38, cx - 168, cy + 2);
+      ctx.bezierCurveTo(cx - 140, cy + 16, cx - 105, cy + 28, cx - 44, cy + 32);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      // Right Wing
+      ctx.beginPath();
+      ctx.moveTo(cx + 34, cy + 8);
+      ctx.bezierCurveTo(cx + 95, cy - 48, cx + 155, cy - 38, cx + 168, cy + 2);
+      ctx.bezierCurveTo(cx + 140, cy + 16, cx + 105, cy + 28, cx + 44, cy + 32);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // 4. Golden Sacred Amphora / Chalice Body
+      const jarGrad = ctx.createLinearGradient(cx - 38, cy - 54, cx + 38, cy + 58);
+      jarGrad.addColorStop(0, "#FFE599");
+      jarGrad.addColorStop(0.5, "#D4AF37");
+      jarGrad.addColorStop(1, "#7A5811");
+      ctx.fillStyle = jarGrad;
+      ctx.strokeStyle = "#FFF8DC";
+      ctx.lineWidth = 2.5;
+
+      ctx.beginPath();
+      ctx.moveTo(cx - 24, cy - 52);
+      ctx.lineTo(cx + 24, cy - 52);
+      ctx.lineTo(cx + 16, cy - 30);
+      ctx.bezierCurveTo(cx + 50, cy - 8, cx + 48, cy + 38, cx + 20, cy + 54);
+      ctx.lineTo(cx + 28, cy + 64);
+      ctx.lineTo(cx - 28, cy + 64);
+      ctx.lineTo(cx - 20, cy + 54);
+      ctx.bezierCurveTo(cx - 48, cy + 38, cx - 50, cy - 8, cx - 16, cy - 30);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // 5. Glowing White Cross on the Sacred Vessel
+      ctx.strokeStyle = "#FFFFFF";
+      ctx.lineWidth = 4.5;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - 14);
+      ctx.lineTo(cx, cy + 26);
+      ctx.moveTo(cx - 14, cy + 2);
+      ctx.lineTo(cx + 14, cy + 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
     function renderViralCardToCanvas(canvas) {
       if (!canvas) return;
       const { teaching, vessel, num } = getActiveShareTeaching();
@@ -4368,24 +4463,12 @@
       const ctx = canvas.getContext("2d");
 
       // Background radial gradient
-      const bgGrad = ctx.createRadialGradient(W / 2, H * 0.26, 70, W / 2, H * 0.5, H * 0.72);
+      const bgGrad = ctx.createRadialGradient(W / 2, H * 0.24, 70, W / 2, H * 0.5, H * 0.75);
       bgGrad.addColorStop(0, palette.bg0);
       bgGrad.addColorStop(0.58, palette.bg1);
       bgGrad.addColorStop(1, palette.bg2);
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, W, H);
-
-      // Subtle sacred halo rings
-      ctx.save();
-      ctx.strokeStyle = palette.borderInner;
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.arc(W / 2, H * 0.24, 210, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(W / 2, H * 0.24, 275, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.restore();
 
       // Double Ornate Cathedral Border
       ctx.strokeStyle = palette.borderOuter;
@@ -4395,78 +4478,78 @@
       ctx.lineWidth = 2;
       ctx.strokeRect(66, 66, W - 132, H - 132);
 
-      const topOffset = viralCardRatio === "story" ? 175 : (viralCardRatio === "post" ? 130 : 155);
+      const topOffset = viralCardRatio === "story" ? 135 : (viralCardRatio === "post" ? 108 : 122);
 
       // Top Sanctuary Header
       ctx.fillStyle = palette.header;
-      ctx.font = "600 26px Cinzel, Georgia, serif";
+      ctx.font = "600 25px Cinzel, Georgia, serif";
       ctx.textAlign = "center";
       ctx.fillText("⚱️ SANCTUARY • THE TWELVE SACRED VESSELS", W / 2, topOffset);
 
-      // Theme Title
-      ctx.fillStyle = palette.accent;
-      ctx.font = "700 42px Cinzel, Georgia, serif";
-      ctx.fillText(teaching.theme.toUpperCase(), W / 2, topOffset + 66);
+      // Draw Sacred Golden Vessel & Angelic Wings Illustration
+      const emblemY = topOffset + (viralCardRatio === "post" ? 95 : 115);
+      drawSacredVesselEmblemOnCanvas(ctx, W / 2, emblemY, palette);
 
-      // Cross Emblem
+      // Theme Title
+      const themeY = emblemY + (viralCardRatio === "post" ? 115 : 130);
       ctx.fillStyle = palette.accent;
-      ctx.font = "46px Georgia, serif";
-      ctx.fillText("✞", W / 2, topOffset + 145);
+      ctx.font = "700 40px Cinzel, Georgia, serif";
+      ctx.fillText(teaching.theme.toUpperCase(), W / 2, themeY);
 
       // Main Quote of Jesus Christ
-      const quoteFontSize = viralCardRatio === "post" ? 46 : 52;
-      const quoteLineHeight = viralCardRatio === "post" ? 64 : 72;
+      const quoteFontSize = viralCardRatio === "post" ? 44 : 50;
+      const quoteLineHeight = viralCardRatio === "post" ? 60 : 68;
       ctx.fillStyle = palette.quote;
       ctx.font = `italic 600 ${quoteFontSize}px 'Cormorant Garamond', Georgia, serif`;
       const afterQuoteY = wrapCanvasText(
         ctx,
         `“${teaching.text}”`,
         W / 2,
-        topOffset + 235,
+        themeY + 72,
         850,
         quoteLineHeight
       );
 
       // Scripture Reference
       ctx.fillStyle = palette.accent;
-      ctx.font = "700 36px Cinzel, Georgia, serif";
-      ctx.fillText(`— ${teaching.ref} —`, W / 2, afterQuoteY + 45);
+      ctx.font = "700 35px Cinzel, Georgia, serif";
+      ctx.fillText(`— ${teaching.ref} —`, W / 2, afterQuoteY + 36);
 
       // Guided Prayer
-      const prayerFontSize = viralCardRatio === "post" ? 31 : 35;
+      const prayerFontSize = viralCardRatio === "post" ? 30 : 34;
       ctx.fillStyle = palette.prayer;
       ctx.font = `italic ${prayerFontSize}px 'Cormorant Garamond', Georgia, serif`;
       wrapCanvasText(
         ctx,
         `Angelic Prayer: “${moodData.prayer}”`,
         W / 2,
-        afterQuoteY + 135,
+        afterQuoteY + 112,
         810,
-        prayerFontSize + 14
+        prayerFontSize + 13
       );
 
       // Viral Call-To-Action Footer Badge at bottom of card
-      const ctaBoxY = H - (viralCardRatio === "story" ? 255 : 210);
+      const ctaBoxY = H - (viralCardRatio === "story" ? 245 : 205);
       ctx.fillStyle = palette.ctaBg;
       ctx.strokeStyle = palette.borderOuter;
       ctx.lineWidth = 2;
-      ctx.fillRect(110, ctaBoxY, W - 220, 118);
-      ctx.strokeRect(110, ctaBoxY, W - 220, 118);
+      ctx.fillRect(110, ctaBoxY, W - 220, 114);
+      ctx.strokeRect(110, ctaBoxY, W - 220, 114);
 
       ctx.fillStyle = palette.accent;
       ctx.font = "700 25px Cinzel, Georgia, serif";
-      ctx.fillText(`✨ BREAK A SACRED VESSEL & RECEIVE YOUR WORD #${num}`, W / 2, ctaBoxY + 48);
+      ctx.fillText(`✨ BREAK A SACRED VESSEL & RECEIVE YOUR WORD #${num}`, W / 2, ctaBoxY + 46);
 
       ctx.fillStyle = palette.quote;
-      ctx.font = "600 23px 'Plus Jakarta Sans', sans-serif";
-      ctx.fillText("🔗 sanctuaryprayer.cloud", W / 2, ctaBoxY + 88);
+      ctx.font = "600 22px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillText("🔗 Sanctuary: 12 Sacred Vessels & Daily Prayer", W / 2, ctaBoxY + 86);
 
       ctx.fillStyle = palette.muted;
       ctx.font = "500 22px Cinzel, Georgia, serif";
       ctx.fillText(
         `Vessel ${vessel.roman}: ${vessel.relicName} • Daily Words of Jesus Christ`,
         W / 2,
-        H - 82
+        H - 80
       );
     }
 
@@ -4508,7 +4591,7 @@
       renderViralCardToCanvas(document.getElementById("viralPreviewCanvas"));
     }
 
-    function downloadViralCardPNG() {
+    function downloadViralCardPNG(silent) {
       const { teaching } = getActiveShareTeaching();
       const canvas = document.getElementById("viralPreviewCanvas") || document.createElement("canvas");
       renderViralCardToCanvas(canvas);
@@ -4517,77 +4600,164 @@
       link.download = `Sanctuary_${viralCardRatio.toUpperCase()}_${safeRef}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
-      recordViralShareAction("HD Story Card Download");
+      if (!silent) {
+        recordViralShareAction("HD Story Card Download");
+      }
     }
 
     function saveBlessingCardPNG() {
       openViralShareDrawer();
     }
 
-    async function shareNativeWithCardImage() {
+    async function buildViralCardBlobAndFile() {
       const { teaching } = getActiveShareTeaching();
       const canvas = document.getElementById("viralPreviewCanvas") || document.createElement("canvas");
       renderViralCardToCanvas(canvas);
+      const blob = await new Promise(res => canvas.toBlob(res, "image/png"));
+      const safeRef = teaching.ref.replace(/[^a-z0-9]/gi, "_");
+      const fileName = `Sacred_Blessing_${safeRef}.png`;
+      const file = blob ? new File([blob], fileName, { type: "image/png" }) : null;
+      return { canvas, blob, file, fileName, teaching };
+    }
+
+    async function copyViralCardImageToClipboard(silent) {
+      try {
+        const { blob } = await buildViralCardBlobAndFile();
+        if (blob && navigator.clipboard && typeof ClipboardItem !== "undefined") {
+          await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+          const btn = document.getElementById("copyImageBtn");
+          if (btn) {
+            btn.textContent = "✅ Image Copied!";
+            setTimeout(() => { btn.textContent = "🖼️ Copy Image"; }, 2800);
+          }
+          if (!silent) {
+            triggerSanctuaryNotification(
+              "🖼️ HD Blessing Image Copied!",
+              "The 1080p Sacred Blessing Card image is now in your clipboard! Press Paste (Ctrl+V / Paste) in Facebook, WhatsApp, Zalo, or Messenger."
+            );
+            recordViralShareAction("Copied HD Image");
+          }
+          return true;
+        }
+      } catch (e) {}
+      if (!silent) {
+        downloadViralCardPNG(false);
+      }
+      return false;
+    }
+
+    async function shareNativeWithCardImage(preferredPlatformLabel) {
+      const { blob, file, teaching } = await buildViralCardBlobAndFile();
       const caption = getViralShareCaption();
       const deepLink = getViralDeepLink();
 
+      // Always copy image to clipboard in background so user can also paste it anywhere
+      if (blob && navigator.clipboard && typeof ClipboardItem !== "undefined") {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+        } catch (e) {}
+      }
+
       if (navigator.share) {
         try {
-          const blob = await new Promise(res => canvas.toBlob(res, "image/png"));
-          if (blob) {
-            const safeRef = teaching.ref.replace(/[^a-z0-9]/gi, "_");
-            const file = new File([blob], `Sacred_Blessing_${safeRef}.png`, { type: "image/png" });
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-              await navigator.share({
-                title: `⚱️ Word of Jesus — ${teaching.ref}`,
-                text: caption,
-                files: [file]
-              });
-              recordViralShareAction("iOS / Mobile Share Sheet");
-              return;
-            }
+          if (file && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
+            await navigator.share({
+              title: `⚱️ Word of Jesus — ${teaching.ref}`,
+              text: caption,
+              files: [file]
+            });
+            recordViralShareAction(preferredPlatformLabel || "HD Image + Caption Share");
+            return true;
           }
-          await navigator.share({
-            title: `⚱️ Word of Jesus — ${teaching.ref}`,
-            text: caption,
-            url: deepLink
-          });
-          recordViralShareAction("Native Share");
-          return;
         } catch (err) {
-          if (err && err.name === "AbortError") return;
+          if (err && err.name === "AbortError") return true;
         }
       }
-      // Fallback on desktop browsers without navigator.share: download PNG + copy caption
-      downloadViralCardPNG();
-      copyViralCaptionAndLink();
+
+      // If running inside Native React Native WebView where navigator.share({files}) is unavailable
+      if (window.ReactNativeWebView && typeof window.ReactNativeWebView.postMessage === "function") {
+        try {
+          const canvas = document.getElementById("viralPreviewCanvas");
+          const dataUrl = canvas ? canvas.toDataURL("image/png") : "";
+          window.ReactNativeWebView.postMessage(JSON.stringify({
+            source: "SacredIOSBridge",
+            requestId: "share_" + Date.now(),
+            type: "SHARE_BLESSING_CARD",
+            payload: {
+              title: `⚱️ Word of Jesus — ${teaching.ref}`,
+              caption,
+              deepLink,
+              dataUrl,
+              platform: preferredPlatformLabel || "Social Share"
+            }
+          }));
+          recordViralShareAction(preferredPlatformLabel || "Native App Share");
+          return true;
+        } catch (e) {}
+      }
+
+      if (!preferredPlatformLabel) {
+        // Desktop / Browser without file share: auto-download PNG + copy image & caption
+        downloadViralCardPNG(true);
+        copyViralCaptionAndLink();
+        triggerSanctuaryNotification(
+          "🖼️ HD Image Copied & Downloaded!",
+          "Your 1080p Blessing Card image has been copied to clipboard & saved as PNG so you can attach or paste (Ctrl+V) it directly!"
+        );
+        return true;
+      }
+      return false;
     }
 
-    function shareToSocialPlatform(platform) {
+    async function shareToSocialPlatform(platform) {
       const { teaching } = getActiveShareTeaching();
       const caption = getViralShareCaption();
       const deepLink = getViralDeepLink();
       const shortQuote = `⚱️ “${teaching.text}” — ${teaching.ref} 🙏 Break a Sacred Vessel & hear Jesus's Word today:`;
-      let shareUrl = "";
 
+      const platformNames = {
+        whatsapp: "WhatsApp",
+        facebook: "Facebook",
+        twitter: "X (Twitter)",
+        telegram: "Telegram",
+        sms: "iMessage / SMS"
+      };
+      const label = platformNames[platform] || "Social Media";
+
+      // 1. On Mobile (Android / iOS), use Web Share Level 2 with the actual HD PNG Image File attached!
+      // This allows selecting WhatsApp, Facebook, Zalo, Messenger, IG, Telegram, or X with the real PNG photo attached!
+      const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+      if (isMobileDevice && navigator.share) {
+        const sharedWithFile = await shareNativeWithCardImage(label);
+        if (sharedWithFile) return;
+      }
+
+      // 2. On Desktop/Web: Automatically copy the HD PNG image into Clipboard AND auto-download the PNG
+      // so the user has the exact image ready to Paste (Ctrl+V) or upload into the social post!
+      await copyViralCardImageToClipboard(true);
+      downloadViralCardPNG(true);
+
+      let shareUrl = "";
       if (platform === "whatsapp") {
         shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(caption)}`;
-        recordViralShareAction("WhatsApp");
       } else if (platform === "facebook") {
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(deepLink)}&quote=${encodeURIComponent(shortQuote)}`;
-        recordViralShareAction("Facebook");
       } else if (platform === "twitter") {
         const tweet = `⚱️ “${teaching.text}” — ${teaching.ref}\n\n🙏 Break a Sacred Vessel & receive Jesus's Word for your heart today:\n${deepLink}\n\n#Jesus #DailyPrayer #BibleVerse #SacredVessels`;
         shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`;
-        recordViralShareAction("X (Twitter)");
       } else if (platform === "telegram") {
         shareUrl = `https://t.me/share/url?url=${encodeURIComponent(deepLink)}&text=${encodeURIComponent(shortQuote)}`;
-        recordViralShareAction("Telegram");
       } else if (platform === "sms") {
         window.location.href = `sms:?&body=${encodeURIComponent(caption)}`;
-        recordViralShareAction("iMessage / SMS");
+        recordViralShareAction(label);
         return;
       }
+
+      recordViralShareAction(label);
+      triggerSanctuaryNotification(
+        `🖼️ HD Image Ready for ${label}!`,
+        `We copied the 1080p Blessing Card image to your clipboard & downloaded the PNG — press Paste (Ctrl+V) inside ${label} to attach the photo!`
+      );
 
       if (shareUrl) {
         window.open(shareUrl, "_blank", "noopener,noreferrer");
