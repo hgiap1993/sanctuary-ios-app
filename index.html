@@ -602,7 +602,7 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: 52px;
+      bottom: 60px;
       background: radial-gradient(circle at 50% 20%, rgba(62, 44, 18, 0.98) 0%, rgba(10, 7, 4, 0.99) 85%);
       backdrop-filter: blur(12px);
       z-index: 90;
@@ -846,7 +846,7 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: 52px;
+      bottom: 60px;
       background: rgba(11, 8, 5, 0.98);
       z-index: 95;
       display: flex;
@@ -1112,44 +1112,50 @@
       margin-top: 2px;
     }
 
-    /* iOS Bottom Sanctuary Navigation Dock */
+    /* iOS Bottom Sanctuary Navigation Dock — 5-Tab Apple HIG Full-Width Symmetrical Layout */
     .ios-bottom-dock {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      background: rgba(14, 10, 6, 0.96);
-      border-top: 1px solid rgba(212, 175, 55, 0.28);
-      padding: 6px 8px max(6px, env(safe-area-inset-bottom, 0px));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      width: 100%;
+      gap: 4px;
+      background: rgba(14, 10, 6, 0.98);
+      border-top: 1px solid rgba(212, 175, 55, 0.34);
+      padding: 6px 10px max(7px, env(safe-area-inset-bottom, 0px));
       z-index: 92;
       flex-shrink: 0;
     }
 
     .dock-tab {
       background: none;
-      border: none;
+      border: 1px solid transparent;
       color: var(--text-muted);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2px;
+      gap: 3px;
       cursor: pointer;
-      padding: 4px 2px;
-      min-height: 44px;
-      border-radius: 10px;
-      transition: all 0.2s;
+      padding: 5px 4px;
+      min-height: 48px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
       font-family: 'Cinzel', serif;
-      font-size: 9px;
-      font-weight: 600;
+      font-size: 9.5px;
+      font-weight: 700;
       letter-spacing: 0.4px;
+      white-space: nowrap;
     }
 
     .dock-tab span.dock-icon {
-      font-size: 17px;
+      font-size: 20px;
+      line-height: 1.1;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
     }
 
     .dock-tab:hover, .dock-tab.active {
       color: var(--gold-bright);
-      background: rgba(212, 175, 55, 0.12);
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0.08) 100%);
+      border-color: rgba(255, 217, 125, 0.32);
     }
 
     /* Sanctuary Flickering Candles Altar */
@@ -6278,7 +6284,9 @@
     // Register Offline PWA Service Worker & Auto-Fullscreen on iPhone, iPad, Android & Capacitor Native
     if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
+        navigator.serviceWorker.register("./sw.js").then((reg) => {
+          reg.update().catch(() => {});
+        }).catch(() => {});
       });
     }
     const isMobileOrTabletDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent || "") ||
