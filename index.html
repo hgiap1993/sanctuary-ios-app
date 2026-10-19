@@ -1717,7 +1717,6 @@
           <div class="rank-bar" id="faithRankBadge" onclick="openReminderDrawer()" style="cursor:pointer;" title="Tap to set Daily Prayer Bell">
             ✨ <span id="gracePointsText">0</span> Grace • 🔔
           </div>
-          <button class="icon-btn" id="installBtnApp" onclick="openInstallAppDrawer()" style="padding:2px 8px; font-size:9.5px; min-height:22px; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18);" title="Install App to Home Screen">📲 App</button>
           <button class="icon-btn" onclick="resetAllVessels()" style="padding:2px 7px; font-size:10px; min-height:22px;" title="Restore All 12 Sacred Vessels">↺</button>
         </div>
         <div class="seven-day-bar" id="sevenDayJourneyBar" onclick="claimDailyJourneyBlessing()" title="Complete 7 Days of Vessel Prayer for +100 Miracle Grace"></div>
@@ -2363,24 +2362,7 @@
         </div>
       </div>
 
-      <!-- Smart Floating Home Screen Install Banner (Auto-detects iOS Safari & Android Chrome) -->
-      <div class="smart-install-banner" id="smartInstallBanner">
-        <div style="font-size:26px; filter:drop-shadow(0 0 8px rgba(255,215,0,0.6));">⚱️</div>
-        <div style="flex:1; min-width:0;" onclick="openInstallAppDrawer()">
-          <div style="font-family:'Cinzel',serif; font-size:11.5px; font-weight:700; color:var(--gold-bright);">
-            📲 Install Sanctuary App (+50 Grace)
-          </div>
-          <div id="smartInstallBannerSub" style="font-size:11px; color:var(--text-light); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-            Add to your iPhone / Android Home Screen in 2 taps
-          </div>
-        </div>
-        <button class="btn-sacred btn-primary-gold" onclick="openInstallAppDrawer()" style="padding:6px 12px; font-size:10.5px; min-height:32px; flex-shrink:0;">
-          📲 Install
-        </button>
-        <button onclick="dismissSmartInstallBanner()" style="background:transparent; border:none; color:var(--text-muted); font-size:15px; cursor:pointer; padding:4px;" title="Dismiss">✕</button>
-      </div>
-
-      <!-- Drawer 12: Install App to Home Screen (iOS Safari 2-Tap Guide & Android Chrome 1-Tap PWA + Web VIP) -->
+      <!-- Drawer 12: Website-Only Install Guide (Triggered only from Website Desktop Bar) -->
       <div class="library-drawer" id="installAppDrawer">
         <div class="drawer-header">
           <div>
@@ -6151,6 +6133,7 @@
     }
 
     function openInstallAppDrawer() {
+      if (isRunningStandalone()) return;
       closeAllDrawers();
       const detected = detectVisitorOs();
       switchInstallOsTab(detected);
@@ -6205,37 +6188,16 @@
     function dismissSmartInstallBanner() {
       const banner = document.getElementById("smartInstallBanner");
       if (banner) banner.classList.remove("visible");
-      try {
-        sessionStorage.setItem("sacred_install_banner_dismissed", "true");
-      } catch (e) {}
     }
 
     function initSmartInstallBanner() {
       try {
         if (isRunningStandalone()) {
-          const btnApp = document.getElementById("installBtnApp");
           const btnDesk = document.getElementById("installBtnDesktop");
-          if (btnApp) btnApp.style.display = "none";
+          const installDrawer = document.getElementById("installAppDrawer");
           if (btnDesk) btnDesk.style.display = "none";
-          return;
+          if (installDrawer) installDrawer.remove();
         }
-        if (sessionStorage.getItem("sacred_install_banner_dismissed") === "true") return;
-        const detected = detectVisitorOs();
-        const sub = document.getElementById("smartInstallBannerSub");
-        if (sub) {
-          sub.textContent = detected === "ios"
-            ? "iPhone/iPad: Tap Share ⬆️ → 'Add to Home Screen'"
-            : "Android/Chrome: Tap to install full-screen App icon";
-        }
-        // Show floating banner after 4.5 seconds if onboarding overlay isn't open
-        setTimeout(() => {
-          const onboard = document.getElementById("onboardingOverlay");
-          if (onboard && onboard.classList.contains("visible")) return;
-          const banner = document.getElementById("smartInstallBanner");
-          if (banner && !isRunningStandalone()) {
-            banner.classList.add("visible");
-          }
-        }, 4500);
       } catch (e) {}
     }
 
