@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sanctuary.sacredvessels",
+      "bundleIdentifier": "com.sacredvessels.jesuswords",
       "buildNumber": "1",
       "infoPlist": {
         "CFBundleDisplayName": "Sanctuary",
@@ -25,7 +25,7 @@
       }
     },
     "android": {
-      "package": "com.sanctuary.sacredvessels",
+      "package": "com.sacredvessels.jesuswords",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

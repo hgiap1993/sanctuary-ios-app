@@ -2111,17 +2111,17 @@
             </div>
           </div>
 
-          <!-- Redeem VIP License Key / Promo Code (For Gumroad / LemonSqueezy / Stripe Web Buyers) -->
-          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:12px; padding:8px 11px; margin-top:2px;">
+          <!-- Redeem VIP License Key / Promo Code (Auto-hidden on Native iOS App Store per Guideline 3.1.1) -->
+          <div id="webLicenseKeyWrapper" style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:12px; padding:8px 11px; margin-top:2px;">
             <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleLicenseKeyBox()">
               <span style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700;">
-                🔑 Have a VIP License Key or Promo Code?
+                🔑 Have a VIP License Key or Gift Code?
               </span>
               <span style="font-size:11px; color:var(--text-muted);" id="licenseToggleArrow">▼ Enter Code</span>
             </div>
             <div id="licenseKeyFormBox" style="display:none; margin-top:8px; padding-top:8px; border-top:1px solid rgba(212,175,55,0.2);">
               <div style="display:flex; gap:6px;">
-                <input type="text" id="vipLicenseKeyInput" class="search-input" placeholder="e.g. SANCTUARY-VIP-2026 or Gumroad Key" style="flex:1; padding:7px 10px; font-size:12px; margin-bottom:0;">
+                <input type="text" id="vipLicenseKeyInput" class="search-input" placeholder="Enter VIP License or Gift Code..." style="flex:1; padding:7px 10px; font-size:12px; margin-bottom:0;">
                 <button class="btn-sacred btn-primary-gold" style="padding:7px 12px; font-size:11px; white-space:nowrap;" onclick="redeemVipLicenseKeyFromUI()">
                   🔓 Activate VIP
                 </button>
@@ -5514,6 +5514,10 @@
 
     function openPaywallDrawer(reason) {
       closeAllDrawers();
+      const licWrap = document.getElementById("webLicenseKeyWrapper");
+      if (licWrap && (window.Capacitor || window.ReactNativeWebView)) {
+        licWrap.style.display = "none";
+      }
       selectPaywallPlan(selectedPaywallPlan || "annual");
       updateSubscriptionUI();
       const quotaBanner = document.getElementById("quotaStatusBanner");
