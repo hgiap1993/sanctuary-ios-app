@@ -9,23 +9,60 @@
   <meta name="apple-mobile-web-app-title" content="Sanctuary" />
   <meta name="theme-color" content="#0b0805" />
   <link rel="manifest" href="./manifest.json" />
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23120b05'/%3E%3Ccircle cx='256' cy='256' r='224' fill='none' stroke='%23d4af37' stroke-width='8'/%3E%3Cpath d='M188 118 H324 L298 176 C376 232, 384 348, 306 420 L324 446 H188 L206 420 C128 348, 136 232, 214 176 Z' fill='%23d4af37' stroke='%23fff8dc' stroke-width='6'/%3E%3Cpath d='M256 218 V292 M224 250 H288' stroke='%23ffffff' stroke-width='14' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="./icon-512.png" />
+  <link rel="canonical" href="https://sanctuaryprayer.cloud/" />
   <title>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</title>
   <!-- Viral Social Sharing Open Graph & Twitter Card Meta Tags -->
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sanctuary: Jesus Daily Prayer" />
   <meta property="og:title" content="⚱️ Sanctuary: The Twelve Sacred Vessels — Hear Jesus's Word Today" />
-  <meta property="og:description" content="Strike one of the 12 ancient clay vessels to release divine light, angelic voice readings, and 365+ Words of Jesus Christ for peace &amp; sleep." />
-  <meta property="og:url" content="https://hgiap1993.github.io/sanctuary-ios-app/" />
-  <meta property="og:image" content="https://hgiap1993.github.io/sanctuary-ios-app/og-share-banner.png" />
-  <meta property="og:image:secure_url" content="https://hgiap1993.github.io/sanctuary-ios-app/og-share-banner.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="500" />
+  <meta property="og:description" content="Touch one of the 12 ancient clay vessels to release divine light, Giant Aa++ Large-Print Scripture, angelic voice readings, and 365+ Words of Jesus Christ for peace &amp; sleep." />
+  <meta property="og:url" content="https://sanctuaryprayer.cloud/" />
+  <meta property="og:image" content="https://sanctuaryprayer.cloud/og-share-banner.jpg" />
+  <meta property="og:image:secure_url" content="https://sanctuaryprayer.cloud/og-share-banner.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Sanctuary: The Twelve Sacred Vessels &amp; Words of Jesus Christ" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="⚱️ Sanctuary: 12 Sacred Vessels &amp; Daily Words of Jesus" />
   <meta name="twitter:description" content="Break a Sacred Vessel and receive a personal Gospel Word &amp; Angelic Prayer for your heart today." />
-  <meta name="twitter:image" content="https://hgiap1993.github.io/sanctuary-ios-app/og-share-banner.png" />
+  <meta name="twitter:image" content="https://sanctuaryprayer.cloud/og-share-banner.jpg" />
+  <!-- Meta Pixel & Web Conversion Tracking Engine (0% Store Tax Funnel) -->
+  <script>
+    window.SANCTUARY_DEFAULT_META_PIXEL_ID = ""; // Optional: Set default Meta Pixel ID here or via ?pixel_id=XXX
+    (function initSanctuaryMetaPixel() {
+      try {
+        if (window.Capacitor || window.ReactNativeWebView) return; // Never load ad pixel inside native iOS/Android app
+        var params = new URLSearchParams(window.location.search);
+        var urlPixel = params.get("pixel_id");
+        if (urlPixel && /^\d{8,20}$/.test(urlPixel)) {
+          localStorage.setItem("sacred_meta_pixel_id", urlPixel);
+        }
+        var pixelId = localStorage.getItem("sacred_meta_pixel_id") || window.SANCTUARY_DEFAULT_META_PIXEL_ID;
+        if (pixelId && /^\d{8,20}$/.test(pixelId)) {
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+          n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+          document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          window.fbq('init', pixelId);
+          window.fbq('track', 'PageView');
+        }
+      } catch (e) {}
+    })();
+    window.trackSanctuaryMarketingEvent = function(eventName, eventParams) {
+      try {
+        if (window.Capacitor || window.ReactNativeWebView) return;
+        if (typeof window.fbq === "function") {
+          window.fbq("track", eventName, eventParams || {});
+        }
+        if (typeof window.gtag === "function") {
+          window.gtag("event", eventName, eventParams || {});
+        }
+      } catch (e) {}
+    };
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1830,6 +1867,7 @@
           <div class="rank-bar" id="faithRankBadge" onclick="openReminderDrawer()" style="cursor:pointer;" title="Tap to set Daily Prayer Bell">
             ✨ <span id="gracePointsText">0</span> Grace • 🔔
           </div>
+          <button class="icon-btn" id="webBrowserSaveAppBtn" onclick="openInstallAppDrawer()" style="display:none; padding:2px 8px; font-size:10px; min-height:22px; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18); font-weight:700;" title="Save Sanctuary App to Phone Home Screen">📲 Save App</button>
           <button class="icon-btn" onclick="resetAllVessels()" style="padding:2px 7px; font-size:10px; min-height:22px;" title="Restore All 12 Sacred Vessels">↺</button>
         </div>
         <div class="seven-day-bar" id="sevenDayJourneyBar" onclick="claimDailyJourneyBlessing()" title="Complete 7 Days of Vessel Prayer for +100 Miracle Grace"></div>
@@ -5817,6 +5855,14 @@
         quotaBanner.style.color = "#fca5a5";
         playCathedralBellChime();
       }
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("InitiateCheckout", {
+          content_name: selectedPaywallPlan || "annual",
+          content_category: "SanctuaryPass",
+          currency: "USD",
+          value: selectedPaywallPlan === "lifetime" ? 99.99 : (selectedPaywallPlan === "monthly" ? 7.99 : 39.99)
+        });
+      }
       document.getElementById("paywallDrawer").classList.add("open");
     }
 
@@ -5983,6 +6029,14 @@
       updateSubscriptionUI();
       playCathedralBellChime();
       addGracePoints(isLifetimeVIP ? 250 : 50);
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("Purchase", {
+          content_name: selectedPaywallPlan || "annual",
+          content_category: "SanctuaryPass",
+          currency: "USD",
+          value: isLifetimeVIP ? 99.99 : (selectedPaywallPlan === "monthly" ? 7.99 : 39.99)
+        });
+      }
 
       const sheet = document.getElementById("applePaySheet");
       if (sheet) sheet.classList.remove("show");
@@ -6415,6 +6469,14 @@
           saveSubscriptionState();
           updateSubscriptionUI();
           addGracePoints(isLifetimeVIP ? 250 : 100);
+          if (typeof window.trackSanctuaryMarketingEvent === "function") {
+            window.trackSanctuaryMarketingEvent("Purchase", {
+              content_name: purchasedPlan,
+              content_category: "SanctuaryPass",
+              currency: "USD",
+              value: isLifetimeVIP ? 99.99 : (purchasedPlan === "monthly" ? 7.99 : 39.99)
+            });
+          }
           setTimeout(() => {
             playCathedralBellChime();
             triggerSanctuaryNotification(
@@ -6594,11 +6656,15 @@
 
     function initSmartInstallBanner() {
       try {
+        const webSaveBtn = document.getElementById("webBrowserSaveAppBtn");
         if (isRunningStandalone()) {
           const btnDesk = document.getElementById("installBtnDesktop");
           const installDrawer = document.getElementById("installAppDrawer");
           if (btnDesk) btnDesk.style.display = "none";
+          if (webSaveBtn) webSaveBtn.remove();
           if (installDrawer) installDrawer.remove();
+        } else if (webSaveBtn) {
+          webSaveBtn.style.display = "inline-flex";
         }
       } catch (e) {}
     }

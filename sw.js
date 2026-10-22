@@ -6,11 +6,13 @@
  * effect immediately when online, while still working 100% offline.
  */
 
-const CACHE_NAME = "sacred-vessels-sanctuary-v4.2";
+const CACHE_NAME = "sacred-vessels-sanctuary-v4.3";
 const ASSETS_TO_CACHE = [
   "./",
   "./index.html",
   "./manifest.json",
+  "./icon-512.png",
+  "./icon-192.png",
   "./ios-storekit-bridge.js"
 ];
 
