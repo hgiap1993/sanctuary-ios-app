@@ -3630,8 +3630,10 @@
     });
 
     function handleVesselStrike(vessel, slotEl, event) {
-      // Check Monetization Gate: Free Tier allows 3 vessels per day unless Sanctuary Pass VIP is active
-      if (!isSanctuaryVIP && freeDailyVesselsUsed >= 3) {
+      // Check Monetization Gate: Free Tier allows breaking 3 vessels before proposing Sanctuary Pass VIP
+      if (!isSanctuaryVIP && brokenVessels.size >= 3 && !brokenVessels.has(vessel.id)) {
+        freeDailyVesselsUsed = brokenVessels.size;
+        updateSubscriptionUI();
         openPaywallDrawer("limit_reached");
         return;
       }
@@ -3669,7 +3671,7 @@
         if (resetTopBtn) resetTopBtn.style.display = "inline-flex";
 
         if (!isSanctuaryVIP) {
-          freeDailyVesselsUsed++;
+          freeDailyVesselsUsed = brokenVessels.size;
           saveSubscriptionState();
           updateSubscriptionUI();
         }
@@ -4322,6 +4324,9 @@
       stopAllAngelSpeech();
       document.getElementById("angelModal").classList.remove("visible");
       brokenVessels.clear();
+      freeDailyVesselsUsed = 0;
+      saveSubscriptionState();
+      updateSubscriptionUI();
       renderVesselsGrid();
     }
 
@@ -6094,19 +6099,18 @@
         const dayBadge = document.getElementById("dayOfYearNum");
         if (dayBadge) dayBadge.textContent = getDayOfYearNumber();
 
-        const saved = JSON.parse(localStorage.getItem("sacred_vessels_subscription_v1"));
-        const today = new Date().toISOString().slice(0, 10);
+        const saved = JSON.parse(localStorage.getItem("sacred_vessels_subscription_v2"));
         if (saved) {
           isSanctuaryVIP = !!saved.isVIP;
           isLifetimeVIP = !!saved.isLifetime;
           selectedPaywallPlan = saved.plan || "annual";
-          if (saved.lastDate === today) {
-            freeDailyVesselsUsed = saved.usedToday || 0;
-          } else {
-            freeDailyVesselsUsed = 0;
-          }
         }
-      } catch (e) {}
+        // Always sync free vessels used with the actual broken vessels on the shelf (0 on fresh load)
+        // so the visitor ALWAYS gets 3 full vessel strikes before seeing the upgrade prompt!
+        freeDailyVesselsUsed = brokenVessels ? brokenVessels.size : 0;
+      } catch (e) {
+        freeDailyVesselsUsed = 0;
+      }
       saveSubscriptionState();
       updateSubscriptionUI();
     }
@@ -6114,7 +6118,7 @@
     function saveSubscriptionState() {
       try {
         const today = new Date().toISOString().slice(0, 10);
-        localStorage.setItem("sacred_vessels_subscription_v1", JSON.stringify({
+        localStorage.setItem("sacred_vessels_subscription_v2", JSON.stringify({
           isVIP: isSanctuaryVIP,
           isLifetime: isLifetimeVIP,
           plan: selectedPaywallPlan,
