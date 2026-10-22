@@ -1274,15 +1274,15 @@
       margin-top: 2px;
     }
 
-    /* iOS Bottom Sanctuary Navigation Dock — 6-Tab Full-Width Symmetrical Layout (Phương án B) */
+    /* iOS Bottom Sanctuary Navigation Dock — 5-Tab Symmetrical Layout with Large Icons (Phương án 1) */
     .ios-bottom-dock {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       width: 100%;
-      gap: 3px;
+      gap: 5px;
       background: rgba(14, 10, 6, 0.98);
-      border-top: 1px solid rgba(212, 175, 55, 0.38);
-      padding: 6px 6px max(8px, env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid rgba(212, 175, 55, 0.42);
+      padding: 7px 8px max(9px, env(safe-area-inset-bottom, 0px));
       z-index: 92;
       flex-shrink: 0;
     }
@@ -1295,29 +1295,35 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 4px;
       cursor: pointer;
-      padding: 5px 2px;
-      min-height: 52px;
-      border-radius: 12px;
+      padding: 6px 2px;
+      min-height: 58px;
+      border-radius: 13px;
       transition: all 0.2s ease;
       font-family: 'Cinzel', serif;
-      font-size: 10.5px;
+      font-size: 11.5px;
       font-weight: 700;
       letter-spacing: 0.2px;
       white-space: nowrap;
     }
 
     .dock-tab span.dock-icon {
-      font-size: 21px;
+      font-size: 25px;
       line-height: 1.1;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+      transition: transform 0.2s ease;
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    }
+
+    .dock-tab:hover span.dock-icon,
+    .dock-tab.active span.dock-icon {
+      transform: scale(1.1);
     }
 
     .dock-tab:hover, .dock-tab.active {
       color: var(--gold-bright);
-      background: linear-gradient(180deg, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0.08) 100%);
-      border-color: rgba(255, 217, 125, 0.32);
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.24) 0%, rgba(212, 175, 55, 0.09) 100%);
+      border-color: rgba(255, 217, 125, 0.38);
     }
 
     /* Sanctuary Flickering Candles Altar */
@@ -1998,6 +2004,15 @@
             <h2 style="font-family:'Cinzel',serif; font-size:17px; color:var(--gold-bright);">12 Biblical Relics Collection</h2>
           </div>
           <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+        <div style="background:linear-gradient(135deg, rgba(212,175,55,0.22), rgba(45,30,14,0.92)); border:1px solid rgba(255,217,125,0.45); border-radius:12px; padding:10px 12px; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+          <div>
+            <div style="font-family:'Cinzel',serif; font-size:12px; font-weight:700; color:#ffd97d;">👑 The 13th Golden Miracle Chalice</div>
+            <div style="font-size:12px; color:#e5d2af; line-height:1.3; margin-top:2px;">Break all 12 clay vessels or tap here to enter the Grand Miracle Altar (+100 Grace).</div>
+          </div>
+          <button class="btn-sacred btn-primary-gold" style="flex:0 0 auto; padding:8px 12px; font-size:11px; white-space:nowrap;" onclick="openGoldenVesselDrawer()">
+            👑 Open 13th Jar
+          </button>
         </div>
         <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:10px; font-style:italic;">
           Break each of the 12 Sacred Vessels to uncover its ancient Gospel relic and spiritual story.
@@ -2844,29 +2859,25 @@
         </div>
       </div>
 
-      <!-- iOS Bottom Sanctuary Navigation Dock (6-Tab Symmetrical Layout — Phương án B) -->
+      <!-- iOS Bottom Sanctuary Navigation Dock (5-Tab Layout with Large Icons — Phương án 1) -->
       <div class="ios-bottom-dock">
-        <button class="dock-tab active" onclick="closeAllDrawers()">
+        <button class="dock-tab active" id="dockTabVessels" onclick="closeAllDrawers()">
           <span class="dock-icon">⚱️</span>
-          <span>12 Vessels</span>
+          <span>Vessels</span>
         </button>
-        <button class="dock-tab" onclick="openAskAngelDrawer()">
+        <button class="dock-tab" id="dockTabAngel" onclick="openAskAngelDrawer()">
           <span class="dock-icon">👼</span>
           <span>Ask Angel</span>
         </button>
-        <button class="dock-tab" onclick="openCandlesDrawer()">
+        <button class="dock-tab" id="dockTabCandles" onclick="openCandlesDrawer()">
           <span class="dock-icon">🕯️</span>
           <span>Candles</span>
         </button>
-        <button class="dock-tab" onclick="openGoldenVesselDrawer()">
-          <span class="dock-icon">👑</span>
-          <span>13th Jar</span>
-        </button>
-        <button class="dock-tab" onclick="openSleepDrawer()">
+        <button class="dock-tab" id="dockTabSleep" onclick="openSleepDrawer()">
           <span class="dock-icon">🌙</span>
           <span>Sleep</span>
         </button>
-        <button class="dock-tab" onclick="openLibraryDrawer()">
+        <button class="dock-tab" id="dockTabLibrary" onclick="openLibraryDrawer()">
           <span class="dock-icon">📜</span>
           <span>365 Bible</span>
         </button>
@@ -4950,6 +4961,12 @@
     // =========================================================================
     // 9. DRAWER NAVIGATION CONTROLLER
     // =========================================================================
+    function setActiveDockTab(tabId) {
+      document.querySelectorAll(".ios-bottom-dock .dock-tab").forEach(btn => {
+        btn.classList.toggle("active", btn.id === tabId);
+      });
+    }
+
     function closeAllDrawers() {
       ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer", "viralShareDrawer", "installAppDrawer"].forEach(id => {
         const el = document.getElementById(id);
@@ -4975,6 +4992,7 @@
         appContainer.scrollTop = 0;
         appContainer.scrollLeft = 0;
       }
+      setActiveDockTab("dockTabVessels");
     }
 
     document.addEventListener("keydown", (e) => {
@@ -4985,6 +5003,7 @@
 
     function openLibraryDrawer() {
       closeAllDrawers();
+      setActiveDockTab("dockTabLibrary");
       renderLibraryList("");
       document.getElementById("libraryDrawer").classList.add("open");
     }
@@ -5692,6 +5711,7 @@
 
     function openCandlesDrawer() {
       closeAllDrawers();
+      setActiveDockTab("dockTabCandles");
       renderCandlesAltar();
       renderJournalList();
       document.getElementById("candlesDrawer").classList.add("open");
@@ -5790,6 +5810,7 @@
     // =========================================================================
     function openAskAngelDrawer() {
       closeAllDrawers();
+      setActiveDockTab("dockTabAngel");
       document.getElementById("askAngelDrawer").classList.add("open");
     }
 
@@ -5905,6 +5926,7 @@
 
     function openSleepDrawer() {
       closeAllDrawers();
+      setActiveDockTab("dockTabSleep");
       updateSleepCountdownUI();
       document.getElementById("sleepDrawer").classList.add("open");
     }

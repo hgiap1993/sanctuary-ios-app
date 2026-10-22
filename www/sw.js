@@ -7,7 +7,7 @@
  *    for lock-screen Morning & Evening Prayer Bells via Cloudflare Workers.
  */
 
-const CACHE_NAME = "sacred-vessels-sanctuary-v4.9";
+const CACHE_NAME = "sacred-vessels-sanctuary-v5.0";
 const ASSETS_TO_CACHE = [
   "./",
   "./index.html",
