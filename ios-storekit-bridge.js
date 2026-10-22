@@ -29,7 +29,8 @@
     annual: "",   // e.g. "https://yourstore.gumroad.com/l/sanctuary-yearly"
     lifetime: "", // e.g. "https://yourstore.gumroad.com/l/sanctuary-lifetime"
     monthly: "",  // e.g. "https://yourstore.gumroad.com/l/sanctuary-monthly"
-    gift: ""      // e.g. "https://yourstore.gumroad.com/l/sanctuary-gift"
+    gift: "",     // e.g. "https://yourstore.gumroad.com/l/sanctuary-gift"
+    donate: ""    // e.g. "https://buymeacoffee.com/sanctuary" or LemonSqueezy Pay-What-You-Want URL
   };
 
   /**

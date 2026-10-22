@@ -1944,6 +1944,7 @@
           <button class="bar-btn" id="toggleVoiceBtn" onclick="toggleVoiceMute()">🔊 Voice: ON</button>
           <div class="desktop-more-divider"></div>
           <button class="bar-btn" onclick="openViralShareDrawer(); closeDesktopMoreMenu();" style="color:var(--gold-bright);">🚀 Share &amp; Bless (+Grace)</button>
+          <button class="bar-btn" onclick="openDonateGospelDrawer('menu'); closeDesktopMoreMenu();" style="color:#fde047;">☕ Donate &amp; Spread Word</button>
           <button class="bar-btn" onclick="openAskAngelDrawer(); closeDesktopMoreMenu();">👼 Ask the Angel</button>
           <button class="bar-btn" onclick="openCandlesDrawer(); closeDesktopMoreMenu();">🕯️ Candles &amp; Journal</button>
           <button class="bar-btn" onclick="openGoldenVesselDrawer(); closeDesktopMoreMenu();">👑 13th Golden Chalice</button>
@@ -2253,7 +2254,17 @@
 
         <div class="candles-altar-grid" id="candlesAltarGrid"></div>
 
-        <div style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); margin:6px 0 6px; border-top:1px solid rgba(212,175,55,0.25); padding-top:8px;">
+        <!-- Pay It Forward / Gospel Mission Banner inside Candle Altar -->
+        <div style="background:linear-gradient(135deg, rgba(212,175,55,0.16), rgba(30,20,10,0.92)); border:1px solid rgba(255,217,125,0.38); border-radius:12px; padding:8px 11px; margin-bottom:6px; display:flex; align-items:center; justify-content:space-between; gap:8px;">
+          <div style="font-size:11.5px; color:#f3e5c8; line-height:1.3;">
+            🕊️ <strong>Spread the Gospel:</strong> Help us share Jesus's Words with weary souls worldwide.
+          </div>
+          <button class="btn-sacred btn-primary-gold" style="flex:0 0 auto; padding:6px 10px; font-size:10.5px; white-space:nowrap;" onclick="openDonateGospelDrawer('candles_altar')">
+            ☕ Donate
+          </button>
+        </div>
+
+        <div style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); margin:4px 0 6px; border-top:1px solid rgba(212,175,55,0.25); padding-top:6px;">
           ❤️ Saved Favorite Verses & Personal Reflections
         </div>
         <div style="display:flex; gap:6px; margin-bottom:8px;">
@@ -2353,7 +2364,7 @@
             <div class="sanctuary-subtitle" id="paywallReasonBanner">Unlock the Full Sanctuary</div>
             <h2 style="font-family:'Cinzel',serif; font-size:18px; color:var(--gold-bright); cursor:pointer;" onclick="handleSecretDevTap()" title="Tap 5 times for StoreKit / RevenueCat Dev Settings">💎 Sanctuary Pass VIP</h2>
           </div>
-          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+          <button class="icon-btn" onclick="closePaywallDrawerWithDonateCheck()">✕ Close</button>
         </div>
 
         <div class="drawer-list" style="gap:7px;">
@@ -2498,6 +2509,7 @@
               <input type="text" id="webUrlAnnualInput" class="search-input" placeholder="Annual ($19.99) Stripe/Gumroad/LemonSqueezy URL" style="padding:5px 8px; font-size:11px; margin-bottom:0;">
               <input type="text" id="webUrlLifetimeInput" class="search-input" placeholder="Lifetime ($49.99) Stripe/Gumroad/LemonSqueezy URL" style="padding:5px 8px; font-size:11px; margin-bottom:0;">
               <input type="text" id="webUrlMonthlyInput" class="search-input" placeholder="Monthly ($2.99) Stripe/Gumroad/LemonSqueezy URL" style="padding:5px 8px; font-size:11px; margin-bottom:0;">
+              <input type="text" id="webUrlDonateInput" class="search-input" placeholder="☕ Donate Any Amount URL (BuyMeACoffee / LemonSqueezy / PayPal)" style="padding:5px 8px; font-size:11px; margin-bottom:0; border-color:rgba(253,224,71,0.5);">
             </div>
             <div style="display:flex; gap:6px;">
               <input type="text" id="rcApiKeyInput" class="search-input" placeholder="Optional: appl_... or goog_... RevenueCat Key" style="flex:1; padding:5px 8px; font-size:11px; margin-bottom:0;">
@@ -2970,6 +2982,74 @@
           </button>
           <div id="onboardSecondaryAction" style="font-size:11px; color:var(--text-muted); margin-top:6px; cursor:pointer;" onclick="completeOnboardingAndStrikeFirst()">
             Skip Intro &amp; Enter Free Tier (3 Vessels/Day) →
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer 12: ☕ Donate & Spread the Gospel ("Pay It Forward" Mission Prompt) -->
+      <div class="library-drawer" id="donateGospelDrawer">
+        <div class="drawer-header">
+          <div>
+            <div class="sanctuary-subtitle" id="donatePromptReasonSub">🕊️ Pay It Forward • Gospel Mission</div>
+            <h2 style="font-family:'Cinzel',serif; font-size:16.5px; color:var(--gold-bright);">☕ Spread This Message With Everyone</h2>
+          </div>
+          <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
+        </div>
+
+        <div class="drawer-list" style="gap:10px; justify-content:space-between;">
+          <div style="background:radial-gradient(circle at 50% 15%, rgba(212,175,55,0.22), rgba(22,15,8,0.96)); border:1.5px solid rgba(255,217,125,0.48); border-radius:16px; padding:14px 14px 12px; text-align:center; box-shadow:0 10px 28px rgba(0,0,0,0.65);">
+            <div style="font-size:34px; line-height:1.1; margin-bottom:6px; filter:drop-shadow(0 0 14px rgba(255,215,0,0.55));">🕊️🕯️✨</div>
+            <div style="font-family:'Cinzel',serif; font-size:14.5px; font-weight:700; color:#fff8e7; line-height:1.35; margin-bottom:6px;">
+              Help Us Share Jesus's Words of Peace With the World
+            </div>
+            <p style="font-size:14px; color:#f3e5c8; line-height:1.45; margin-bottom:8px;">
+              Every day, thousands of weary, anxious, and sleepless souls visit this Sanctuary seeking comfort. Your kind donation helps us keep this Sanctuary alive and <strong>spread this meaningful message of hope to people everywhere</strong>.
+            </p>
+            <div style="background:rgba(0,0,0,0.42); border:1px solid rgba(212,175,55,0.32); border-radius:11px; padding:7px 10px; font-style:italic; font-size:13.5px; color:var(--gold-bright);">
+              “Freely you have received; freely give.” — Matthew 10:8
+            </div>
+          </div>
+
+          <!-- Impact Highlights -->
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:13px; padding:10px 12px; font-size:12.5px; color:var(--text-light); line-height:1.5;">
+            <div style="font-family:'Cinzel',serif; font-size:10.5px; color:var(--gold-bright); font-weight:700; margin-bottom:4px;">
+              🌟 YOUR GIFT HELPS US:
+            </div>
+            <div>✅ Keep <strong>Daily Vessels &amp; Angelic Audio Prayers Free</strong> for weary souls</div>
+            <div>✅ Reach thousands of seniors &amp; families needing <strong>Night Peace &amp; Hope</strong></div>
+            <div>✅ Receive a <strong>🕯️ 24-Hour "Gospel Patron" Candle</strong> &amp; <strong>+100 Grace Points</strong></div>
+          </div>
+
+          <!-- Single "Buy Us a Coffee / Donate Any Amount" Action Box -->
+          <div style="background:linear-gradient(135deg, rgba(212,175,55,0.18), rgba(32,22,10,0.95)); border:1.5px solid #ffd97d; border-radius:15px; padding:12px;">
+            <button class="btn-sacred btn-primary-gold" id="mainDonateGospelBtn" style="width:100%; padding:13px 14px; font-size:13px; box-shadow:0 6px 20px rgba(212,175,55,0.38);" onclick="handleDonateGospelClick()">
+              ☕ Buy Us a Coffee / Donate Any Amount →
+            </button>
+            <div style="font-size:11px; color:#e6d5b8; text-align:center; margin-top:6px;">
+              💛 Choose any amount from your heart ($3, $5, $10+) on the next screen
+            </div>
+
+            <!-- Fallback Donor Email / Prayer Intention Box when live Donate URL is not yet set -->
+            <div id="donateEmailReserveBox" style="display:none; margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,217,125,0.28);">
+              <div style="font-size:12px; color:#fde68a; margin-bottom:6px; line-height:1.35; text-align:center;">
+                🕊️ <strong>Thank you for your generous heart!</strong> Enter your email or prayer intention below so we can send you our direct Gospel Donation link &amp; light your 24h Patron Candle (+100 Grace):
+              </div>
+              <div style="display:flex; gap:6px;">
+                <input type="text" id="donatePatronEmailInput" class="search-input" placeholder="Your email or prayer intention..." style="flex:1; margin-bottom:0; padding:8px 10px; font-size:13px;" />
+                <button class="btn-sacred btn-primary-gold" style="padding:8px 12px; font-size:11px; white-space:nowrap;" onclick="submitDonatePledgeEmail()">
+                  🙏 Bless (+100)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <button class="btn-sacred btn-secondary-outline" style="flex:1; font-size:11px; padding:8px;" onclick="openViralShareDrawer()">
+              📲 Or Share a Verse Free (+30 Grace)
+            </button>
+            <button class="btn-sacred btn-secondary-outline" style="flex:1; font-size:11px; padding:8px; color:var(--text-muted); border-color:rgba(255,255,255,0.18);" onclick="closeAllDrawers()">
+              Continue to Sanctuary →
+            </button>
           </div>
         </div>
       </div>
@@ -4443,6 +4523,13 @@
         setTimeout(() => {
           openPaywallDrawer("limit_reached");
         }, 320);
+        return;
+      }
+      // Smart Exit/Close Donate Prompt: After reading 2nd Word of Jesus, gently invite to Donate to spread the Gospel (max once per day)
+      if (brokenVessels.size === 2) {
+        setTimeout(() => {
+          maybeShowDonatePrompt("after_second_vessel");
+        }, 320);
       }
     }
 
@@ -4469,7 +4556,7 @@
     // =========================================================================
     // 8. VIRAL SOCIAL SHARING STUDIO, 9:16 STORY GENERATOR & DEEP-LINK ENGINE
     // =========================================================================
-    const APP_PUBLIC_URL = "https://hgiap1993.github.io/sanctuary-ios-app/";
+    const APP_PUBLIC_URL = "https://sanctuaryprayer.cloud/";
     let viralCardRatio = "story"; // 'story' (1080x1920), 'post' (1080x1350), 'scroll' (1080x1620)
     let viralCardTheme = "gold";  // 'gold', 'starlight', 'dawn', 'parchment'
     let viralShareCount = 0;
@@ -5083,7 +5170,7 @@
     }
 
     function closeAllDrawers() {
-      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer", "viralShareDrawer", "installAppDrawer"].forEach(id => {
+      ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer", "viralShareDrawer", "installAppDrawer", "donateGospelDrawer"].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
           el.classList.remove("open", "active", "visible", "show");
@@ -5108,6 +5195,132 @@
         appContainer.scrollLeft = 0;
       }
       setActiveDockTab("dockTabVessels");
+    }
+
+    function closePaywallDrawerWithDonateCheck() {
+      closeAllDrawers();
+      if (!isSanctuaryVIP) {
+        setTimeout(() => {
+          maybeShowDonatePrompt("after_paywall_close");
+        }, 260);
+      }
+    }
+
+    function maybeShowDonatePrompt(source) {
+      // Never auto-prompt external web donation inside native iOS/Android App Store container (Apple Guideline 3.1.1)
+      if (window.Capacitor || window.ReactNativeWebView) return;
+      try {
+        const today = new Date().toISOString().slice(0, 10);
+        const lastShownDate = localStorage.getItem("sacred_donate_prompt_date_v1");
+        const shownInSession = sessionStorage.getItem("sacred_donate_prompt_shown_v1");
+        if (lastShownDate === today || shownInSession === "1") {
+          return;
+        }
+        localStorage.setItem("sacred_donate_prompt_date_v1", today);
+        sessionStorage.setItem("sacred_donate_prompt_shown_v1", "1");
+      } catch (e) {}
+      openDonateGospelDrawer(source);
+    }
+
+    function openDonateGospelDrawer(source) {
+      if (window.Capacitor || window.ReactNativeWebView) return;
+      closeAllDrawers();
+      const subEl = document.getElementById("donatePromptReasonSub");
+      if (subEl) {
+        if (source === "after_paywall_close") {
+          subEl.textContent = "🕊️ Before You Go • Support Our Gospel Mission";
+        } else if (source === "after_second_vessel") {
+          subEl.textContent = "🕊️ Blessed by Today's Word? • Pay It Forward";
+        } else {
+          subEl.textContent = "🕊️ Pay It Forward • Gospel Mission";
+        }
+      }
+      const reserveBox = document.getElementById("donateEmailReserveBox");
+      if (reserveBox) reserveBox.style.display = "none";
+      const drawer = document.getElementById("donateGospelDrawer");
+      if (drawer) drawer.classList.add("open");
+      playCathedralBellChime();
+    }
+
+    function handleDonateGospelClick() {
+      const bridge = window.SacredIOSBridge;
+      const webUrls = (bridge && typeof bridge.getWebCheckoutUrls === "function") ? bridge.getWebCheckoutUrls() : {};
+      const donateUrl = (webUrls.donate || "").trim();
+
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("Donate", {
+          content_name: "Gospel_Mission_Donate_Any_Amount",
+          currency: "USD",
+          value: 5.00
+        });
+      }
+
+      if (donateUrl && /^https?:\/\//i.test(donateUrl)) {
+        // Award +100 Grace & light a 24h Gospel Patron Candle
+        rewardGospelPatronBlessing();
+        window.open(donateUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      // If no live Donate URL is configured yet, smoothly reveal the Donor Email / Prayer Intention box
+      const reserveBox = document.getElementById("donateEmailReserveBox");
+      if (reserveBox) {
+        reserveBox.style.display = "block";
+        const input = document.getElementById("donatePatronEmailInput");
+        if (input) input.focus();
+      }
+    }
+
+    function rewardGospelPatronBlessing() {
+      addGracePoints(100);
+      playCathedralBellChime();
+      activeCandles.unshift({
+        intention: "🕊️ Gospel Patron — Spreading Jesus's Word",
+        time: "24h 00m left"
+      });
+      try {
+        localStorage.setItem("sacred_candles", JSON.stringify(activeCandles));
+      } catch (e) {}
+    }
+
+    async function submitDonatePledgeEmail() {
+      const input = document.getElementById("donatePatronEmailInput");
+      const val = input ? input.value.trim() : "";
+      if (!val) {
+        triggerSanctuaryNotification(
+          "🕊️ Enter Email or Prayer Intention",
+          "Please enter your email or prayer intention so we can send you our official donation link and light your Patron Candle!"
+        );
+        return;
+      }
+      try {
+        const list = JSON.parse(localStorage.getItem("sacred_donate_pledges_v1") || "[]");
+        list.push({ contact: val, ts: new Date().toISOString() });
+        localStorage.setItem("sacred_donate_pledges_v1", JSON.stringify(list));
+      } catch (e) {}
+
+      // Also sync to Cloudflare KV if email-formatted
+      if (val.includes("@")) {
+        try {
+          fetch("/api/push/email-subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: val,
+              source: "gospel_donate_pledge",
+              tzOffset: new Date().getTimezoneOffset()
+            })
+          }).catch(() => {});
+        } catch (e) {}
+      }
+
+      if (input) input.value = "";
+      rewardGospelPatronBlessing();
+      closeAllDrawers();
+      triggerSanctuaryNotification(
+        "🕊️ Thank You, Gospel Patron! (+100 Grace)",
+        "Your 24-Hour Gospel Patron Candle is now lit on the Sanctuary Altar, and we will send your donation link shortly!"
+      );
     }
 
     document.addEventListener("keydown", (e) => {
@@ -6338,6 +6551,7 @@
       const annUrlEl = document.getElementById("webUrlAnnualInput");
       const lifeUrlEl = document.getElementById("webUrlLifetimeInput");
       const moUrlEl = document.getElementById("webUrlMonthlyInput");
+      const donUrlEl = document.getElementById("webUrlDonateInput");
       if (!statusEl) return;
       const bridge = window.SacredIOSBridge;
       const envName = bridge
@@ -6345,7 +6559,7 @@
         : "Web/PWA";
       const hasLive = bridge && typeof bridge.hasLiveKey === "function" && bridge.hasLiveKey();
       const webUrls = (bridge && typeof bridge.getWebCheckoutUrls === "function") ? bridge.getWebCheckoutUrls() : {};
-      const hasWebLinks = Boolean(webUrls.annual || webUrls.lifetime || webUrls.monthly);
+      const hasWebLinks = Boolean(webUrls.annual || webUrls.lifetime || webUrls.monthly || webUrls.donate);
 
       statusEl.innerHTML = `Env: <strong>${envName}</strong> • Mode: <strong style="color:${(hasLive || hasWebLinks) ? "#86efac" : "#fde047"};">${hasLive ? "LIVE REVENUECAT" : (hasWebLinks ? "DIRECT WEB CHECKOUT" : "STOREKIT SIMULATOR")}</strong>`;
       if (inputEl && !inputEl.value && bridge && typeof bridge.getApiKey === "function") {
@@ -6357,6 +6571,7 @@
       if (annUrlEl && !annUrlEl.value && webUrls.annual) annUrlEl.value = webUrls.annual;
       if (lifeUrlEl && !lifeUrlEl.value && webUrls.lifetime) lifeUrlEl.value = webUrls.lifetime;
       if (moUrlEl && !moUrlEl.value && webUrls.monthly) moUrlEl.value = webUrls.monthly;
+      if (donUrlEl && !donUrlEl.value && webUrls.donate) donUrlEl.value = webUrls.donate;
     }
 
     function saveLiveRevenueCatKeyFromUI() {
@@ -6364,12 +6579,14 @@
       const annUrlEl = document.getElementById("webUrlAnnualInput");
       const lifeUrlEl = document.getElementById("webUrlLifetimeInput");
       const moUrlEl = document.getElementById("webUrlMonthlyInput");
+      const donUrlEl = document.getElementById("webUrlDonateInput");
 
       const val = inputEl ? inputEl.value.trim() : "";
       const webUrls = {
         annual: annUrlEl ? annUrlEl.value.trim() : "",
         lifetime: lifeUrlEl ? lifeUrlEl.value.trim() : "",
-        monthly: moUrlEl ? moUrlEl.value.trim() : ""
+        monthly: moUrlEl ? moUrlEl.value.trim() : "",
+        donate: donUrlEl ? donUrlEl.value.trim() : ""
       };
 
       if (window.SacredIOSBridge) {
