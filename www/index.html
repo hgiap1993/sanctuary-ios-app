@@ -675,18 +675,19 @@
       background: radial-gradient(circle at 50% 20%, rgba(62, 44, 18, 0.98) 0%, rgba(10, 7, 4, 0.99) 85%);
       backdrop-filter: blur(12px);
       z-index: 90;
-      display: flex;
+      display: none !important;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px 12px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.45s ease;
+      transition: opacity 0.35s ease;
       overflow-y: auto;
     }
 
     .angel-revelation-overlay.visible {
+      display: flex !important;
       opacity: 1;
       pointer-events: auto;
       cursor: default;
@@ -988,16 +989,22 @@
       bottom: 60px;
       background: rgba(11, 8, 5, 0.98);
       z-index: 95;
-      display: flex;
+      display: none !important;
+      visibility: hidden;
+      pointer-events: none;
       flex-direction: column;
       padding: 14px 16px 14px;
-      transform: translateY(110%);
-      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform: translateY(0);
       cursor: default;
+      overflow: hidden;
     }
 
     .library-drawer.open {
+      display: flex !important;
+      visibility: visible;
+      pointer-events: auto;
       transform: translateY(0);
+      animation: fadeInSheet 0.22s ease-out;
     }
 
     .drawer-header {
@@ -1007,6 +1014,17 @@
       padding-bottom: 10px;
       border-bottom: 1px solid rgba(212, 175, 55, 0.25);
       margin-bottom: 10px;
+      position: relative;
+      z-index: 25;
+      flex-shrink: 0;
+    }
+
+    .drawer-header .icon-btn {
+      position: relative;
+      z-index: 30;
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      flex-shrink: 0;
     }
 
     .search-input {
@@ -4857,8 +4875,7 @@
       ["libraryDrawer", "relicsDrawer", "reminderDrawer", "askAngelDrawer", "candlesDrawer", "goldenVesselDrawer", "sleepDrawer", "paywallDrawer", "legalDrawer", "voiceDrawer", "viralShareDrawer", "installAppDrawer"].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-          el.classList.remove("open");
-          el.classList.remove("active");
+          el.classList.remove("open", "active", "visible", "show");
         }
       });
       const angelModal = document.getElementById("angelModal");
@@ -4866,7 +4883,26 @@
         angelModal.classList.remove("visible");
         stopAllAngelSpeech();
       }
+      const onboardEl = document.getElementById("onboardingOverlay");
+      if (onboardEl && (onboardEl.classList.contains("show") || onboardEl.classList.contains("visible"))) {
+        onboardEl.classList.remove("show", "visible");
+      }
+      const paySheet = document.getElementById("applePaySheet");
+      if (paySheet) paySheet.classList.remove("show");
+      const smartBanner = document.getElementById("smartInstallBanner");
+      if (smartBanner) smartBanner.classList.remove("visible");
+      const appContainer = document.querySelector(".sanctuary-app");
+      if (appContainer) {
+        appContainer.scrollTop = 0;
+        appContainer.scrollLeft = 0;
+      }
     }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeAllDrawers();
+      }
+    });
 
     function openLibraryDrawer() {
       closeAllDrawers();

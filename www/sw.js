@@ -6,7 +6,7 @@
  * effect immediately when online, while still working 100% offline.
  */
 
-const CACHE_NAME = "sacred-vessels-sanctuary-v4.3";
+const CACHE_NAME = "sacred-vessels-sanctuary-v4.4";
 const ASSETS_TO_CACHE = [
   "./",
   "./index.html",
