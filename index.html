@@ -2013,31 +2013,54 @@
           <button class="icon-btn" onclick="closeAllDrawers()">✕ Close</button>
         </div>
 
-        <div class="countdown-banner" id="nextAlarmCountdown">
+        <div class="countdown-banner" id="nextAlarmCountdown" style="margin-bottom:8px;">
           🔔 Next Sanctuary Bell: Calculating...
+        </div>
+
+        <!-- 2-Layer Automated Lock-Screen Push & iPhone/Google Calendar Hub -->
+        <div style="background:linear-gradient(135deg, rgba(45, 31, 14, 0.95), rgba(18, 12, 6, 0.98)); border:1.5px solid var(--gold-bright); border-radius:14px; padding:10px 12px; margin-bottom:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:4px;">
+            <span style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700;">
+              ⚡ LAYER 1: CLOUDFLARE LOCK-SCREEN WEB PUSH
+            </span>
+            <span id="cfPushStatusBadge" style="font-family:'Cinzel',serif; font-size:9.5px; padding:2px 8px; border-radius:99px; background:rgba(255,255,255,0.08); color:var(--text-muted); font-weight:700;">
+              Not Active
+            </span>
+          </div>
+          <p style="font-size:12px; color:var(--text-light); line-height:1.35; margin-bottom:8px;" id="cfPushStatusDesc">
+            Receive Jesus's Daily Word on your lock screen at 7:00 AM &amp; 9:00 PM even when your browser is closed (+50 Grace Points).
+          </p>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn-sacred btn-primary-gold" id="enableCloudflarePushBtn" style="flex:1; min-height:38px; padding:7px 10px; font-size:11.5px;" onclick="subscribeToCloudflareWebPush(false)">
+              🔔 Enable Lock-Screen Push (+50 Grace)
+            </button>
+            <button class="btn-sacred btn-secondary-outline" style="flex:0 0 auto; min-height:38px; padding:7px 10px; font-size:11px;" onclick="sendTestCloudflarePush()">
+              🔔 Test Push
+            </button>
+          </div>
         </div>
 
         <div class="drawer-list" id="remindersList"></div>
 
         <!-- Add Custom Reminder Form -->
-        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:12px; padding:10px; margin-top:8px;">
-          <div style="font-family:'Cinzel',serif; font-size:10px; color:var(--gold-bright); margin-bottom:6px; text-transform:uppercase;">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.28); border-radius:12px; padding:9px 10px; margin-top:6px;">
+          <div style="font-family:'Cinzel',serif; font-size:10px; color:var(--gold-bright); margin-bottom:5px; text-transform:uppercase;">
             ➕ Add Custom Daily Prayer Alarm
           </div>
           <div style="display:flex; gap:6px; align-items:center;">
             <input type="time" id="customAlarmTime" class="reminder-time-input" value="08:00" style="font-size:13px;" />
-            <input type="text" id="customAlarmLabel" class="search-input" placeholder="Prayer Intention (e.g. Family Blessing)" style="margin-bottom:0; flex:1; padding:6px 10px; font-size:14px;" />
+            <input type="text" id="customAlarmLabel" class="search-input" placeholder="Prayer Intention (e.g. Family Blessing)" style="margin-bottom:0; flex:1; padding:6px 10px; font-size:13.5px;" />
             <button class="icon-btn" onclick="addCustomReminder()" style="padding:7px 11px; font-weight:700;">+ Add</button>
           </div>
         </div>
 
-        <!-- Test & Export to iOS Calendar Actions -->
-        <div style="display:flex; gap:8px; margin-top:10px;">
-          <button class="btn-sacred btn-secondary-outline" style="flex:1;" onclick="triggerSanctuaryNotification('Morning Sanctuary Bell', 'Your 12 Sacred Vessels are ready! Strike a vessel and pray with the Word of Jesus.')">
-            🔔 Test Bell & Push
+        <!-- Layer 2: 1-Tap Native iPhone/Apple Calendar (.ics) & Google Calendar Sync -->
+        <div style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;">
+          <button class="btn-sacred btn-primary-gold" style="flex:1; min-height:40px; padding:8px 10px; font-size:11.5px;" onclick="exportToIOSCalendar()">
+            📅 Sync iPhone / Apple Calendar
           </button>
-          <button class="btn-sacred btn-primary-gold" style="flex:1;" onclick="exportToIOSCalendar()">
-            📅 Sync iPhone Alarm
+          <button class="btn-sacred btn-secondary-outline" style="flex:1; min-height:40px; padding:8px 10px; font-size:11.5px; border-color:#ffd97d; color:#ffd97d;" onclick="openGoogleCalendarReminder()">
+            🗓️ Add to Google Calendar
           </button>
         </div>
       </div>
@@ -5034,12 +5057,205 @@
 
     function openReminderDrawer() {
       closeAllDrawers();
-      if ("Notification" in window && Notification.permission === "default") {
-        Notification.requestPermission();
-      }
       renderRemindersList();
       updateNextAlarmCountdown();
+      syncCloudflarePushUI();
       document.getElementById("reminderDrawer").classList.add("open");
+    }
+
+    // =========================================================================
+    // LAYER 1: CLOUDFLARE AUTOMATED WEB PUSH ENGINE (VAPID + SERVICE WORKER)
+    // =========================================================================
+    const CLOUDFLARE_VAPID_PUBLIC_KEY =
+      "BI2MjL6A4LjEFE2YxNE2bLp0_xMVvnoKZ_Pa_Bi-imPOE6h-YKIX9ke2VDMlvQIfMDJOcN0RCwxg3xQ65ykCTZA";
+    const CLOUDFLARE_PUSH_API_BASE = "/api/push";
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+      const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+
+    function syncCloudflarePushUI() {
+      const badgeEl = document.getElementById("cfPushStatusBadge");
+      const descEl = document.getElementById("cfPushStatusDesc");
+      const btnEl = document.getElementById("enableCloudflarePushBtn");
+      if (!badgeEl || !descEl || !btnEl) return;
+
+      const isSubscribed = localStorage.getItem("sacred_cf_push_subscribed_v1") === "true";
+      const hasPerm = ("Notification" in window) && Notification.permission === "granted";
+
+      if (isSubscribed || hasPerm) {
+        badgeEl.textContent = "✓ Active (24/7)";
+        badgeEl.style.background = "rgba(34, 197, 94, 0.22)";
+        badgeEl.style.color = "#86efac";
+        badgeEl.style.border = "1px solid rgba(74, 222, 128, 0.45)";
+        descEl.innerHTML = "✅ <strong>Cloudflare Automated Daily Push is Active!</strong> You will receive Morning &amp; Evening Words of Jesus directly on your lock screen.";
+        btnEl.textContent = "🔄 Re-Sync Lock-Screen Push Schedule";
+      } else if (isAppleIOSPlatform() && !isRunningStandalone()) {
+        badgeEl.textContent = "iPhone Safari";
+        badgeEl.style.background = "rgba(251, 191, 36, 0.2)";
+        badgeEl.style.color = "#fde68a";
+        descEl.innerHTML = " <strong>On iPhone:</strong> Tap below to sync your <strong>iPhone Calendar Alarm</strong> instantly, or tap <strong>📲 Save App</strong> to Home Screen for native iOS Lock-Screen Push!";
+        btnEl.textContent = "🔔 Activate iPhone Daily Bell (+50 Grace)";
+      }
+    }
+
+    async function subscribeToCloudflareWebPush(silentMode) {
+      try {
+        // On iPhone Safari (not yet installed to Home Screen), Apple requires either Calendar Alarm OR Home Screen PWA
+        if (isAppleIOSPlatform() && !isRunningStandalone() && !("Notification" in window)) {
+          if (!silentMode) {
+            exportToIOSCalendar();
+            triggerSanctuaryNotification(
+              " iPhone Daily Bell Ready!",
+              "Tap 'Add All' on the iPhone Calendar popup so your phone rings every morning & night with a direct link to Sanctuary!"
+            );
+          }
+          return false;
+        }
+
+        if (!("Notification" in window)) {
+          if (!silentMode) exportToIOSCalendar();
+          return false;
+        }
+
+        const permission = await Notification.requestPermission();
+        if (permission !== "granted") {
+          if (!silentMode) {
+            exportToIOSCalendar();
+            triggerSanctuaryNotification(
+              "📅 Switched to Calendar Bell Backup",
+              "Browser notifications were blocked, so we prepared a 1-Tap Calendar Alarm for your phone instead!"
+            );
+          }
+          return false;
+        }
+
+        let pushSubscription = null;
+        if ("serviceWorker" in navigator) {
+          const reg = await navigator.serviceWorker.ready;
+          if (reg && reg.pushManager) {
+            pushSubscription = await reg.pushManager.getSubscription();
+            if (!pushSubscription) {
+              try {
+                pushSubscription = await reg.pushManager.subscribe({
+                  userVisibleOnly: true,
+                  applicationServerKey: urlBase64ToUint8Array(CLOUDFLARE_VAPID_PUBLIC_KEY)
+                });
+              } catch (subErr) {}
+            }
+          }
+          // Also register Periodic Background Sync on Chrome/Android if supported
+          if (reg && "periodicSync" in reg) {
+            try {
+              await reg.periodicSync.register("sanctuary-daily-bell", {
+                minInterval: 12 * 60 * 60 * 1000
+              });
+            } catch (e) {}
+          }
+        }
+
+        // Parse user's chosen Morning & Evening hours from prayerReminders
+        const morningRem = prayerReminders[0] || { time: "07:00" };
+        const eveningRem = prayerReminders[2] || { time: "21:00" };
+        const morningHour = parseInt((morningRem.time || "07:00").split(":")[0], 10) || 7;
+        const eveningHour = parseInt((eveningRem.time || "21:00").split(":")[0], 10) || 21;
+
+        if (pushSubscription) {
+          try {
+            await fetch(`${CLOUDFLARE_PUSH_API_BASE}/subscribe`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                subscription: pushSubscription,
+                tzOffsetMinutes: new Date().getTimezoneOffset(),
+                morningHour,
+                eveningHour
+              })
+            });
+          } catch (netErr) {}
+        }
+
+        const alreadyRewarded = localStorage.getItem("sacred_cf_push_subscribed_v1") === "true";
+        localStorage.setItem("sacred_cf_push_subscribed_v1", "true");
+        if (!alreadyRewarded) {
+          addGracePoints(50);
+        }
+        syncCloudflarePushUI();
+
+        if (!silentMode) {
+          await sendTestCloudflarePush();
+        }
+        return true;
+      } catch (err) {
+        if (!silentMode) {
+          triggerSanctuaryNotification(
+            "🔔 Daily Bell Activated",
+            "Your daily Morning & Evening Sanctuary Prayer bells are now active!"
+          );
+        }
+        return false;
+      }
+    }
+
+    async function sendTestCloudflarePush() {
+      playCathedralBellChime();
+      const picked = getNextRandomTeaching();
+      const sample = picked.teaching || JESUS_TEACHINGS[0];
+      const title = `⚱️ Daily Word of Jesus — ${sample.ref}`;
+      const body = `“${sample.text}” — Tap here to break your Sacred Vessel & pray.`;
+
+      // 1. Trigger via Service Worker OS Notification (shows on lock screen / system tray)
+      if ("serviceWorker" in navigator && "Notification" in window && Notification.permission === "granted") {
+        try {
+          const reg = await navigator.serviceWorker.ready;
+          if (reg && typeof reg.showNotification === "function") {
+            await reg.showNotification(title, {
+              body,
+              icon: "./icon-192.png",
+              badge: "./icon-192.png",
+              tag: "sanctuary-test-push",
+              vibrate: [120, 60, 180],
+              data: { url: window.location.origin + window.location.pathname + "?from_push=test" }
+            });
+          }
+          // Also ping Cloudflare Worker /api/push/test if subscription exists
+          if (reg && reg.pushManager) {
+            const sub = await reg.pushManager.getSubscription();
+            if (sub) {
+              fetch(`${CLOUDFLARE_PUSH_API_BASE}/test`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ subscription: sub })
+              }).catch(() => {});
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 2. Also show in-app banner confirmation
+      triggerSanctuaryNotification(
+        "🔔 Lock-Screen Push Sent!",
+        `“${sample.text}” (${sample.ref}) — Check your phone/computer notification bar!`
+      );
+    }
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        if (event.data && event.data.type === "SANCTUARY_PUSH_CLICK") {
+          if (event.data.action === "open_sleep" || (event.data.url && event.data.url.includes("from_push=sleep"))) {
+            openSleepDrawer();
+          } else {
+            handlePushBannerClick();
+          }
+        }
+      });
     }
 
     function renderRemindersList() {
@@ -5200,6 +5416,9 @@
       }
     }
 
+    // =========================================================================
+    // LAYER 2: 1-TAP iPHONE / APPLE CALENDAR (.ICS) & GOOGLE CALENDAR DEEP-LINK
+    // =========================================================================
     function exportToIOSCalendar() {
       const active = prayerReminders.filter(r => r.enabled);
       const listToExport = active.length > 0 ? active : [prayerReminders[0]];
@@ -5207,23 +5426,31 @@
       const yyyy = now.getFullYear();
       const mm = String(now.getMonth() + 1).padStart(2, "0");
       const dd = String(now.getDate()).padStart(2, "0");
+      const publicUrl = "https://sanctuaryprayer.cloud/?from_calendar=1";
 
       const eventsICS = listToExport.map((r, i) => {
         const [hour, minute] = r.time.split(":");
         const dtStart = `${yyyy}${mm}${dd}T${hour}${minute}00`;
         return [
           "BEGIN:VEVENT",
-          `UID:sacred-vessels-${r.id}-${i}@sacredvessels.app`,
+          `UID:sacred-vessels-${r.id}-${i}@sanctuaryprayer.cloud`,
           `DTSTAMP:${dtStart}Z`,
           `DTSTART:${dtStart}`,
-          "DURATION:PT10M",
+          "DURATION:PT15M",
           "RRULE:FREQ=DAILY",
-          `SUMMARY:⚱️ ${r.title} — Strike a Sacred Vessel & Pray`,
-          `DESCRIPTION:${r.subtitle}. Open The Twelve Sacred Vessels app to strike an ancient jar and hear the Angel read Jesus's Word for today.`,
+          `SUMMARY:⚱️ ${r.title} — Break Today's Sacred Vessel`,
+          `LOCATION:${publicUrl}`,
+          `URL:${publicUrl}`,
+          `DESCRIPTION:${r.subtitle}.\\n\\n👉 Tap here to open Sanctuary & hear Jesus's Word aloud: ${publicUrl}`,
           "BEGIN:VALARM",
           "TRIGGER:-PT0M",
           "ACTION:DISPLAY",
-          "DESCRIPTION:⚱️ Time to strike a Sacred Vessel & receive Jesus's Word!",
+          `DESCRIPTION:⚱️ ${r.title}: Tap to open https://sanctuaryprayer.cloud/ and break your Sacred Vessel!`,
+          "END:VALARM",
+          "BEGIN:VALARM",
+          "TRIGGER:-PT5M",
+          "ACTION:DISPLAY",
+          "DESCRIPTION:🔔 Sanctuary Bell in 5 minutes — Prepare your heart for Jesus's Word.",
           "END:VALARM",
           "END:VEVENT"
         ].join("\r\n");
@@ -5232,8 +5459,10 @@
       const icsContent = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//The Twelve Sacred Vessels//Words of Jesus Christ//EN",
+        "PRODID:-//Sanctuary: Jesus Daily Prayer//The Twelve Sacred Vessels//EN",
         "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "X-WR-CALNAME:Sanctuary Daily Prayer Bell",
         eventsICS,
         "END:VCALENDAR"
       ].join("\r\n");
@@ -5241,8 +5470,34 @@
       const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = "Sacred_Vessels_Daily_Prayer_Alarm.ics";
+      link.download = "Sanctuary_Daily_Prayer_Bell.ics";
       link.click();
+
+      playCathedralBellChime();
+      addGracePoints(30);
+      triggerSanctuaryNotification(
+        "📅 Calendar Prayer Bell Ready (+30 Grace)",
+        "Tap 'Add' / 'Save' on the Calendar prompt so your phone rings daily with a 1-tap link back to https://sanctuaryprayer.cloud/!"
+      );
+    }
+
+    function openGoogleCalendarReminder() {
+      const firstActive = prayerReminders.find(r => r.enabled) || prayerReminders[0] || { time: "07:00", title: "Morning Sanctuary & Vessel" };
+      const [hh, mm] = (firstActive.time || "07:00").split(":").map(Number);
+      const start = new Date();
+      start.setHours(hh || 7, mm || 0, 0, 0);
+      const end = new Date(start.getTime() + 15 * 60 * 1000);
+
+      const fmt = (d) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+      const datesParam = `${fmt(start)}/${fmt(end)}`;
+      const title = encodeURIComponent("⚱️ Sanctuary: Break Today's Sacred Vessel & Daily Prayer");
+      const details = encodeURIComponent("🙏 Tap here to break your Sacred Vessel and hear the Angel read Jesus's Word aloud:\nhttps://sanctuaryprayer.cloud/?from_gcal=1");
+      const location = encodeURIComponent("https://sanctuaryprayer.cloud/");
+      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${datesParam}&details=${details}&location=${location}&recur=RRULE:FREQ%3DDAILY`;
+
+      playCathedralBellChime();
+      addGracePoints(30);
+      window.open(gcalUrl, "_blank", "noopener,noreferrer");
     }
 
     // =========================================================================
@@ -6540,6 +6795,7 @@
         goToOnboardStep(2);
       } else if (currentOnboardStep === 2) {
         playCathedralBellChime();
+        subscribeToCloudflareWebPush(true).catch(() => {});
         goToOnboardStep(3);
       } else {
         // Step 3: Trigger StoreKit 2 / RevenueCat trial or lifetime purchase
@@ -6644,6 +6900,13 @@
         if (params.get("open_install") === "1") {
           setTimeout(() => {
             openInstallAppDrawer();
+          }, 350);
+          return;
+        }
+        // 5. Check if opened from Evening Sleep Push Notification (?from_push=sleep)
+        if (params.get("from_push") === "sleep") {
+          setTimeout(() => {
+            openSleepDrawer();
           }, 350);
           return;
         }

@@ -1,0 +1,17 @@
+name = "sanctuary-push-worker"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Tự động chạy mỗi đầu giờ (0 * * * *) để kiểm tra đúng 8:00 sáng và 21:00 tối
+# theo múi giờ địa phương của từng người dùng tại Mỹ / Quốc tế
+[triggers]
+crons = ["0 * * * *"]
+
+[vars]
+VAPID_PUBLIC_KEY = "BI2MjL6A4LjEFE2YxNE2bLp0_xMVvnoKZ_Pa_Bi-imPOE6h-YKIX9ke2VDMlvQIfMDJOcN0RCwxg3xQ65ykCTZA"
+VAPID_SUBJECT = "mailto:support@sanctuaryprayer.cloud"
+
+# Sau khi tạo KV Namespace tên SANCTUARY_PUSH_KV trên Cloudflare, dán ID vào đây:
+# [[kv_namespaces]]
+# binding = "SANCTUARY_PUSH_KV"
+# id = "YOUR_CLOUDFLARE_KV_ID"
