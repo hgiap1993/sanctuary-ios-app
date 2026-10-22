@@ -2161,8 +2161,8 @@
           </div>
 
           <div>
-            <div style="font-family:'Cinzel',serif; font-size:10px; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase;">
-              Sleep Timer & Night Soundscape
+            <div id="sleepCountdownStatus" style="font-family:'Cinzel',serif; font-size:10.5px; color:var(--gold-bright); margin-bottom:6px; text-transform:uppercase; font-weight:700;">
+              ⏱️ Sleep Timer: 15 Min Selected • Night Soundscape
             </div>
             <div style="display:flex; gap:6px; justify-content:center; margin-bottom:10px; flex-wrap:wrap;">
               <button class="mood-pill active" onclick="setSleepTimer(15, this)">⏱️ 15 Min</button>
@@ -4114,9 +4114,14 @@
       }
     }
 
-    function speakTeachingAloud(teaching, prayerText) {
+    function speakTeachingAloud(teaching, prayerText, onComplete) {
       const waveEl = document.getElementById("voiceWave");
-      if (voiceMuted || !teaching) return;
+      if (voiceMuted || !teaching) {
+        if (typeof onComplete === "function") {
+          setTimeout(onComplete, 4000);
+        }
+        return;
+      }
 
       stopAllAngelSpeech();
       const sessionId = currentSpeechSessionId;
@@ -4165,6 +4170,9 @@
           if (sessionId === currentSpeechSessionId) {
             if (waveEl) waveEl.classList.remove("speaking");
             stopWarmSpeechPad();
+            if (typeof onComplete === "function" && currentIdx >= segments.length) {
+              onComplete();
+            }
           }
           return;
         }
@@ -5519,12 +5527,47 @@
     // =========================================================================
     let sleepPlaying = false;
     let sleepLoopInterval = null;
+    let sleepNextVerseTimeout = null;
+    let sleepCountdownInterval = null;
+    let sleepSelectedMinutes = 15;
+    let sleepRemainingSeconds = 15 * 60;
+    let sleepWakeLock = null;
     let rainNode = null;
     let rainGain = null;
     let rainActive = false;
 
+    async function requestSleepWakeLock() {
+      try {
+        if ("wakeLock" in navigator && navigator.wakeLock && typeof navigator.wakeLock.request === "function") {
+          sleepWakeLock = await navigator.wakeLock.request("screen");
+        }
+      } catch (e) {}
+    }
+
+    function releaseSleepWakeLock() {
+      try {
+        if (sleepWakeLock) {
+          sleepWakeLock.release().catch(() => {});
+          sleepWakeLock = null;
+        }
+      } catch (e) {}
+    }
+
+    function updateSleepCountdownUI() {
+      const label = document.getElementById("sleepCountdownStatus");
+      if (!label) return;
+      if (!sleepPlaying) {
+        label.textContent = `⏱️ Sleep Timer: ${sleepSelectedMinutes} Min Selected • Night Soundscape`;
+        return;
+      }
+      const mm = String(Math.floor(sleepRemainingSeconds / 60)).padStart(2, "0");
+      const ss = String(sleepRemainingSeconds % 60).padStart(2, "0");
+      label.textContent = `🌙 Auto-Stop Sleep Timer: ${mm}:${ss} Remaining`;
+    }
+
     function openSleepDrawer() {
       closeAllDrawers();
+      updateSleepCountdownUI();
       document.getElementById("sleepDrawer").classList.add("open");
     }
 
@@ -5532,14 +5575,20 @@
       if (sleepPlaying) toggleSleepAutoPlay();
       if (breathGuideActive) toggleBreathPrayerGuide();
       if (rainActive) toggleNightRain();
+      releaseSleepWakeLock();
       closeAllDrawers();
     }
 
     function setSleepTimer(mins, btnEl) {
+      sleepSelectedMinutes = mins;
+      sleepRemainingSeconds = mins * 60;
       document.querySelectorAll("#sleepDrawer .mood-pill").forEach(b => {
-        if (b.id !== "rainToggleBtn") b.classList.remove("active");
+        if (b.id !== "rainToggleBtn" && !(b.getAttribute("onclick") || "").includes("openVoiceDrawer")) {
+          b.classList.remove("active");
+        }
       });
-      btnEl.classList.add("active");
+      if (btnEl) btnEl.classList.add("active");
+      updateSleepCountdownUI();
     }
 
     function toggleNightRain() {
@@ -5597,28 +5646,68 @@
     function toggleSleepAutoPlay() {
       sleepPlaying = !sleepPlaying;
       const btn = document.getElementById("sleepStartBtn");
+      clearInterval(sleepLoopInterval);
+      clearTimeout(sleepNextVerseTimeout);
+      clearInterval(sleepCountdownInterval);
+
       if (sleepPlaying) {
+        sleepRemainingSeconds = sleepSelectedMinutes * 60;
         btn.textContent = "⏸️ Pause Night Sanctuary Reading";
         if (!harpPlaying) toggleAmbientHarp();
         if (!rainActive) toggleNightRain();
+        requestSleepWakeLock();
+        updateSleepCountdownUI();
+
+        sleepCountdownInterval = setInterval(() => {
+          if (!sleepPlaying) return;
+          sleepRemainingSeconds = Math.max(0, sleepRemainingSeconds - 1);
+          updateSleepCountdownUI();
+          if (sleepRemainingSeconds <= 0) {
+            // Auto-stop when timer expires so the user sleeps peacefully
+            toggleSleepAutoPlay();
+            if (rainActive) toggleNightRain();
+            if (harpPlaying) toggleAmbientHarp();
+            if (breathGuideActive) toggleBreathPrayerGuide();
+          }
+        }, 1000);
+
         readNextSleepVerse();
-        sleepLoopInterval = setInterval(readNextSleepVerse, 18000);
       } else {
         btn.textContent = "▶️ Start Continuous Night Reading";
-        clearInterval(sleepLoopInterval);
+        releaseSleepWakeLock();
         stopAllAngelSpeech();
+        updateSleepCountdownUI();
       }
     }
 
     function readNextSleepVerse() {
       if (!sleepPlaying) return;
+      clearTimeout(sleepNextVerseTimeout);
       const picked = getNextRandomTeaching();
       const t = picked.teaching;
       const moodData = MOOD_PRAYERS[t.mood] || MOOD_PRAYERS.peace;
       document.getElementById("sleepVerseTheme").textContent = t.theme;
       document.getElementById("sleepVerseText").textContent = `“${t.text}”`;
       document.getElementById("sleepVerseRef").textContent = t.ref;
-      speakTeachingAloud(t, moodData.prayer);
+
+      if ("mediaSession" in navigator && typeof MediaMetadata !== "undefined") {
+        try {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: `${t.theme} — ${t.ref}`,
+            artist: "Sanctuary: Night Sleep Word",
+            album: "The Twelve Sacred Vessels"
+          });
+          navigator.mediaSession.setActionHandler("play", () => { if (!sleepPlaying) toggleSleepAutoPlay(); });
+          navigator.mediaSession.setActionHandler("pause", () => { if (sleepPlaying) toggleSleepAutoPlay(); });
+        } catch (e) {}
+      }
+
+      speakTeachingAloud(t, moodData.prayer, () => {
+        if (!sleepPlaying) return;
+        sleepNextVerseTimeout = setTimeout(() => {
+          if (sleepPlaying) readNextSleepVerse();
+        }, 4500);
+      });
     }
 
     // =========================================================================
