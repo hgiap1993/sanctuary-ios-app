@@ -1967,7 +1967,7 @@
         <div class="revelation-actions">
           <button class="btn-sacred btn-secondary-outline" onclick="replayAngelVoice()">🔊 Listen</button>
           <button class="btn-sacred btn-secondary-outline" onclick="openViralShareDrawer()" style="border-color:#ffd97d; color:#ffd97d;">📲 Share</button>
-          <button class="btn-sacred btn-primary-gold" onclick="closeAngelModal()">🔨 Next Jar</button>
+          <button class="btn-sacred btn-primary-gold" id="nextJarModalBtn" onclick="closeAngelModal()">🔨 Next Jar</button>
         </div>
       </div>
 
@@ -2720,13 +2720,12 @@
         </div>
       </div>
 
-      <!-- Sacred 3-Step Onboarding & Soft Trial Paywall Experience (First Visit / ✨ Intro Button) -->
+      <!-- Sacred 2-Step Personalization Intro (Zero First-Visit Paywall — Pure Experience First!) -->
       <div class="onboarding-overlay" id="onboardingOverlay">
         <div>
           <div style="display:flex; justify-content:center; gap:6px; margin-bottom:8px;">
-            <span id="onboardDot1" onclick="goToOnboardStep(1)" style="cursor:pointer; padding:3px 10px; border-radius:99px; font-family:'Cinzel',serif; font-size:9.5px; font-weight:700; background:linear-gradient(90deg,#ffd97d,#d4af37); color:#161006;">1 • Heart &amp; Voice</span>
-            <span id="onboardDot2" onclick="goToOnboardStep(2)" style="cursor:pointer; padding:3px 10px; border-radius:99px; font-family:'Cinzel',serif; font-size:9.5px; font-weight:700; background:rgba(255,255,255,0.08); color:var(--text-muted);">2 • Daily Bells</span>
-            <span id="onboardDot3" onclick="goToOnboardStep(3)" style="cursor:pointer; padding:3px 10px; border-radius:99px; font-family:'Cinzel',serif; font-size:9.5px; font-weight:700; background:rgba(255,255,255,0.08); color:var(--text-muted);">3 • Sanctuary Pass</span>
+            <span id="onboardDot1" onclick="goToOnboardStep(1)" style="cursor:pointer; padding:3px 12px; border-radius:99px; font-family:'Cinzel',serif; font-size:9.5px; font-weight:700; background:linear-gradient(90deg,#ffd97d,#d4af37); color:#161006;">1 • Heart &amp; Voice</span>
+            <span id="onboardDot2" onclick="goToOnboardStep(2)" style="cursor:pointer; padding:3px 12px; border-radius:99px; font-family:'Cinzel',serif; font-size:9.5px; font-weight:700; background:rgba(255,255,255,0.08); color:var(--text-muted);">2 • Daily Bells</span>
           </div>
           <div style="font-size:36px; margin-bottom:2px; filter:drop-shadow(0 0 18px rgba(255,215,0,0.65));" id="onboardHeroIcon">⚱️✨</div>
           <div class="sanctuary-subtitle" id="onboardHeroSubtitle">Welcome to the Sacred Sanctuary</div>
@@ -3701,6 +3700,16 @@
       updateFavHeartUI();
       addGracePoints(10);
 
+      const nextJarBtn = document.getElementById("nextJarModalBtn");
+      if (nextJarBtn) {
+        if (isSanctuaryVIP) {
+          nextJarBtn.textContent = "🔨 Next Jar";
+        } else {
+          const rem = Math.max(0, 3 - freeDailyVesselsUsed);
+          nextJarBtn.textContent = rem > 0 ? `🔨 Next (${rem} Free)` : "👑 Unlock All 12";
+        }
+      }
+
       document.getElementById("angelModal").classList.add("visible");
       speakTeachingAloud(teaching, moodData.prayer);
     }
@@ -4299,6 +4308,13 @@
         setTimeout(() => {
           openGoldenVesselDrawer();
         }, 380);
+        return;
+      }
+      // After breaking all 3 Free Daily Vessels, gently propose upgrading to Sanctuary Pass VIP!
+      if (!isSanctuaryVIP && freeDailyVesselsUsed >= 3) {
+        setTimeout(() => {
+          openPaywallDrawer("limit_reached");
+        }, 320);
       }
     }
 
@@ -6797,25 +6813,18 @@
 
       if (stepNum === 1) {
         if (iconEl) iconEl.textContent = "⚱️✨";
-        if (subEl) subEl.textContent = "Step 1 of 3 • Personalize Your Sanctuary";
+        if (subEl) subEl.textContent = "Step 1 of 2 • Personalize Your Sanctuary";
         if (titleEl) titleEl.textContent = "The Twelve Sacred Vessels";
         if (descEl) descEl.innerHTML = "Each ancient clay vessel holds a living <strong>Red-Letter Word of Jesus Christ</strong>, a sacred Biblical relic, and an Angelic prayer spoken aloud.";
-        if (primaryBtn) primaryBtn.textContent = "✨ Next: Set Daily Prayer Bells (Step 2/3) →";
-        if (secondaryLink) secondaryLink.textContent = "Skip Intro & Enter Free Tier (3 Vessels/Day) →";
-      } else if (stepNum === 2) {
+        if (primaryBtn) primaryBtn.textContent = "✨ Next: Set Daily Prayer Bells (Step 2/2) →";
+        if (secondaryLink) secondaryLink.textContent = "Skip & Break Your 1st Free Sacred Vessel Now →";
+      } else {
         if (iconEl) iconEl.textContent = "🔔🕊️";
-        if (subEl) subEl.textContent = "Step 2 of 3 • Daily Spiritual Rhythm";
+        if (subEl) subEl.textContent = "Step 2 of 2 • Daily Spiritual Rhythm";
         if (titleEl) titleEl.textContent = "Cathedral Bell Reminders";
         if (descEl) descEl.innerHTML = "Believers who set a daily Morning &amp; Evening prayer bell experience <strong>3x deeper peace</strong> and build an unbreakable 7-Day Miracle Streak.";
-        if (primaryBtn) primaryBtn.textContent = "✨ Next: Unlock Your 7-Day Free Gift (Step 3/3) →";
-        if (secondaryLink) secondaryLink.textContent = "Skip & Strike First Sacred Vessel Now →";
-      } else {
-        if (iconEl) iconEl.textContent = "👑👼";
-        if (subEl) subEl.textContent = "Step 3 of 3 • Try Everything Free for 7 Days";
-        if (titleEl) titleEl.textContent = "Unlock the Full Sanctuary";
-        if (descEl) descEl.innerHTML = "Experience all <strong>12 Sacred Vessels</strong>, the <strong>13th Golden Chalice</strong>, all <strong>365+ Words of Jesus</strong> &amp; <strong>Night Rain Sleep Mode</strong> free.";
-        selectOnboardTrialPlan(onboardSelectedPlan);
-        if (secondaryLink) secondaryLink.textContent = "Continue with Free Tier (3 Vessels/Day) & Strike First Vessel →";
+        if (primaryBtn) primaryBtn.textContent = "🔨 Enter Sanctuary & Break 1st Free Vessel →";
+        if (secondaryLink) secondaryLink.textContent = "Continue to 12 Sacred Vessels (3 Free/Day) →";
       }
     }
 
@@ -6838,41 +6847,16 @@
     function selectOnboardTrialPlan(plan) {
       onboardSelectedPlan = plan;
       selectedPaywallPlan = plan;
-      const ann = document.getElementById("onboardPlanAnnual");
-      const life = document.getElementById("onboardPlanLifetime");
-      if (ann) ann.classList.toggle("selected", plan === "annual");
-      if (life) life.classList.toggle("selected", plan === "lifetime");
-
-      const primaryBtn = document.getElementById("onboardPrimaryBtn");
-      if (primaryBtn && currentOnboardStep === 3) {
-        primaryBtn.textContent = plan === "lifetime"
-          ? "👑 Unlock Lifetime Sanctuary Pass ($49.99 Once)"
-          : "✨ Start 7-Day Free Trial ($0.00 Today)";
-      }
     }
 
     async function handleOnboardPrimaryAction() {
       if (currentOnboardStep === 1) {
         playHarpArpeggioNote();
         goToOnboardStep(2);
-      } else if (currentOnboardStep === 2) {
-        playCathedralBellChime();
-        subscribeToCloudflareWebPush(true).catch(() => {});
-        goToOnboardStep(3);
       } else {
-        // Step 3: Trigger StoreKit 2 / RevenueCat trial or lifetime purchase
-        selectedPaywallPlan = onboardSelectedPlan || "annual";
-        selectPaywallPlan(selectedPaywallPlan);
-        closeOnboardingOverlay();
-        if (window.SacredIOSBridge && typeof window.SacredIOSBridge.purchasePlan === "function") {
-          const res = await window.SacredIOSBridge.purchasePlan(selectedPaywallPlan);
-          if (res && res.handled) {
-            if (res.success) confirmApplePaySubscription();
-            return;
-          }
-        }
-        openPaywallDrawer("Complete Your StoreKit 2 Confirmation Below");
-        showApplePaySheet();
+        // Step 2 finishes onboarding and lets user break their first free vessel immediately (NO Paywall!)
+        subscribeToCloudflareWebPush(true).catch(() => {});
+        completeOnboardingAndStrikeFirst();
       }
     }
 
@@ -6973,9 +6957,16 @@
           return;
         }
         if (params.get("verse")) return; // Skip onboarding if opening a friend's shared verse deep link
+        // Let first-time visitors experience the 12 Sacred Vessels immediately without any blocking modal or paywall!
         const done = localStorage.getItem("sacred_onboarding_done_v1");
         if (!done) {
-          openOnboardingOverlay();
+          localStorage.setItem("sacred_onboarding_done_v1", "1");
+          setTimeout(() => {
+            triggerSanctuaryNotification(
+              "🕊️ Welcome to Sanctuary",
+              "Tap any Sacred Clay Vessel below to break it and hear the Angel read Jesus's Word for your heart today (3 Free Vessels/Day)."
+            );
+          }, 700);
         }
       } catch (e) {}
     }
