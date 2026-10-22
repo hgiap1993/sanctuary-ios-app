@@ -403,14 +403,40 @@
     <!-- SUPPORT SECTION -->
     <section id="support" class="legal-section">
       <h2>💌 Customer Support &amp; Developer Contact Information</h2>
-      <p>Need help activating your VIP Pass, managing your Google Play or App Store subscription, or requesting a refund?</p>
+      <p>Need help activating your VIP Pass, managing your subscription, or requesting a refund?</p>
       <ul>
         <li><strong>App Package ID:</strong> <code>com.sacredvessels.jesuswords</code></li>
-        <li><strong>Official Website &amp; Privacy URL:</strong> <a href="https://hgiap1993.github.io/sanctuary-ios-app/privacy-terms.html" style="color:var(--gold-bright);">https://hgiap1993.github.io/sanctuary-ios-app/privacy-terms.html</a></li>
-        <li><strong>Developer &amp; Support Email:</strong> <a href="mailto:hoanggiap.mkt@gmail.com" style="color:var(--gold-bright);">hoanggiap.mkt@gmail.com</a> / support@sanctuaryprayer.cloud</li>
-        <li><strong>How to Restore VIP Purchases:</strong> Open the Sanctuary app &rarr; Tap <strong>👑 13th Jar / VIP Pass</strong> &rarr; Tap <strong>Restore Purchases</strong> at the bottom of the screen.</li>
+        <li><strong>Official Website &amp; Privacy URL:</strong> <a id="officialPrivacyLink" href="./privacy-terms.html" style="color:var(--gold-bright);">https://sanctuaryprayer.cloud/privacy-terms.html</a></li>
+        <li><strong>Developer &amp; Support Email:</strong> <a href="mailto:hoanggiap.mkt@gmail.com" style="color:var(--gold-bright);">hoanggiap.mkt@gmail.com</a></li>
+        <li><strong>How to Activate or Restore VIP Purchases:</strong> Open the Sanctuary app &rarr; Tap <strong>💎 VIP Pass</strong> &rarr; Enter your License Key or tap <strong>Restore Purchases</strong> at the bottom of the screen.</li>
       </ul>
     </section>
   </div>
+  <script>
+    // Automatically adapt displayed domain name to whatever custom domain this package is hosted on
+    (function adaptDomain() {
+      try {
+        var host = window.location.hostname;
+        var origin = window.location.origin;
+        if (!host || host === "localhost" || host === "127.0.0.1" || !origin.startsWith("http")) return;
+        document.querySelectorAll("a[href*='sanctuaryprayer.cloud']").forEach(function(a) {
+          a.href = a.href.replace(/https?:\/\/sanctuaryprayer\.cloud/g, origin);
+          if (a.textContent.includes("sanctuaryprayer.cloud")) {
+            a.textContent = a.textContent.replace(/sanctuaryprayer\.cloud/g, host);
+          }
+        });
+        document.querySelectorAll("code").forEach(function(c) {
+          if (c.textContent.includes("sanctuaryprayer.cloud")) {
+            c.textContent = c.textContent.replace(/sanctuaryprayer\.cloud/g, host);
+          }
+        });
+        var privLink = document.getElementById("officialPrivacyLink");
+        if (privLink) {
+          privLink.href = origin + "/privacy-terms.html";
+          privLink.textContent = origin + "/privacy-terms.html";
+        }
+      } catch (e) {}
+    })();
+  </script>
 </body>
 </html>

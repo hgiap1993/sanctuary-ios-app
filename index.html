@@ -4556,7 +4556,16 @@
     // =========================================================================
     // 8. VIRAL SOCIAL SHARING STUDIO, 9:16 STORY GENERATOR & DEEP-LINK ENGINE
     // =========================================================================
-    const APP_PUBLIC_URL = "https://sanctuaryprayer.cloud/";
+    const APP_PUBLIC_URL = (
+      typeof window !== "undefined" &&
+      window.location &&
+      window.location.origin &&
+      window.location.origin.startsWith("http") &&
+      !window.location.hostname.includes("localhost") &&
+      !window.location.hostname.includes("127.0.0.1")
+    )
+      ? (window.location.origin + "/")
+      : "https://sanctuaryprayer.cloud/";
     let viralCardRatio = "story"; // 'story' (1080x1920), 'post' (1080x1350), 'scroll' (1080x1620)
     let viralCardTheme = "gold";  // 'gold', 'starlight', 'dawn', 'parchment'
     let viralShareCount = 0;
@@ -5856,14 +5865,16 @@
       const yyyy = now.getFullYear();
       const mm = String(now.getMonth() + 1).padStart(2, "0");
       const dd = String(now.getDate()).padStart(2, "0");
-      const publicUrl = "https://sanctuaryprayer.cloud/?from_calendar=1";
+      const baseOrigin = APP_PUBLIC_URL.replace(/\/$/, "");
+      const hostDomain = baseOrigin.replace(/^https?:\/\//, "");
+      const publicUrl = `${baseOrigin}/?from_calendar=1`;
 
       const eventsICS = listToExport.map((r, i) => {
         const [hour, minute] = r.time.split(":");
         const dtStart = `${yyyy}${mm}${dd}T${hour}${minute}00`;
         return [
           "BEGIN:VEVENT",
-          `UID:sacred-vessels-${r.id}-${i}@sanctuaryprayer.cloud`,
+          `UID:sacred-vessels-${r.id}-${i}@${hostDomain}`,
           `DTSTAMP:${dtStart}Z`,
           `DTSTART:${dtStart}`,
           "DURATION:PT15M",
@@ -5875,7 +5886,7 @@
           "BEGIN:VALARM",
           "TRIGGER:-PT0M",
           "ACTION:DISPLAY",
-          `DESCRIPTION:⚱️ ${r.title}: Tap to open https://sanctuaryprayer.cloud/ and break your Sacred Vessel!`,
+          `DESCRIPTION:⚱️ ${r.title}: Tap to open ${baseOrigin}/ and break your Sacred Vessel!`,
           "END:VALARM",
           "BEGIN:VALARM",
           "TRIGGER:-PT5M",
@@ -5907,7 +5918,7 @@
       addGracePoints(30);
       triggerSanctuaryNotification(
         "📅 Calendar Prayer Bell Ready (+30 Grace)",
-        "Tap 'Add' / 'Save' on the Calendar prompt so your phone rings daily with a 1-tap link back to https://sanctuaryprayer.cloud/!"
+        `Tap 'Add' / 'Save' on the Calendar prompt so your phone rings daily with a 1-tap link back to ${baseOrigin}/!`
       );
     }
 
@@ -5918,11 +5929,12 @@
       start.setHours(hh || 7, mm || 0, 0, 0);
       const end = new Date(start.getTime() + 15 * 60 * 1000);
 
+      const baseOrigin = APP_PUBLIC_URL.replace(/\/$/, "");
       const fmt = (d) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
       const datesParam = `${fmt(start)}/${fmt(end)}`;
       const title = encodeURIComponent("⚱️ Sanctuary: Break Today's Sacred Vessel & Daily Prayer");
-      const details = encodeURIComponent("🙏 Tap here to break your Sacred Vessel and hear the Angel read Jesus's Word aloud:\nhttps://sanctuaryprayer.cloud/?from_gcal=1");
-      const location = encodeURIComponent("https://sanctuaryprayer.cloud/");
+      const details = encodeURIComponent(`🙏 Tap here to break your Sacred Vessel and hear the Angel read Jesus's Word aloud:\n${baseOrigin}/?from_gcal=1`);
+      const location = encodeURIComponent(`${baseOrigin}/`);
       const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${datesParam}&details=${details}&location=${location}&recur=RRULE:FREQ%3DDAILY`;
 
       playCathedralBellChime();
