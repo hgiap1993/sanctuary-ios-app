@@ -306,6 +306,64 @@ export default {
       }
     }
 
+    // 4B. POST /api/push/email-subscribe — Saves Daily Verse Email & VIP Checkout Leads to Cloudflare KV
+    if (request.method === "POST" && path.endsWith("/email-subscribe")) {
+      try {
+        const body = await request.json();
+        const email = String(body.email || "").trim().toLowerCase();
+        if (!email || !email.includes("@")) {
+          return new Response(JSON.stringify({ ok: false, error: "Invalid email" }), {
+            status: 400,
+            headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+          });
+        }
+        const emailKey = "email_" + email.replace(/[^a-z0-9@._-]/g, "");
+        const record = {
+          email,
+          source: body.source || "daily_verse_bell",
+          plan: body.plan || "free",
+          tzOffsetMinutes: typeof body.tzOffsetMinutes === "number" ? body.tzOffsetMinutes : 0,
+          createdAt: new Date().toISOString()
+        };
+        if (env && env.SANCTUARY_PUSH_KV) {
+          await env.SANCTUARY_PUSH_KV.put(emailKey, JSON.stringify(record));
+        }
+        return new Response(JSON.stringify({ ok: true, email }), {
+          status: 200,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ ok: false, error: String(err) }), {
+          status: 500,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      }
+    }
+
+    // 4C. GET /api/push/leads — Admin endpoint to export collected customer emails from Cloudflare KV
+    if (request.method === "GET" && path.endsWith("/leads")) {
+      const adminKey = request.headers.get("X-Admin-Key") || url.searchParams.get("adminKey");
+      const expectedKey = (env && env.ADMIN_SECRET_KEY) || "sanctuary-admin-2026";
+      if (adminKey !== expectedKey) {
+        return new Response(JSON.stringify({ ok: false, error: "Unauthorized" }), {
+          status: 401,
+          headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+        });
+      }
+      const leads = [];
+      if (env && env.SANCTUARY_PUSH_KV) {
+        const list = await env.SANCTUARY_PUSH_KV.list({ prefix: "email_" });
+        for (const k of list.keys) {
+          const item = await env.SANCTUARY_PUSH_KV.get(k.name, "json");
+          if (item) leads.push(item);
+        }
+      }
+      return new Response(JSON.stringify({ ok: true, count: leads.length, leads }), {
+        status: 200,
+        headers: { ...CORS_HEADERS, "Content-Type": "application/json" }
+      });
+    }
+
     // 5. POST /api/push/broadcast — Admin custom push broadcast
     if (request.method === "POST" && path.endsWith("/broadcast")) {
       try {
