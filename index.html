@@ -1241,7 +1241,7 @@
     /* iOS Push Notification Banner (Drops from Dynamic Island) */
     .ios-push-banner {
       position: absolute;
-      top: 46px;
+      top: 12px;
       left: 12px;
       right: 12px;
       background: rgba(28, 20, 12, 0.96);
@@ -1254,13 +1254,17 @@
       align-items: center;
       gap: 12px;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.28);
-      transform: translateY(-160%);
-      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translateY(-220%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
       cursor: pointer;
     }
 
     .ios-push-banner.show {
       transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .push-app-icon {

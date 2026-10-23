@@ -1,12 +1,12 @@
 import React, { useRef, useCallback, useEffect } from "react";
-import { StyleSheet, SafeAreaView, Platform, StatusBar as RNStatusBar, Vibration } from "react-native";
+import { StyleSheet, SafeAreaView, Platform, StatusBar as RNStatusBar, Vibration, Share } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { WebView } from "react-native-webview";
 import { SANCTUARY_HTML } from "./sanctuaryHtml";
 
 /**
- * Direct Apple StoreKit 2 / StoreKit 1 Bridge (react-native-iap) + Optional RevenueCat SDK:
- * Connects directly to Apple App Store Connect SKUs configured under App ID 6824383974:
+ * Direct Apple StoreKit 2 / Google Play Billing Bridge (react-native-iap) + Optional RevenueCat SDK:
+ * Connects directly to Apple App Store Connect & Google Play Console SKUs:
  * - com.sacredvessels.pass.yearly   (Subscription: $19.99/yr + 7-Day Free Trial)
  * - com.sacredvessels.pass.monthly  (Subscription: $2.99/mo)
  * - com.sacredvessels.pass.lifetime (Non-Consumable: $49.99 Lifetime Pass)
@@ -37,6 +37,7 @@ try {
 export default function App() {
   const webViewRef = useRef(null);
   const storeKitConnectedRef = useRef(false);
+  const subscriptionsMapRef = useRef({});
 
   const sendResponseToWebView = useCallback((payload) => {
     if (!webViewRef.current) return;
@@ -54,9 +55,21 @@ export default function App() {
     if (storeKitConnectedRef.current) return true;
     try {
       await RNIap.initConnection();
+      if (Platform.OS === "android" && typeof RNIap.flushFailedPurchasesCachedAsPendingAndroid === "function") {
+        try {
+          await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
+        } catch (e) {}
+      }
       storeKitConnectedRef.current = true;
       try {
-        await RNIap.getSubscriptions({ skus: SUBSCRIPTION_SKUS });
+        const subs = await RNIap.getSubscriptions({ skus: SUBSCRIPTION_SKUS });
+        if (Array.isArray(subs)) {
+          subs.forEach((sub) => {
+            if (sub?.productId) {
+              subscriptionsMapRef.current[sub.productId] = sub;
+            }
+          });
+        }
       } catch (e) {}
       try {
         await RNIap.getProducts({ skus: INAPP_SKUS });
@@ -94,8 +107,22 @@ export default function App() {
         return;
       }
 
+      if (type === "SHARE_BLESSING_CARD") {
+        try {
+          await Share.share({
+            title: payload?.title || "⚱️ Sanctuary: 12 Sacred Vessels",
+            message: payload?.caption || "",
+            url: payload?.dataUrl || payload?.deepLink || ""
+          });
+          sendResponseToWebView({ requestId, handled: true, success: true });
+        } catch (e) {
+          sendResponseToWebView({ requestId, handled: true, success: false });
+        }
+        return;
+      }
+
       if (type === "INIT_STOREKIT") {
-        // 1. Direct Apple StoreKit via react-native-iap
+        // 1. Direct Apple StoreKit / Google Play Billing via react-native-iap
         const connected = await ensureStoreKitConnected();
         if (connected && RNIap) {
           try {
@@ -138,21 +165,48 @@ export default function App() {
             ? "com.sacredvessels.pass.monthly"
             : "com.sacredvessels.pass.yearly");
 
-        // 1. Direct Apple StoreKit Purchase via react-native-iap
+        // 1. Direct Apple StoreKit / Google Play Billing Purchase via react-native-iap
         const connected = await ensureStoreKitConnected();
         if (connected && RNIap) {
           try {
             let purchaseResult = null;
             if (planType === "lifetime") {
-              purchaseResult = await RNIap.requestPurchase({
-                sku: productId,
-                andDangerouslyFinishTransactionAutomaticallyIOS: false
-              });
+              purchaseResult = await RNIap.requestPurchase(
+                Platform.OS === "android"
+                  ? { skus: [productId] }
+                  : {
+                      sku: productId,
+                      andDangerouslyFinishTransactionAutomaticallyIOS: false
+                    }
+              );
             } else {
-              purchaseResult = await RNIap.requestSubscription({
-                sku: productId,
-                andDangerouslyFinishTransactionAutomaticallyIOS: false
-              });
+              if (Platform.OS === "android") {
+                let subItem = subscriptionsMapRef.current[productId];
+                if (!subItem) {
+                  try {
+                    const fetched = await RNIap.getSubscriptions({ skus: [productId] });
+                    if (Array.isArray(fetched) && fetched[0]) {
+                      subItem = fetched[0];
+                      subscriptionsMapRef.current[productId] = subItem;
+                    }
+                  } catch (e) {}
+                }
+                const offerToken =
+                  subItem?.subscriptionOfferDetails?.[0]?.offerToken || null;
+                purchaseResult = await RNIap.requestSubscription(
+                  offerToken
+                    ? {
+                        sku: productId,
+                        subscriptionOffers: [{ sku: productId, offerToken }]
+                      }
+                    : { sku: productId }
+                );
+              } else {
+                purchaseResult = await RNIap.requestSubscription({
+                  sku: productId,
+                  andDangerouslyFinishTransactionAutomaticallyIOS: false
+                });
+              }
             }
 
             const purchaseObj = Array.isArray(purchaseResult) ? purchaseResult[0] : purchaseResult;
@@ -178,7 +232,11 @@ export default function App() {
               handled: true,
               success: false,
               cancelled: isCancelled,
-              errorMessage: isCancelled ? "" : "Unable to complete App Store purchase at this moment. Please try again."
+              errorMessage: isCancelled
+                ? ""
+                : Platform.OS === "ios"
+                ? "Unable to complete App Store purchase at this moment. Please try again."
+                : "Unable to complete Google Play / Google Pay purchase at this moment. Please try again."
             });
             return;
           }
@@ -227,13 +285,16 @@ export default function App() {
           handled: true,
           success: false,
           cancelled: false,
-          errorMessage: "Connecting to Apple App Store StoreKit... Please ensure you are signed in to your Apple ID."
+          errorMessage:
+            Platform.OS === "ios"
+              ? "Connecting to Apple App Store StoreKit... Please ensure you are signed in to your Apple ID."
+              : "Connecting to Google Play Billing... Please ensure you are signed in to your Google Play account."
         });
         return;
       }
 
       if (type === "RESTORE_PURCHASES") {
-        // 1. Direct Apple StoreKit Restore via react-native-iap
+        // 1. Direct StoreKit / Google Play Billing Restore via react-native-iap
         const connected = await ensureStoreKitConnected();
         if (connected && RNIap) {
           try {
@@ -280,13 +341,25 @@ export default function App() {
     } catch (e) {}
   }, [ensureStoreKitConnected, sendResponseToWebView]);
 
+  const platformHtml =
+    Platform.OS === "android"
+      ? SANCTUARY_HTML.replace(/Apple App Store Compliance \(Guideline 3\.1\.2\)/g, "Google Play Subscription Terms")
+          .replace(/Settings > Apple ID/g, "Google Play > Payments & subscriptions")
+          .replace(/Apple ID or Google Play account/g, "Google Play account")
+          .replace(/Apple App Store/g, "Google Play Store")
+          .replace(/Apple StoreKit 2/g, "Google Play Billing")
+          .replace(/Apple StoreKit/g, "Google Play Billing")
+          .replace(/App Store/g, "Google Play")
+          .replace(/Apple ID/g, "Google Play account")
+      : SANCTUARY_HTML;
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" backgroundColor="#0b0805" />
       <WebView
         ref={webViewRef}
         originWhitelist={["*"]}
-        source={{ html: SANCTUARY_HTML, baseUrl: "https://sanctuaryprayer.cloud/" }}
+        source={{ html: platformHtml, baseUrl: "https://sanctuaryprayer.cloud/" }}
         style={styles.webview}
         javaScriptEnabled={true}
         domStorageEnabled={true}
