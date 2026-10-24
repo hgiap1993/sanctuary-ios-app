@@ -6790,7 +6790,7 @@
       const checkoutUrl = webUrls[planKey];
       if (checkoutUrl && /^https?:\/\//i.test(checkoutUrl)) {
         const sep = checkoutUrl.includes("?") ? "&" : "?";
-        window.location.href = `${checkoutUrl}${sep}prefilled_email=${encodeURIComponent(email)}`;
+        window.location.href = `${checkoutUrl}${sep}email=${encodeURIComponent(email)}&prefilled_email=${encodeURIComponent(email)}`;
         return;
       }
 

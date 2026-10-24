@@ -26,11 +26,11 @@
    * Paste your LemonSqueezy, Gumroad, Stripe, or PayPal links here (or in the in-app Admin panel):
    */
   const DEFAULT_WEB_CHECKOUT_URLS = {
-    annual: "",   // e.g. "https://yourstore.gumroad.com/l/sanctuary-yearly"
-    lifetime: "", // e.g. "https://yourstore.gumroad.com/l/sanctuary-lifetime"
-    monthly: "",  // e.g. "https://yourstore.gumroad.com/l/sanctuary-monthly"
-    gift: "",     // e.g. "https://yourstore.gumroad.com/l/sanctuary-gift"
-    donate: ""    // e.g. "https://buymeacoffee.com/sanctuary" or LemonSqueezy Pay-What-You-Want URL
+    annual: "https://sanctuaryjesus.gumroad.com/l/todfv",   // Annual Pass ($19.99/yr)
+    lifetime: "https://sanctuaryjesus.gumroad.com/l/sanctuary-lifetime", // Lifetime Eternal Pass ($49.99)
+    monthly: "https://sanctuaryjesus.gumroad.com/l/sanctuary-monthly",  // Monthly Pass ($2.99/mo)
+    gift: "https://sanctuaryjesus.gumroad.com/l/todfv",     // 1-Year Gift Certificate ($19.99)
+    donate: "https://sanctuaryjesus.gumroad.com/l/cqcuro"    // Support the Gospel / Buy Us a Coffee ($3, $5+)
   };
 
   /**
