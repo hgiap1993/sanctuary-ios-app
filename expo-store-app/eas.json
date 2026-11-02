@@ -14,12 +14,13 @@
       }
     },
     "production": {
-      "credentialsSource": "local",
       "autoIncrement": true,
       "android": {
+        "credentialsSource": "remote",
         "buildType": "app-bundle"
       },
       "ios": {
+        "credentialsSource": "local",
         "image": "macos-sequoia-15.6-xcode-26.2",
         "resourceClass": "m-medium"
       }

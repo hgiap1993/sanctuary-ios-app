@@ -1,5 +1,14 @@
 import React, { useRef, useCallback, useEffect } from "react";
-import { StyleSheet, SafeAreaView, Platform, StatusBar as RNStatusBar, Vibration, Share } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  Platform,
+  StatusBar as RNStatusBar,
+  Vibration,
+  Share,
+  BackHandler,
+  Linking
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { WebView } from "react-native-webview";
 import { SANCTUARY_HTML } from "./sanctuaryHtml";
@@ -92,6 +101,48 @@ export default function App() {
     };
   }, [ensureStoreKitConnected]);
 
+  // Native Android Hardware / Gesture Back Button Handler
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+    const onAndroidBackPress = () => {
+      if (!webViewRef.current) return false;
+      webViewRef.current.injectJavaScript(`
+        (function() {
+          try {
+            var morningModal = document.getElementById("morningWordModal");
+            if (morningModal && morningModal.style.display === "flex") {
+              if (typeof closeMorningWordModal === "function") closeMorningWordModal();
+              else morningModal.style.display = "none";
+              return;
+            }
+            var vipModal = document.getElementById("sanctuaryVipCelebrationModal");
+            if (vipModal && vipModal.style.display === "flex") {
+              if (typeof closeSanctuaryVipCelebrationModal === "function") closeSanctuaryVipCelebrationModal();
+              else vipModal.style.display = "none";
+              return;
+            }
+            var openOverlay = document.querySelector(".library-drawer.open, .angel-revelation-overlay.visible, .onboarding-overlay.show, .onboarding-overlay.visible");
+            if (openOverlay && typeof closeAllDrawers === "function") {
+              closeAllDrawers();
+              return;
+            }
+            if (window.ReactNativeWebView && typeof window.ReactNativeWebView.postMessage === "function") {
+              window.ReactNativeWebView.postMessage(JSON.stringify({
+                source: "SacredIOSBridge",
+                type: "ANDROID_EXIT_APP"
+              }));
+            }
+          } catch (e) {}
+        })();
+        true;
+      `);
+      return true;
+    };
+
+    const sub = BackHandler.addEventListener("hardwareBackPress", onAndroidBackPress);
+    return () => sub.remove();
+  }, []);
+
   const handleWebViewMessage = useCallback(async (event) => {
     try {
       const raw = event?.nativeEvent?.data;
@@ -101,6 +152,21 @@ export default function App() {
 
       const { requestId, type, payload } = msg;
 
+      if (type === "ANDROID_EXIT_APP") {
+        if (Platform.OS === "android") {
+          BackHandler.exitApp();
+        }
+        return;
+      }
+
+      if (type === "OPEN_EXTERNAL_URL") {
+        const targetUrl = payload?.url;
+        if (targetUrl && /^https?:\/\//i.test(targetUrl)) {
+          Linking.openURL(targetUrl).catch(() => {});
+        }
+        return;
+      }
+
       if (type === "HAPTIC_IMPACT") {
         Vibration.vibrate(payload?.style === "LIGHT" ? 15 : 45);
         sendResponseToWebView({ requestId, handled: true, success: true });
@@ -109,11 +175,19 @@ export default function App() {
 
       if (type === "SHARE_BLESSING_CARD") {
         try {
-          await Share.share({
-            title: payload?.title || "⚱️ Sanctuary: 12 Sacred Vessels",
-            message: payload?.caption || "",
-            url: payload?.dataUrl || payload?.deepLink || ""
-          });
+          const shareCaption = payload?.caption || "⚱️ Sanctuary: 12 Sacred Vessels — https://sanctuaryjesus.com/";
+          const shareOptions =
+            Platform.OS === "android"
+              ? {
+                  title: payload?.title || "⚱️ Sanctuary: 12 Sacred Vessels",
+                  message: shareCaption
+                }
+              : {
+                  title: payload?.title || "⚱️ Sanctuary: 12 Sacred Vessels",
+                  message: shareCaption,
+                  url: payload?.dataUrl || payload?.deepLink || ""
+                };
+          await Share.share(shareOptions);
           sendResponseToWebView({ requestId, handled: true, success: true });
         } catch (e) {
           sendResponseToWebView({ requestId, handled: true, success: false });
@@ -156,14 +230,14 @@ export default function App() {
       }
 
       if (type === "PURCHASE_PLAN") {
-        const planType = payload?.planType || "annual";
+        const rawPlanType = payload?.planType || "annual";
+        const planType = rawPlanType === "coffee" ? "monthly" : rawPlanType;
         const productId =
-          payload?.productId ||
-          (planType === "lifetime"
+          planType === "lifetime"
             ? "com.sacredvessels.pass.lifetime"
             : planType === "monthly"
             ? "com.sacredvessels.pass.monthly"
-            : "com.sacredvessels.pass.yearly");
+            : "com.sacredvessels.pass.yearly";
 
         // 1. Direct Apple StoreKit / Google Play Billing Purchase via react-native-iap
         const connected = await ensureStoreKitConnected();
@@ -171,6 +245,9 @@ export default function App() {
           try {
             let purchaseResult = null;
             if (planType === "lifetime") {
+              try {
+                await RNIap.getProducts({ skus: [productId] });
+              } catch (e) {}
               purchaseResult = await RNIap.requestPurchase(
                 Platform.OS === "android"
                   ? { skus: [productId] }
@@ -180,17 +257,17 @@ export default function App() {
                     }
               );
             } else {
+              let subItem = subscriptionsMapRef.current[productId];
+              if (!subItem) {
+                try {
+                  const fetched = await RNIap.getSubscriptions({ skus: [productId] });
+                  if (Array.isArray(fetched) && fetched[0]) {
+                    subItem = fetched[0];
+                    subscriptionsMapRef.current[productId] = subItem;
+                  }
+                } catch (e) {}
+              }
               if (Platform.OS === "android") {
-                let subItem = subscriptionsMapRef.current[productId];
-                if (!subItem) {
-                  try {
-                    const fetched = await RNIap.getSubscriptions({ skus: [productId] });
-                    if (Array.isArray(fetched) && fetched[0]) {
-                      subItem = fetched[0];
-                      subscriptionsMapRef.current[productId] = subItem;
-                    }
-                  } catch (e) {}
-                }
                 const offerToken =
                   subItem?.subscriptionOfferDetails?.[0]?.offerToken || null;
                 purchaseResult = await RNIap.requestSubscription(
@@ -343,7 +420,23 @@ export default function App() {
 
   const platformHtml =
     Platform.OS === "android"
-      ? SANCTUARY_HTML.replace(/Apple App Store Compliance \(Guideline 3\.1\.2\)/g, "Google Play Subscription Terms")
+      ? SANCTUARY_HTML
+          .replace(/📅 Sync iPhone \/ Apple Calendar/g, "📅 Download Calendar Alarm (.ics)")
+          .replace(/Apple App Store Compliance \(Guideline 3\.1\.2\)/g, "Google Play Subscription & Privacy Terms")
+          .replace(/Charged to your Apple ID or Google Play account/g, "Charged to your Google Play account")
+          .replace(/Account Settings on the App Store/g, "Payments & subscriptions in Google Play")
+          .replace(/stored 100% locally on your iPhone device/g, "stored 100% locally on your Android device")
+          .replace(/Apple StoreKit &amp; RevenueCat:/g, "Google Play Billing &amp; RevenueCat:")
+          .replace(/validated securely via Apple StoreKit 2/g, "validated securely via Google Play Billing")
+          .replace(/3\. APPLE STANDARD END USER LICENSE AGREEMENT \(EULA\)/g, "3. TERMS OF USE &amp; GOOGLE PLAY USER AGREEMENT")
+          .replace(
+            /This application is licensed under the Standard Apple Licensed Application End User License Agreement: <em>https:\/\/www\.apple\.com\/legal\/internet-services\/itunes\/dev\/stdeula\/<\/em>/g,
+            "This application is governed by the Sanctuary Terms of Use (<em>https://sanctuaryjesus.com/privacy-terms.html#eula</em>) and Google Play Terms of Service."
+          )
+          .replace(/\(APPLE &amp; GOOGLE PLAY COMPLIANCE\)/g, "(GOOGLE PLAY DATA SAFETY COMPLIANCE)")
+          .replace(/No active Sanctuary Pass subscription or Lifetime Pass was found for this Apple ID\./g, "No active Sanctuary Pass subscription or Lifetime Pass was found for this Google Play account.")
+          .replace(/✅ Apple ID Purchases Restored/g, "✅ Google Play Purchases Restored")
+          .replace(/Your Sanctuary Pass VIP entitlement has been restored via StoreKit 2\./g, "Your Sanctuary Pass VIP entitlement has been restored via Google Play Billing.")
           .replace(/Settings > Apple ID/g, "Google Play > Payments & subscriptions")
           .replace(/Apple ID or Google Play account/g, "Google Play account")
           .replace(/Apple App Store/g, "Google Play Store")
@@ -359,7 +452,7 @@ export default function App() {
       <WebView
         ref={webViewRef}
         originWhitelist={["*"]}
-        source={{ html: platformHtml, baseUrl: "https://sanctuaryprayer.cloud/" }}
+        source={{ html: platformHtml, baseUrl: "https://sanctuaryjesus.com/" }}
         style={styles.webview}
         javaScriptEnabled={true}
         domStorageEnabled={true}
@@ -368,10 +461,37 @@ export default function App() {
         bounces={false}
         overScrollMode="never"
         onMessage={handleWebViewMessage}
+        onShouldStartLoadWithRequest={(request) => {
+          const url = request?.url || "";
+          if (
+            !url ||
+            url.startsWith("about:") ||
+            url.startsWith("data:") ||
+            url.startsWith("blob:") ||
+            url.startsWith("https://sanctuaryjesus.com")
+          ) {
+            return true;
+          }
+          if (/^https?:\/\//i.test(url)) {
+            Linking.openURL(url).catch(() => {});
+            return false;
+          }
+          return true;
+        }}
         injectedJavaScriptBeforeContentLoaded={`
           document.addEventListener("DOMContentLoaded", function() {
             document.body.classList.add("fullscreen-mode");
           });
+          window.open = function(url) {
+            if (url && window.ReactNativeWebView && typeof window.ReactNativeWebView.postMessage === "function") {
+              window.ReactNativeWebView.postMessage(JSON.stringify({
+                source: "SacredIOSBridge",
+                type: "OPEN_EXTERNAL_URL",
+                payload: { url: String(url) }
+              }));
+            }
+            return null;
+          };
           true;
         `}
       />
