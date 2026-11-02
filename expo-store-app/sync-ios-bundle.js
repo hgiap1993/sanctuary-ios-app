@@ -174,11 +174,11 @@ html = html.replace(
           </div>
 
           <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-            <button class="btn-sacred btn-secondary-outline" style="flex:1; font-size:11px; padding:8px;" onclick="openViralShareDrawer()">
-              📲 Share a Verse Free (+30 Grace)
+            <button class="btn-sacred btn-secondary-outline" style="flex:1; font-size:11px; padding:8px; border-color:rgba(255,217,125,0.45); color:#ffd97d;" onclick="openAppStoreFiveStarReview()">
+              ⭐ Rate 5 Stars on App Store
             </button>
-            <button class="btn-sacred btn-secondary-outline" style="flex:1; font-size:11px; padding:8px; color:var(--text-muted); border-color:rgba(255,255,255,0.18);" onclick="closeAllDrawers()">
-              Continue to Sanctuary →
+            <button class="btn-sacred btn-secondary-outline" style="flex:1; font-size:11px; padding:8px;" onclick="openViralShareDrawer()">
+              📲 Share a Verse (+30)
             </button>
           </div>
         </div>
@@ -358,7 +358,25 @@ html = html.replace(
       );
     }
 
+    function openAppStoreFiveStarReview() {
+      const reviewUrl = /Android/i.test(navigator.userAgent || "")
+        ? "https://play.google.com/store/apps/details?id=com.sacredvessels.jesuswords"
+        : "https://apps.apple.com/app/id6824383974?action=write-review";
+      window.open(reviewUrl, "_blank");
+    }
+
     document.addEventListener("keydown", (e) => {`
+);
+
+html = html.replace(
+  "closeAllDrawers();\n    }\n\n    function toggleGiftPassBox()",
+  `closeAllDrawers();
+      if (typeof showSanctuaryVipCelebrationModal === "function") {
+        setTimeout(() => { showSanctuaryVipCelebrationModal(); }, 350);
+      }
+    }
+
+    function toggleGiftPassBox()`
 );
 
 // 8. Strip Web-only Checkout Reservation, License Key Redemption & Dev Mode functions
@@ -456,6 +474,10 @@ html = html.replace(
 // 13. Clean web checkout URLs, comments, and license key bypass from inlined ios-storekit-bridge.js
 bridgeJs = bridgeJs.replace(/\/\*[\s\S]*?\*\//g, "");
 bridgeJs = bridgeJs.replace(/^\s*\/\/.*$/gm, "");
+bridgeJs = bridgeJs.replace(
+  'monthly: "com.sacredvessels.pass.monthly",',
+  'monthly: "com.sacredvessels.pass.monthly",\n    coffee: "com.sacredvessels.pass.monthly",'
+);
 bridgeJs = bridgeJs.replace(
   /const DEFAULT_WEB_CHECKOUT_URLS = \{[\s\S]*?\};/,
   "const DEFAULT_WEB_CHECKOUT_URLS = {};"

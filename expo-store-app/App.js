@@ -90,8 +90,36 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    ensureStoreKitConnected();
+    let purchaseUpdateSub = null;
+    ensureStoreKitConnected().then((connected) => {
+      if (connected && RNIap && typeof RNIap.purchaseUpdatedListener === "function") {
+        try {
+          purchaseUpdateSub = RNIap.purchaseUpdatedListener(async (purchase) => {
+            if (!purchase || !ALL_VALID_SKUS.includes(purchase.productId)) return;
+            try {
+              await RNIap.finishTransaction({ purchase, isConsumable: false });
+            } catch (e) {}
+            const plan = purchase.productId.includes("lifetime")
+              ? "lifetime"
+              : purchase.productId.includes("monthly")
+              ? "monthly"
+              : "annual";
+            sendResponseToWebView({
+              handled: true,
+              success: true,
+              isVIP: true,
+              plan
+            });
+          });
+        } catch (e) {}
+      }
+    });
     return () => {
+      if (purchaseUpdateSub && typeof purchaseUpdateSub.remove === "function") {
+        try {
+          purchaseUpdateSub.remove();
+        } catch (e) {}
+      }
       if (RNIap && storeKitConnectedRef.current) {
         try {
           RNIap.endConnection();
@@ -99,7 +127,7 @@ export default function App() {
         storeKitConnectedRef.current = false;
       }
     };
-  }, [ensureStoreKitConnected]);
+  }, [ensureStoreKitConnected, sendResponseToWebView]);
 
   // Native Android Hardware / Gesture Back Button Handler
   useEffect(() => {
@@ -175,7 +203,12 @@ export default function App() {
 
       if (type === "SHARE_BLESSING_CARD") {
         try {
-          const shareCaption = payload?.caption || "⚱️ Sanctuary: 12 Sacred Vessels — https://sanctuaryjesus.com/";
+          const baseCaption = payload?.caption || "⚱️ Sanctuary: 12 Sacred Vessels — https://sanctuaryjesus.com/";
+          const appStoreSuffix =
+            Platform.OS === "ios" && !baseCaption.includes("apps.apple.com")
+              ? "\n📲 iPhone App Store: https://apps.apple.com/app/id6824383974"
+              : "";
+          const shareCaption = baseCaption + appStoreSuffix;
           const shareOptions =
             Platform.OS === "android"
               ? {
@@ -185,7 +218,7 @@ export default function App() {
               : {
                   title: payload?.title || "⚱️ Sanctuary: 12 Sacred Vessels",
                   message: shareCaption,
-                  url: payload?.dataUrl || payload?.deepLink || ""
+                  url: payload?.dataUrl || payload?.deepLink || "https://apps.apple.com/app/id6824383974"
                 };
           await Share.share(shareOptions);
           sendResponseToWebView({ requestId, handled: true, success: true });
@@ -458,6 +491,7 @@ export default function App() {
         domStorageEnabled={true}
         allowsInlineMediaPlayback={true}
         mediaPlaybackRequiresUserAction={false}
+        ignoreSilentSwitch="ignore"
         bounces={false}
         overScrollMode="never"
         onMessage={handleWebViewMessage}
