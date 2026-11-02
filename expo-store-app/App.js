@@ -20,14 +20,31 @@ import { SANCTUARY_HTML } from "./sanctuaryHtml";
  * - com.sacredvessels.pass.monthly  (Subscription: $2.99/mo)
  * - com.sacredvessels.pass.lifetime (Non-Consumable: $49.99 Lifetime Pass)
  */
+const PLAN_SKU_CANDIDATES = {
+  annual: [
+    "com.sacredvessels.pass.yearly.1.1.1",
+    "com.sacredvessels.pass.yearly"
+  ],
+  monthly: [
+    "com.sacredvessels.pass.monthly.1.1.1",
+    "com.sacredvessels.pass.monthly"
+  ],
+  lifetime: [
+    "com.sacredvessels.pass.lifetime.1.1.1",
+    "com.sacredvessels.pass.lifetime"
+  ]
+};
 const SUBSCRIPTION_SKUS = [
-  "com.sacredvessels.pass.yearly",
-  "com.sacredvessels.pass.monthly"
+  ...PLAN_SKU_CANDIDATES.annual,
+  ...PLAN_SKU_CANDIDATES.monthly
 ];
 const INAPP_SKUS = [
-  "com.sacredvessels.pass.lifetime"
+  ...PLAN_SKU_CANDIDATES.lifetime
 ];
 const ALL_VALID_SKUS = [...SUBSCRIPTION_SKUS, ...INAPP_SKUS];
+const isSacredPassSku = (sku) =>
+  Boolean(sku) &&
+  (ALL_VALID_SKUS.includes(sku) || String(sku).startsWith("com.sacredvessels.pass."));
 
 let RNIap = null;
 try {
@@ -95,7 +112,7 @@ export default function App() {
       if (connected && RNIap && typeof RNIap.purchaseUpdatedListener === "function") {
         try {
           purchaseUpdateSub = RNIap.purchaseUpdatedListener(async (purchase) => {
-            if (!purchase || !ALL_VALID_SKUS.includes(purchase.productId)) return;
+            if (!purchase || !isSacredPassSku(purchase.productId)) return;
             try {
               await RNIap.finishTransaction({ purchase, isConsumable: false });
             } catch (e) {}
@@ -235,7 +252,7 @@ export default function App() {
           try {
             const available = await RNIap.getAvailablePurchases();
             const ownedPurchase = Array.isArray(available)
-              ? available.find((p) => ALL_VALID_SKUS.includes(p?.productId))
+              ? available.find((p) => isSacredPassSku(p?.productId))
               : null;
             if (ownedPurchase) {
               const plan = ownedPurchase.productId.includes("lifetime")
@@ -265,12 +282,9 @@ export default function App() {
       if (type === "PURCHASE_PLAN") {
         const rawPlanType = payload?.planType || "annual";
         const planType = rawPlanType === "coffee" ? "monthly" : rawPlanType;
-        const productId =
-          planType === "lifetime"
-            ? "com.sacredvessels.pass.lifetime"
-            : planType === "monthly"
-            ? "com.sacredvessels.pass.monthly"
-            : "com.sacredvessels.pass.yearly";
+        const candidateSkus =
+          PLAN_SKU_CANDIDATES[planType] || PLAN_SKU_CANDIDATES.annual;
+        let productId = candidateSkus[0];
 
         // 1. Direct Apple StoreKit / Google Play Billing Purchase via react-native-iap
         const connected = await ensureStoreKitConnected();
@@ -279,7 +293,10 @@ export default function App() {
             let purchaseResult = null;
             if (planType === "lifetime") {
               try {
-                await RNIap.getProducts({ skus: [productId] });
+                const prods = await RNIap.getProducts({ skus: candidateSkus });
+                if (Array.isArray(prods) && prods[0]?.productId) {
+                  productId = prods[0].productId;
+                }
               } catch (e) {}
               purchaseResult = await RNIap.requestPurchase(
                 Platform.OS === "android"
@@ -290,15 +307,28 @@ export default function App() {
                     }
               );
             } else {
-              let subItem = subscriptionsMapRef.current[productId];
+              let subItem =
+                candidateSkus
+                  .map((sku) => subscriptionsMapRef.current[sku])
+                  .find(Boolean) || null;
               if (!subItem) {
                 try {
-                  const fetched = await RNIap.getSubscriptions({ skus: [productId] });
+                  const fetched = await RNIap.getSubscriptions({ skus: candidateSkus });
                   if (Array.isArray(fetched) && fetched[0]) {
-                    subItem = fetched[0];
-                    subscriptionsMapRef.current[productId] = subItem;
+                    fetched.forEach((s) => {
+                      if (s?.productId) {
+                        subscriptionsMapRef.current[s.productId] = s;
+                      }
+                    });
+                    subItem =
+                      candidateSkus
+                        .map((sku) => subscriptionsMapRef.current[sku])
+                        .find(Boolean) || fetched[0];
                   }
                 } catch (e) {}
+              }
+              if (subItem?.productId) {
+                productId = subItem.productId;
               }
               if (Platform.OS === "android") {
                 const offerToken =
@@ -410,7 +440,7 @@ export default function App() {
           try {
             const available = await RNIap.getAvailablePurchases();
             const ownedPurchase = Array.isArray(available)
-              ? available.find((p) => ALL_VALID_SKUS.includes(p?.productId))
+              ? available.find((p) => isSacredPassSku(p?.productId))
               : null;
             if (ownedPurchase) {
               const plan = ownedPurchase.productId.includes("lifetime")
