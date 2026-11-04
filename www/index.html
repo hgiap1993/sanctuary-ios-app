@@ -1,25 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager (GTM-PJRPDQJQ) -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PJRPDQJQ');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- ========================================================================= -->
+  <!-- SANCTUARY PROPRIETARY ANTI-TAMPER & DOMAIN LOCK ARMOR (DEFENSE-IN-DEPTH)  -->
+  <!-- ========================================================================= -->
+  <script>
+    (function() {
+      // 1. DOMAIN LOCK — Redirects clones/scrapers back to official sanctuaryjesus.com
+      const host = window.location.hostname.toLowerCase();
+      const isAllowedHost = 
+        host === "sanctuaryjesus.com" ||
+        host.endsWith(".sanctuaryjesus.com") ||
+        host === "localhost" ||
+        host === "127.0.0.1" ||
+        host.endsWith(".pages.dev"); // Allows your official Cloudflare Pages staging preview
+
+      if (!isAllowedHost) {
+        // Cloned onto unauthorized domain: Redirect all stolen traffic to official domain
+        try {
+          window.location.replace("https://sanctuaryjesus.com/?ref=clone_redirect");
+        } catch(e) {
+          window.location.href = "https://sanctuaryjesus.com/";
+        }
+      }
+
+      // 2. ANTI-RIGHT-CLICK & CONTEXT MENU PREVENTION
+      document.addEventListener("contextmenu", function(e) {
+        // Allow right-click only inside form inputs for pasting email/license keys
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+        if (tag !== "input" && tag !== "textarea") {
+          e.preventDefault();
+          return false;
+        }
+      }, { passive: false });
+
+      // 3. ANTI-DEVTOOLS & ANTI-KEYBOARD SCRAPING SHORTCUTS
+      document.addEventListener("keydown", function(e) {
+        // F12 key
+        if (e.keyCode === 123 || e.key === "F12") {
+          e.preventDefault();
+          return false;
+        }
+
+        const isCtrlOrMeta = e.ctrlKey || e.metaKey;
+
+        // Ctrl/Cmd + Shift + I (DevTools Inspect)
+        // Ctrl/Cmd + Shift + J (DevTools Console)
+        // Ctrl/Cmd + Shift + C (Element Selector)
+        if (isCtrlOrMeta && e.shiftKey && (e.key === "I" || e.key === "i" || e.key === "J" || e.key === "j" || e.key === "C" || e.key === "c")) {
+          e.preventDefault();
+          return false;
+        }
+
+        // Ctrl/Cmd + U (View Page Source)
+        if (isCtrlOrMeta && (e.key === "U" || e.key === "u")) {
+          e.preventDefault();
+          return false;
+        }
+
+        // Ctrl/Cmd + S (Save Entire Webpage)
+        if (isCtrlOrMeta && (e.key === "S" || e.key === "s")) {
+          // Allow typing in text fields without blocking typing 's'
+          const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+          if (tag !== "input" && tag !== "textarea") {
+            e.preventDefault();
+            return false;
+          }
+        }
+      }, { passive: false });
+
+      // 4. DEBUGGER FREEZE TRAP (Freezes browser tab if DevTools is forcibly opened)
+      if (host !== "localhost" && host !== "127.0.0.1") {
+        setInterval(function() {
+          const startTime = performance.now();
+          // Debugger statement: harmless when DevTools is closed, but halts execution if DevTools is open
+          (function() { return false; })["constructor"]("debugger")();
+          if (performance.now() - startTime > 100) {
+            // DevTools open detected: clean up session memory
+            try { sessionStorage.clear(); } catch(e) {}
+          }
+        }, 1500);
+      }
+    })();
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Sanctuary" />
+  <meta name="apple-itunes-app" content="app-id=6824383974, app-argument=https://sanctuaryjesus.com/" />
   <meta name="theme-color" content="#0b0805" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="apple-touch-icon" href="./icon-512.png" />
-  <link rel="canonical" href="https://sanctuaryprayer.cloud/" />
+  <link rel="canonical" href="https://sanctuaryjesus.com/" />
   <title>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</title>
   <!-- Viral Social Sharing Open Graph & Twitter Card Meta Tags -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Sanctuary: Jesus Daily Prayer" />
   <meta property="og:title" content="⚱️ Sanctuary: The Twelve Sacred Vessels — Hear Jesus's Word Today" />
   <meta property="og:description" content="Touch one of the 12 ancient clay vessels to release divine light, Giant Aa++ Large-Print Scripture, angelic voice readings, and 365+ Words of Jesus Christ for peace &amp; sleep." />
-  <meta property="og:url" content="https://sanctuaryprayer.cloud/" />
-  <meta property="og:image" content="https://sanctuaryprayer.cloud/og-share-banner.jpg" />
-  <meta property="og:image:secure_url" content="https://sanctuaryprayer.cloud/og-share-banner.jpg" />
+  <meta property="og:url" content="https://sanctuaryjesus.com/" />
+  <meta property="og:image" content="https://sanctuaryjesus.com/og-share-banner.jpg" />
+  <meta property="og:image:secure_url" content="https://sanctuaryjesus.com/og-share-banner.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -27,7 +119,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="⚱️ Sanctuary: 12 Sacred Vessels &amp; Daily Words of Jesus" />
   <meta name="twitter:description" content="Break a Sacred Vessel and receive a personal Gospel Word &amp; Angelic Prayer for your heart today." />
-  <meta name="twitter:image" content="https://sanctuaryprayer.cloud/og-share-banner.jpg" />
+  <meta name="twitter:image" content="https://sanctuaryjesus.com/og-share-banner.jpg" />
     <!-- Google tag (gtag.js) - Google Analytics 4 (G-R0J6PEDB30) -->
   <script>
     if (!window.Capacitor && !window.ReactNativeWebView) {
@@ -42,9 +134,32 @@
       gtag('config', 'G-R0J6PEDB30', { send_page_view: true });
     }
   </script>
+  <!-- Microsoft Clarity Session Recording & Heatmap (z2w054a7mo) -->
+  <script>
+    if (!window.Capacitor && !window.ReactNativeWebView) {
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "z2w054a7mo");
+    }
+  </script>
+  <!-- Gumroad On-Site Overlay Modal (Deferred Post-Load for Faster Mobile LCP & Ad LPV) -->
+  <script>
+    if (!window.Capacitor && !window.ReactNativeWebView) {
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var grScript = document.createElement('script');
+          grScript.async = true;
+          grScript.src = 'https://gumroad.com/js/gumroad.js';
+          document.head.appendChild(grScript);
+        }, 1500);
+      });
+    }
+  </script>
   <!-- Meta Pixel & Web Conversion Tracking Engine (0% Store Tax Funnel) -->
   <script>
-    window.SANCTUARY_DEFAULT_META_PIXEL_ID = ""; // Optional: Set default Meta Pixel ID here or via ?pixel_id=XXX
+    window.SANCTUARY_DEFAULT_META_PIXEL_ID = "1517333923568178"; // Default Meta Pixel ID so standalone Home Screen launches are also tracked
     (function initSanctuaryMetaPixel() {
       try {
         if (window.Capacitor || window.ReactNativeWebView) return; // Never load ad pixel inside native iOS/Android app
@@ -68,11 +183,26 @@
     window.trackSanctuaryMarketingEvent = function(eventName, eventParams) {
       try {
         if (window.Capacitor || window.ReactNativeWebView) return;
+        var payload = Object.assign({}, eventParams || {});
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({ event: eventName }, payload));
         if (typeof window.fbq === "function") {
-          window.fbq("track", eventName, eventParams || {});
+          var standardMetaEvents = ["PageView", "ViewContent", "InitiateCheckout", "AddPaymentInfo", "Purchase", "Donate", "Lead", "AddToWishlist", "CompleteRegistration"];
+          if (standardMetaEvents.indexOf(eventName) !== -1) {
+            window.fbq("track", eventName, payload);
+          } else {
+            window.fbq("trackCustom", eventName, payload);
+          }
+          if (eventName === "email-subscribe" || eventName === "email_subscribe") {
+            window.fbq("track", "Lead", Object.assign({ content_name: "Sanctuary_Daily_Word_Email", currency: "USD", value: 1.00 }, payload));
+          }
         }
         if (typeof window.gtag === "function") {
-          window.gtag("event", eventName, eventParams || {});
+          window.gtag("event", eventName, payload);
+        }
+        if (typeof window.clarity === "function") {
+          window.clarity("set", "funnel_event", eventName);
+          window.clarity("event", eventName);
         }
       } catch (e) {}
     };
@@ -363,20 +493,21 @@
         margin-top: 1px !important;
       }
       .ios-bottom-dock {
-        padding: 4px 6px max(5px, env(safe-area-inset-bottom, 0px)) !important;
+        padding: 4px 6px max(14px, env(safe-area-inset-bottom, 14px)) !important;
       }
       .dock-tab {
-        min-height: 48px !important;
-        padding: 4px 2px !important;
-        font-size: 10.5px !important;
-        gap: 2px !important;
+        min-height: 44px !important;
+        padding: 2px 1px 2px !important;
+        font-size: 9.5px !important;
+        gap: 1px !important;
       }
       .dock-tab span.dock-icon {
-        font-size: 22px !important;
+        font-size: 19px !important;
+        line-height: 1 !important;
       }
       .library-drawer,
       .angel-revelation-overlay {
-        bottom: 54px !important;
+        bottom: calc(48px + max(14px, env(safe-area-inset-bottom, 14px))) !important;
         padding: 8px 12px 8px !important;
       }
     }
@@ -618,12 +749,13 @@
     /* 12 Ancient Sacred Vessels Grid — Optimized 3x4 Portrait on Mobile */
     .vessels-stage {
       position: relative;
-      flex: 1;
+      flex: 1 1 0%;
+      min-height: 0 !important;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(4, 1fr);
-      gap: 9px 10px;
-      padding: 6px 12px 8px;
+      gap: 7px 8px;
+      padding: 4px 10px 6px;
       z-index: 10;
       align-items: center;
       justify-items: center;
@@ -711,12 +843,12 @@
     body.font-scale-large .vessel-label { font-size: 12.8px !important; }
     body.font-scale-large .mood-pill { font-size: 15px !important; padding: 9px 15px !important; }
     body.font-scale-large .sanctuary-subtitle, body.font-scale-large .mood-label { font-size: 12px !important; }
-    body.font-scale-large .dock-tab { font-size: 11px !important; }
+    body.font-scale-large .dock-tab { font-size: 10px !important; }
 
     body.font-scale-xlarge .vessel-label { font-size: 13.8px !important; }
     body.font-scale-xlarge .mood-pill { font-size: 16.5px !important; padding: 10px 17px !important; }
     body.font-scale-xlarge .sanctuary-subtitle, body.font-scale-xlarge .mood-label { font-size: 13px !important; }
-    body.font-scale-xlarge .dock-tab { font-size: 11.5px !important; }
+    body.font-scale-xlarge .dock-tab { font-size: 10.5px !important; }
 
     .vessel-slot.broken .intact-jar {
       display: none;
@@ -1410,10 +1542,11 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       width: 100%;
-      gap: 5px;
+      gap: 4px;
       background: rgba(14, 10, 6, 0.98);
       border-top: 1px solid rgba(212, 175, 55, 0.42);
-      padding: 7px 8px max(9px, env(safe-area-inset-bottom, 0px));
+      padding: 6px 6px max(16px, env(safe-area-inset-bottom, 16px));
+      box-sizing: border-box;
       z-index: 92;
       flex-shrink: 0;
     }
@@ -1426,22 +1559,24 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 2px;
       cursor: pointer;
-      padding: 6px 2px;
-      min-height: 58px;
-      border-radius: 13px;
+      padding: 3px 2px 2px;
+      min-height: 48px;
+      border-radius: 12px;
       transition: all 0.2s ease;
       font-family: 'Cinzel', serif;
-      font-size: 11.5px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.2px;
       white-space: nowrap;
+      overflow: visible;
     }
 
     .dock-tab span.dock-icon {
-      font-size: 25px;
-      line-height: 1.1;
+      font-size: 21px;
+      line-height: 1;
+      margin-bottom: 1px;
       transition: transform 0.2s ease;
       filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
     }
@@ -1943,6 +2078,10 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJRPDQJQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <!-- Desktop Controls Bar — Million-Dollar Hallow / Calm Minimalist Single-Line Header -->
   <div class="desktop-bar">
     <div class="badge">
@@ -2020,12 +2159,13 @@
       <div class="sanctuary-header">
         <div class="sanctuary-subtitle">Sanctuary: Jesus Daily Prayer • Day #<span id="dayOfYearNum" onclick="openDailyWordOfYear()" style="cursor:pointer; text-decoration:underline;">1</span></div>
         <h1 class="sanctuary-title">12 Sacred Vessels &amp; Sleep Word</h1>
-        <div style="display:flex; align-items:center; justify-content:center; gap:5px; flex-wrap:nowrap;">
+        <div style="display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; margin-top:2px;">
           <div class="rank-bar" id="faithRankBadge" onclick="openReminderDrawer()" style="cursor:pointer;" title="Tap to set Daily Prayer Bell">
             ✨ <span id="gracePointsText">0</span> Grace • 🔔
           </div>
-          <button class="icon-btn" id="webBrowserSaveAppBtn" onclick="openInstallAppDrawer()" style="display:none; padding:2px 8px; font-size:10px; min-height:22px; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18); font-weight:700;" title="Save Sanctuary App to Phone Home Screen">📲 Save App</button>
-          <button class="icon-btn" id="resetVesselsTopBtn" onclick="resetAllVessels()" style="display:none; padding:2px 7px; font-size:10px; min-height:22px;" title="Restore All 12 Sacred Vessels">↺ Reset</button>
+          <button class="icon-btn" id="webBrowserSaveAppBtn" onclick="openInstallAppDrawer()" style="display:none; padding:4px 10px; font-size:11.5px; min-height:26px; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.22); font-weight:700;" title="Save Sanctuary App to Phone Home Screen">📲 Save App</button>
+          <button class="icon-btn" id="topDailyWordBtn" onclick="openMorningWordModal()" style="padding:4px 10px; font-size:11.5px; min-height:26px; border-color:#ffd97d; color:#fff8dc; background:linear-gradient(135deg, rgba(212,175,55,0.34), rgba(180,120,20,0.24)); font-weight:700; box-shadow:0 0 10px rgba(212,175,55,0.25);" title="Receive Daily 7 AM Word in Email">💌 Free 7 AM Word (+50)</button>
+          <button class="icon-btn" id="resetVesselsTopBtn" onclick="resetAllVessels()" style="display:none; padding:3px 9px; font-size:11px; min-height:26px;" title="Restore All 12 Sacred Vessels">↺ Reset</button>
         </div>
         <div id="liveCommunityTicker" onclick="openCandlesDrawer()" style="cursor:pointer; font-size:11px; color:#ebd9b8; opacity:0.92; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:opacity 0.35s ease;" title="Tap to visit the 24-Hour Sanctuary Candle Altar">
           🕯️ <span id="liveCommunityTickerText">1,428 Christians are praying in the Sanctuary right now</span>
@@ -2033,9 +2173,19 @@
         <div class="seven-day-bar" id="sevenDayJourneyBar" onclick="claimDailyJourneyBlessing()" title="Complete 7 Days of Vessel Prayer for +100 Miracle Grace"></div>
       </div>
 
-      <!-- 1. MOOD / PRAYER INTENT SELECTOR -->
+      <!-- 1. MOOD / PRAYER INTENT SELECTOR + 1-TAP CATHEDRAL RAIN & HARP SOUNDSCAPE BAR -->
       <div class="mood-selector-wrap">
-        <div class="mood-label">Select Your Heart's Need Before Striking a Vessel:</div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; margin-bottom:4px; flex-wrap:wrap;">
+          <div class="mood-label" style="margin-bottom:0;">Select Your Heart's Need &amp; Tap a Clay Vessel:</div>
+          <div style="display:flex; align-items:center; gap:5px;">
+            <button type="button" class="icon-btn" id="quickCathedralRainBtn" onclick="toggleQuickCathedralRainAndHarp()" style="padding:3px 9px; font-size:11px; min-height:24px; border-color:rgba(255,217,125,0.55); color:#ffd97d; background:rgba(212,175,55,0.16); font-weight:700;" title="Play Soothing Cathedral Rain &amp; Sacred Harp">
+              🌧️🕊️ Rain &amp; Harp: OFF
+            </button>
+            <button type="button" class="icon-btn" onclick="openSleepDrawer()" style="padding:3px 8px; font-size:11px; min-height:24px; border-color:rgba(147,197,253,0.45); color:#bfdbfe; background:rgba(30,58,138,0.28); font-weight:700;" title="Open Continuous Night Sleep Scripture">
+              🌙 Sleep Audio
+            </button>
+          </div>
+        </div>
         <div class="mood-pills" id="moodPills">
           <button class="mood-pill active" onclick="setMood('all', this)">✨ All Blessings (365)</button>
           <button class="mood-pill" onclick="setMood('peace', this)">🕊️ Peace & Anxiety</button>
@@ -2049,6 +2199,8 @@
 
       <!-- 12 Sacred Vessels Grid -->
       <div class="vessels-stage" id="vesselsGrid"></div>
+
+       </div>
 
       <!-- Celestial Angel Revelation Overlay -->
       <div class="angel-revelation-overlay" id="angelModal">
@@ -2103,6 +2255,23 @@
           <span>🙏 AMEN — I RECEIVE THIS WORD</span>
           <span style="font-size:10px; opacity:0.88;" id="amenGlobalCountText">• 14,842 Christians said Amen</span>
         </button>
+
+        <!-- High-Converting Inline 7 AM Daily Word Email Capture inside Angel Modal -->
+        <div id="angelModalEmailCard" style="width:100%; background:linear-gradient(145deg, rgba(38,28,16,0.92), rgba(22,16,9,0.95)); border:1px solid rgba(255,217,125,0.48); border-radius:12px; padding:9px 11px; margin-bottom:6px; box-shadow:0 4px 16px rgba(0,0,0,0.45); transition:all 0.3s ease;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:5px;">
+            <span style="font-family:'Cinzel',serif; font-size:11.5px; color:#ffe08a; font-weight:700;">🌅 Receive Jesus's 7:00 AM Daily Word (Free)</span>
+            <span style="font-size:10.5px; color:#86efac; font-weight:700;">+50 Grace</span>
+          </div>
+          <div id="inlineAngelEmailFormRow" style="display:flex; gap:6px; align-items:center;">
+            <input type="email" id="inlineAngelEmailInput" class="search-input" placeholder="Enter your email for daily prayer..." style="margin-bottom:0; flex:1; padding:8px 10px; font-size:14px; background:rgba(0,0,0,0.65); border-color:rgba(255,217,125,0.4);" />
+            <button type="button" class="btn-sacred btn-primary-gold" onclick="submitInlineAngelModalEmail()" style="padding:8px 12px; font-size:12.5px; font-weight:800; white-space:nowrap;">
+              💌 Send Me →
+            </button>
+          </div>
+          <div id="inlineAngelEmailSuccessMsg" style="display:none; font-size:12.5px; color:#86efac; font-weight:700; text-align:center; padding:3px 0;">
+            ✨ Amen! Your email is inscribed for the 7:00 AM Daily Word (+50 Grace).
+          </div>
+        </div>
 
         <div class="revelation-actions">
           <button class="btn-sacred btn-secondary-outline" onclick="replayAngelVoice()">🔊 Listen</button>
@@ -2265,9 +2434,12 @@
         </div>
 
         <!-- Light a New Sanctuary Candle -->
-        <div style="display:flex; gap:6px; margin-bottom:10px;">
+        <div style="display:flex; gap:6px; margin-bottom:6px;">
           <input type="text" id="candleIntentionInput" class="search-input" placeholder="Light a candle for... (e.g. Mother's health, World Peace)" style="margin-bottom:0; flex:1;" />
-          <button class="btn-sacred btn-primary-gold" style="flex:0 0 auto; padding:8px 12px;" onclick="lightNewCandle()">🕯️ Light</button>
+          <button class="btn-sacred btn-primary-gold" style="flex:0 0 auto; padding:8px 14px;" onclick="lightNewCandle()">🕯️ Light</button>
+        </div>
+        <div style="margin-bottom:12px;">
+          <input type="email" id="candleEmailInput" class="search-input" placeholder="✉️ Optional: Enter email for prayer vigil updates (+50 Grace)" style="margin-bottom:0; font-size:11.5px; padding:7px 10px; border-color:rgba(212,175,55,0.3); background:rgba(0,0,0,0.4);" />
         </div>
 
         <div class="candles-altar-grid" id="candlesAltarGrid"></div>
@@ -2404,15 +2576,15 @@
             </div>
           </div>
 
-          <!-- Plan 1: Yearly Plan ($19.99/yr + 7-Day Free Trial — Anchored against $39.99 App Store Price) -->
+          <!-- Plan 1: Yearly Plan ($19.99/yr — Save 50% vs $39.99 App Store Price) -->
           <div class="paywall-plan-card selected" id="planAnnual" onclick="selectPaywallPlan('annual')" style="margin-bottom:5px;">
-            <span class="best-value-tag">SAVE 50% WEB SPECIAL • 7-DAY FREE TRIAL</span>
+            <span class="best-value-tag">SAVE 50% WEB SPECIAL • MOST POPULAR ($1.66/MO)</span>
             <div>
               <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
                 Annual Sanctuary Pass
               </div>
               <div style="font-size:12px; color:var(--text-muted);">
-                7 days free ($0 today), then $19.99/yr ($1.66/mo)
+                Full 365-Day VIP Access • Only $1.66/month ($19.99/yr)
               </div>
             </div>
             <div style="font-family:'Cinzel',serif; font-size:16px; color:#fff; font-weight:700; text-align:right;">
@@ -2438,12 +2610,13 @@
 
           <!-- Plan 3: Monthly Plan ($2.99/mo — Anchored against $7.99 App Store Price) -->
           <div class="paywall-plan-card" id="planMonthly" onclick="selectPaywallPlan('monthly')" style="margin-bottom:4px;">
+            <span class="best-value-tag" style="background:linear-gradient(90deg, #86efac, #34d399); color:#052e16;">✨ LOWEST UPFRONT • TRY FOR JUST $2.99 TODAY</span>
             <div>
               <div style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">
                 Monthly Sanctuary Pass
               </div>
               <div style="font-size:12px; color:var(--text-muted);">
-                Flexible monthly blessing • Cancel anytime
+                30-Day Full VIP Access • Just $2.99 today • Cancel anytime
               </div>
             </div>
             <div style="font-family:'Cinzel',serif; font-size:16px; color:#fff; font-weight:700; text-align:right;">
@@ -2471,11 +2644,16 @@
             </button>
           </div>
 
-          <button class="btn-sacred btn-primary-gold" id="mainSubscribeBtn" onclick="showApplePaySheet()" style="margin-top:2px; padding:13px;">
-            ✨ Start 7-Day Free Trial ($19.99/yr)
+          <button class="btn-sacred btn-primary-gold" id="mainSubscribeBtn" onclick="showApplePaySheet()" style="margin-top:2px; padding:13px; font-size:14.5px; font-weight:800;">
+            ✨ Unlock 1-Year Sanctuary Pass (50% Off • $19.99) →
           </button>
 
           <!-- Gift a Sanctuary Pass to Family / Friends (Website Only — Auto-hidden on Native iOS per Guideline 3.1.1) -->
+          <div id="webPaywallDonateRow" style="text-align:center; margin:3px 0 5px;">
+            <button type="button" onclick="openDonateGospelDrawer('paywall_footer')" style="width:100%; background:rgba(253,224,71,0.1); border:1px solid rgba(253,224,71,0.45); border-radius:10px; padding:8px 10px; font-size:12px; color:#fef08a; font-weight:700; cursor:pointer;">
+              ☕ Just want to bless the ministry? Send a $3+ Gospel Offering →
+            </button>
+          </div>
           <div id="webGiftPassWrapper" style="background:rgba(255,255,255,0.03); border:1px dashed rgba(212,175,55,0.38); border-radius:12px; padding:8px 11px; margin-top:2px;">
             <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleGiftPassBox()">
               <span style="font-family:'Cinzel',serif; font-size:11px; color:var(--gold-bright); font-weight:700;">
@@ -3039,12 +3217,29 @@
           </div>
 
           <!-- Single "Buy Us a Coffee / Support Any Amount" Action Box -->
-          <div style="background:linear-gradient(135deg, rgba(212,175,55,0.18), rgba(32,22,10,0.95)); border:1.5px solid #ffd97d; border-radius:15px; padding:12px;">
-            <button class="btn-sacred btn-primary-gold" id="mainDonateGospelBtn" style="width:100%; padding:13px 14px; font-size:13px; box-shadow:0 6px 20px rgba(212,175,55,0.38);" onclick="handleDonateGospelClick()">
-              ☕ Buy Us a Coffee &amp; Spread the Word →
+          <div style="background:linear-gradient(135deg, rgba(212,175,55,0.18), rgba(32,22,10,0.95)); border:1.5px solid #ffd97d; border-radius:15px; padding:14px;">
+            <div style="font-family:'Cinzel',serif; font-size:12px; color:var(--gold-bright); font-weight:700; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span>💛 SELECT OFFERING AMOUNT:</span>
+              <span id="donatePresetNotice" style="font-size:10.5px; color:#fde68a; font-family:var(--font-sans);">Direct Express Checkout</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-bottom:10px;" id="donatePresetPillsGrid">
+              <button type="button" class="mood-pill" style="margin:0; text-align:center; padding:9px 4px; font-weight:700; font-size:13px; border-radius:10px;" onclick="selectDonatePresetAmount(3, this)">$3</button>
+              <button type="button" class="mood-pill active" style="margin:0; text-align:center; padding:9px 4px; font-weight:700; font-size:13px; border-radius:10px; border-color:var(--gold-bright); background:rgba(212,175,55,0.28); color:#fff8e7;" onclick="selectDonatePresetAmount(5, this)">$5 ⭐</button>
+              <button type="button" class="mood-pill" style="margin:0; text-align:center; padding:9px 4px; font-weight:700; font-size:13px; border-radius:10px;" onclick="selectDonatePresetAmount(10, this)">$10</button>
+              <button type="button" class="mood-pill" style="margin:0; text-align:center; padding:9px 4px; font-weight:700; font-size:13px; border-radius:10px;" onclick="selectDonatePresetAmount(25, this)">$25</button>
+            </div>
+            
+            <div style="display:flex; align-items:center; gap:8px; background:rgba(0,0,0,0.35); border:1px solid rgba(212,175,55,0.35); border-radius:10px; padding:6px 12px; margin-bottom:12px;">
+              <span style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold-bright); font-weight:700;">Custom: $</span>
+              <input type="number" id="donateCustomAmountInput" min="3" max="1000" step="1" value="5" placeholder="5" style="background:transparent; border:none; color:#fff8e7; font-family:'Cinzel',serif; font-size:15px; font-weight:700; width:100%; outline:none;" oninput="handleDonateCustomAmountInput(this.value)" />
+              <span style="font-size:11px; color:var(--text-muted); white-space:nowrap;">USD (Min $3)</span>
+            </div>
+
+            <button class="btn-sacred btn-primary-gold" id="mainDonateGospelBtn" style="width:100%; padding:13px 14px; font-size:13.5px; box-shadow:0 6px 20px rgba(212,175,55,0.38); font-weight:700;" onclick="handleDonateGospelClick()">
+              ☕ Proceed to Express Checkout ($5) →
             </button>
-            <div style="font-size:11px; color:#e6d5b8; text-align:center; margin-top:6px;">
-              💛 Support with any amount from your heart ($3, $5, $10+) on Buy Me a Coffee
+            <div style="font-size:11px; color:#e6d5b8; text-align:center; margin-top:8px;">
+              🔒 Instant Card, Apple Pay, Google Pay &amp; PayPal • No Extra Steps
             </div>
 
             <!-- Fallback Supporter Email / Prayer Intention Box when live BuyMeACoffee URL is not yet set -->
@@ -3098,6 +3293,34 @@
     </div>
 
     <div class="home-indicator"><div class="home-bar"></div></div>
+  </div>
+
+  <!-- Exit-Intent PWA Install Prompt Modal (When user taps Back / Exit / tries to leave) -->
+  <div id="sanctuaryExitPromptModal" style="display:none; position:fixed; inset:0; z-index:999999; background:rgba(8,6,4,0.88); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:16px;">
+    <div style="background:radial-gradient(circle at 50% 10%, rgba(212,175,55,0.22), rgba(20,14,8,0.98)); border:1.5px solid rgba(255,217,125,0.55); border-radius:20px; max-width:390px; width:100%; padding:22px 18px 20px; text-align:center; box-shadow:0 24px 60px rgba(0,0,0,0.85); animation:modalSlideUp 0.3s ease;">
+      <div style="font-size:38px; line-height:1; margin-bottom:8px; filter:drop-shadow(0 0 16px rgba(255,215,0,0.6));">🕊️⚱️✨</div>
+      <div style="font-family:'Cinzel',serif; font-size:11px; letter-spacing:1.5px; color:var(--gold-bright); font-weight:700; text-transform:uppercase; margin-bottom:4px;">
+        Before You Leave Sanctuary...
+      </div>
+      <h3 style="font-family:'Cinzel',serif; font-size:18px; color:#fff8e7; margin:0 0 8px; line-height:1.25;">
+        Add to Home Screen
+      </h3>
+      <p style="font-size:13px; color:#f3e5c8; line-height:1.45; margin:0 0 12px;">
+        Keep Christ's Words of Peace always with you. 1-tap from your Home Screen gives you <strong>instant full-screen prayer</strong> &amp; daily cathedral bell blessings.
+      </p>
+      <div style="background:rgba(212,175,55,0.12); border:1px solid rgba(255,217,125,0.35); border-radius:12px; padding:8px 12px; font-size:12px; color:#fef08a; font-weight:600; margin-bottom:16px;">
+        🎁 +50 Grace Points Bonus Awarded on Install!
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button class="btn-sacred btn-primary-gold" onclick="handleExitPromptInstall()" style="width:100%; justify-content:center; padding:13px; font-size:13.5px; font-weight:700; box-shadow:0 6px 20px rgba(212,175,55,0.4);">
+          📲 Add to Home Screen (+50 Grace) →
+        </button>
+        <button onclick="handleExitPromptDismiss()" style="background:transparent; border:none; color:var(--text-muted); font-size:12px; padding:8px; cursor:pointer; text-decoration:underline;">
+          Leave Sanctuary for now
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Custom Floating Sacred Hammer -->
@@ -3740,23 +3963,62 @@
       return audioCtx;
     }
 
+    function syncQuickCathedralRainBtnUI() {
+      const quickBtn = document.getElementById("quickCathedralRainBtn");
+      if (!quickBtn) return;
+      const isBothOrAnyActive = Boolean(rainActive || harpPlaying);
+      if (isBothOrAnyActive) {
+        quickBtn.textContent = "🌧️🕊️ Rain & Harp: ON";
+        quickBtn.style.background = "linear-gradient(135deg, rgba(212,175,55,0.38), rgba(180,120,20,0.28))";
+        quickBtn.style.borderColor = "#ffe08a";
+        quickBtn.style.color = "#fff8dc";
+      } else {
+        quickBtn.textContent = "🌧️🕊️ Rain & Harp: OFF";
+        quickBtn.style.background = "rgba(212,175,55,0.16)";
+        quickBtn.style.borderColor = "rgba(255,217,125,0.55)";
+        quickBtn.style.color = "#ffd97d";
+      }
+    }
+
+    function toggleQuickCathedralRainAndHarp() {
+      const turnOn = !(rainActive && harpPlaying);
+      if (turnOn) {
+        if (!rainActive) toggleNightRain();
+        if (!harpPlaying) toggleAmbientHarp();
+        if (typeof window.trackSanctuaryMarketingEvent === "function") {
+          window.trackSanctuaryMarketingEvent("soundscape_cathedral_rain_on", {
+            content_name: "Cathedral_Rain_And_Harp"
+          });
+        }
+      } else {
+        if (rainActive) toggleNightRain();
+        if (harpPlaying) toggleAmbientHarp();
+      }
+      syncQuickCathedralRainBtnUI();
+    }
+
     function toggleAmbientHarp() {
       harpPlaying = !harpPlaying;
       const b1 = document.getElementById("musicBtnDesktop");
       const b2 = document.getElementById("musicBtnApp");
 
       if (harpPlaying) {
-        b1.textContent = "🎵 Sanctuary Harp: ON";
-        b1.classList.add("active-music");
-        b2.classList.add("active");
+        if (b1) {
+          b1.textContent = "🎵 Sanctuary Harp: ON";
+          b1.classList.add("active-music");
+        }
+        if (b2) b2.classList.add("active");
         playHarpArpeggioNote();
         harpInterval = setInterval(playHarpArpeggioNote, 1350);
       } else {
-        b1.textContent = "🎵 Sanctuary Harp: OFF";
-        b1.classList.remove("active-music");
-        b2.classList.remove("active");
+        if (b1) {
+          b1.textContent = "🎵 Sanctuary Harp: OFF";
+          b1.classList.remove("active-music");
+        }
+        if (b2) b2.classList.remove("active");
         clearInterval(harpInterval);
       }
+      syncQuickCathedralRainBtnUI();
     }
 
     // Celestial F-Major Pentatonic Harp Notes
@@ -3934,6 +4196,27 @@
           const rem = Math.max(0, 3 - freeDailyVesselsUsed);
           nextJarBtn.textContent = rem > 0 ? `🔨 Next (${rem} Free)` : "👑 Unlock All 12";
         }
+      }
+
+      try {
+        const inlineCard = document.getElementById("angelModalEmailCard");
+        const hasSubscribedEmail = Boolean(
+          localStorage.getItem("sacred_morning_subscribed_email") ||
+          localStorage.getItem("sacred_daily_email_v1")
+        );
+        if (inlineCard) {
+          inlineCard.style.display = hasSubscribedEmail ? "none" : "block";
+          inlineCard.style.boxShadow = "0 4px 16px rgba(0,0,0,0.45)";
+        }
+      } catch (e) {}
+
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("vessel_broken", {
+          content_name: vessel.name,
+          vessel_id: vessel.id,
+          teaching_num: num,
+          mood: teaching.mood
+        });
       }
 
       document.getElementById("angelModal").classList.add("visible");
@@ -4583,7 +4866,7 @@
       !window.location.hostname.includes("127.0.0.1")
     )
       ? (window.location.origin + "/")
-      : "https://sanctuaryprayer.cloud/";
+      : "https://sanctuaryjesus.com/";
     let viralCardRatio = "story"; // 'story' (1080x1920), 'post' (1080x1350), 'scroll' (1080x1620)
     let viralCardTheme = "gold";  // 'gold', 'starlight', 'dawn', 'parchment'
     let viralShareCount = 0;
@@ -5269,23 +5552,329 @@
       playCathedralBellChime();
     }
 
+    /**
+     * Gumroad On-Site Overlay Checkout Helper (Web / PWA Only)
+     * 1. Waits for Gumroad's MutationObserver microtask (.logo-full) before clicking so it never opens a new tab.
+     * 2. Includes a built-in Sanctuary On-Site Modal Iframe fallback if gumroad-bundle.js is still loading or blocked.
+     */
+    let lastOpenedGumroadUrl = "";
+
+    function openFallbackGumroadIframeModal(checkoutUrlWithParams) {
+      let modal = document.getElementById("sanctuaryGumroadOverlayModal");
+      if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "sanctuaryGumroadOverlayModal";
+        modal.style.cssText = "position:fixed;inset:0;z-index:999999;background:rgba(8,6,4,0.88);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow-y:auto;padding:16px 10px 32px;";
+        modal.innerHTML = `
+          <div style="width:100%;max-width:680px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 4px;">
+            <div style="font-family:'Cinzel',serif;font-size:13px;color:#ffd97d;font-weight:700;display:flex;align-items:center;gap:6px;">
+              🔒 Sacred Sanctuary Secure Checkout
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <a id="externalGumroadLinkBtn" href="#" target="_blank" rel="noopener noreferrer" style="color:#d4af37;font-size:11.5px;text-decoration:none;padding:5px 11px;border-radius:999px;border:1px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.1);display:inline-flex;align-items:center;gap:4px;">
+                ↗ Open External
+              </a>
+              <button id="closeSanctuaryGumroadModalBtn" style="background:rgba(255,217,125,0.16);border:1px solid rgba(255,217,125,0.5);color:#fffbf2;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;">
+                ✕ Close
+              </button>
+            </div>
+          </div>
+          <div id="sanctuaryGumroadSpinner" style="color:#ffd97d;font-size:13px;margin:28px 0;font-family:'Cinzel',serif;">
+            ✨ Opening Secure Checkout...
+          </div>
+          <iframe id="sanctuaryGumroadIframe" allow="payment *; clipboard-write *" style="width:100%;max-width:680px;min-height:680px;border:1px solid rgba(212,175,55,0.35);border-radius:16px;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,0.85);"></iframe>
+        `;
+        document.body.appendChild(modal);
+        modal.addEventListener("click", function(e) {
+          if (e.target === modal) closeFallbackGumroadIframeModal();
+        });
+        const closeBtn = document.getElementById("closeSanctuaryGumroadModalBtn");
+        if (closeBtn) closeBtn.onclick = closeFallbackGumroadIframeModal;
+      }
+      const extLink = document.getElementById("externalGumroadLinkBtn");
+      if (extLink) extLink.href = checkoutUrlWithParams;
+      const iframe = document.getElementById("sanctuaryGumroadIframe");
+      const spinner = document.getElementById("sanctuaryGumroadSpinner");
+      if (spinner) spinner.style.display = "block";
+      if (iframe) {
+        const u = new URL(checkoutUrlWithParams);
+        u.searchParams.set("overlay", "true");
+        // Go straight to 1-Click Express Checkout / Payment Form
+        u.searchParams.set("wanted", "true");
+        u.searchParams.set("referrer", window.location.href);
+        iframe.onload = function() {
+          if (spinner) spinner.style.display = "none";
+          try {
+            const iframeHref = iframe.contentWindow.location.href || "";
+            if (iframeHref.includes("vip_unlocked=1") || iframeHref.includes("receipt=true")) {
+              const iframeParams = new URLSearchParams(iframe.contentWindow.location.search || "");
+              const planFromUrl = iframeParams.get("plan") || selectedPaywallPlan || "annual";
+              closeFallbackGumroadIframeModal();
+              selectedPaywallPlan = planFromUrl;
+              isSanctuaryVIP = true;
+              isLifetimeVIP = (planFromUrl === "lifetime");
+              if (typeof confirmApplePaySubscription === "function") {
+                confirmApplePaySubscription();
+              }
+            }
+          } catch (e) {
+            // Cross-origin while still on gumroad.com (expected)
+          }
+        };
+        iframe.src = u.toString();
+      }
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeFallbackGumroadIframeModal() {
+      const modal = document.getElementById("sanctuaryGumroadOverlayModal");
+      if (modal) {
+        modal.style.display = "none";
+        const iframe = document.getElementById("sanctuaryGumroadIframe");
+        if (iframe) iframe.src = "about:blank";
+      }
+      document.body.style.overflow = "";
+    }
+
+    function isMobileOrSocialInAppBrowser() {
+      const ua = navigator.userAgent || "";
+      return /iPhone|iPad|iPod|Android|FBAN|FBAV|Instagram|Line|MicroMessenger|Mobile/i.test(ua);
+    }
+
+    function openGumroadOverlay(targetUrl) {
+      if (!targetUrl) return;
+      try {
+        let email = "";
+        try {
+          const emailInput = document.getElementById("vipCheckoutEmailInput");
+          if (emailInput && emailInput.value && emailInput.value.includes("@")) {
+            email = emailInput.value.trim().toLowerCase();
+          } else {
+            email = localStorage.getItem("sacred_daily_email_v1") || "";
+          }
+        } catch (e) {}
+
+        const u = new URL(targetUrl);
+        u.searchParams.set("wanted", "true");
+        if (email && !u.searchParams.get("email")) {
+          u.searchParams.set("email", email);
+          u.searchParams.set("prefilled_email", email);
+        }
+        const finalUrl = u.toString();
+        lastOpenedGumroadUrl = finalUrl;
+
+        const isDonate = finalUrl.includes("/l/todfv");
+        const isLife = finalUrl.includes("sanctuary-lifetime");
+        const isMo = finalUrl.includes("sanctuary-monthly");
+        const checkoutVal = isDonate ? (selectedDonateAmount || 5.00) : (isLife ? 49.99 : (isMo ? 2.99 : 19.99));
+
+        if (typeof window.trackSanctuaryMarketingEvent === "function") {
+          window.trackSanctuaryMarketingEvent("AddPaymentInfo", {
+            content_name: isDonate ? "donate" : (isLife ? "lifetime" : (isMo ? "monthly" : "annual")),
+            content_category: isDonate ? "GospelDonation" : "SanctuaryPass",
+            currency: "USD",
+            value: checkoutVal
+          });
+        }
+
+        // Save pending checkout context so returning from Gumroad Express Checkout can verify/restore seamlessly
+        try {
+          localStorage.setItem("sacred_pending_checkout_v1", JSON.stringify({
+            type: isDonate ? "donate" : "vip",
+            plan: isDonate ? "donate" : (isLife ? "lifetime" : (isMo ? "monthly" : "annual")),
+            value: checkoutVal,
+            ts: Date.now()
+          }));
+        } catch (e) {}
+
+        // On iPhone / Android / Facebook & Instagram In-App Browsers:
+        // Cross-origin iframes block Apple Pay, Google Pay & 3rd-party cookies.
+        // Navigate directly to Gumroad Express Checkout (?wanted=true) so Apple Pay & Google Pay 1-Tap work natively!
+        if (isMobileOrSocialInAppBrowser()) {
+          window.location.href = finalUrl;
+          return;
+        }
+
+        // On Desktop: Open 1-Click On-Site Checkout Modal with direct external Apple Pay / PayPal button
+        openFallbackGumroadIframeModal(finalUrl);
+      } catch (err) {
+        window.location.href = targetUrl;
+      }
+    }
+    window.openGumroadOverlay = openGumroadOverlay;
+
+    // Gumroad Overlay PostMessage & Cross-Tab/Iframe Storage Listener (Auto-resize & Auto-unlock VIP on successful sale)
+    window.addEventListener("message", function (event) {
+      const isGumroadOrigin = event.origin && event.origin.includes("gumroad.com");
+      const isSameOrigin = event.origin && event.origin === window.location.origin;
+      if (!isGumroadOrigin && !isSameOrigin) return;
+      try {
+        let data = event.data;
+        if (typeof data === "string") {
+          try { data = JSON.parse(data); } catch (e) {}
+        }
+        if (!data || typeof data !== "object") return;
+
+        // Handle iframe loaded & dynamic height for fallback modal
+        if (data.type === "loaded") {
+          const spinner = document.getElementById("sanctuaryGumroadSpinner");
+          if (spinner) spinner.style.display = "none";
+        } else if (data.type === "height" && typeof data.height === "number") {
+          const iframe = document.getElementById("sanctuaryGumroadIframe");
+          if (iframe) iframe.style.height = Math.max(520, data.height) + "px";
+        }
+
+        // Handle completed purchase / donation
+        if (data.post_message_name === "sale" || data.event === "sale") {
+          console.log("[Gumroad Overlay] Transaction completed:", data);
+          closeFallbackGumroadIframeModal();
+
+          const prodName = String(data.product_name || data.permalink || lastOpenedGumroadUrl || "").toLowerCase();
+          const isDonation = prodName.includes("coffee") || prodName.includes("support") || prodName.includes("todfv") || prodName.includes("donate");
+
+          if (isDonation) {
+            const donateAmount = parseFloat(data.price || 5.00);
+            const cleanDonateVal = isNaN(donateAmount) ? 5.00 : (donateAmount > 100 ? donateAmount / 100 : donateAmount);
+            if (typeof window.trackSanctuaryMarketingEvent === "function") {
+              window.trackSanctuaryMarketingEvent("Donate", {
+                content_name: "Gospel_Mission_Donate",
+                content_category: "GospelDonation",
+                value: cleanDonateVal,
+                currency: data.currency || "USD"
+              });
+              window.trackSanctuaryMarketingEvent("Purchase", {
+                content_name: "Gospel_Patron_Donation",
+                content_category: "GospelDonation",
+                value: cleanDonateVal,
+                currency: data.currency || "USD"
+              });
+            }
+            rewardGospelPatronBlessing();
+            closeAllDrawers();
+            triggerSanctuaryNotification(
+              "🕊️ Thank You, Gospel Patron!",
+              "Your generous offering is helping spread Jesus's Words of Peace to weary hearts around the world!"
+            );
+            return;
+          }
+
+          if (window.pendingGiftRecipient) {
+            const rec = window.pendingGiftRecipient;
+            window.pendingGiftRecipient = null;
+            if (typeof completeGiftPassShare === "function") {
+              completeGiftPassShare(rec);
+            }
+          }
+
+          if (prodName.includes("lifetime") || prodName.includes("eternal") || prodName.includes("founder") || prodName.includes("sinaq")) {
+            selectedPaywallPlan = "lifetime";
+          } else if (prodName.includes("monthly") || prodName.includes("nedwvn")) {
+            selectedPaywallPlan = "monthly";
+          } else {
+            selectedPaywallPlan = "annual";
+          }
+
+          const salePrice = parseFloat(data.price || (selectedPaywallPlan === "lifetime" ? 49.99 : (selectedPaywallPlan === "monthly" ? 2.99 : 19.99)));
+          window.isSanctuaryVIP = true;
+          if (typeof confirmApplePaySubscription === "function") {
+            confirmApplePaySubscription(salePrice);
+          }
+        }
+      } catch (err) {
+        console.warn("[Gumroad] postMessage handler error:", err);
+      }
+    }, false);
+
+    // Also listen for localStorage updates if Gumroad redirects inside the checkout iframe or a second tab
+    window.addEventListener("storage", function (e) {
+      if (e.key === "sacred_vessels_subscription_v2" && e.newValue) {
+        try {
+          const updated = JSON.parse(e.newValue);
+          if (updated && updated.isVIP && !isSanctuaryVIP) {
+            closeFallbackGumroadIframeModal();
+            isSanctuaryVIP = true;
+            isLifetimeVIP = !!updated.isLifetime;
+            selectedPaywallPlan = updated.plan || "annual";
+            updateSubscriptionUI();
+            closeAllDrawers();
+            playCathedralBellChime();
+            triggerSanctuaryNotification(
+              isLifetimeVIP ? "👑 Lifetime Sanctuary Pass Unlocked!" : "👑 Sanctuary Pass VIP Activated!",
+              "Thank you! All 12 Sacred Vessels, the 13th Golden Chalice & all 365+ Words of Jesus are now unlocked."
+            );
+          }
+        } catch (err) {}
+      }
+    });
+
+    let selectedDonateAmount = 5;
+
+    function selectDonatePresetAmount(amount, btnEl) {
+      selectedDonateAmount = Math.max(3, parseInt(amount, 10) || 5);
+      const input = document.getElementById("donateCustomAmountInput");
+      if (input) input.value = selectedDonateAmount;
+      document.querySelectorAll("#donatePresetPillsGrid .mood-pill").forEach(p => {
+        p.classList.remove("active");
+        p.style.borderColor = "";
+        p.style.background = "";
+        p.style.color = "";
+      });
+      if (btnEl) {
+        btnEl.classList.add("active");
+        btnEl.style.borderColor = "var(--gold-bright)";
+        btnEl.style.background = "rgba(212,175,55,0.28)";
+        btnEl.style.color = "#fff8e7";
+      }
+      updateDonateButtonText();
+    }
+
+    function handleDonateCustomAmountInput(val) {
+      const parsed = parseInt(val, 10);
+      selectedDonateAmount = (parsed && parsed >= 3) ? parsed : 3;
+      document.querySelectorAll("#donatePresetPillsGrid .mood-pill").forEach(p => {
+        const pVal = parseInt(p.textContent.replace(/[^0-9]/g, ""), 10);
+        if (pVal === parsed) {
+          p.classList.add("active");
+          p.style.borderColor = "var(--gold-bright)";
+          p.style.background = "rgba(212,175,55,0.28)";
+          p.style.color = "#fff8e7";
+        } else {
+          p.classList.remove("active");
+          p.style.borderColor = "";
+          p.style.background = "";
+          p.style.color = "";
+        }
+      });
+      updateDonateButtonText();
+    }
+
+    function updateDonateButtonText() {
+      const btn = document.getElementById("mainDonateGospelBtn");
+      if (btn) {
+        btn.textContent = `☕ Proceed to Express Checkout ($${selectedDonateAmount}) →`;
+      }
+    }
+
     function handleDonateGospelClick() {
       const bridge = window.SacredIOSBridge;
       const webUrls = (bridge && typeof bridge.getWebCheckoutUrls === "function") ? bridge.getWebCheckoutUrls() : {};
-      const donateUrl = (webUrls.donate || "").trim();
+      const baseDonateUrl = (webUrls.donate || "https://sanctuaryjesus.gumroad.com/l/todfv").trim();
+      const amount = Math.max(3, selectedDonateAmount || 5);
 
       if (typeof window.trackSanctuaryMarketingEvent === "function") {
-        window.trackSanctuaryMarketingEvent("Donate", {
-          content_name: "Gospel_Mission_Donate_Any_Amount",
+        window.trackSanctuaryMarketingEvent("InitiateCheckout", {
+          content_name: "Gospel_Mission_Donate",
+          content_category: "GospelDonation",
           currency: "USD",
-          value: 5.00
+          value: amount
         });
       }
 
-      if (donateUrl && /^https?:\/\//i.test(donateUrl)) {
-        // Award +100 Grace & light a 24h Gospel Patron Candle
-        rewardGospelPatronBlessing();
-        window.open(donateUrl, "_blank", "noopener,noreferrer");
+      if (baseDonateUrl && /^https?:\/\//i.test(baseDonateUrl)) {
+        const sep = baseDonateUrl.includes("?") ? "&" : "?";
+        const finalUrl = `${baseDonateUrl}${sep}price=${amount}&wanted=true`;
+        openGumroadOverlay(finalUrl);
         return;
       }
 
@@ -5338,6 +5927,13 @@
               tzOffset: new Date().getTimezoneOffset()
             })
           }).catch(() => {});
+          localStorage.setItem("sacred_daily_email_v1", val.toLowerCase());
+          if (typeof window.trackSanctuaryMarketingEvent === "function") {
+            window.trackSanctuaryMarketingEvent("email-subscribe", {
+              content_name: "gospel_donate_pledge",
+              source: "gospel_donate_pledge"
+            });
+          }
         } catch (e) {}
       }
 
@@ -5691,6 +6287,13 @@
           })
         }).catch(() => {});
         localStorage.setItem("sacred_daily_email_v1", email);
+        localStorage.setItem("sacred_morning_subscribed_email", email);
+        if (typeof window.trackSanctuaryMarketingEvent === "function") {
+          window.trackSanctuaryMarketingEvent("email-subscribe", {
+            content_name: "daily_morning_verse",
+            source: "daily_morning_verse"
+          });
+        }
       } catch (e) {}
 
       playCathedralBellChime();
@@ -6091,15 +6694,42 @@
 
     function lightNewCandle() {
       const input = document.getElementById("candleIntentionInput");
+      const emailInput = document.getElementById("candleEmailInput");
       const text = input.value.trim() || "Personal Prayer Intention";
+      const userEmail = emailInput ? emailInput.value.trim().toLowerCase() : "";
       activeCandles.unshift({ intention: text, time: "24h 00m left" });
       input.value = "";
+      if (emailInput) emailInput.value = "";
       playCathedralBellChime();
-      addGracePoints(15);
+      addGracePoints(userEmail.includes("@") ? 50 : 15);
       try {
         localStorage.setItem("sacred_candles", JSON.stringify(activeCandles));
       } catch (e) {}
       renderCandlesAltar();
+
+      if (userEmail.includes("@")) {
+        try {
+          localStorage.setItem("sacred_daily_email_v1", userEmail);
+          localStorage.setItem("sacred_morning_subscribed_email", userEmail);
+        } catch (e) {}
+        if (typeof window.trackSanctuaryMarketingEvent === "function") {
+          window.trackSanctuaryMarketingEvent("email-subscribe", {
+            content_name: "candle_prayer_vigil",
+            source: "candle_prayer_vigil"
+          });
+        }
+        fetch("/api/push/email-subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: userEmail,
+            source: "candle_prayer_vigil",
+            intention: text,
+            tzOffsetMinutes: new Date().getTimezoneOffset()
+          })
+        }).catch(() => {});
+        triggerSanctuaryNotification("🕯️ Prayer Candle Lit (+50 Grace)", "We are praying with you. Your candle burns upon the altar.");
+      }
     }
 
     function toggleFavoriteCurrentVerse() {
@@ -6313,13 +6943,20 @@
       rainActive = !rainActive;
       const btn = document.getElementById("rainToggleBtn");
       if (rainActive) {
-        btn.textContent = "🌧️ Gentle Rain: ON";
-        btn.classList.add("active");
+        if (btn) {
+          btn.textContent = "🌧️ Gentle Rain: ON";
+          btn.classList.add("active");
+        }
         startGentleRainSound();
       } else {
-        btn.textContent = "🌧️ Gentle Rain: OFF";
-        btn.classList.remove("active");
+        if (btn) {
+          btn.textContent = "🌧️ Gentle Rain: OFF";
+          btn.classList.remove("active");
+        }
         stopGentleRainSound();
+      }
+      if (typeof syncQuickCathedralRainBtnUI === "function") {
+        syncQuickCathedralRainBtnUI();
       }
     }
 
@@ -6563,11 +7200,11 @@
         }
         if (subscribeBtn) {
           if (selectedPaywallPlan === "lifetime") {
-            subscribeBtn.textContent = "👑 Unlock Lifetime Sanctuary Pass ($49.99 Once)";
+            subscribeBtn.textContent = "👑 Unlock Founder's Lifetime Pass ($49.99 Once) →";
           } else if (selectedPaywallPlan === "monthly") {
-            subscribeBtn.textContent = "✨ Subscribe Monthly ($2.99/mo)";
+            subscribeBtn.textContent = "✨ Start 30-Day Sanctuary Pass ($2.99 Today) →";
           } else {
-            subscribeBtn.textContent = "✨ Start 7-Day Free Trial ($19.99/yr)";
+            subscribeBtn.textContent = "✨ Unlock 1-Year Sanctuary Pass (50% Off • $19.99) →";
           }
           subscribeBtn.onclick = showApplePaySheet;
         }
@@ -6697,16 +7334,23 @@
         reasonBanner.textContent = (reason && reason !== "limit_reached") ? reason : "Unlock the Full Sanctuary";
       }
       if (reason === "limit_reached" && !isSanctuaryVIP && quotaBanner) {
-        quotaBanner.innerHTML = `🔒 <strong>You've opened all 3 Free Vessels for today!</strong> Start your 7-Day Free Trial or unlock the Lifetime Pass to break all 12 Vessels without limits.`;
+        quotaBanner.innerHTML = `🔒 <strong>You've opened all 3 Free Vessels for today!</strong> Unlock the Monthly Pass ($2.99), Annual Pass ($19.99/yr) or Lifetime Pass to break all 12 Vessels without limits.`;
         quotaBanner.style.color = "#fca5a5";
         playCathedralBellChime();
       }
       if (typeof window.trackSanctuaryMarketingEvent === "function") {
-        window.trackSanctuaryMarketingEvent("InitiateCheckout", {
+        window.trackSanctuaryMarketingEvent("view_paywall", {
           content_name: selectedPaywallPlan || "annual",
           content_category: "SanctuaryPass",
+          reason: reason || "manual_open",
           currency: "USD",
-          value: selectedPaywallPlan === "lifetime" ? 99.99 : (selectedPaywallPlan === "monthly" ? 7.99 : 39.99)
+          value: selectedPaywallPlan === "lifetime" ? 49.99 : (selectedPaywallPlan === "monthly" ? 2.99 : 19.99)
+        });
+        window.trackSanctuaryMarketingEvent("ViewContent", {
+          content_name: "SanctuaryPass_Paywall_" + (selectedPaywallPlan || "annual"),
+          content_category: "SanctuaryPass",
+          currency: "USD",
+          value: selectedPaywallPlan === "lifetime" ? 49.99 : (selectedPaywallPlan === "monthly" ? 2.99 : 19.99)
         });
       }
       document.getElementById("paywallDrawer").classList.add("open");
@@ -6765,7 +7409,7 @@
         } else if (isMonthly) {
           summaryEl.innerHTML = "<strong>Monthly Sanctuary Pass ($2.99/mo — Save 50% vs $7.99 App Store):</strong> Enter your email to proceed to secure checkout:";
         } else {
-          summaryEl.innerHTML = "<strong>Annual Sanctuary Pass (7-Day Free Trial, then $19.99/yr — Save 50% vs $39.99 App Store):</strong> Enter your email to start your trial &amp; receive your VIP key:";
+          summaryEl.innerHTML = "<strong>Annual Sanctuary Pass ($19.99/yr — Only $1.66/mo • Save 50% vs $39.99 App Store):</strong> Enter your email to proceed to secure checkout &amp; receive your VIP key:";
         }
       }
       updateSubscriptionUI();
@@ -6773,38 +7417,70 @@
 
     async function submitWebCheckoutReservation() {
       const emailInput = document.getElementById("vipCheckoutEmailInput");
-      const email = emailInput ? emailInput.value.trim().toLowerCase() : "";
-      if (!email || !email.includes("@")) {
+      const typedEmail = emailInput ? emailInput.value.trim().toLowerCase() : "";
+      const savedEmail = localStorage.getItem("sacred_daily_email_v1") || localStorage.getItem("sacred_morning_subscribed_email") || "";
+      const email = (typedEmail && typedEmail.includes("@")) ? typedEmail : ((savedEmail && savedEmail.includes("@")) ? savedEmail : "");
+
+      const planKey = (selectedPaywallPlan === "lifetime") ? "lifetime" : (selectedPaywallPlan === "monthly" ? "monthly" : "annual");
+      const planPrice = planKey === "lifetime" ? 49.99 : (planKey === "monthly" ? 2.99 : 19.99);
+
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("InitiateCheckout", {
+          content_name: planKey,
+          content_category: "SanctuaryPass",
+          currency: "USD",
+          value: planPrice
+        });
+      }
+
+      // 1. If user entered an email, save buyer checkout intent + email to Cloudflare KV
+      if (email) {
+        try {
+          fetch(`${CLOUDFLARE_PUSH_API_BASE}/email-subscribe`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email,
+              source: "vip_checkout_intent",
+              plan: planKey,
+              tzOffsetMinutes: new Date().getTimezoneOffset()
+            })
+          }).catch(() => {});
+          localStorage.setItem("sacred_daily_email_v1", email);
+          if (typedEmail && typedEmail.includes("@") && typeof window.trackSanctuaryMarketingEvent === "function") {
+            window.trackSanctuaryMarketingEvent("email-subscribe", {
+              content_name: "vip_checkout_intent",
+              source: "vip_checkout_intent",
+              plan: planKey
+            });
+          }
+        } catch (e) {}
+      }
+
+      // 2. Immediately open live Gumroad Express Checkout (Zero Friction: do NOT block if email was left blank, as Gumroad collects email + Apple Pay natively!)
+      const fallbackGumroadUrls = {
+        annual: "https://sanctuaryjesus.gumroad.com/l/cqcuro",
+        lifetime: "https://sanctuaryjesus.gumroad.com/l/sanctuary-lifetime",
+        monthly: "https://sanctuaryjesus.gumroad.com/l/sanctuary-monthly",
+        donate: "https://sanctuaryjesus.gumroad.com/l/todfv"
+      };
+      const bridge = window.SacredIOSBridge;
+      const webUrls = (bridge && typeof bridge.getWebCheckoutUrls === "function") ? bridge.getWebCheckoutUrls() : fallbackGumroadUrls;
+      const checkoutUrl = (webUrls && webUrls[planKey]) ? webUrls[planKey] : fallbackGumroadUrls[planKey];
+      if (checkoutUrl && /^https?:\/\//i.test(checkoutUrl)) {
+        const sep = checkoutUrl.includes("?") ? "&" : "?";
+        const finalUrl = email
+          ? `${checkoutUrl}${sep}email=${encodeURIComponent(email)}&prefilled_email=${encodeURIComponent(email)}&wanted=true`
+          : `${checkoutUrl}${sep}wanted=true`;
+        openGumroadOverlay(finalUrl);
+        return;
+      }
+
+      if (!email) {
         triggerSanctuaryNotification(
           "📧 Please Enter Your Email",
           "Enter your email address so we can send your VIP License Key receipt and open your secure payment link."
         );
-        return;
-      }
-
-      // 1. Save buyer checkout intent + email to Cloudflare KV
-      try {
-        fetch(`${CLOUDFLARE_PUSH_API_BASE}/email-subscribe`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            source: "vip_checkout_intent",
-            plan: selectedPaywallPlan || "annual",
-            tzOffsetMinutes: new Date().getTimezoneOffset()
-          })
-        }).catch(() => {});
-        localStorage.setItem("sacred_daily_email_v1", email);
-      } catch (e) {}
-
-      // 2. If live Stripe / LemonSqueezy / Gumroad / PayPal link is configured, redirect with prefilled email!
-      const bridge = window.SacredIOSBridge;
-      const webUrls = (bridge && typeof bridge.getWebCheckoutUrls === "function") ? bridge.getWebCheckoutUrls() : {};
-      const planKey = (selectedPaywallPlan === "lifetime") ? "lifetime" : (selectedPaywallPlan === "monthly" ? "monthly" : "annual");
-      const checkoutUrl = webUrls[planKey];
-      if (checkoutUrl && /^https?:\/\//i.test(checkoutUrl)) {
-        const sep = checkoutUrl.includes("?") ? "&" : "?";
-        window.location.href = `${checkoutUrl}${sep}email=${encodeURIComponent(email)}&prefilled_email=${encodeURIComponent(email)}`;
         return;
       }
 
@@ -6860,6 +7536,13 @@
       }
       // Never show simulated HTML sheet inside Native iOS / Android container
       if (isNativeContainer) return;
+
+      // On Web (when not in Admin Dev Simulator mode): Launch 1-Click Direct Gumroad Checkout immediately without 2-step email friction!
+      if (!isDevSimulatorUnlocked) {
+        await submitWebCheckoutReservation();
+        return;
+      }
+
       const sheet = document.getElementById("applePaySheet");
       if (sheet) {
         sheet.classList.add("show");
@@ -6908,12 +7591,16 @@
     async function purchaseAndShareGiftPass() {
       const input = document.getElementById("giftRecipientInput");
       const recipient = (input && input.value.trim()) ? input.value.trim() : "My Loved One";
+      window.pendingGiftRecipient = recipient;
 
       if (window.SacredIOSBridge && typeof window.SacredIOSBridge.purchasePlan === "function") {
         const res = await window.SacredIOSBridge.purchasePlan("gift");
         if (res && res.handled && !res.success) return;
       }
+      await completeGiftPassShare(recipient);
+    }
 
+    async function completeGiftPassShare(recipient) {
       playCathedralBellChime();
       addGracePoints(100);
       const giftUrl = `${ getAppPublicBaseUrl() }?gift_pass=1&recipient=${encodeURIComponent(recipient)}`;
@@ -7108,6 +7795,74 @@
         btn.classList.add("sealed");
         btn.innerHTML = `✨ AMEN SEALED IN HEAVEN (+20 GRACE) • ${globalAmenCount.toLocaleString()} SOULS UNITED`;
       }
+
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("amen_sealed", {
+          content_name: currentTeaching ? currentTeaching.ref : "Daily_Word",
+          teaching_num: currentTeachingNum || 1
+        });
+      }
+
+      // Gently highlight the inline 7 AM Daily Word email card right after user seals Amen
+      try {
+        const inlineCard = document.getElementById("angelModalEmailCard");
+        const hasSubscribedEmail = Boolean(
+          localStorage.getItem("sacred_morning_subscribed_email") ||
+          localStorage.getItem("sacred_daily_email_v1")
+        );
+        if (inlineCard && !hasSubscribedEmail) {
+          inlineCard.style.display = "block";
+          inlineCard.style.borderColor = "#ffe08a";
+          inlineCard.style.boxShadow = "0 0 18px rgba(255, 224, 138, 0.45)";
+        }
+      } catch (e) {}
+    }
+
+    function submitInlineAngelModalEmail() {
+      const input = document.getElementById("inlineAngelEmailInput");
+      if (!input) return;
+      const email = input.value.trim().toLowerCase();
+      if (!email || !email.includes("@")) {
+        triggerSanctuaryNotification(
+          "📧 Enter Your Email Address",
+          "Please enter a valid email address so we can send Jesus's 7:00 AM Daily Word to your inbox."
+        );
+        input.focus();
+        return;
+      }
+      addGracePoints(50);
+      playCathedralBellChime();
+      try {
+        localStorage.setItem("sacred_morning_subscribed_email", email);
+        localStorage.setItem("sacred_daily_email_v1", email);
+      } catch (e) {}
+
+      const formRow = document.getElementById("inlineAngelEmailFormRow");
+      const successMsg = document.getElementById("inlineAngelEmailSuccessMsg");
+      if (formRow) formRow.style.display = "none";
+      if (successMsg) successMsg.style.display = "block";
+
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("email-subscribe", {
+          content_name: "angel_modal_inline_card",
+          source: "angel_modal_inline_card"
+        });
+      }
+
+      fetch("/api/push/email-subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          source: "angel_modal_inline_card",
+          tzOffsetMinutes: new Date().getTimezoneOffset()
+        })
+      }).catch(() => {});
+
+      triggerSanctuaryNotification(
+        "🌅 7:00 AM Daily Word Active (+50 Grace)",
+        `Amen! Your email (${email}) is inscribed in the Sanctuary. Check your inbox for today's Red-Letter blessing.`
+      );
     }
 
     function toggleBreathPrayerGuide() {
@@ -7272,33 +8027,158 @@
       }
     }
 
+    
+    function handleMorningWordSubscribe() {
+      const input = document.getElementById("morningDeliveryEmailInput");
+      if (!input) return;
+      const email = input.value.trim().toLowerCase();
+      if (!email || !email.includes("@")) {
+        alert("Please enter a valid email address to receive your sacred morning blessing.");
+        return;
+      }
+      addGracePoints(50);
+      playCathedralBellChime();
+      try {
+        localStorage.setItem("sacred_morning_subscribed_email", email);
+        localStorage.setItem("sacred_daily_email_v1", email);
+      } catch (e) {}
+
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("email-subscribe", {
+          content_name: "morning_word_altar_card",
+          source: "morning_word_altar_card"
+        });
+      }
+
+      const formWrap = document.getElementById("morningDeliveryFormWrap");
+      const successEl = document.getElementById("morningDeliverySuccess");
+      if (formWrap) formWrap.style.display = "none";
+      if (successEl) successEl.style.display = "block";
+
+      fetch("/api/push/email-subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          source: "morning_word_altar_card",
+          tzOffsetMinutes: new Date().getTimezoneOffset()
+        })
+      }).catch(() => {});
+
+      triggerSanctuaryNotification("🕊️ Sacred Morning Blessing (+50 Grace)", "Your email is inscribed in the Sanctuary. Check your inbox for today's Red-Letter gift.");
+    }
+
+    function showSanctuaryVipCelebrationModal() {
+      const modal = document.getElementById("sanctuaryVipCelebrationModal");
+      if (modal) modal.style.display = "flex";
+    }
+
+    function closeSanctuaryVipCelebrationModal() {
+      const modal = document.getElementById("sanctuaryVipCelebrationModal");
+      if (modal) modal.style.display = "none";
+      playCathedralBellChime();
+    }
+  
+    
+    function openMorningWordModal() {
+      const modal = document.getElementById("morningWordModal");
+      if (modal) modal.style.display = "flex";
+      playCathedralBellChime();
+    }
+
+    function closeMorningWordModal() {
+      const modal = document.getElementById("morningWordModal");
+      if (modal) modal.style.display = "none";
+    }
+
+    function handleModalMorningWordSubscribe() {
+      const input = document.getElementById("modalMorningDeliveryEmailInput");
+      if (!input) return;
+      const email = input.value.trim().toLowerCase();
+      if (!email || !email.includes("@")) {
+        alert("Please enter a valid email address to receive your sacred morning blessing.");
+        return;
+      }
+      addGracePoints(50);
+      playCathedralBellChime();
+      try {
+        localStorage.setItem("sacred_morning_subscribed_email", email);
+        localStorage.setItem("sacred_daily_email_v1", email);
+      } catch (e) {}
+
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("email-subscribe", {
+          content_name: "morning_word_header_modal",
+          source: "morning_word_header_modal"
+        });
+      }
+
+      const formWrap = document.getElementById("modalMorningDeliveryFormWrap");
+      const successEl = document.getElementById("modalMorningDeliverySuccess");
+      if (formWrap) formWrap.style.display = "none";
+      if (successEl) successEl.style.display = "block";
+
+      fetch("/api/push/email-subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          source: "morning_word_header_modal",
+          tzOffsetMinutes: new Date().getTimezoneOffset()
+        })
+      }).catch(() => {});
+
+      triggerSanctuaryNotification("🕊️ Sacred Morning Blessing (+50 Grace)", "Your email is inscribed. Check your inbox for today's sacred blessing.");
+      setTimeout(() => { closeMorningWordModal(); }, 2200);
+    }
+  
     function checkFirstTimeOnboarding() {
       try {
         const params = new URLSearchParams(window.location.search);
         // 1. Check if buyer returned from Stripe / Gumroad / LemonSqueezy / PayPal Web Checkout (?vip_unlocked=1&plan=lifetime)
-        if (params.get("vip_unlocked") === "1") {
-          const purchasedPlan = (params.get("plan") || "annual").toLowerCase();
-          selectedPaywallPlan = purchasedPlan;
+        const isVipParam = params.get("vip_unlocked") === "1" ||
+                             params.get("vip_unlocked") === "true" ||
+                             params.get("receipt") === "true" ||
+                             params.get("vip") === "true" ||
+                             params.get("unlocked") === "vip" ||
+                             params.get("gumroad_success") === "true";
+
+        if (isVipParam) {
+          const rawPlan = (params.get("plan") || "lifetime").toLowerCase();
+          const purchasedPlanCheck = (rawPlan === "donate") ? "lifetime" : rawPlan;
+          if (window.self !== window.top) {
+            try {
+              selectedPaywallPlan = purchasedPlanCheck;
+              isSanctuaryVIP = true;
+              isLifetimeVIP = (purchasedPlanCheck === "lifetime");
+              saveSubscriptionState();
+              window.parent.postMessage(JSON.stringify({
+                post_message_name: "sale",
+                permalink: purchasedPlanCheck,
+                product_name: purchasedPlanCheck
+              }), "*");
+            } catch (e) {}
+            return;
+          }
+          try { window.history.replaceState({}, document.title, window.location.pathname); } catch (e) {}
+          selectedPaywallPlan = purchasedPlanCheck;
           isSanctuaryVIP = true;
-          isLifetimeVIP = (purchasedPlan === "lifetime");
+          isLifetimeVIP = (purchasedPlanCheck === "lifetime" || purchasedPlanCheck === "annual" || !params.get("plan"));
           saveSubscriptionState();
           updateSubscriptionUI();
-          addGracePoints(isLifetimeVIP ? 250 : 100);
+          addGracePoints(isLifetimeVIP ? 500 : 250);
           if (typeof window.trackSanctuaryMarketingEvent === "function") {
             window.trackSanctuaryMarketingEvent("Purchase", {
-              content_name: purchasedPlan,
+              content_name: purchasedPlanCheck,
               content_category: "SanctuaryPass",
               currency: "USD",
-              value: isLifetimeVIP ? 99.99 : (purchasedPlan === "monthly" ? 7.99 : 39.99)
+              value: isLifetimeVIP ? 49.99 : (purchasedPlanCheck === "monthly" ? 2.99 : 19.99)
             });
           }
           setTimeout(() => {
             playCathedralBellChime();
-            triggerSanctuaryNotification(
-              isLifetimeVIP ? "👑 Lifetime Sanctuary Pass Unlocked!" : "👑 Sanctuary Pass VIP Activated!",
-              "Thank you for your payment! All 12 Sacred Vessels, the 13th Golden Chalice & all 365+ Words of Jesus are now unlocked."
-            );
-          }, 600);
+            showSanctuaryVipCelebrationModal();
+          }, 450);
           return;
         }
         // 2. Check if user opened a Gift Pass link (?gift_pass=1&recipient=...)
@@ -7430,6 +8310,12 @@
       closeAllDrawers();
       const detected = detectVisitorOs();
       switchInstallOsTab(detected);
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("pwa_install_button_click", {
+          content_name: "PWA_Install_Drawer_Opened",
+          os_platform: detected
+        });
+      }
       const rewardClaimed = localStorage.getItem("sacred_pwa_install_reward_v1") === "true";
       const rewardBtn = document.getElementById("claimInstallRewardBtn");
       if (rewardBtn && rewardClaimed) {
@@ -7440,6 +8326,12 @@
     }
 
     async function triggerNativePwaInstall() {
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("pwa_install_button_click", {
+          content_name: "PWA_Native_Prompt_Triggered",
+          os_platform: detectVisitorOs()
+        });
+      }
       if (deferredPwaPrompt) {
         try {
           deferredPwaPrompt.prompt();
@@ -7469,6 +8361,19 @@
         localStorage.setItem("sacred_pwa_install_reward_v1", "true");
         addGracePoints(50);
         playCathedralBellChime();
+        if (typeof window.trackSanctuaryMarketingEvent === "function") {
+          window.trackSanctuaryMarketingEvent("pwa_installed", {
+            content_name: "PWA_Add_To_Home_Screen",
+            content_category: "AppInstall",
+            os_platform: detectVisitorOs()
+          });
+          window.trackSanctuaryMarketingEvent("AddToWishlist", {
+            content_name: "PWA_Add_To_Home_Screen",
+            content_category: "AppInstall",
+            currency: "USD",
+            value: 1.00
+          });
+        }
         const rewardBtn = document.getElementById("claimInstallRewardBtn");
         if (rewardBtn) rewardBtn.textContent = "✅ +50 Grace Claimed";
         triggerSanctuaryNotification(
@@ -7492,9 +8397,132 @@
           if (btnDesk) btnDesk.style.display = "none";
           if (webSaveBtn) webSaveBtn.remove();
           if (installDrawer) installDrawer.remove();
+
+          // Track 100% Verified Home Screen Launch (iOS navigator.standalone / Android display-mode:standalone / ?standalone=1)
+          if (typeof window.trackSanctuaryMarketingEvent === "function") {
+            window.trackSanctuaryMarketingEvent("pwa_standalone_launch", {
+              content_name: "PWA_Home_Screen_Launch",
+              os_platform: detectVisitorOs()
+            });
+            if (!localStorage.getItem("sacred_pwa_first_standalone_tracked_v1")) {
+              localStorage.setItem("sacred_pwa_first_standalone_tracked_v1", "true");
+              window.trackSanctuaryMarketingEvent("pwa_installed", {
+                content_name: "PWA_Verified_Home_Screen_Install",
+                content_category: "AppInstall",
+                os_platform: detectVisitorOs()
+              });
+              window.trackSanctuaryMarketingEvent("AddToWishlist", {
+                content_name: "PWA_Verified_Home_Screen_Install",
+                content_category: "AppInstall",
+                currency: "USD",
+                value: 1.00
+              });
+            }
+          }
         } else if (webSaveBtn) {
           webSaveBtn.style.display = "inline-flex";
         }
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 20. EXIT-INTENT PWA INSTALL PROMPT (ANDROID/IOS BACK BUTTON & DESKTOP EXIT)
+    // =========================================================================
+    let exitPromptShownThisSession = false;
+
+    function initExitIntentSystem() {
+      // 1. Prime browser history state so mobile Back button / gesture can be intercepted
+      try {
+        if (!isRunningStandalone() && window.history && typeof window.history.pushState === "function") {
+          window.history.pushState({ sanctuaryStage: "app_active" }, "");
+        }
+      } catch (e) {}
+
+      // 2. Intercept Phone Back Button / Swipe-to-Back Gesture
+      window.addEventListener("popstate", function (event) {
+        if (isRunningStandalone()) return;
+
+        // A. If any drawer, modal or paywall is currently open, close it gracefully instead of leaving the app!
+        const openDrawer = document.querySelector(".library-drawer.open, .angel-revelation-overlay.visible");
+        const paySheet = document.getElementById("applePaySheet");
+        const isSheetOpen = paySheet && paySheet.classList.contains("show");
+        const gumroadModal = document.getElementById("sanctuaryGumroadOverlayModal");
+        const isGumroadOpen = gumroadModal && gumroadModal.style.display === "flex";
+        const exitModal = document.getElementById("sanctuaryExitPromptModal");
+        const isExitOpen = exitModal && exitModal.style.display === "flex";
+
+        if (isExitOpen) {
+          exitModal.style.display = "none";
+          return;
+        }
+
+        if (openDrawer || isSheetOpen || isGumroadOpen) {
+          closeAllDrawers();
+          if (isGumroadOpen) closeFallbackGumroadIframeModal();
+          try { window.history.pushState({ sanctuaryStage: "app_active" }, ""); } catch (e) {}
+          return;
+        }
+
+        // B. On main screen: if user hasn't installed PWA and hasn't seen exit prompt this session, show it!
+        if (!exitPromptShownThisSession && !sessionStorage.getItem("sacred_exit_pwa_shown")) {
+          exitPromptShownThisSession = true;
+          try { sessionStorage.setItem("sacred_exit_pwa_shown", "1"); } catch (e) {}
+          try { window.history.pushState({ sanctuaryStage: "app_active" }, ""); } catch (e) {}
+          openExitPromptModal();
+          return;
+        }
+
+        // C. If user has already dismissed exit prompt, let browser go back normally
+      });
+
+      // 3. Desktop Exit-Intent: Detect mouse leaving viewport to close tab
+      document.addEventListener("mouseleave", function (e) {
+        if (e.clientY <= 12 && window.innerWidth >= 820 && !isRunningStandalone()) {
+          if (!exitPromptShownThisSession && !sessionStorage.getItem("sacred_exit_pwa_shown")) {
+            exitPromptShownThisSession = true;
+            try { sessionStorage.setItem("sacred_exit_pwa_shown", "1"); } catch (e) {}
+            openExitPromptModal();
+          }
+        }
+      });
+    }
+
+    function openExitPromptModal() {
+      if (isRunningStandalone()) return;
+      const modal = document.getElementById("sanctuaryExitPromptModal");
+      if (modal) {
+        modal.style.display = "flex";
+        playCathedralBellChime();
+        if (typeof window.trackSanctuaryMarketingEvent === "function") {
+          window.trackSanctuaryMarketingEvent("pwa_exit_prompt_shown", {
+            content_name: "PWA_Exit_Intent_Popup",
+            os_platform: detectVisitorOs()
+          });
+        }
+      }
+    }
+
+    function handleExitPromptInstall() {
+      const modal = document.getElementById("sanctuaryExitPromptModal");
+      if (modal) modal.style.display = "none";
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("pwa_install_button_click", {
+          content_name: "PWA_Exit_Intent_CTA_Click",
+          os_platform: detectVisitorOs()
+        });
+      }
+      if (deferredPwaPrompt) {
+        triggerNativePwaInstall();
+      } else {
+        openInstallAppDrawer();
+      }
+    }
+
+    function handleExitPromptDismiss() {
+      const modal = document.getElementById("sanctuaryExitPromptModal");
+      if (modal) modal.style.display = "none";
+      try {
+        window.history.back();
       } catch (e) {}
     }
 
@@ -7654,6 +8682,7 @@
     checkFirstTimeOnboarding();
     checkIncomingViralDeepLink();
     initSmartInstallBanner();
+    initExitIntentSystem();
     startLiveCommunityTicker();
 
     // Dynamic Viewport Height Synchronizer for Telegram, Zalo, Messenger, Instagram & Safari WebViews
@@ -7702,5 +8731,47 @@
   </script>
   <!-- Optional Native iOS Capacitor + RevenueCat StoreKit 2 Bridge -->
   <script src="./ios-storekit-bridge.js" onerror=""></script>
+
+  <!-- Sanctuary VIP Instant Unlock Celebration Modal -->
+  <div class="sanctuary-exit-modal-backdrop" id="sanctuaryVipCelebrationModal" style="display:none; z-index:100010;">
+    <div class="sanctuary-exit-modal-sheet" style="text-align:center; max-width:420px; border-color:var(--gold-bright); box-shadow:0 16px 48px rgba(0,0,0,0.85), 0 0 32px rgba(212,175,55,0.45);">
+      <div style="font-size:46px; margin-bottom:6px;">👑⚱️✨</div>
+      <div style="font-size:11px; letter-spacing:2px; color:var(--gold-bright); font-weight:bold; text-transform:uppercase;">Sanctuary Pass VIP Activated</div>
+      <h2 style="font-family:'Cinzel',serif; font-size:22px; color:#fff8e7; margin:6px 0 10px;">Welcome to the Inner Altar</h2>
+      <p style="font-size:14px; color:#ebd9b8; line-height:1.55; margin-bottom:14px;">
+        Beloved Child of God, your devotion is honored. All <strong>12 Sacred Vessels</strong>, <strong>Sleep Soundscapes</strong>, and unlimited <strong>Ask Angel AI</strong> are now unlocked forever on this device!
+      </p>
+      <div style="background:rgba(212,175,55,0.12); border:1px dashed rgba(212,175,55,0.45); border-radius:10px; padding:10px 14px; margin-bottom:16px; font-size:12.5px; color:#ffd97d;">
+        🕊️ <strong>+500 Grace Points</strong> awarded to your spiritual walk.
+      </div>
+      <button class="btn-sacred btn-primary-gold" style="width:100%; padding:14px; font-size:15px; font-weight:bold;" onclick="closeSanctuaryVipCelebrationModal()">
+        Enter Sacred Sanctuary 🕊️
+      </button>
+    </div>
+  </div>
+
+  <!-- Dedicated Morning Word Modal (100% Non-intrusive & Mobile-Optimized) -->
+  <div class="sanctuary-exit-modal-backdrop" id="morningWordModal" style="display:none; z-index:100005;">
+    <div class="sanctuary-exit-modal-sheet" style="text-align:center; max-width:390px; border-color:var(--gold-bright); box-shadow:0 16px 48px rgba(0,0,0,0.85);">
+      <div style="font-size:38px; margin-bottom:4px;">🕊️🌅✨</div>
+      <div style="font-size:10.5px; letter-spacing:2px; color:var(--gold-bright); font-weight:bold; text-transform:uppercase;">Daily Dawn Blessing</div>
+      <h2 style="font-family:'Cinzel',serif; font-size:20px; color:#fff8e7; margin:4px 0 8px;">Receive Jesus's Word Daily</h2>
+      <p style="font-size:13px; color:#ebd9b8; line-height:1.5; margin-bottom:12px;">
+        Every morning at 7:00 AM, receive the living Red-Letter Scripture &amp; Angelic Cathedral prayer in your inbox.
+      </p>
+      <div id="modalMorningDeliveryFormWrap" style="display:flex; flex-direction:column; gap:8px;">
+        <input type="email" id="modalMorningDeliveryEmailInput" placeholder="Enter your email address..." class="search-input" style="margin-bottom:0; font-size:13px; text-align:center; background:rgba(0,0,0,0.6);" />
+        <button class="btn-sacred btn-primary-gold" style="width:100%; padding:12px; font-size:13.5px; font-weight:bold;" onclick="handleModalMorningWordSubscribe()">
+          Inscribe Email (+50 Grace) 🕊️
+        </button>
+      </div>
+      <div id="modalMorningDeliverySuccess" style="display:none; color:#ffd97d; font-size:13px; font-weight:bold; margin-top:8px;">
+        ✨ Amen! +50 Grace Points awarded. Check your inbox for today's sacred blessing.
+      </div>
+      <button class="btn-sacred btn-secondary-outline" style="width:100%; margin-top:10px; padding:8px; font-size:11.5px; color:var(--text-muted); border-color:rgba(255,255,255,0.15);" onclick="closeMorningWordModal()">
+        Close
+      </button>
+    </div>
+  </div>
 </body>
 </html>
