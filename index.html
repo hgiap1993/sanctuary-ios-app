@@ -2987,6 +2987,25 @@
 
           <!-- iOS Safari 2-Tap Instructions -->
           <div id="installGuideIOS" style="display:flex; flex-direction:column; gap:10px;">
+            <!-- Official iOS App Store 1-Tap Download Card -->
+            <div style="background:linear-gradient(135deg, rgba(212,175,55,0.22), rgba(30,20,10,0.95)); border:1.5px solid var(--gold-bright); border-radius:14px; padding:14px; text-align:center; box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+              <div style="font-size:24px; margin-bottom:4px;"></div>
+              <div style="font-family:'Cinzel',serif; font-size:14px; color:var(--gold-bright); font-weight:700; margin-bottom:4px;">
+                Official iOS App Store Release
+              </div>
+              <div style="font-size:12px; color:#fef08a; margin-bottom:10px; line-height:1.4;">
+                Approved by Apple. Includes offline cathedral audio, daily lockscreen notifications &amp; Bible widget.
+              </div>
+              <a href="https://apps.apple.com/app/id6824383974" target="_blank" rel="noopener" class="btn-sacred btn-primary-gold" onclick="if(typeof fbq==='function'){try{fbq('trackCustom','AppStoreVisit',{source:'install_drawer_ios'});}catch(e){}}" style="width:100%; justify-content:center; padding:11px; font-size:13px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+                📲 Download on the App Store →
+              </a>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:8px; margin:4px 0; color:var(--text-muted); font-size:11px; text-transform:uppercase; letter-spacing:1px; justify-content:center;">
+              <span style="height:1px; background:rgba(212,175,55,0.25); flex:1;"></span>
+              <span>OR ADD WEB APP TO HOME SCREEN</span>
+              <span style="height:1px; background:rgba(212,175,55,0.25); flex:1;"></span>
+            </div>
             <div class="install-step-card">
               <div class="install-step-num">1</div>
               <div>
@@ -3324,27 +3343,34 @@
     <div class="home-indicator"><div class="home-bar"></div></div>
   </div>
 
-  <!-- Exit-Intent PWA Install Prompt Modal (When user taps Back / Exit / tries to leave) -->
+  <!-- Exit-Intent App Store & PWA Install Prompt Modal (When user taps Back / Exit / tries to leave) -->
   <div id="sanctuaryExitPromptModal" style="display:none; position:fixed; inset:0; z-index:999999; background:rgba(8,6,4,0.88); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:16px;">
     <div style="background:radial-gradient(circle at 50% 10%, rgba(212,175,55,0.22), rgba(20,14,8,0.98)); border:1.5px solid rgba(255,217,125,0.55); border-radius:20px; max-width:390px; width:100%; padding:22px 18px 20px; text-align:center; box-shadow:0 24px 60px rgba(0,0,0,0.85); animation:modalSlideUp 0.3s ease;">
       <div style="font-size:38px; line-height:1; margin-bottom:8px; filter:drop-shadow(0 0 16px rgba(255,215,0,0.6));">🕊️⚱️✨</div>
-      <div style="font-family:'Cinzel',serif; font-size:11px; letter-spacing:1.5px; color:var(--gold-bright); font-weight:700; text-transform:uppercase; margin-bottom:4px;">
+      <div id="exitPromptBadge" style="font-family:'Cinzel',serif; font-size:11px; letter-spacing:1.5px; color:var(--gold-bright); font-weight:700; text-transform:uppercase; margin-bottom:4px;">
         Before You Leave Sanctuary...
       </div>
-      <h3 style="font-family:'Cinzel',serif; font-size:18px; color:#fff8e7; margin:0 0 8px; line-height:1.25;">
-        Add to Home Screen
+      <h3 id="exitPromptTitle" style="font-family:'Cinzel',serif; font-size:18px; color:#fff8e7; margin:0 0 8px; line-height:1.25;">
+        Get Sanctuary for iPhone &amp; iPad
       </h3>
-      <p style="font-size:13px; color:#f3e5c8; line-height:1.45; margin:0 0 12px;">
-        Keep Christ's Words of Peace always with you. 1-tap from your Home Screen gives you <strong>instant full-screen prayer</strong> &amp; daily cathedral bell blessings.
+      <p id="exitPromptDesc" style="font-size:13px; color:#f3e5c8; line-height:1.45; margin:0 0 12px;">
+        Carry Christ's Words of Peace always with you. Download the official free app on the <strong>Apple App Store</strong> for offline cathedral audio &amp; daily prayer.
       </p>
-      <div style="background:rgba(212,175,55,0.12); border:1px solid rgba(255,217,125,0.35); border-radius:12px; padding:8px 12px; font-size:12px; color:#fef08a; font-weight:600; margin-bottom:16px;">
-        🎁 +50 Grace Points Bonus Awarded on Install!
+      <div id="exitPromptFeatureTag" style="background:rgba(212,175,55,0.12); border:1px solid rgba(255,217,125,0.35); border-radius:12px; padding:8px 12px; font-size:12px; color:#fef08a; font-weight:600; margin-bottom:16px;">
+        🎁 100% Free on App Store • Offline Audio • Daily Blessings
       </div>
 
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <button class="btn-sacred btn-primary-gold" onclick="handleExitPromptInstall()" style="width:100%; justify-content:center; padding:13px; font-size:13.5px; font-weight:700; box-shadow:0 6px 20px rgba(212,175,55,0.4);">
+        <!-- 1-Tap Official iOS App Store CTA -->
+        <a id="exitPromptAppStoreBtn" href="https://apps.apple.com/app/id6824383974" target="_blank" rel="noopener" onclick="handleExitPromptAppStoreClick()" class="btn-sacred btn-primary-gold" style="width:100%; justify-content:center; padding:13px; font-size:14px; font-weight:700; box-shadow:0 6px 20px rgba(212,175,55,0.4); text-decoration:none; display:flex; align-items:center; gap:8px;">
+          <span style="font-size:17px; line-height:1;"></span> Download Free on App Store →
+        </a>
+
+        <!-- Secondary PWA Button (For Android / Web users) -->
+        <button id="exitPromptPwaBtn" class="btn-sacred btn-primary-gold" onclick="handleExitPromptInstall()" style="display:none; width:100%; justify-content:center; padding:13px; font-size:13.5px; font-weight:700; box-shadow:0 6px 20px rgba(212,175,55,0.4);">
           📲 Add to Home Screen (+50 Grace) →
         </button>
+
         <button onclick="handleExitPromptDismiss()" style="background:transparent; border:none; color:var(--text-muted); font-size:12px; padding:8px; cursor:pointer; text-decoration:underline;">
           Leave Sanctuary for now
         </button>
@@ -8520,14 +8546,49 @@
       if (isRunningStandalone()) return;
       const modal = document.getElementById("sanctuaryExitPromptModal");
       if (modal) {
+        const isIOS = detectVisitorOs() === "ios";
+        const appStoreBtn = document.getElementById("exitPromptAppStoreBtn");
+        const pwaBtn = document.getElementById("exitPromptPwaBtn");
+        const titleEl = document.getElementById("exitPromptTitle");
+        const descEl = document.getElementById("exitPromptDesc");
+        const tagEl = document.getElementById("exitPromptFeatureTag");
+
+        if (isIOS) {
+          if (titleEl) titleEl.textContent = "Get Sanctuary for iPhone & iPad";
+          if (descEl) descEl.innerHTML = "Carry Christ's Words of Peace always with you. Download the official free app on the <strong>Apple App Store</strong> for offline cathedral audio &amp; daily prayer.";
+          if (tagEl) tagEl.innerHTML = "🎁 100% Free on App Store • Offline Audio • Daily Blessings";
+          if (appStoreBtn) appStoreBtn.style.display = "flex";
+          if (pwaBtn) pwaBtn.style.display = "none";
+        } else {
+          if (titleEl) titleEl.textContent = "Add Sanctuary to Home Screen";
+          if (descEl) descEl.innerHTML = "Keep Christ's Words of Peace always with you. 1-tap from your Home Screen gives you <strong>instant full-screen prayer</strong> &amp; daily cathedral bell blessings.";
+          if (tagEl) tagEl.innerHTML = "🎁 +50 Grace Points Bonus Awarded on Install!";
+          if (appStoreBtn) appStoreBtn.style.display = "none";
+          if (pwaBtn) pwaBtn.style.display = "flex";
+        }
+
         modal.style.display = "flex";
         playCathedralBellChime();
         if (typeof window.trackSanctuaryMarketingEvent === "function") {
-          window.trackSanctuaryMarketingEvent("pwa_exit_prompt_shown", {
-            content_name: "PWA_Exit_Intent_Popup",
+          window.trackSanctuaryMarketingEvent("exit_prompt_shown", {
+            content_name: isIOS ? "iOS_AppStore_Exit_Popup" : "PWA_Exit_Intent_Popup",
             os_platform: detectVisitorOs()
           });
         }
+      }
+    }
+
+    function handleExitPromptAppStoreClick() {
+      const modal = document.getElementById("sanctuaryExitPromptModal");
+      if (modal) modal.style.display = "none";
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("app_store_exit_cta_click", {
+          content_name: "AppStore_Exit_Modal_Click",
+          os_platform: detectVisitorOs()
+        });
+      }
+      if (typeof fbq === "function") {
+        try { fbq("trackCustom", "AppStoreVisit", { source: "exit_intent_modal" }); } catch (e) {}
       }
     }
 
