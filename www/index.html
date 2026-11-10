@@ -205,6 +205,9 @@
           t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
           document,'script','https://connect.facebook.net/en_US/fbevents.js');
           window.fbq('init', pixelId);
+          if (pixelId !== '1042485798073974') {
+            window.fbq('init', '1042485798073974');
+          }
           window.fbq('track', 'PageView');
         }
       } catch (e) {}
