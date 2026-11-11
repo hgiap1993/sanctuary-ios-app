@@ -21,7 +21,7 @@
         host.endsWith(".sanctuaryjesus.com") ||
         host === "localhost" ||
         host === "127.0.0.1" ||
-        host.endsWith(".pages.dev"); // Allows your official Cloudflare Pages staging preview
+        host.endsWith(".pages.dev") || host.endsWith(".workers.dev"); // Allows official staging/preview workers
 
       if (!isAllowedHost) {
         // Cloned onto unauthorized domain: Redirect all stolen traffic to official domain
@@ -104,6 +104,7 @@
   <link rel="manifest" href="./manifest.json" />
   <link rel="apple-touch-icon" href="./icon-512.png" />
   <link rel="canonical" href="https://sanctuaryjesus.com/" />
+  <meta name="description" content="Step into Sanctuary: Christ's Daily Words of Peace, 12 Sacred Biblical Vessels, cathedral bell chimes, and gentle night rain sleep prayer. Free on Web &amp; Apple App Store." />
   <title>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</title>
   <!-- Viral Social Sharing Open Graph & Twitter Card Meta Tags -->
   <meta property="og:type" content="website" />
@@ -2180,7 +2181,7 @@
         </div>
         <div style="display:flex; align-items:center; gap:5px;">
           <button class="icon-btn" id="musicBtnApp" onclick="toggleAmbientHarp()" title="Ambient Sanctuary Harp">🎵</button>
-          <button class="icon-btn" id="topFontSizeBtn" onclick="cycleScriptureFontSize()" style="border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.16); font-weight:800;" title="Tap to Enlarge Text Size for Easy Senior Reading">🔍 Aa+</button>
+          <button class="icon-btn" id="topFontSizeBtn" onclick="cycleScriptureFontSize()" style="border-color:#ffd97d; color:#1a1105; background:linear-gradient(135deg, #ffd97d, #d4af37); font-weight:800; padding:4px 9px;" title="Tap to Enlarge Text Size for Easy Senior Reading">Aa++</button>
           <button class="icon-btn" id="passBadgeApp" onclick="openPaywallDrawer()" style="border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.22); font-weight:700;" title="Sanctuary Pass Subscription">
             💎 VIP
           </button>
@@ -2191,6 +2192,11 @@
       <div class="sanctuary-header">
         <div class="sanctuary-subtitle">Sanctuary: Jesus Daily Prayer • Day #<span id="dayOfYearNum" onclick="openDailyWordOfYear()" style="cursor:pointer; text-decoration:underline;">1</span></div>
         <h1 class="sanctuary-title">12 Sacred Vessels &amp; Sleep Word</h1>
+        <div style="display:flex; justify-content:center; gap:8px; margin:8px 0 4px;">
+          <button class="btn-sacred btn-primary-gold" onclick="scrollToVesselsStage()" style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:99px; box-shadow:0 4px 15px rgba(212,175,55,0.35); text-transform:uppercase; letter-spacing:0.5px;">
+            🏺 Touch a Sacred Vessel of Peace →
+          </button>
+        </div>
         <div style="display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; margin-top:2px;">
           <div class="rank-bar" id="faithRankBadge" onclick="openReminderDrawer()" style="cursor:pointer;" title="Tap to set Daily Prayer Bell">
             ✨ <span id="gracePointsText">0</span> Grace • 🔔
@@ -2261,7 +2267,7 @@
             <span class="relic-unlocked-pill" id="relicBadge">🏺 Relic Discovered</span>
             <button class="icon-btn" id="favHeartBtn" onclick="toggleFavoriteCurrentVerse()" style="padding:3px 9px; font-weight:700;">🤍 Save</button>
             <button class="icon-btn" onclick="openVoiceDrawer()" style="padding:3px 9px; font-weight:700;" id="modalVoicePill">🎙️ Voice</button>
-            <button class="icon-btn" id="fontSizeToggleBtn" onclick="cycleScriptureFontSize()" style="padding:3px 9px; font-weight:700; border-color:#ffd97d; color:#ffd97d; background:rgba(212,175,55,0.18);" title="Tap to Enlarge Text Size for Easy Reading">🔍 Aa</button>
+            <button class="icon-btn" id="fontSizeToggleBtn" onclick="cycleScriptureFontSize()" style="padding:4px 10px; font-weight:800; border-color:#ffd97d; color:#1a1105; background:linear-gradient(135deg, #ffd97d, #d4af37); border-radius:99px;" title="Tap to Enlarge Text Size for Easy Reading">🔍 Aa++ Large Print</button>
           </div>
           <p class="jesus-quote-text" id="verseText"></p>
           <div class="scripture-reference" id="verseRef"></div>
@@ -3381,7 +3387,32 @@
     </div>
   </div>
 
-  <!-- Custom Floating Sacred Hammer -->
+  
+  <!-- Floating Sticky Bottom App Store Banner (Mobile Web) -->
+  <div id="stickyAppStoreBar" style="display:none; position:fixed; bottom:max(12px, env(safe-area-inset-bottom, 12px)); left:12px; right:12px; z-index:99998; background:rgba(20, 14, 8, 0.94); backdrop-filter:blur(12px); border:1px solid rgba(255,217,125,0.45); border-radius:16px; padding:10px 14px; box-shadow:0 12px 32px rgba(0,0,0,0.75), 0 0 16px rgba(212,175,55,0.25); align-items:center; justify-content:space-between; gap:10px; animation:modalSlideUp 0.3s ease;">
+    <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0; cursor:pointer;" onclick="openAppleAppStoreDirect('sticky_bar_body')">
+      <div style="width:38px; height:38px; border-radius:10px; background:radial-gradient(circle, #ffe58f 0%, #d4af37 60%, #5c3317 100%); display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.5); flex-shrink:0;">
+        ⚱️
+      </div>
+      <div style="min-width:0; flex:1;">
+        <div style="font-family:'Cinzel',serif; font-size:12.5px; font-weight:700; color:#fff8e7; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+          Sanctuary Official App
+        </div>
+        <div style="font-size:11px; color:#ffd97d; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+          ⭐️ 5.0 • Free on Apple App Store
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+      <button onclick="openAppleAppStoreDirect('sticky_bottom_btn')" class="btn-sacred btn-primary-gold" style="padding:7px 13px; font-size:12px; font-weight:700; border-radius:99px; box-shadow:0 2px 10px rgba(212,175,55,0.4);">
+        Get App →
+      </button>
+      <button onclick="dismissStickyAppStoreBar()" style="background:transparent; border:none; color:var(--text-muted); font-size:16px; width:26px; height:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;" title="Dismiss">
+        ✕
+      </button>
+    </div>
+  </div>
+<!-- Custom Floating Sacred Hammer -->
   <div id="sacred-hammer">
     <svg viewBox="0 0 80 80" fill="none">
       <rect x="36" y="28" width="9" height="46" rx="4" transform="rotate(15 36 28)" fill="#5C3317" stroke="#D4AF37" stroke-width="1.2"/>
@@ -8489,6 +8520,7 @@
     let exitPromptShownThisSession = false;
 
     function initExitIntentSystem() {
+      initStickyAppStoreBar();
       // 1. Prime browser history state so mobile Back button / gesture can be intercepted
       try {
         if (!isRunningStandalone() && window.history && typeof window.history.pushState === "function") {
@@ -8581,9 +8613,80 @@
       }
     }
 
+    
+    // -------------------------------------------------------------
+    // SANCTUARY APP STORE DIRECT DEEP-LINK & IN-APP BROWSER BYPASS
+    // -------------------------------------------------------------
+    function openAppleAppStoreDirect(source) {
+      try {
+        if (typeof window.trackSanctuaryMarketingEvent === "function") {
+          window.trackSanctuaryMarketingEvent("app_store_cta_click", {
+            source: source || "direct",
+            os_platform: detectVisitorOs()
+          });
+        }
+        if (typeof fbq === "function") {
+          try { fbq("trackCustom", "AppStoreVisit", { source: source || "direct" }); } catch (e) {}
+        }
+      } catch (e) {}
+
+      const ua = navigator.userAgent || "";
+      const isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const isFB = /FBAN|FBAV|Instagram/i.test(ua);
+
+      if (isIOS && isFB) {
+        window.location.href = "itms-apps://apps.apple.com/app/id6824383974";
+        setTimeout(function() {
+          window.location.href = "https://apps.apple.com/app/id6824383974";
+        }, 800);
+      } else {
+        window.open("https://apps.apple.com/app/id6824383974", "_blank", "noopener");
+      }
+    }
+
+    function scrollToVesselsStage() {
+      playCathedralBellChime();
+      const stage = document.querySelector(".vessels-stage");
+      if (stage) {
+        stage.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+
+    function initStickyAppStoreBar() {
+      if (isRunningStandalone()) return;
+      if (sessionStorage.getItem("sacred_sticky_dismissed")) return;
+
+      const bar = document.getElementById("stickyAppStoreBar");
+      if (!bar) return;
+
+      let isShown = false;
+      function checkShow() {
+        if (isShown) return;
+        if (window.scrollY > 100) {
+          isShown = true;
+          bar.style.display = "flex";
+        }
+      }
+
+      window.addEventListener("scroll", checkShow, { passive: true });
+      setTimeout(function() {
+        if (!isShown && !sessionStorage.getItem("sacred_sticky_dismissed")) {
+          isShown = true;
+          bar.style.display = "flex";
+        }
+      }, 5000);
+    }
+
+    function dismissStickyAppStoreBar() {
+      const bar = document.getElementById("stickyAppStoreBar");
+      if (bar) bar.style.display = "none";
+      try { sessionStorage.setItem("sacred_sticky_dismissed", "1"); } catch (e) {}
+    }
+
     function handleExitPromptAppStoreClick() {
       const modal = document.getElementById("sanctuaryExitPromptModal");
       if (modal) modal.style.display = "none";
+      openAppleAppStoreDirect("exit_intent_modal");
       if (typeof window.trackSanctuaryMarketingEvent === "function") {
         window.trackSanctuaryMarketingEvent("app_store_exit_cta_click", {
           content_name: "AppStore_Exit_Modal_Click",
