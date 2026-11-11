@@ -568,7 +568,11 @@
       }
     }
 
-    /* iOS Status Bar */
+    /* iOS Status Bar & Dynamic Island (Hidden to maximize vessel screen area) */
+    .dynamic-island,
+    .ios-status-bar {
+      display: none !important;
+    }
     .ios-status-bar {
       height: 44px;
       padding: 12px 28px 0;
@@ -2109,6 +2113,48 @@
       margin-top: 1px;
     }
   </style>
+  <style>
+    /* ULTRA-COMPACT HEADER & VESSEL STAGE MAXIMIZER */
+    .sanctuary-header {
+      padding: 2px 10px 2px !important;
+    }
+    .sanctuary-subtitle {
+      font-size: 9px !important;
+      letter-spacing: 1px !important;
+      margin-bottom: 0 !important;
+    }
+    .sanctuary-title {
+      font-size: 17px !important;
+      margin: 1px 0 2px !important;
+      line-height: 1.15 !important;
+    }
+    #webBrowserSaveAppBtn,
+    #topDailyWordBtn,
+    #liveCommunityTicker,
+    .seven-day-bar {
+      display: none !important;
+    }
+    .mood-selector-wrap {
+      padding: 2px 10px 3px !important;
+    }
+    .mood-label,
+    #quickCathedralRainBtn,
+    .mood-selector-wrap > div:first-child {
+      display: none !important;
+    }
+    .mood-pills {
+      padding-bottom: 2px !important;
+      gap: 5px !important;
+    }
+    .mood-pill {
+      padding: 4px 10px !important;
+      font-size: 11.5px !important;
+    }
+    .vessels-stage {
+      padding: 4px 10px 6px !important;
+      gap: 6px 8px !important;
+    }
+  </style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -2192,11 +2238,7 @@
       <div class="sanctuary-header">
         <div class="sanctuary-subtitle">Sanctuary: Jesus Daily Prayer • Day #<span id="dayOfYearNum" onclick="openDailyWordOfYear()" style="cursor:pointer; text-decoration:underline;">1</span></div>
         <h1 class="sanctuary-title">12 Sacred Vessels &amp; Sleep Word</h1>
-        <div style="display:flex; justify-content:center; gap:8px; margin:8px 0 4px;">
-          <button class="btn-sacred btn-primary-gold" onclick="scrollToVesselsStage()" style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:99px; box-shadow:0 4px 15px rgba(212,175,55,0.35); text-transform:uppercase; letter-spacing:0.5px;">
-            🏺 Touch a Sacred Vessel of Peace →
-          </button>
-        </div>
+
         <div style="display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; margin-top:2px;">
           <div class="rank-bar" id="faithRankBadge" onclick="openReminderDrawer()" style="cursor:pointer;" title="Tap to set Daily Prayer Bell">
             ✨ <span id="gracePointsText">0</span> Grace • 🔔
