@@ -99,12 +99,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Sanctuary" />
   <meta name="apple-itunes-app" content="app-id=6824383974, app-argument=https://sanctuaryjesus.com/" />
+  <meta name="google-play-app" content="app-id=com.sacredvessels.jesuswords" />
   <meta name="p:domain_verify" content="9e10b208e5ba8be645f15784fc859dac"/>
   <meta name="theme-color" content="#0b0805" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="apple-touch-icon" href="./icon-512.png" />
   <link rel="canonical" href="https://sanctuaryjesus.com/" />
-  <meta name="description" content="Step into Sanctuary: Christ's Daily Words of Peace, 12 Sacred Biblical Vessels, cathedral bell chimes, and gentle night rain sleep prayer. Free on Web &amp; Apple App Store." />
+  <meta name="description" content="Step into Sanctuary: Christ's Daily Words of Peace, 12 Sacred Biblical Vessels, cathedral bell chimes, and gentle night rain sleep prayer. Free on Apple App Store, Google Play &amp; Web." />
   <title>Sanctuary: Jesus Daily Prayer — 12 Sacred Vessels &amp; Sleep Word</title>
   <!-- Viral Social Sharing Open Graph & Twitter Card Meta Tags -->
   <meta property="og:type" content="website" />
@@ -128,12 +129,18 @@
     "@type": "SoftwareApplication",
     "name": "Sanctuary: Jesus Daily Prayer",
     "alternateName": "Sanctuary: The Twelve Sacred Vessels & Daily Words of Jesus",
-    "operatingSystem": "iOS, iPadOS, Web",
+    "operatingSystem": "iOS, iPadOS, Android, Web",
     "applicationCategory": "LifestyleApplication",
     "applicationSubCategory": "Religion & Spirituality",
     "url": "https://sanctuaryjesus.com/",
-    "downloadUrl": "https://apps.apple.com/app/id6824383974",
-    "installUrl": "https://apps.apple.com/app/id6824383974",
+    "downloadUrl": [
+      "https://apps.apple.com/app/id6824383974",
+      "https://play.google.com/store/apps/details?id=com.sacredvessels.jesuswords"
+    ],
+    "installUrl": [
+      "https://apps.apple.com/app/id6824383974",
+      "https://play.google.com/store/apps/details?id=com.sacredvessels.jesuswords"
+    ],
     "image": "https://sanctuaryjesus.com/og-share-banner.jpg",
     "description": "Touch one of the 12 ancient clay vessels to release divine light, Giant Aa++ Large-Print Red-Letter Scripture, angelic voice readings, and 365+ Words of Jesus Christ for peace, healing & sleep.",
     "offers": {
@@ -3024,15 +3031,24 @@
             <p style="font-size:12px; color:var(--text-light); line-height:1.4;">
               Install <strong>Sanctuary: The Twelve Sacred Vessels</strong> on your iPhone, iPad, or Android device for instant full-screen prayer, offline 365 Words of Jesus, and Night Rain Sleep Mode.
             </p>
+            <!-- Desktop Side-by-Side Official Store Quick Buttons -->
+            <div id="installDesktopDualStoreRow" style="display:none; gap:8px; margin-top:10px; flex-wrap:wrap;">
+              <button type="button" onclick="openAppleAppStoreDirect('install_drawer_desktop')" class="btn-sacred btn-primary-gold" style="flex:1; min-width:140px; justify-content:center; padding:10px; font-size:12px; font-weight:700;">
+                 App Store →
+              </button>
+              <button type="button" onclick="openGooglePlayDirect('install_drawer_desktop')" class="btn-sacred btn-primary-gold" style="flex:1; min-width:140px; justify-content:center; padding:10px; font-size:12px; font-weight:700;">
+                ▶️ Google Play →
+              </button>
+            </div>
           </div>
 
           <!-- OS Selector Tabs (Auto-highlights user's detected device) -->
           <div style="display:flex; gap:8px;">
             <button id="installTabIOS" class="btn-sacred btn-secondary-outline" onclick="switchInstallOsTab('ios')" style="flex:1; justify-content:center; padding:9px; font-size:11.5px; border-color:var(--gold-bright); color:var(--gold-bright); background:rgba(212,175,55,0.2);">
-               iPhone / iPad (Safari)
+               iPhone (App Store)
             </button>
             <button id="installTabAndroid" class="btn-sacred btn-secondary-outline" onclick="switchInstallOsTab('android')" style="flex:1; justify-content:center; padding:9px; font-size:11.5px;">
-              🤖 Android / Chrome
+              🤖 Android (Google Play)
             </button>
           </div>
 
@@ -3047,9 +3063,9 @@
               <div style="font-size:12px; color:#fef08a; margin-bottom:10px; line-height:1.4;">
                 Approved by Apple. Includes offline cathedral audio, daily lockscreen notifications &amp; Bible widget.
               </div>
-              <a href="https://apps.apple.com/app/id6824383974" target="_blank" rel="noopener" class="btn-sacred btn-primary-gold" onclick="if(typeof fbq==='function'){try{fbq('trackCustom','AppStoreVisit',{source:'install_drawer_ios'});}catch(e){}}" style="width:100%; justify-content:center; padding:11px; font-size:13px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+              <button type="button" onclick="openAppleAppStoreDirect('install_drawer_ios')" class="btn-sacred btn-primary-gold" style="width:100%; justify-content:center; padding:11px; font-size:13px; font-weight:700; display:inline-flex; align-items:center; gap:8px;">
                 📲 Download on the App Store →
-              </a>
+              </button>
             </div>
 
             <div style="display:flex; align-items:center; gap:8px; margin:4px 0; color:var(--text-muted); font-size:11px; text-transform:uppercase; letter-spacing:1px; justify-content:center;">
@@ -3094,10 +3110,30 @@
             </div>
           </div>
 
-          <!-- Android / Desktop Chrome 1-Tap Instructions -->
+          <!-- Android Google Play + Chrome Instructions -->
           <div id="installGuideAndroid" style="display:none; flex-direction:column; gap:10px;">
-            <button id="nativePwaInstallBtn" class="btn-sacred btn-primary-gold" onclick="triggerNativePwaInstall()" style="width:100%; justify-content:center; padding:13px; font-size:13px;">
-              📲 Tap Here for 1-Click Instant App Install
+            <!-- Official Google Play 1-Tap Download Card -->
+            <div style="background:linear-gradient(135deg, rgba(212,175,55,0.22), rgba(30,20,10,0.95)); border:1.5px solid var(--gold-bright); border-radius:14px; padding:14px; text-align:center; box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+              <div style="font-size:22px; margin-bottom:4px;">▶️</div>
+              <div style="font-family:'Cinzel',serif; font-size:14px; color:var(--gold-bright); font-weight:700; margin-bottom:4px;">
+                Official Google Play Release
+              </div>
+              <div style="font-size:12px; color:#fef08a; margin-bottom:10px; line-height:1.4;">
+                Approved on Google Play. Includes offline cathedral audio, Giant Aa++ Scripture &amp; Night Rain Sleep Mode.
+              </div>
+              <button type="button" onclick="openGooglePlayDirect('install_drawer_android')" class="btn-sacred btn-primary-gold" style="width:100%; justify-content:center; padding:11px; font-size:13px; font-weight:700; display:inline-flex; align-items:center; gap:8px;">
+                ▶️ Get it on Google Play →
+              </button>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:8px; margin:4px 0; color:var(--text-muted); font-size:11px; text-transform:uppercase; letter-spacing:1px; justify-content:center;">
+              <span style="height:1px; background:rgba(212,175,55,0.25); flex:1;"></span>
+              <span>OR ADD WEB APP TO HOME SCREEN</span>
+              <span style="height:1px; background:rgba(212,175,55,0.25); flex:1;"></span>
+            </div>
+
+            <button id="nativePwaInstallBtn" class="btn-sacred btn-secondary-outline" onclick="triggerNativePwaInstall()" style="width:100%; justify-content:center; padding:11px; font-size:12.5px; border-color:rgba(255,217,125,0.5); color:var(--gold-bright);">
+              📲 1-Click Instant Web App Install
             </button>
 
             <div class="install-step-card">
@@ -3413,13 +3449,18 @@
 
       <div style="display:flex; flex-direction:column; gap:8px;">
         <!-- 1-Tap Official iOS App Store CTA -->
-        <a id="exitPromptAppStoreBtn" href="https://apps.apple.com/app/id6824383974" target="_blank" rel="noopener" onclick="handleExitPromptAppStoreClick()" class="btn-sacred btn-primary-gold" style="width:100%; justify-content:center; padding:13px; font-size:14px; font-weight:700; box-shadow:0 6px 20px rgba(212,175,55,0.4); text-decoration:none; display:flex; align-items:center; gap:8px;">
+        <button type="button" id="exitPromptAppStoreBtn" onclick="handleExitPromptAppStoreClick()" class="btn-sacred btn-primary-gold" style="width:100%; justify-content:center; padding:13px; font-size:14px; font-weight:700; box-shadow:0 6px 20px rgba(212,175,55,0.4); display:flex; align-items:center; gap:8px;">
           <span style="font-size:17px; line-height:1;"></span> Download Free on App Store →
-        </a>
+        </button>
 
-        <!-- Secondary PWA Button (For Android / Web users) -->
-        <button id="exitPromptPwaBtn" class="btn-sacred btn-primary-gold" onclick="handleExitPromptInstall()" style="display:none; width:100%; justify-content:center; padding:13px; font-size:13.5px; font-weight:700; box-shadow:0 6px 20px rgba(212,175,55,0.4);">
-          📲 Add to Home Screen (+50 Grace) →
+        <!-- 1-Tap Official Google Play CTA -->
+        <button type="button" id="exitPromptGooglePlayBtn" onclick="handleExitPromptGooglePlayClick()" class="btn-sacred btn-primary-gold" style="display:none; width:100%; justify-content:center; padding:13px; font-size:14px; font-weight:700; box-shadow:0 6px 20px rgba(212,175,55,0.4); align-items:center; gap:8px;">
+          <span style="font-size:15px; line-height:1;">▶️</span> Download Free on Google Play →
+        </button>
+
+        <!-- Secondary PWA Button (For Android / Desktop Web users) -->
+        <button type="button" id="exitPromptPwaBtn" class="btn-sacred btn-secondary-outline" onclick="handleExitPromptInstall()" style="display:none; width:100%; justify-content:center; padding:10px; font-size:12.5px; font-weight:600; border-color:rgba(255,217,125,0.4); color:var(--gold-bright);">
+          📲 Or Add Web App to Home Screen (+50 Grace)
         </button>
 
         <button onclick="handleExitPromptDismiss()" style="background:transparent; border:none; color:var(--text-muted); font-size:12px; padding:8px; cursor:pointer; text-decoration:underline;">
@@ -3430,9 +3471,9 @@
   </div>
 
   
-  <!-- Floating Sticky Bottom App Store Banner (Mobile Web) -->
+  <!-- Floating Sticky Bottom App Store Banner (Mobile & Web Smart OS Routing) -->
   <div id="stickyAppStoreBar" style="display:none; position:fixed; bottom:max(12px, env(safe-area-inset-bottom, 12px)); left:12px; right:12px; z-index:99998; background:rgba(20, 14, 8, 0.94); backdrop-filter:blur(12px); border:1px solid rgba(255,217,125,0.45); border-radius:16px; padding:10px 14px; box-shadow:0 12px 32px rgba(0,0,0,0.75), 0 0 16px rgba(212,175,55,0.25); align-items:center; justify-content:space-between; gap:10px; animation:modalSlideUp 0.3s ease;">
-    <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0; cursor:pointer;" onclick="openAppleAppStoreDirect('sticky_bar_body')">
+    <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0; cursor:pointer;" onclick="openSmartAppStore('sticky_bar_body')">
       <div style="width:38px; height:38px; border-radius:10px; background:radial-gradient(circle, #ffe58f 0%, #d4af37 60%, #5c3317 100%); display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.5); flex-shrink:0;">
         ⚱️
       </div>
@@ -3440,13 +3481,13 @@
         <div style="font-family:'Cinzel',serif; font-size:12.5px; font-weight:700; color:#fff8e7; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
           Sanctuary Official App
         </div>
-        <div style="font-size:11px; color:#ffd97d; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-          ⭐️ 5.0 • Free on Apple App Store
+        <div id="stickyAppStoreSubtitle" style="font-size:11px; color:#ffd97d; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+          ⭐️ 5.0 • Free on App Store &amp; Google Play
         </div>
       </div>
     </div>
     <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
-      <button onclick="openAppleAppStoreDirect('sticky_bottom_btn')" class="btn-sacred btn-primary-gold" style="padding:7px 13px; font-size:12px; font-weight:700; border-radius:99px; box-shadow:0 2px 10px rgba(212,175,55,0.4);">
+      <button id="stickyAppStoreActionBtn" onclick="openSmartAppStore('sticky_bottom_btn')" class="btn-sacred btn-primary-gold" style="padding:7px 13px; font-size:12px; font-weight:700; border-radius:99px; box-shadow:0 2px 10px rgba(212,175,55,0.4);">
         Get App →
       </button>
       <button onclick="dismissStickyAppStoreBar()" style="background:transparent; border:none; color:var(--text-muted); font-size:16px; width:26px; height:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;" title="Dismiss">
@@ -8401,11 +8442,20 @@
       );
     }
 
-    function detectVisitorOs() {
+    function detectExactPlatform() {
       const ua = navigator.userAgent || "";
       const isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
       if (isIOS) return "ios";
-      return "android";
+      if (/Android/i.test(ua)) return "android";
+      return "desktop";
+    }
+
+    function detectVisitorOs() {
+      const exact = detectExactPlatform();
+      if (exact === "ios") return "ios";
+      if (exact === "android") return "android";
+      const ua = navigator.userAgent || "";
+      return /Macintosh|Mac OS X/i.test(ua) ? "ios" : "android";
     }
 
     function switchInstallOsTab(os) {
@@ -8439,12 +8489,17 @@
     function openInstallAppDrawer() {
       if (isRunningStandalone()) return;
       closeAllDrawers();
+      const exactPlatform = detectExactPlatform();
       const detected = detectVisitorOs();
       switchInstallOsTab(detected);
+      const desktopRow = document.getElementById("installDesktopDualStoreRow");
+      if (desktopRow) {
+        desktopRow.style.display = exactPlatform === "desktop" ? "flex" : "none";
+      }
       if (typeof window.trackSanctuaryMarketingEvent === "function") {
         window.trackSanctuaryMarketingEvent("pwa_install_button_click", {
           content_name: "PWA_Install_Drawer_Opened",
-          os_platform: detected
+          os_platform: exactPlatform
         });
       }
       const rewardClaimed = localStorage.getItem("sacred_pwa_install_reward_v1") === "true";
@@ -8623,24 +8678,34 @@
       if (isRunningStandalone()) return;
       const modal = document.getElementById("sanctuaryExitPromptModal");
       if (modal) {
-        const isIOS = detectVisitorOs() === "ios";
+        const platform = detectExactPlatform();
         const appStoreBtn = document.getElementById("exitPromptAppStoreBtn");
+        const googlePlayBtn = document.getElementById("exitPromptGooglePlayBtn");
         const pwaBtn = document.getElementById("exitPromptPwaBtn");
         const titleEl = document.getElementById("exitPromptTitle");
         const descEl = document.getElementById("exitPromptDesc");
         const tagEl = document.getElementById("exitPromptFeatureTag");
 
-        if (isIOS) {
+        if (platform === "ios") {
           if (titleEl) titleEl.textContent = "Get Sanctuary for iPhone & iPad";
           if (descEl) descEl.innerHTML = "Carry Christ's Words of Peace always with you. Download the official free app on the <strong>Apple App Store</strong> for offline cathedral audio &amp; daily prayer.";
           if (tagEl) tagEl.innerHTML = "🎁 100% Free on App Store • Offline Audio • Daily Blessings";
           if (appStoreBtn) appStoreBtn.style.display = "flex";
+          if (googlePlayBtn) googlePlayBtn.style.display = "none";
           if (pwaBtn) pwaBtn.style.display = "none";
-        } else {
-          if (titleEl) titleEl.textContent = "Add Sanctuary to Home Screen";
-          if (descEl) descEl.innerHTML = "Keep Christ's Words of Peace always with you. 1-tap from your Home Screen gives you <strong>instant full-screen prayer</strong> &amp; daily cathedral bell blessings.";
-          if (tagEl) tagEl.innerHTML = "🎁 +50 Grace Points Bonus Awarded on Install!";
+        } else if (platform === "android") {
+          if (titleEl) titleEl.textContent = "Get Sanctuary on Google Play";
+          if (descEl) descEl.innerHTML = "Carry Christ's Words of Peace always with you. Download the official free Android app on <strong>Google Play</strong> for offline cathedral audio &amp; daily prayer.";
+          if (tagEl) tagEl.innerHTML = "🎁 100% Free on Google Play • Offline Audio • Daily Blessings";
           if (appStoreBtn) appStoreBtn.style.display = "none";
+          if (googlePlayBtn) googlePlayBtn.style.display = "flex";
+          if (pwaBtn) pwaBtn.style.display = "flex";
+        } else {
+          if (titleEl) titleEl.textContent = "Get Sanctuary Official Mobile App";
+          if (descEl) descEl.innerHTML = "Carry Christ's Words of Peace always with you. Official free mobile app available on both <strong>Apple App Store</strong> &amp; <strong>Google Play</strong>.";
+          if (tagEl) tagEl.innerHTML = "🎁 100% Free Mobile App • Offline Audio • Daily Blessings";
+          if (appStoreBtn) appStoreBtn.style.display = "flex";
+          if (googlePlayBtn) googlePlayBtn.style.display = "flex";
           if (pwaBtn) pwaBtn.style.display = "flex";
         }
 
@@ -8648,42 +8713,87 @@
         playCathedralBellChime();
         if (typeof window.trackSanctuaryMarketingEvent === "function") {
           window.trackSanctuaryMarketingEvent("exit_prompt_shown", {
-            content_name: isIOS ? "iOS_AppStore_Exit_Popup" : "PWA_Exit_Intent_Popup",
-            os_platform: detectVisitorOs()
+            content_name: platform === "ios" ? "iOS_AppStore_Exit_Popup" : (platform === "android" ? "Android_GooglePlay_Exit_Popup" : "Desktop_DualStore_Exit_Popup"),
+            os_platform: platform
           });
         }
       }
     }
 
-    
     // -------------------------------------------------------------
-    // SANCTUARY APP STORE DIRECT DEEP-LINK & IN-APP BROWSER BYPASS
+    // SANCTUARY SMART STORE ROUTING & IN-APP BROWSER BYPASS (iOS + ANDROID)
     // -------------------------------------------------------------
-    function openAppleAppStoreDirect(source) {
+    const SANCTUARY_APPLE_STORE_URL = "https://apps.apple.com/app/id6824383974";
+    const SANCTUARY_GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.sacredvessels.jesuswords";
+
+    function openSmartAppStore(source, forceStore) {
+      const platform = detectExactPlatform();
+      let targetStore = forceStore;
+      if (!targetStore) {
+        if (platform === "ios") {
+          targetStore = "apple";
+        } else if (platform === "android") {
+          targetStore = "google_play";
+        } else {
+          openInstallAppDrawer();
+          return;
+        }
+      }
+
       try {
         if (typeof window.trackSanctuaryMarketingEvent === "function") {
           window.trackSanctuaryMarketingEvent("app_store_cta_click", {
             source: source || "direct",
-            os_platform: detectVisitorOs()
+            store: targetStore,
+            os_platform: platform
           });
         }
         if (typeof fbq === "function") {
-          try { fbq("trackCustom", "AppStoreVisit", { source: source || "direct" }); } catch (e) {}
+          try {
+            fbq("trackCustom", "AppStoreVisit", { source: source || "direct", store: targetStore });
+            if (targetStore === "google_play") {
+              fbq("trackCustom", "GooglePlayVisit", { source: source || "direct" });
+            } else {
+              fbq("trackCustom", "AppleAppStoreVisit", { source: source || "direct" });
+            }
+          } catch (e) {}
         }
       } catch (e) {}
 
       const ua = navigator.userAgent || "";
-      const isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-      const isFB = /FBAN|FBAV|Instagram/i.test(ua);
+      const isInApp = /FBAN|FBAV|Instagram|Line|TikTok|Snapchat/i.test(ua);
 
-      if (isIOS && isFB) {
-        window.location.href = "itms-apps://apps.apple.com/app/id6824383974";
-        setTimeout(function() {
-          window.location.href = "https://apps.apple.com/app/id6824383974";
-        }, 800);
+      if (targetStore === "google_play") {
+        if (platform === "android") {
+          window.location.href = "market://details?id=com.sacredvessels.jesuswords";
+          setTimeout(function() {
+            if (!document.hidden) {
+              window.location.href = SANCTUARY_GOOGLE_PLAY_URL;
+            }
+          }, 800);
+        } else {
+          window.open(SANCTUARY_GOOGLE_PLAY_URL, "_blank", "noopener");
+        }
       } else {
-        window.open("https://apps.apple.com/app/id6824383974", "_blank", "noopener");
+        if (platform === "ios" && isInApp) {
+          window.location.href = "itms-apps://apps.apple.com/app/id6824383974";
+          setTimeout(function() {
+            if (!document.hidden) {
+              window.location.href = SANCTUARY_APPLE_STORE_URL;
+            }
+          }, 800);
+        } else {
+          window.open(SANCTUARY_APPLE_STORE_URL, "_blank", "noopener");
+        }
       }
+    }
+
+    function openAppleAppStoreDirect(source) {
+      openSmartAppStore(source || "direct_apple", "apple");
+    }
+
+    function openGooglePlayDirect(source) {
+      openSmartAppStore(source || "direct_google_play", "google_play");
     }
 
     function scrollToVesselsStage() {
@@ -8700,6 +8810,22 @@
 
       const bar = document.getElementById("stickyAppStoreBar");
       if (!bar) return;
+
+      const platform = detectExactPlatform();
+      const subtitleEl = document.getElementById("stickyAppStoreSubtitle");
+      const btnEl = document.getElementById("stickyAppStoreActionBtn");
+      if (subtitleEl) {
+        if (platform === "ios") {
+          subtitleEl.innerHTML = " ⭐️ 5.0 • Free on Apple App Store";
+        } else if (platform === "android") {
+          subtitleEl.innerHTML = "▶️ ⭐️ 5.0 • Free on Google Play";
+        } else {
+          subtitleEl.innerHTML = "⭐️ 5.0 • Free on App Store &amp; Google Play";
+        }
+      }
+      if (btnEl) {
+        btnEl.textContent = platform === "android" ? "Google Play →" : (platform === "ios" ? "App Store →" : "Get App →");
+      }
 
       let isShown = false;
       function checkShow() {
@@ -8728,15 +8854,26 @@
     function handleExitPromptAppStoreClick() {
       const modal = document.getElementById("sanctuaryExitPromptModal");
       if (modal) modal.style.display = "none";
-      openAppleAppStoreDirect("exit_intent_modal");
+      openSmartAppStore("exit_intent_modal", "apple");
       if (typeof window.trackSanctuaryMarketingEvent === "function") {
         window.trackSanctuaryMarketingEvent("app_store_exit_cta_click", {
           content_name: "AppStore_Exit_Modal_Click",
-          os_platform: detectVisitorOs()
+          store: "apple",
+          os_platform: detectExactPlatform()
         });
       }
-      if (typeof fbq === "function") {
-        try { fbq("trackCustom", "AppStoreVisit", { source: "exit_intent_modal" }); } catch (e) {}
+    }
+
+    function handleExitPromptGooglePlayClick() {
+      const modal = document.getElementById("sanctuaryExitPromptModal");
+      if (modal) modal.style.display = "none";
+      openSmartAppStore("exit_intent_modal", "google_play");
+      if (typeof window.trackSanctuaryMarketingEvent === "function") {
+        window.trackSanctuaryMarketingEvent("app_store_exit_cta_click", {
+          content_name: "GooglePlay_Exit_Modal_Click",
+          store: "google_play",
+          os_platform: detectExactPlatform()
+        });
       }
     }
 
